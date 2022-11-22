@@ -1,7 +1,8 @@
 .header{
-  outline: 2px solid rgb(255, 0, 0);
+  outline: 2px solid #4C4CFF;
   display: flex;
   justify-content: center;
+  background-color: #1C1C21;
   
 }
 .container{
@@ -15,7 +16,7 @@
 .navContainer{
   display: flex;
   align-items: center;
-  outline: 1px solid blue;
+  outline: 1px solid rgb(5, 200, 28);
 }
 .navList{
   list-style: none;

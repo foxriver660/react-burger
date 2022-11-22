@@ -8,6 +8,7 @@ import classes from './AppHeader.module.css'
 
 
 const AppHeader = () => {
+  console.log(classes)
   return (
     <section className={`p-4 ${classes.header}`}>
       <div className={`${classes.container}`}>
