@@ -1,0 +1,59 @@
+.header{
+  outline: 2px solid rgb(255, 0, 0);
+  display: flex;
+  justify-content: center;
+  
+}
+.container{
+  display: flex;
+  justify-content: space-between;
+  outline: 1px solid yellow;
+  max-width: 1280px;
+  width: 100%;
+}
+
+.navContainer{
+  display: flex;
+  align-items: center;
+  outline: 1px solid blue;
+}
+.navList{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  outline: 1px solid yellow;
+  display: flex;
+  gap: 8px;
+}
+.navButton{
+  border-radius: 40px;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  outline: 1px dashed green;
+  display: flex;
+  align-items: center;
+}
+
+
+.personal{
+  display: flex;
+  outline: 1px solid rgb(251, 0, 0)
+}
+
+.button{
+  border-radius: 40px;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  outline: 1px dashed green;
+  display: flex;
+  align-items: center;
+}
+.btnText{
+  margin: 0
+}
