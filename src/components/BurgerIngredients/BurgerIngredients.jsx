@@ -1,55 +1,69 @@
 import React from "react";
-import classes from './BurgerIngredients.module.css';
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
+import IngredientCard from "../IngredientCard/IngredientCard";
+import classes from "./BurgerIngredients.module.css";
+import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
 
 const BurgerIngredients = () => {
-  console.log(classes)
+  const [current, setCurrent] = React.useState("one");
+
   return (
     <section className={`${classes.container}`}>
-      <h1>Соберите бургер</h1>
-      
-      <ul className={`${classes.inputList}`}>
-                <li>
-                  <input id="radio-amount-1" type="radio" name="amount"
-                    value="1" checked/>
-                  <label for="radio-amount-1">Булки</label>
-                </li>
-                <li>
-                  <input id="radio-amount-2" type="radio" name="amount"
-                    value="2" />
-                  <label for="radio-amount-2">Соусы</label>
-                </li>
-                <li>
-                  <input id="radio-amount-3" type="radio" name="amount"
-                    value="3" />
-                  <label for="radio-amount-3">Начинки</label>
-                </li>
-</ul>
+      <h1 className={classes.title}>Соберите бургер</h1>
 
-
-
-
-     
-      <h2>Булки</h2>
-      <div>
-        <ul>
-          <li></li>
-          <li></li>
-        </ul>
+      <div className={classes.outline} style={{ display: "flex" }}>
+        <Tab value="one" active={current === "one"} onClick={setCurrent}>
+          Булки
+        </Tab>
+        <Tab value="two" active={current === "two"} onClick={setCurrent}>
+          Соусы
+        </Tab>
+        <Tab value="three" active={current === "three"} onClick={setCurrent}>
+          Начинки
+        </Tab>
       </div>
-      <h2>Соусы</h2>
-      <div>
-        <ul>
-          <li></li>
-          <li></li>
+
+      <CustomScrollBar>
+        <h2 className={classes.subtitle}>Булки</h2>
+
+        <ul className={classes.ingredientsList}>
+          <li className={classes.outline}>
+            <IngredientCard />
+          </li>
+          <li className={classes.outline}>
+            <IngredientCard />
+          </li>
         </ul>
-      </div>
-      <h2>Начинки</h2>
-      <div>
-        <ul>
-          <li></li>
-          <li></li>
+
+        <h2 className={classes.subtitle}>Соусы</h2>
+
+        <ul className={classes.ingredientsList}>
+          <li className={classes.outline}>
+            <IngredientCard />
+          </li>
+          <li className={classes.outline}>
+            <IngredientCard />
+          </li>
         </ul>
-      </div>
+
+        <h2 className={classes.subtitle}>Начинки</h2>
+
+        <ul className={classes.ingredientsList}>
+          <li className={classes.outline}>
+            <IngredientCard />
+          </li>
+          <li className={classes.outline}>
+            <IngredientCard />
+          </li>
+          <li className={classes.outline}>
+            <IngredientCard />
+          </li>
+          <li className={classes.outline}>
+            <IngredientCard />
+          </li>
+        </ul>
+      </CustomScrollBar>
     </section>
   );
 };

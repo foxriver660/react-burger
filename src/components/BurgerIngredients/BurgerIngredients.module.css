@@ -1,42 +1,37 @@
+.outline{
+ outline: 1px solid green
+}
+
+
 .container{
 max-width: 600px;
 width: 100%;
 outline: 2px solid #4C4CFF;
 }
-.inputList{
-    display: flex;
-  align-items: center;
-   list-style: none;
-   outline: 1px solid yellow
+.title{
+  margin: 0;
+  padding: 0;
+}
+.subtitle{
+  margin: 0;
+  padding: 0;
 }
 
-.radioBtn{
-  border-radius: 6px;
-  user-select: none;
-  box-sizing: border-box;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 120%;
-  font-feature-settings: "pnum" on, "lnum" on;
-  background-repeat: no-repeat;
-  background-position: center;
-  width:50px;
-}
-.hideRadioBtn{
-  display: none;
-}
-.pseudoRadioBtn{
+
+
+
+
+.ingredientsList{
+  padding: 0;
+  margin: 0;
+  outline: 1px solid yellow;
+  list-style: none;
   display: flex;
   justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  padding: 0px;
-  line-height: 34px;
-  border: 1px solid #dadada;
-  border-radius: 10px;
-  user-select: none;
-  height: 48px;
-  box-sizing: border-box;
-  font-feature-settings: 'pnum' on, 'lnum' on;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.ingredient{
+  outline: 1px solid rgb(6, 249, 213);
+
 }
