@@ -4,6 +4,7 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dis
 import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
 import classes from './BurgerConstructor.module.css'
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg"
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 
 const BurgerConstructor = () => {
@@ -82,7 +83,7 @@ return(
          </CustomScrollBar>
   
   <div className={`${classes.currencyContainer} pt-10`}><p>610</p>
-  <CurrencyIcon type="primary" sixe='large'/>
+  <img className='pl-2 pr-10' src={bigCurrencyIcon} />
   <Button htmlType="button" type="primary" size="large">
   Оформить заказ
 </Button>

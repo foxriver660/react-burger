@@ -3,6 +3,7 @@ import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import classes from './AppHeader.module.css'
 
@@ -15,20 +16,27 @@ const AppHeader = () => {
       <nav className={classes.navContainer}>
         <ul className={classes.navList}>
           <li>
-            <button className={`pl-5 pr-5 pb-4 pt-4 ${classes.navButton}`}><BurgerIcon type="primary" />
-            <p className={`${classes.btnText} pl-2`}>Конструктор</p></button>
+          <Button extraClass={`${classes.navItem}`} htmlType="button" type="secondary" size="medium">
+          <BurgerIcon type="primary" /> Конструктор
+</Button>
           </li>
           <li>
-            <button className={`pl-5 pr-5 pb-4 pt-4 ${classes.navButton}`}><ListIcon type="primary" className='pr-2'/>
-            <p className={`${classes.btnText} pl-2`}>Лента заказов</p></button>
+          <Button extraClass={`${classes.navItem}`} htmlType="button" type="secondary" size="medium">
+          <ListIcon type="secondary" /> Лента заказов
+</Button>
           </li>
         </ul>
       </nav>
      
       <Logo  />
-<button className={`pl-5 pr-5 pb-4 pt-4 ${classes.button}`}><ProfileIcon type="primary" /><p className={`${classes.btnText} pl-2`}>Личный кабинет</p></button>
+      <Button extraClass={`${classes.navItem}`} htmlType="button" type="secondary" size="medium">
+          <ProfileIcon type="secondary" /> Личный кабинет
+</Button>
 </div>
     </section>
   );
 };
 export default AppHeader;
+
+{/* <button className={`pl-5 pr-5 pb-4 pt-4 ${classes.navButton}`}><BurgerIcon type="primary" />
+            <p className={`${classes.btnText} pl-2`}>Конструктор</p></button> */}
