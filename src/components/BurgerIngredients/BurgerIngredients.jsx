@@ -10,9 +10,9 @@ const BurgerIngredients = () => {
 
   return (
     <section className={`${classes.container}`}>
-      <h1 className={classes.title}>Соберите бургер</h1>
+      <h1 className={`${classes.title} pt-10`}>Соберите бургер</h1>
 
-      <div className={classes.outline} style={{ display: "flex" }}>
+      <div className={`${classes.tabContainer} pt-5`}>
         <Tab value="one" active={current === "one"} onClick={setCurrent}>
           Булки
         </Tab>
@@ -25,7 +25,7 @@ const BurgerIngredients = () => {
       </div>
 
       <CustomScrollBar>
-        <h2 className={classes.subtitle}>Булки</h2>
+        <h2 className={`${classes.subtitle} pt-10 pb-6`}>Булки</h2>
 
         <ul className={classes.ingredientsList}>
           <li className={classes.outline}>
@@ -36,7 +36,7 @@ const BurgerIngredients = () => {
           </li>
         </ul>
 
-        <h2 className={classes.subtitle}>Соусы</h2>
+        <h2 className={`${classes.subtitle} pt-10 pb-6`}>Соусы</h2>
 
         <ul className={classes.ingredientsList}>
           <li className={classes.outline}>
@@ -47,7 +47,7 @@ const BurgerIngredients = () => {
           </li>
         </ul>
 
-        <h2 className={classes.subtitle}>Начинки</h2>
+        <h2 className={`${classes.subtitle} pt-10 pb-6`}>Начинки</h2>
 
         <ul className={classes.ingredientsList}>
           <li className={classes.outline}>
