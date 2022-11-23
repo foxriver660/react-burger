@@ -1,6 +1,5 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
 import IngredientCard from "../IngredientCard/IngredientCard";
 import classes from "./BurgerIngredients.module.css";
 import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";

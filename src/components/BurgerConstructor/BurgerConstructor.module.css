@@ -1,0 +1,27 @@
+.container {
+  width: 600px;
+  height: 912px;
+  outline: 2px solid #4c4cff;
+  display: flex;
+  flex-direction: column;
+}
+.ingredientList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  
+}
+.ingredientItem{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.currencyContainer{
+    display: flex;
+    align-items: center;
+    align-self: flex-end;
+    gap: 40px;
+}

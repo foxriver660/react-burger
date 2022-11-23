@@ -1,6 +1,7 @@
 import React from 'react';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 
 
 
@@ -12,7 +13,10 @@ const App = () => {
   return(
     <main className={`${classes.mainContainer} p-4`}>
     <AppHeader/>
+    <div className={`${classes.subContainer} p-4`}>
     <BurgerIngredients/>
+    <BurgerConstructor/>
+    </div>
     </main>
   )
 }

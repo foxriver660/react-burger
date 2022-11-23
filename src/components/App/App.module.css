@@ -1,3 +1,9 @@
 .mainContainer{
   background-color: #131316;
 }
+.subContainer{
+  display: flex;
+  outline: 1px solid aqua;
+  gap: 40px;
+  justify-content: center;
+}
