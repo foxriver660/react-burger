@@ -1,39 +1,33 @@
-.header{
-  outline: 2px solid #4C4CFF;
+.header {
   display: flex;
   justify-content: center;
-  background-color: #1C1C21;
-  
+  background-color: #1c1c21;
 }
-.container{
+.container {
   display: flex;
   justify-content: space-between;
-  
   max-width: 1280px;
   width: 100%;
 }
 
-.navContainer{
+.navContainer {
   display: flex;
   align-items: center;
-  }
-.navList{
+}
+.navList {
   list-style: none;
   padding: 0;
   margin: 0;
-  
+
   display: flex;
   gap: 8px;
 }
-.navItem{
+.navItem {
   display: flex;
   align-items: center;
-  outline: 1px dashed green;
   gap: 8px;
-  color: #8585AD;
+  color: #8585ad;
 }
 .navItem:hover {
-  color: #fff
+  color: #fff;
 }
-
-
