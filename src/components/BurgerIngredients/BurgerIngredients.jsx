@@ -3,9 +3,25 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../IngredientCard/IngredientCard";
 import classes from "./BurgerIngredients.module.css";
 import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
+import data from "../utils/data";
+
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("one");
+  const [dataAPI, setDataAPI] = React.useState(data)
+
+// ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ
+const [filterBun, setFilterBun] = React.useState([])
+const [filterMain, setFilterMain] = React.useState([])
+const [filterSauce, setFilterSauce] = React.useState([])
+ React.useEffect(()=>
+ {
+  setFilterBun(dataAPI.filter((item) => item.type === "bun"))
+  setFilterMain(dataAPI.filter((item) => item.type === "main"))
+  setFilterSauce(dataAPI.filter((item) => item.type === "sauce"))
+
+ }, [dataAPI])
+
 
   return (
     <section className={`${classes.container}`}>
@@ -33,12 +49,18 @@ const BurgerIngredients = () => {
         </h2>
 
         <ul className={classes.ingredientsList}>
-          <li className={classes.outline}>
-            <IngredientCard />
-          </li>
-          <li className={classes.outline}>
-            <IngredientCard />
-          </li>
+          {filterBun.map((item) => (
+              <li key={item._id}>
+                <IngredientCard
+                  name={item.name}
+                  _id={item._id}
+                  type={item.type}
+                  price={item.price}
+                  image={item.image}
+                  key={item._id}
+                />
+              </li>
+            ))}
         </ul>
 
         <h2
@@ -48,12 +70,19 @@ const BurgerIngredients = () => {
         </h2>
 
         <ul className={classes.ingredientsList}>
-          <li className={classes.outline}>
-            <IngredientCard />
-          </li>
-          <li className={classes.outline}>
-            <IngredientCard />
-          </li>
+          {filterSauce
+            .map((item) => (
+              <li key={item._id}>
+                <IngredientCard
+                  name={item.name}
+                  _id={item._id}
+                  type={item.type}
+                  price={item.price}
+                  image={item.image}
+                  key={item._id}
+                />
+              </li>
+            ))}
         </ul>
 
         <h2
@@ -63,18 +92,18 @@ const BurgerIngredients = () => {
         </h2>
 
         <ul className={classes.ingredientsList}>
-          <li className={classes.outline}>
-            <IngredientCard />
-          </li>
-          <li className={classes.outline}>
-            <IngredientCard />
-          </li>
-          <li className={classes.outline}>
-            <IngredientCard />
-          </li>
-          <li className={classes.outline}>
-            <IngredientCard />
-          </li>
+          {filterMain.map((item) => (
+              <li key={item._id}>
+                <IngredientCard
+                  name={item.name}
+                  _id={item._id}
+                  type={item.type}
+                  price={item.price}
+                  image={item.image}
+                  key={item._id}
+                />
+              </li>
+            ))}
         </ul>
       </CustomScrollBar>
     </section>

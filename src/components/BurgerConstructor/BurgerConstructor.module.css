@@ -15,10 +15,12 @@
 .ingredientItem {
   display: flex;
   align-items: center;
+ 
   gap: 8px;
 }
 .ingredientElement {
   background-color: #1C1C21;
+  
 }
 .currencyContainer {
   display: flex;

@@ -6,8 +6,7 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
 
 const App = () => {
-  console.log(classes);
-  return (
+    return (
     <main className={`${classes.mainContainer} p-10`}>
       <AppHeader />
       <div className={`${classes.subContainer} p-4`}>

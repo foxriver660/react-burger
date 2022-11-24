@@ -5,128 +5,31 @@ import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
 import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
+import data from "../utils/data";
+
 
 const BurgerConstructor = () => {
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
       <CustomScrollBar>
         <ul className={classes.ingredientList}>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
+         
+{data.map(item => <li key={item._id}  className={classes.ingredientItem}>
+  <DragIcon type="primary" />
             <ConstructorElement
             extraClass={classes.ingredientElement}
-              type="top"
-              isLocked={true}
-              text="Краторная булка N-200i (верх)"
-              price={200}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
+            key={item._id}   
+              text={item.name}
+              price={item.price}
+              thumbnail={item.image}
             />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              text="Краторная булка N-200i (верх)"
-              price={50}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-          <li className={classes.ingredientItem}>
-            <DragIcon type="primary" />
-            <ConstructorElement
-            extraClass={classes.ingredientElement}
-              type="bottom"
-              isLocked={true}
-              text="Краторная булка N-200i (низ)"
-              price={200}
-              thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
-            />
-          </li>
-        </ul>
-      </CustomScrollBar>
 
-      <div className={`${classes.currencyContainer} pt-10`}>
+
+</li>)}
+</ul>
+</CustomScrollBar>
+
+        <div className={`${classes.currencyContainer} pt-10`}>
         <p className="text text_type_digits-medium">610</p>
         <img className="pl-2 pr-10" src={bigCurrencyIcon} />
         <Button htmlType="button" type="primary" size="large">
