@@ -8,12 +8,13 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/
 
 const BurgerConstructor = () => {
   return (
-    <section className={`${classes.container} pt-25 pl-4 pr-4`}>
+    <section className={`${classes.container} pt-25 pl-4`}>
       <CustomScrollBar>
         <ul className={classes.ingredientList}>
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               type="top"
               isLocked={true}
               text="Краторная булка N-200i (верх)"
@@ -24,6 +25,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               text="Краторная булка N-200i (верх)"
               price={50}
               thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
@@ -32,6 +34,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               text="Краторная булка N-200i (верх)"
               price={50}
               thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
@@ -40,6 +43,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               text="Краторная булка N-200i (верх)"
               price={50}
               thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
@@ -48,6 +52,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               text="Краторная булка N-200i (верх)"
               price={50}
               thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
@@ -56,6 +61,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               text="Краторная булка N-200i (верх)"
               price={50}
               thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
@@ -64,6 +70,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               text="Краторная булка N-200i (верх)"
               price={50}
               thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
@@ -72,6 +79,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               text="Краторная булка N-200i (верх)"
               price={50}
               thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
@@ -80,6 +88,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               text="Краторная булка N-200i (верх)"
               price={50}
               thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
@@ -88,6 +97,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               text="Краторная булка N-200i (верх)"
               price={50}
               thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
@@ -96,6 +106,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               text="Краторная булка N-200i (верх)"
               price={50}
               thumbnail={"https://code.s3.yandex.net/react/code/meat-02.png"}
@@ -104,6 +115,7 @@ const BurgerConstructor = () => {
           <li className={classes.ingredientItem}>
             <DragIcon type="primary" />
             <ConstructorElement
+            extraClass={classes.ingredientElement}
               type="bottom"
               isLocked={true}
               text="Краторная булка N-200i (низ)"

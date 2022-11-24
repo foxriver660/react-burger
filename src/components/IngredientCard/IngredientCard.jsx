@@ -14,7 +14,7 @@ const IngredientCard = () => {
         <span className={`pr-2 text text_type_digits-default`}>20</span>
         <CurrencyIcon />
       </div>
-      <p className={`${classes.ingredientName} text text_type_main-small`}>
+      <p className={`${classes.ingredientName} text text_type_main-default`}>
         Космическая булка F3de
       </p>
       <Counter count={1} size="default" />

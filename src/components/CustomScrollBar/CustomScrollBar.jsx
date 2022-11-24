@@ -15,7 +15,7 @@ const CustomScrollBar = ({ children, ...props }) => {
       renderThumbVertical={renderThumb}
       autoHeight={true}
       autoHeightMax={800}
-      style={{ width: 600 }}
+      
     >
       {children}
     </Scrollbars>

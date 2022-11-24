@@ -1,8 +1,10 @@
 .mainContainer{
   background-color: #131316;
+ 
 }
 .subContainer{
   display: flex;
   gap: 40px;
   justify-content: center;
+  padding: 0;
 }

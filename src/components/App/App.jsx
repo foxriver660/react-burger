@@ -8,7 +8,7 @@ import classes from "./App.module.css";
 const App = () => {
   console.log(classes);
   return (
-    <main className={`${classes.mainContainer} p-4`}>
+    <main className={`${classes.mainContainer} p-10`}>
       <AppHeader />
       <div className={`${classes.subContainer} p-4`}>
         <BurgerIngredients />

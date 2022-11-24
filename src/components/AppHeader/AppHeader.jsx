@@ -16,7 +16,7 @@ const AppHeader = () => {
           <ul className={classes.navList}>
             <li>
               <Button
-                extraClass={`${classes.navItem}`}
+                extraClass={`${classes.navItem} pl-5 pr-5 pt-4 pb-4`}
                 htmlType="button"
                 type="secondary"
                 size="medium"
@@ -26,7 +26,7 @@ const AppHeader = () => {
             </li>
             <li>
               <Button
-                extraClass={`${classes.navItem}`}
+                extraClass={`${classes.navItem} pl-5 pr-5 pt-4 pb-4`}
                 htmlType="button"
                 type="secondary"
                 size="medium"
@@ -39,7 +39,7 @@ const AppHeader = () => {
 
         <Logo />
         <Button
-          extraClass={`${classes.navItem}`}
+          extraClass={`${classes.navItem} ${classes.logInBtn} pl-5 pr-5 pt-4 pb-4`}
           htmlType="button"
           type="secondary"
           size="medium"
