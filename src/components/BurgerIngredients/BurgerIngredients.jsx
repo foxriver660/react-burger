@@ -22,7 +22,6 @@ const [filterSauce, setFilterSauce] = React.useState([])
 
  }, [dataAPI])
 
-console.log(current)
   return (
     <section className={`${classes.container}`}>
       <h1 className={`${classes.title} pt-10 text text_type_main-large`}>
@@ -41,7 +40,7 @@ console.log(current)
         </Tab>
       </div>
 
-      <CustomScrollBar>
+      <CustomScrollBar side='left'>
         <h2
           className={`${classes.subtitle} pb-6 text text_type_main-medium`}
         >

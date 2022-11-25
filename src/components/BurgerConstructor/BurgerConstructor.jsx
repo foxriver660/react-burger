@@ -10,7 +10,7 @@ import { Scrollbars } from "react-custom-scrollbars-2";
 const BurgerConstructor = () => {
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
-      {/* <CustomScrollBar> */}
+      <CustomScrollBar side={"right"}>
         <ul className={classes.ingredientList}>
           {data.map((item, index) => {
             if (index === 0) {
@@ -29,7 +29,7 @@ const BurgerConstructor = () => {
               );
             } else if (index > 0 && index < data.length - 1) {
               return (
-                <CustomScrollBar><li key={item.index} className={`${classes.ingredientItem} ${classes.ingredientItemMain}`}>
+                <li key={item.index} className={`${classes.ingredientItem} `}>
                   <DragIcon type="primary" />
                   <ConstructorElement
                     extraClass={classes.ingredientElement}
@@ -38,7 +38,7 @@ const BurgerConstructor = () => {
                     price={item.price}
                     thumbnail={item.image}
                   />
-                </li></CustomScrollBar>
+                </li>
               );
             } else {
               return (
@@ -57,7 +57,7 @@ const BurgerConstructor = () => {
             }
           })}
         </ul>
-      {/* </CustomScrollBar> */}
+      </CustomScrollBar>
 
       <div className={`${classes.currencyContainer} pt-10`}>
         <p className="text text_type_digits-medium">610</p>
