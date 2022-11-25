@@ -18,10 +18,20 @@
  
   gap: 8px;
 }
+
+.ingredientItemMain{
+  height: 500px;
+}
+.ingredientItemLocked {
+justify-content: flex-end;
+}
+
+
 .ingredientElement {
   background-color: #1C1C21;
   
 }
+
 .currencyContainer {
   display: flex;
   align-items: center;

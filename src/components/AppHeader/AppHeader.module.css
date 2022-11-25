@@ -31,6 +31,9 @@
   color: #8585ad;
   
 }
+.navItemActive{
+  color: #fff
+}
 .navItem:hover {
   color: #fff;
 }

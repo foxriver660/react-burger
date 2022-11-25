@@ -6,16 +6,16 @@ import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import data from "../utils/data";
-
+import { Scrollbars } from "react-custom-scrollbars-2";
 const BurgerConstructor = () => {
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
-      <CustomScrollBar>
+      {/* <CustomScrollBar> */}
         <ul className={classes.ingredientList}>
           {data.map((item, index) => {
             if (index === 0) {
               return (
-                <li key={item.index} className={classes.ingredientItem}>
+                <li key={item.index} className={`${classes.ingredientItem} ${classes.ingredientItemLocked} pr-3`}>
                   <ConstructorElement
                     extraClass={classes.ingredientElement}
                     key={item._id}
@@ -29,7 +29,7 @@ const BurgerConstructor = () => {
               );
             } else if (index > 0 && index < data.length - 1) {
               return (
-                <li key={item.index} className={classes.ingredientItem}>
+                <CustomScrollBar><li key={item.index} className={`${classes.ingredientItem} ${classes.ingredientItemMain}`}>
                   <DragIcon type="primary" />
                   <ConstructorElement
                     extraClass={classes.ingredientElement}
@@ -38,11 +38,11 @@ const BurgerConstructor = () => {
                     price={item.price}
                     thumbnail={item.image}
                   />
-                </li>
+                </li></CustomScrollBar>
               );
             } else {
               return (
-                <li key={item.index} className={classes.ingredientItem}>
+                <li key={item.index} className={`${classes.ingredientItem} ${classes.ingredientItemLocked} pr-3`}>
                   <ConstructorElement
                     extraClass={classes.ingredientElement}
                     key={item._id}
@@ -57,7 +57,7 @@ const BurgerConstructor = () => {
             }
           })}
         </ul>
-      </CustomScrollBar>
+      {/* </CustomScrollBar> */}
 
       <div className={`${classes.currencyContainer} pt-10`}>
         <p className="text text_type_digits-medium">610</p>

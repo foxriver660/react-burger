@@ -16,7 +16,7 @@ const AppHeader = () => {
           <ul className={classes.navList}>
             <li>
               <Button
-                extraClass={`${classes.navItem} pl-5 pr-5 pt-4 pb-4`}
+                extraClass={`${classes.navItemActive} ${classes.navItem}  pl-5 pr-5 pt-4 pb-4`}
                 htmlType="button"
                 type="secondary"
                 size="medium"
