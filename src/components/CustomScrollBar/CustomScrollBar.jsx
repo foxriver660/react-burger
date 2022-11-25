@@ -1,21 +1,19 @@
 import React from "react";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import classes from './CustomScrollBar.module.css'
 
 const CustomScrollBar = ({ children, ...props }) => {
-  const renderThumb = ({ ...props }) => {
-    const thumbStyle = {
-      backgroundColor: `#8585AD`,
-      width: 8,
-    };
-    return <div style={{ ...thumbStyle }} />;
-  };
 
+  const scrollRef = React.useRef()
+console.log(scrollRef)
   return (
     <Scrollbars
-      renderThumbVertical={renderThumb}
+      renderThumbVertical={props => <div {...props} className={classes.trumb}/>}
+      renderTrackVertical={props => <div {...props} className={classes.track}/>} 
       autoHeight={true}
       autoHeightMax={800}
-      
+      className='box'
+     ref={scrollRef}
     >
       {children}
     </Scrollbars>

@@ -29,7 +29,7 @@ const [filterSauce, setFilterSauce] = React.useState([])
         Соберите бургер
       </h1>
 
-      <div className={`${classes.tabContainer} pt-5`}>
+      <div className={`${classes.tabContainer} pt-5 pb-10`}>
         <Tab value="one" active={current === "one"} onClick={setCurrent}>
           Булки
         </Tab>
@@ -43,7 +43,7 @@ const [filterSauce, setFilterSauce] = React.useState([])
 
       <CustomScrollBar>
         <h2
-          className={`${classes.subtitle} pt-10 pb-6 text text_type_main-medium`}
+          className={`${classes.subtitle} pb-6 text text_type_main-medium`}
         >
           Булки
         </h2>

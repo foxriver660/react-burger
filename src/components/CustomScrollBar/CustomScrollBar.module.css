@@ -1,0 +1,17 @@
+.trumb{
+  background-color: #8585AD;
+      color: #8554AD;
+      width: 8;
+      z-index: 1;
+}
+
+.track{
+  background-color: #1c1c21;
+  height: 800px;
+  position: absolute;
+  width: 6px;
+  right: 2px;
+  bottom: 2px;
+  top: 2px;
+  border-radius: 3px;
+} 
