@@ -2,6 +2,7 @@
   width: 580px;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
 }
 .ingredientList {
   display: flex;

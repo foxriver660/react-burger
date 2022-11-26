@@ -12,8 +12,8 @@
 }
 .trackRight {
   background-color: #1c1c21;
-  height: 600px;
+  height: 100%;
   right: 0;
-  top: 12%;
+  top: 2px;
   border-radius: 3px;
 }

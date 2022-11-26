@@ -6,68 +6,47 @@ import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import PropTypes from "prop-types";
-import itemPropTypes from '../utils/prop-types';
+import itemPropTypes from "../utils/prop-types";
 
 const BurgerConstructor = ({ data }) => {
-  const [dataAPI, setDataAPI] = React.useState(data);
+  const bun = data.find((item) => item.type === "bun");
+  const ingredients = data.filter((item) => item.type !== "bun");
 
+  console.log(bun);
+  console.log(ingredients);
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
+      <ConstructorElement
+        extraClass={`${classes.ingredientElement} mb-4 mr-3`}
+        text={`${bun.name} (верх)`}
+        price={bun.price}
+        thumbnail={bun.image}
+        type="top"
+        isLocked={true}
+      />
       <CustomScrollBar side={"right"}>
         <ul className={`${classes.ingredientList} `}>
-          {dataAPI.map((item, index) => {
-            if (index === 0) {
-              return (
-                <li
-                key={item._id}
-                  className={`${classes.ingredientItem} ${classes.ingredientItemLocked} pr-3`}
-                >
-                  <ConstructorElement
-                    extraClass={classes.ingredientElement}
-                    key={item._id}
-                    text={item.name}
-                    price={item.price}
-                    thumbnail={item.image}
-                    type="top"
-                    isLocked={true}
-                  />
-                </li>
-              );
-            } else if (index > 0 && index < dataAPI.length - 1) {
-              return (
-                <li key={item._id} className={`${classes.ingredientItem} `}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    extraClass={classes.ingredientElement}
-                    key={item._id}
-                    text={item.name}
-                    price={item.price}
-                    thumbnail={item.image}
-                  />
-                </li>
-              );
-            } else {
-              return (
-                <li
-                key={item._id}
-                  className={`${classes.ingredientItem} ${classes.ingredientItemLocked} pr-3`}
-                >
-                  <ConstructorElement
-                    extraClass={classes.ingredientElement}
-                    key={item._id}
-                    text={item.name}
-                    price={item.price}
-                    thumbnail={item.image}
-                    type="bottom"
-                    isLocked={true}
-                  />
-                </li>
-              );
-            }
-          })}
+          {ingredients.map((item) => (
+            <li key={item._id} className={`${classes.ingredientItem} `}>
+              <DragIcon type="primary" />
+              <ConstructorElement
+                extraClass={classes.ingredientElement}
+                text={item.name}
+                price={item.price}
+                thumbnail={item.image}
+              />
+            </li>
+          ))}
         </ul>
       </CustomScrollBar>
-
+      <ConstructorElement
+        extraClass={`${classes.ingredientElement} mt-4 mr-3`}
+        text={`${bun.name} (низ)`}
+        price={bun.price}
+        thumbnail={bun.image}
+        type="bottom"
+        isLocked={true}
+      />
       <div className={`${classes.currencyContainer} pt-10`}>
         <p className="text text_type_digits-medium">610</p>
         <img className="pl-2 pr-10" src={bigCurrencyIcon} />
@@ -84,4 +63,3 @@ BurgerConstructor.propTypes = {
 };
 
 export default BurgerConstructor;
-

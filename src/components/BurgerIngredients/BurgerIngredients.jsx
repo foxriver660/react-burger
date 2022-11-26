@@ -9,17 +9,17 @@ import itemPropTypes from '../utils/prop-types'
 
 const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = React.useState("one");
-  const [dataAPI, setDataAPI] = React.useState(data);
+ 
 
   // ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ
   const [filterBun, setFilterBun] = React.useState([]);
   const [filterMain, setFilterMain] = React.useState([]);
   const [filterSauce, setFilterSauce] = React.useState([]);
-  React.useEffect(() => {
-    setFilterBun(dataAPI.filter((item) => item.type === "bun"));
-    setFilterMain(dataAPI.filter((item) => item.type === "main"));
-    setFilterSauce(dataAPI.filter((item) => item.type === "sauce"));
-  }, [dataAPI]);
+  React.useMemo(() => {
+    setFilterBun(data.filter((item) => item.type === "bun"));
+    setFilterMain(data.filter((item) => item.type === "main"));
+    setFilterSauce(data.filter((item) => item.type === "sauce"));
+  }, [data]);
 
   return (
     <section className={`${classes.container}`}>
