@@ -1,11 +1,10 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientCard from "../IngredientCard/IngredientCard";
 import classes from "./BurgerIngredients.module.css";
 import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
 import PropTypes from "prop-types";
 import itemPropTypes from '../utils/prop-types'
-
+import IngredientsCategory from "../ingredients-category/Ingredients-category";
 
 const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = React.useState("one");
@@ -45,18 +44,7 @@ const BurgerIngredients = ({ data }) => {
         </h2>
 
         <ul className={classes.ingredientsList}>
-          {filterBun.map((item) => (
-            <li key={item._id}>
-              <IngredientCard
-                name={item.name}
-                _id={item._id}
-                type={item.type}
-                price={item.price}
-                image={item.image}
-                key={item._id}
-              />
-            </li>
-          ))}
+          <IngredientsCategory filteredArr={filterBun}/>
         </ul>
 
         <h2
@@ -66,18 +54,7 @@ const BurgerIngredients = ({ data }) => {
         </h2>
 
         <ul className={classes.ingredientsList}>
-          {filterSauce.map((item) => (
-            <li key={item._id}>
-              <IngredientCard
-                name={item.name}
-                _id={item._id}
-                type={item.type}
-                price={item.price}
-                image={item.image}
-                key={item._id}
-              />
-            </li>
-          ))}
+        <IngredientsCategory filteredArr={filterSauce}/>
         </ul>
 
         <h2
@@ -87,18 +64,7 @@ const BurgerIngredients = ({ data }) => {
         </h2>
 
         <ul className={classes.ingredientsList}>
-          {filterMain.map((item) => (
-            <li key={item._id}>
-              <IngredientCard
-                name={item.name}
-                _id={item._id}
-                type={item.type}
-                price={item.price}
-                image={item.image}
-                key={item._id}
-              />
-            </li>
-          ))}
+        <IngredientsCategory filteredArr={filterMain}/>
         </ul>
       </CustomScrollBar>
     </section>
