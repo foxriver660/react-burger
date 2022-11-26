@@ -19,7 +19,7 @@ const BurgerIngredients = ({ data }) => {
     setFilterMain(data.filter((item) => item.type === "main"));
     setFilterSauce(data.filter((item) => item.type === "sauce"));
   }, [data]);
-
+ 
   return (
     <section className={`${classes.container}`}>
       <h1 className={`${classes.title} pt-10 text text_type_main-large`}>
