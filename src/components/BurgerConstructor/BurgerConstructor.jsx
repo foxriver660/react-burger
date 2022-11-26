@@ -5,14 +5,18 @@ import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
 import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import data from "../utils/data";
-import { Scrollbars } from "react-custom-scrollbars-2";
-const BurgerConstructor = () => {
+
+
+
+const BurgerConstructor = ({data}) => {
+  const [dataAPI, setDataAPI] = React.useState(data)
+  
+  
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
       <CustomScrollBar side={"right"}>
         <ul className={classes.ingredientList}>
-          {data.map((item, index) => {
+          {dataAPI.map((item, index) => {
             if (index === 0) {
               return (
                 <li key={item.index} className={`${classes.ingredientItem} ${classes.ingredientItemLocked} pr-3`}>
@@ -27,7 +31,7 @@ const BurgerConstructor = () => {
                   />
                 </li>
               );
-            } else if (index > 0 && index < data.length - 1) {
+            } else if (index > 0 && index < dataAPI.length - 1) {
               return (
                 <li key={item.index} className={`${classes.ingredientItem} `}>
                   <DragIcon type="primary" />

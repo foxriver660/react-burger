@@ -3,10 +3,11 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../IngredientCard/IngredientCard";
 import classes from "./BurgerIngredients.module.css";
 import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
-import data from "../utils/data";
 
 
-const BurgerIngredients = () => {
+
+
+const BurgerIngredients = ({data}) => {
   const [current, setCurrent] = React.useState("one");
   const [dataAPI, setDataAPI] = React.useState(data)
 
