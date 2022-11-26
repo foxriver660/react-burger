@@ -3,6 +3,9 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../IngredientCard/IngredientCard";
 import classes from "./BurgerIngredients.module.css";
 import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
+import PropTypes from "prop-types";
+import itemPropTypes from '../utils/prop-types'
+
 
 const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = React.useState("one");
@@ -103,3 +106,7 @@ const BurgerIngredients = ({ data }) => {
 };
 
 export default BurgerIngredients;
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+}; 

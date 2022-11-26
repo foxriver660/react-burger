@@ -5,6 +5,8 @@ import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
 import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
+import PropTypes from "prop-types";
+import itemPropTypes from '../utils/prop-types';
 
 const BurgerConstructor = ({ data }) => {
   const [dataAPI, setDataAPI] = React.useState(data);
@@ -76,4 +78,10 @@ const BurgerConstructor = ({ data }) => {
     </section>
   );
 };
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+};
+
 export default BurgerConstructor;
+

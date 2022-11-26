@@ -51,7 +51,4 @@ const AppHeader = () => {
 };
 export default AppHeader;
 
-{
-  /* <button className={`pl-5 pr-5 pb-4 pt-4 ${classes.navButton}`}><BurgerIcon type="primary" />
-            <p className={`${classes.btnText} pl-2`}>Конструктор</p></button> */
-}
+
