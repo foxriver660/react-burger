@@ -4,24 +4,19 @@ import IngredientCard from "../IngredientCard/IngredientCard";
 import classes from "./BurgerIngredients.module.css";
 import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
 
-
-
-
-const BurgerIngredients = ({data}) => {
+const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = React.useState("one");
-  const [dataAPI, setDataAPI] = React.useState(data)
+  const [dataAPI, setDataAPI] = React.useState(data);
 
-// ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ
-const [filterBun, setFilterBun] = React.useState([])
-const [filterMain, setFilterMain] = React.useState([])
-const [filterSauce, setFilterSauce] = React.useState([])
- React.useEffect(()=>
- {
-  setFilterBun(dataAPI.filter((item) => item.type === "bun"))
-  setFilterMain(dataAPI.filter((item) => item.type === "main"))
-  setFilterSauce(dataAPI.filter((item) => item.type === "sauce"))
-
- }, [dataAPI])
+  // ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ
+  const [filterBun, setFilterBun] = React.useState([]);
+  const [filterMain, setFilterMain] = React.useState([]);
+  const [filterSauce, setFilterSauce] = React.useState([]);
+  React.useEffect(() => {
+    setFilterBun(dataAPI.filter((item) => item.type === "bun"));
+    setFilterMain(dataAPI.filter((item) => item.type === "main"));
+    setFilterSauce(dataAPI.filter((item) => item.type === "sauce"));
+  }, [dataAPI]);
 
   return (
     <section className={`${classes.container}`}>
@@ -41,26 +36,24 @@ const [filterSauce, setFilterSauce] = React.useState([])
         </Tab>
       </div>
 
-      <CustomScrollBar side='left'>
-        <h2
-          className={`${classes.subtitle} pb-6 text text_type_main-medium`}
-        >
+      <CustomScrollBar side="left" >
+        <h2 className={`${classes.subtitle} pb-6 text text_type_main-medium`}>
           Булки
         </h2>
 
         <ul className={classes.ingredientsList}>
           {filterBun.map((item) => (
-              <li key={item._id}>
-                <IngredientCard
-                  name={item.name}
-                  _id={item._id}
-                  type={item.type}
-                  price={item.price}
-                  image={item.image}
-                  key={item._id}
-                />
-              </li>
-            ))}
+            <li key={item._id}>
+              <IngredientCard
+                name={item.name}
+                _id={item._id}
+                type={item.type}
+                price={item.price}
+                image={item.image}
+                key={item._id}
+              />
+            </li>
+          ))}
         </ul>
 
         <h2
@@ -70,19 +63,18 @@ const [filterSauce, setFilterSauce] = React.useState([])
         </h2>
 
         <ul className={classes.ingredientsList}>
-          {filterSauce
-            .map((item) => (
-              <li key={item._id}>
-                <IngredientCard
-                  name={item.name}
-                  _id={item._id}
-                  type={item.type}
-                  price={item.price}
-                  image={item.image}
-                  key={item._id}
-                />
-              </li>
-            ))}
+          {filterSauce.map((item) => (
+            <li key={item._id}>
+              <IngredientCard
+                name={item.name}
+                _id={item._id}
+                type={item.type}
+                price={item.price}
+                image={item.image}
+                key={item._id}
+              />
+            </li>
+          ))}
         </ul>
 
         <h2
@@ -93,17 +85,17 @@ const [filterSauce, setFilterSauce] = React.useState([])
 
         <ul className={classes.ingredientsList}>
           {filterMain.map((item) => (
-              <li key={item._id}>
-                <IngredientCard
-                  name={item.name}
-                  _id={item._id}
-                  type={item.type}
-                  price={item.price}
-                  image={item.image}
-                  key={item._id}
-                />
-              </li>
-            ))}
+            <li key={item._id}>
+              <IngredientCard
+                name={item.name}
+                _id={item._id}
+                type={item.type}
+                price={item.price}
+                image={item.image}
+                key={item._id}
+              />
+            </li>
+          ))}
         </ul>
       </CustomScrollBar>
     </section>

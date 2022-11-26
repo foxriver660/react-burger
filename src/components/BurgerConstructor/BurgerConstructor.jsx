@@ -6,20 +6,20 @@ import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 
+const BurgerConstructor = ({ data }) => {
+  const [dataAPI, setDataAPI] = React.useState(data);
 
-
-const BurgerConstructor = ({data}) => {
-  const [dataAPI, setDataAPI] = React.useState(data)
-  
-  
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
       <CustomScrollBar side={"right"}>
-        <ul className={classes.ingredientList}>
+        <ul className={`${classes.ingredientList} `}>
           {dataAPI.map((item, index) => {
             if (index === 0) {
               return (
-                <li key={item.index} className={`${classes.ingredientItem} ${classes.ingredientItemLocked} pr-3`}>
+                <li
+                key={item._id}
+                  className={`${classes.ingredientItem} ${classes.ingredientItemLocked} pr-3`}
+                >
                   <ConstructorElement
                     extraClass={classes.ingredientElement}
                     key={item._id}
@@ -33,7 +33,7 @@ const BurgerConstructor = ({data}) => {
               );
             } else if (index > 0 && index < dataAPI.length - 1) {
               return (
-                <li key={item.index} className={`${classes.ingredientItem} `}>
+                <li key={item._id} className={`${classes.ingredientItem} `}>
                   <DragIcon type="primary" />
                   <ConstructorElement
                     extraClass={classes.ingredientElement}
@@ -46,7 +46,10 @@ const BurgerConstructor = ({data}) => {
               );
             } else {
               return (
-                <li key={item.index} className={`${classes.ingredientItem} ${classes.ingredientItemLocked} pr-3`}>
+                <li
+                key={item._id}
+                  className={`${classes.ingredientItem} ${classes.ingredientItemLocked} pr-3`}
+                >
                   <ConstructorElement
                     extraClass={classes.ingredientElement}
                     key={item._id}

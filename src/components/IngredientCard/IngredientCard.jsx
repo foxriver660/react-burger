@@ -4,15 +4,12 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist
 import classes from "./IngredientCard.module.css";
 
 const IngredientCard = ({ name, _id, type, price, image }) => {
-  const [id, setID] = React.useState(_id)
-  const [ingredientType, setType ] = React.useState(type)
+  const [id, setID] = React.useState(_id);
+  const [ingredientType, setType] = React.useState(type);
 
   return (
     <div className={classes.container}>
-      <img
-        className={classes.image}
-        src={image}
-      />
+      <img className={classes.image} src={image} />
       <div className={classes.currencyContainer}>
         <span className={`pr-2 text text_type_digits-default`}>{price}</span>
         <CurrencyIcon />
@@ -26,5 +23,3 @@ const IngredientCard = ({ name, _id, type, price, image }) => {
 };
 
 export default IngredientCard;
-
-

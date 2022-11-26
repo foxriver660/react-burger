@@ -13,7 +13,7 @@
 
 .navContainer {
   display: flex;
-  
+
   align-items: center;
 }
 .navList {
@@ -29,14 +29,13 @@
   align-items: center;
   gap: 8px;
   color: #8585ad;
-  
 }
-.navItemActive{
-  color: #fff
+.navItemActive {
+  color: #fff;
 }
 .navItem:hover {
   color: #fff;
 }
 .logInBtn {
-  flex-grow: 0
+  flex-grow: 0;
 }
