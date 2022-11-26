@@ -7,13 +7,18 @@ const AUTO_HEIGHT_MAX = 800
 const ENABLE_AUTO_HEIGHT = true
 
 
-const CustomScrollBar = ({ children, style, ref, ...props }) => {
-
-  const scrollRef = React.useRef()
-
+const CustomScrollBar = (props) => {
+  const handleScroll = (values) => {
+    console.log(values);
+   
+  }
+  
+const scrollRef = React.useRef()
+console.log(scrollRef.current)
   return (
     <Scrollbars
-   ref={scrollRef}
+       ref={scrollRef}
+       onScroll={handleScroll}
       renderThumbVertical={(props) => (
         <div {...props} className={classes.trumb}/>
       )}
@@ -31,7 +36,7 @@ const CustomScrollBar = ({ children, style, ref, ...props }) => {
       autoHeightMax={AUTO_HEIGHT_MAX}
       className="box"
     >
-      {children}
+      {props.children}
     </Scrollbars>
   );
 };

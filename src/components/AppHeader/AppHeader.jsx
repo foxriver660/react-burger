@@ -15,12 +15,12 @@ const AppHeader = () => {
           <ul className={classes.navList}>
             <li>
               <Button
-                extraClass={`${classes.navItemActive} ${classes.navItem}  pl-5 pr-5 pt-4 pb-4`}
+                extraClass={`pl-5 pr-5 pt-4 pb-4`}
                 htmlType="button"
                 type="secondary"
                 size="medium"
               >
-                <BurgerIcon type="primary" /> Конструктор
+                <a className={`${classes.navItemActive} ${classes.navItem}`} href="/#"><BurgerIcon type="primary" /> Конструктор</a>
               </Button>
             </li>
             <li>
@@ -30,7 +30,7 @@ const AppHeader = () => {
                 type="secondary"
                 size="medium"
               >
-                <ListIcon type="secondary" /> Лента заказов
+                <a className={`${classes.navItem}`} href="/#"><ListIcon type="secondary" /> Лента заказов</a>
               </Button>
             </li>
           </ul>
@@ -43,7 +43,7 @@ const AppHeader = () => {
           type="secondary"
           size="medium"
         >
-          <ProfileIcon type="secondary" /> Личный кабинет
+          <a className={`${classes.navItem}`} href="/#"><ProfileIcon type="secondary" /> Личный кабинет</a>
         </Button>
       </div>
     </section>

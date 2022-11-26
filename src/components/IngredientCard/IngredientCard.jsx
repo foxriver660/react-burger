@@ -8,7 +8,7 @@ import itemPropTypes from "../utils/prop-types";
 const IngredientCard = (props) => {
   const [id, setID] = React.useState(props._id);
   const [ingredientType, setType] = React.useState(props.type);
-console.log(props)
+
   return (
     <div className={classes.container}>
       <img className={classes.image} src={props.image} />

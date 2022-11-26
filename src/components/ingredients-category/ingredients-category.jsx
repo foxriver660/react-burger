@@ -3,7 +3,7 @@ import IngredientCard from "../IngredientCard/IngredientCard";
 
 
 const IngredientsCategory = ({filteredArr}) => {
-console.log(filteredArr)
+
   return (
     <>
       {filteredArr.map((item) => (
