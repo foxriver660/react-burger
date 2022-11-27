@@ -5,7 +5,6 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import data from "../utils/data";
 import classes from "./App.module.css";
 
-
 const App = () => {
   return (
     <main className={`p-10`}>

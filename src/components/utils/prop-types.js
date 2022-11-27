@@ -1,6 +1,4 @@
-import React from "react";
 import PropTypes from "prop-types";
-
 
 const itemPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
@@ -17,4 +15,4 @@ const itemPropTypes = PropTypes.shape({
   __v: PropTypes.number.isRequired,
 });
 
-export default itemPropTypes
+export default itemPropTypes;

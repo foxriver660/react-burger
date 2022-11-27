@@ -12,7 +12,7 @@ const BurgerConstructor = ({ data }) => {
   const bun = data.find((item) => item.type === "bun");
   const ingredients = data.filter((item) => item.type !== "bun");
 
-   return (
+  return (
     <section className={`${classes.container} pt-25 pl-4`}>
       <ConstructorElement
         extraClass={`${classes.ingredientElement} mb-4 mr-3`}

@@ -20,7 +20,12 @@ const AppHeader = () => {
                 type="secondary"
                 size="medium"
               >
-                <a className={`${classes.navItemActive} ${classes.navItem}`} href="/#"><BurgerIcon type="primary" /> Конструктор</a>
+                <a
+                  className={`${classes.navItemActive} ${classes.navItem}`}
+                  href="/#"
+                >
+                  <BurgerIcon type="primary" /> Конструктор
+                </a>
               </Button>
             </li>
             <li>
@@ -30,7 +35,9 @@ const AppHeader = () => {
                 type="secondary"
                 size="medium"
               >
-                <a className={`${classes.navItem}`} href="/#"><ListIcon type="secondary" /> Лента заказов</a>
+                <a className={`${classes.navItem}`} href="/#">
+                  <ListIcon type="secondary" /> Лента заказов
+                </a>
               </Button>
             </li>
           </ul>
@@ -43,12 +50,12 @@ const AppHeader = () => {
           type="secondary"
           size="medium"
         >
-          <a className={`${classes.navItem}`} href="/#"><ProfileIcon type="secondary" /> Личный кабинет</a>
+          <a className={`${classes.navItem}`} href="/#">
+            <ProfileIcon type="secondary" /> Личный кабинет
+          </a>
         </Button>
       </div>
     </section>
   );
 };
 export default AppHeader;
-
-
