@@ -22,7 +22,7 @@ const Modal = () => {
 <p className={`${classes.orderInstruction} text text_type_main-default`}>
 Дождитесь готовности на орбитальной станции
 </p>
-    </div> */}
+    </div> */} 
 
       {/* IngredientDetails */}
       <div className={`${classes.wrapperTwo} pt-10 pr-10 pl-10 pb-15`}>
