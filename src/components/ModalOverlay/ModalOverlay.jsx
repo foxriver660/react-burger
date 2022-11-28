@@ -2,10 +2,10 @@ import React from 'react'
 import classes from './ModalOverlay.module.css'
 import Modal from '../Modal/Modal'
 
-const ModalOverlay = ({active, setActive}) => {
+const ModalOverlay = ({children}) => {
   return (
     <div className={classes.overlay}>
-      <Modal/>
+     {children}
     </div>
   )
 }

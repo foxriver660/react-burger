@@ -4,6 +4,7 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import Modal from "../Modal/Modal";
 
 const App = () => {
   const [state, setState] = React.useState({
@@ -49,7 +50,7 @@ const App = () => {
           </>
         )}
       </div>
-      <ModalOverlay/>
+      <Modal/>
     </main>
   );
 };

@@ -1,8 +1,10 @@
 import React from "react";
 import classes from "./Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import ModalOverlay from "../ModalOverlay/ModalOverlay";
 const Modal = () => {
   return (
+    <ModalOverlay>
     <div className={classes.container}>
       <button className={classes.closeBtn}>
         <CloseIcon type="primary" />
@@ -80,6 +82,7 @@ const Modal = () => {
       </div>
       {/* ___________________________________________ */}
     </div>
+    </ModalOverlay>
   );
 };
 
