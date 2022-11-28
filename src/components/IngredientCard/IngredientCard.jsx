@@ -3,6 +3,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
 import classes from "./IngredientCard.module.css";
 import itemPropTypes from "../utils/prop-types";
+import PropTypes from "prop-types";
 
 const IngredientCard = (props) => {
   //  ID и тип карточки записываются в состояние
@@ -31,5 +32,5 @@ const IngredientCard = (props) => {
 export default IngredientCard;
 
 IngredientCard.propTypes = {
-  props: itemPropTypes,
+  props: PropTypes.object(itemPropTypes),
 };

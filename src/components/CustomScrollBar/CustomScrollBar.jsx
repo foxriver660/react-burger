@@ -23,7 +23,7 @@ const CustomScrollBar = (props) => {
             width: "8px",
           }}
         />
-      )}
+      )} 
       autoHeight={ENABLE_AUTO_HEIGHT}
       autoHeightMax={AUTO_HEIGHT_MAX}
       className="box"

@@ -24,13 +24,25 @@ const BurgerIngredients = ({ data }) => {
   };
 
   // ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ
-  const [filterBun, setFilterBun] = React.useState([]);
-  const [filterMain, setFilterMain] = React.useState([]);
-  const [filterSauce, setFilterSauce] = React.useState([]);
-  React.useMemo(() => {
-    setFilterBun(data.filter((item) => item.type === "bun"));
-    setFilterMain(data.filter((item) => item.type === "main"));
-    setFilterSauce(data.filter((item) => item.type === "sauce"));
+  const { buns, mains, sauces } = React.useMemo(() => {
+    return data.reduce(
+      (acc, ingredient) => {
+        switch (ingredient.type) {
+          case "bun":
+            acc.buns.push(ingredient);
+            break;
+          case "main":
+            acc.mains.push(ingredient);
+            break;
+          case "sauce":
+            acc.sauces.push(ingredient);
+            break;
+          // no default
+        }
+        return acc;
+      },
+      { buns: [], mains: [], sauces: [] }
+    );
   }, [data]);
 
   return (
@@ -81,7 +93,7 @@ const BurgerIngredients = ({ data }) => {
         </h2>
 
         <ul className={classes.ingredientsList}>
-          <IngredientsCategory filteredArr={filterBun} />
+          <IngredientsCategory filteredArr={buns} />
         </ul>
 
         <h2
@@ -92,7 +104,7 @@ const BurgerIngredients = ({ data }) => {
         </h2>
 
         <ul className={classes.ingredientsList}>
-          <IngredientsCategory filteredArr={filterSauce} />
+          <IngredientsCategory filteredArr={sauces} />
         </ul>
 
         <h2
@@ -103,7 +115,7 @@ const BurgerIngredients = ({ data }) => {
         </h2>
 
         <ul className={classes.ingredientsList}>
-          <IngredientsCategory filteredArr={filterMain} />
+          <IngredientsCategory filteredArr={mains} />
         </ul>
       </CustomScrollBar>
     </section>

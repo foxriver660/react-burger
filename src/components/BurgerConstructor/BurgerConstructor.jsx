@@ -47,7 +47,7 @@ const BurgerConstructor = ({ data }) => {
       />
       <div className={`${classes.currencyContainer} pt-10`}>
         <p className="text text_type_digits-medium">610</p>
-        <img className="pl-2 pr-10" src={bigCurrencyIcon} />
+        <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты"/>
         <Button htmlType="button" type="primary" size="large">
           Оформить заказ
         </Button>
