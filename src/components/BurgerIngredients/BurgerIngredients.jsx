@@ -9,18 +9,18 @@ import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
 const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = React.useState("one");
 
-  // РЕАЛИЗАЦИЯ СКРОЛЛА
+  // РЕАЛИЗАЦИЯ СКРОЛЛА !!!!!!!!!!!!!!!!ПЕРЕДЕЛАТЬ НА ID
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);
   const bunRef = React.useRef(null);
   const scrollToMain = () => {
-    mainRef.current.scrollIntoView();
+    mainRef.current.scrollIntoView({block: "center", behavior: "smooth"});
   };
   const scrollToBun = () => {
-    bunRef.current.scrollIntoView();
+    bunRef.current.scrollIntoView({block: "center", behavior: "smooth"});
   };
   const scrollToSauce = () => {
-    sauceRef.current.scrollIntoView();
+    sauceRef.current.scrollIntoView({block: "center", behavior: "smooth"});
   };
 
   // ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ

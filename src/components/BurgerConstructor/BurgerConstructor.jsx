@@ -7,11 +7,32 @@ import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
-
+import ModalTest from "../ModalTest/ModalTest";
+import OrderDetails from "../OrderDetails/OrderDetails";
 const BurgerConstructor = ({ data }) => {
   const bun = data.find((item) => item.type === "bun");
   const ingredients = data.filter((item) => item.type !== "bun");
+/* ТЕСТ МОДАЛКИ */
+const [open, setOpen] = React.useState(false)
+const handleEscPress = evt => {
+  if (evt.key === "Escape") {      
+    setOpen(false)      
+  }
+}
 
+
+const escClose = (e) => {
+  if (e.key === "Escape") {
+    setOpen(false);
+  }
+};
+
+React.useEffect(() => {
+  window.addEventListener("keydown", escClose);
+  return () => window.removeEventListener("keydown", escClose);
+}, [open]);
+
+/* -------------------- */
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
       <ConstructorElement
@@ -48,10 +69,12 @@ const BurgerConstructor = ({ data }) => {
       <div className={`${classes.currencyContainer} pt-10`}>
         <p className="text text_type_digits-medium">610</p>
         <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты"/>
-        <Button htmlType="button" type="primary" size="large">
+        <Button onClick={() => setOpen(true)} htmlType="button" type="primary" size="large">
           Оформить заказ
         </Button>
       </div>
+     
+      <OrderDetails onKeyPress={handleEscPress} open={open} onClose={() => setOpen(false)}/>
     </section>
   );
 };
