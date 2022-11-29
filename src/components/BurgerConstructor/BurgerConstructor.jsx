@@ -7,32 +7,40 @@ import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
-import ModalTest from "../ModalTest/ModalTest";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
+
 const BurgerConstructor = ({ data }) => {
   const bun = data.find((item) => item.type === "bun");
   const ingredients = data.filter((item) => item.type !== "bun");
-/* ТЕСТ МОДАЛКИ */
-const [open, setOpen] = React.useState(false)
-const handleEscPress = evt => {
-  if (evt.key === "Escape") {      
-    setOpen(false)      
-  }
-}
+  /* МОДАЛКА ОРДЕРА */
+  const [openOrder, setOpenOrder] = React.useState(false);
+  /* ЗАКРЫТИЕ МОДАЛКИ ПО ESC */
+  const escClose = (e) => {
+    if (e.key === "Escape") {
+      setOpenOrder(false);
+    }
+  };
+  React.useEffect(() => {
+    window.addEventListener("keydown", escClose);
+    return () => window.removeEventListener("keydown", escClose);
+  }, [openOrder]);
 
+  /* МОДАЛКА ИНГРЕДИЕНТОВ */
+  const [openCard, setOpenCard] = React.useState(false);
+  const escCloseCard = (e) => {
+    if (e.key === "Escape") {
+      setOpenCard(false);
+    }
+  };
+  React.useEffect(() => {
+    window.addEventListener("keydown", escCloseCard);
+    return () => window.removeEventListener("keydown", escCloseCard);
+  }, [openCard]);
 
-const escClose = (e) => {
-  if (e.key === "Escape") {
-    setOpen(false);
-  }
-};
+  /* ВЫБРАННЫЙ ЭНГРЕДИЕНТ */
+  const [selectedIngredient, setSelectedIngredient] = React.useState();
 
-React.useEffect(() => {
-  window.addEventListener("keydown", escClose);
-  return () => window.removeEventListener("keydown", escClose);
-}, [open]);
-
-/* -------------------- */
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
       <ConstructorElement
@@ -45,17 +53,26 @@ React.useEffect(() => {
       />
       <CustomScrollBar side={"right"}>
         <ul className={`${classes.ingredientList} `}>
-          {ingredients.map((item) => (
-            <li key={item._id} className={`${classes.ingredientItem} `}>
-              <DragIcon type="primary" />
-              <ConstructorElement
-                extraClass={classes.ingredientElement}
-                text={item.name}
-                price={item.price}
-                thumbnail={item.image}
-              />
-            </li>
-          ))}
+          {ingredients.map((item) => {
+            return (
+              <li
+                onClick={() => {
+                  setSelectedIngredient(item);
+                  setOpenCard(true);
+                }}
+                key={item._id}
+                className={`${classes.ingredientItem} `}
+              >
+                <DragIcon type="primary" />
+                <ConstructorElement
+                  extraClass={classes.ingredientElement}
+                  text={item.name}
+                  price={item.price}
+                  thumbnail={item.image}
+                />
+              </li>
+            );
+          })}
         </ul>
       </CustomScrollBar>
       <ConstructorElement
@@ -68,13 +85,27 @@ React.useEffect(() => {
       />
       <div className={`${classes.currencyContainer} pt-10`}>
         <p className="text text_type_digits-medium">610</p>
-        <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты"/>
-        <Button onClick={() => setOpen(true)} htmlType="button" type="primary" size="large">
+        <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты" />
+        <Button
+          onClick={() => setOpenOrder(true)}
+          htmlType="button"
+          type="primary"
+          size="large"
+        >
           Оформить заказ
         </Button>
       </div>
-     
-      <OrderDetails onKeyPress={handleEscPress} open={open} onClose={() => setOpen(false)}/>
+      {selectedIngredient && <IngredientDetails
+        data={selectedIngredient}
+        onKeyPress={escCloseCard}
+        open={openCard}
+        onClose={() => setOpenCard(false)}
+      />}
+      {openOrder && <OrderDetails
+        onKeyPress={escClose}
+        open={openOrder}
+        onClose={() => setOpenOrder(false)}
+      />}
     </section>
   );
 };

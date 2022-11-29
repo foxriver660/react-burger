@@ -27,6 +27,7 @@
 
 .ingredientElement {
   background-color: #1c1c21;
+  cursor: pointer;
 }
 
 .currencyContainer {
