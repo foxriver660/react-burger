@@ -13,30 +13,21 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 const BurgerConstructor = ({ data }) => {
   const bun = data.find((item) => item.type === "bun");
   const ingredients = data.filter((item) => item.type !== "bun");
-  /* МОДАЛКА ОРДЕРА */
+  
+  /* МОДАЛКИ */
   const [openOrder, setOpenOrder] = React.useState(false);
+  const [openCard, setOpenCard] = React.useState(false);
+
   /* ЗАКРЫТИЕ МОДАЛКИ ПО ESC */
   const escClose = (e) => {
     if (e.key === "Escape") {
-      setOpenOrder(false);
+      openOrder ? setOpenOrder(false) : setOpenCard(false);
     }
   };
   React.useEffect(() => {
     window.addEventListener("keydown", escClose);
     return () => window.removeEventListener("keydown", escClose);
-  }, [openOrder]);
-
-  /* МОДАЛКА ИНГРЕДИЕНТОВ */
-  const [openCard, setOpenCard] = React.useState(false);
-  const escCloseCard = (e) => {
-    if (e.key === "Escape") {
-      setOpenCard(false);
-    }
-  };
-  React.useEffect(() => {
-    window.addEventListener("keydown", escCloseCard);
-    return () => window.removeEventListener("keydown", escCloseCard);
-  }, [openCard]);
+  }, [openOrder, openCard]);
 
   /* ВЫБРАННЫЙ ЭНГРЕДИЕНТ */
   const [selectedIngredient, setSelectedIngredient] = React.useState();
@@ -95,17 +86,21 @@ const BurgerConstructor = ({ data }) => {
           Оформить заказ
         </Button>
       </div>
-      {selectedIngredient && <IngredientDetails
-        data={selectedIngredient}
-        onKeyPress={escCloseCard}
-        open={openCard}
-        onClose={() => setOpenCard(false)}
-      />}
-      {openOrder && <OrderDetails
-        onKeyPress={escClose}
-        open={openOrder}
-        onClose={() => setOpenOrder(false)}
-      />}
+      {selectedIngredient && (
+        <IngredientDetails
+          data={selectedIngredient}
+          onKeyPress={escClose}
+          open={openCard}
+          onClose={() => setOpenCard(false)}
+        />
+      )}
+      {openOrder && (
+        <OrderDetails
+          onKeyPress={escClose}
+          open={openOrder}
+          onClose={() => setOpenOrder(false)}
+        />
+      )}
     </section>
   );
 };
