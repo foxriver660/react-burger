@@ -53,6 +53,6 @@
 }
 .scrollWrapper::-webkit-scrollbar-thumb{
   background-color: #8585ad ;
-  height: 280px;
+  height: 288px;
   width: 100%;
 }

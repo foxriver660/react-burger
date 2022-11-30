@@ -8,18 +8,13 @@ import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
 const BurgerIngredients = ({ data }) => {
   const [current, setCurrent] = React.useState("one");
 
-  // РЕАЛИЗАЦИЯ СКРОЛЛА !!!!!!!!!!!!!!!!ПЕРЕДЕЛАТЬ НА ID
+  // РЕАЛИЗАЦИЯ СКРОЛЛА
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);
   const bunRef = React.useRef(null);
-  const scrollToMain = () => {
-    mainRef.current.scrollIntoView({behavior: "smooth"});
-  };
-  const scrollToBun = () => {
-    bunRef.current.scrollIntoView({behavior: "smooth"});
-  };
-  const scrollToSauce = () => {
-    sauceRef.current.scrollIntoView({behavior: "smooth"});
+  
+  const scrollTo = (ref) => {
+    ref.current.scrollIntoView({behavior: "smooth"});
   };
 
   // ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ
@@ -55,7 +50,7 @@ const BurgerIngredients = ({ data }) => {
           value="one"
           active={current === "one"}
           onClick={() => {
-            scrollToBun();
+            scrollTo(bunRef);
             setCurrent("one");
           }}
         >
@@ -65,7 +60,7 @@ const BurgerIngredients = ({ data }) => {
           value="two"
           active={current === "two"}
           onClick={() => {
-            scrollToSauce();
+            scrollTo(sauceRef);
             setCurrent("two");
           }}
         >
@@ -75,8 +70,9 @@ const BurgerIngredients = ({ data }) => {
           value="three"
           active={current === "three"}
           onClick={() => {
-            scrollToMain();
+            
             setCurrent("three");
+            scrollTo(mainRef);
           }}
         >
           Начинки
