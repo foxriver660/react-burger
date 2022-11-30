@@ -24,7 +24,7 @@ const Modal = ({open, onClose, children}) => {
 
   if (open) {
     return ReactDOM.createPortal(
-      <ModalOverlay open={open} onClose={onClose}>
+      <ModalOverlay onClose={onClose}>
     <div onClick={(e)=>e.stopPropagation()} className={classes.container}>
       <button onClick={onClose} className={classes.closeBtn}>
         <CloseIcon type="primary" />
