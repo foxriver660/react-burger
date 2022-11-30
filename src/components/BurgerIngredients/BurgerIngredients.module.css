@@ -22,23 +22,21 @@
   flex-wrap: wrap;
   gap: 24px;
 }
-.scrollWrapper{
+.scrollWrapper {
   composes: container;
   overflow-y: scroll;
   max-height: 716px;
 }
 
-.scrollWrapper::-webkit-scrollbar{
+.scrollWrapper::-webkit-scrollbar {
   width: 8px;
 }
-.scrollWrapper::-webkit-scrollbar-track{
+.scrollWrapper::-webkit-scrollbar-track {
   margin-bottom: 51px;
-  background-color: #2f2f37 ;
-  
+  background-color: #2f2f37;
 }
-.scrollWrapper::-webkit-scrollbar-thumb{
-  background-color: #8585ad ;
+.scrollWrapper::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
   height: 492px;
   width: 100%;
-  
 }

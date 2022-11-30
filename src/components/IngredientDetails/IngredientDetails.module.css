@@ -10,10 +10,6 @@
   vertical-align: center;
   align-self: flex-start;
 }
-.ingredientImage {
-}
-.ingredientName {
-}
 .compoundList {
   display: flex;
   gap: 20px;

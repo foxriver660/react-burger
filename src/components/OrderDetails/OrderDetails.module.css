@@ -1,14 +1,12 @@
 .wrapper {
   width: 100%;
-box-sizing: border-box;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .orderNumber {
   box-sizing: border-box;
-}
-.orderNumberText {
 }
 .orderStatusImage {
   width: 120px;

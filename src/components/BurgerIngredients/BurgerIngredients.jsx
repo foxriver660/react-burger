@@ -12,9 +12,9 @@ const BurgerIngredients = ({ data }) => {
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);
   const bunRef = React.useRef(null);
-  
+
   const scrollTo = (ref) => {
-    ref.current.scrollIntoView({behavior: "smooth"});
+    ref.current.scrollIntoView({ behavior: "smooth" });
   };
 
   // ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ
@@ -70,7 +70,6 @@ const BurgerIngredients = ({ data }) => {
           value="three"
           active={current === "three"}
           onClick={() => {
-            
             setCurrent("three");
             scrollTo(mainRef);
           }}
@@ -112,7 +111,7 @@ const BurgerIngredients = ({ data }) => {
         <ul className={classes.ingredientsList}>
           <IngredientsCategory filteredArr={mains} />
         </ul>
-        </div>
+      </div>
     </section>
   );
 };

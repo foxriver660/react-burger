@@ -17,7 +17,7 @@ const BurgerConstructor = ({ data }) => {
   /* СОСТОЯНИЕ МОДАЛОК */
   const [openOrder, setOpenOrder] = React.useState(false);
   const [openCard, setOpenCard] = React.useState(false);
- 
+
   /* ВЫБРАННЫЙ ЭНГРЕДИЕНТ */
   const [selectedIngredient, setSelectedIngredient] = React.useState();
 

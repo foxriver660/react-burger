@@ -3,9 +3,9 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
 import classes from "./IngredientCard.module.css";
 import itemPropTypes from "../utils/prop-types";
-import PropTypes from "prop-types";
 
-const IngredientCard = ({data}) => {
+
+const IngredientCard = ({ data }) => {
   //  ID и тип карточки записываются в состояние
   /* eslint-disable */
   const [id, setID] = React.useState(data._id);
@@ -30,6 +30,10 @@ const IngredientCard = ({data}) => {
 };
 
 export default IngredientCard;
+
+
+
+
 
 
 IngredientCard.propTypes = {

@@ -1,28 +1,28 @@
 import React from "react";
-import {createPortal} from "react-dom";
+import { createPortal } from "react-dom";
 import classes from "./Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
 
-
 const modalRootElement = document.querySelector("#modal");
 
-
-const Modal = ({open, onClose, children}) => {
+const Modal = ({ open, onClose, children }) => {
   const element = React.useMemo(() => document.createElement("div"), []);
 
   const escClose = (e) => {
     if (e.key === "Escape") {
-      onClose()
+      onClose();
     }
   };
+
+  /* eslint-disable*/
+  /* запивисимость только на рендер */
   React.useEffect(() => {
     window.addEventListener("keydown", escClose);
     return () => window.removeEventListener("keydown", escClose);
   }, []);
-  
-
+  /* eslint-enable */
 
   React.useEffect(() => {
     if (open) {
@@ -33,33 +33,35 @@ const Modal = ({open, onClose, children}) => {
       };
     }
   });
- 
 
   if (open) {
     return createPortal(
       <ModalOverlay onClose={onClose}>
-    <div onKeyPress={escClose} onClick={(e)=>{e.stopPropagation(); console.log('click')}} className={classes.container}>
-      <button onClick={onClose} className={classes.closeBtn}>
-        <CloseIcon type="primary" />
-      </button>
+        <div
+          onKeyPress={escClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            console.log("click");
+          }}
+          className={classes.container}
+        >
+          <button onClick={onClose} className={classes.closeBtn}>
+            <CloseIcon type="primary" />
+          </button>
           {children}
-    </div>
-    </ModalOverlay>,
+        </div>
+      </ModalOverlay>,
 
       element
     );
   }
   return null;
-
-
-  };
+};
 
 export default Modal;
 
 Modal.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
 };
-
-
