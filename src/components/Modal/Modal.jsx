@@ -1,8 +1,11 @@
 import React from "react";
-import * as ReactDOM from "react-dom";
+import {createPortal} from "react-dom";
 import classes from "./Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import PropTypes from "prop-types";
+
+
 const modalRootElement = document.querySelector("#modal");
 
 
@@ -18,11 +21,10 @@ const Modal = ({open, onClose, children}) => {
       };
     }
   });
-
-  
+ 
 
   if (open) {
-    return ReactDOM.createPortal(
+    return createPortal(
       <ModalOverlay onClose={onClose}>
     <div onClick={(e)=>e.stopPropagation()} className={classes.container}>
       <button onClick={onClose} className={classes.closeBtn}>
@@ -42,5 +44,10 @@ const Modal = ({open, onClose, children}) => {
 
 export default Modal;
 
+Modal.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  children: PropTypes.node
+};
 
 

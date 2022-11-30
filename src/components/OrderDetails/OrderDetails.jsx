@@ -1,6 +1,7 @@
 import React from 'react'
 import classes from './OrderDetails.module.css'
 import Modal from '../Modal/Modal'
+import PropTypes from "prop-types";
 
 const OrderDetails = ({open, onClose}) => {
   return (
@@ -23,3 +24,8 @@ const OrderDetails = ({open, onClose}) => {
 }
 
 export default OrderDetails
+
+OrderDetails.propTypes = {
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+};

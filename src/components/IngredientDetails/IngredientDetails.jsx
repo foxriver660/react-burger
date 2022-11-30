@@ -1,7 +1,8 @@
 import React from 'react'
 import classes from './IngredientDetails.module.css'
 import Modal from '../Modal/Modal'
-
+import itemPropTypes from "../utils/prop-types";
+import PropTypes from "prop-types";
 
 const IngredientDetails = ({data, open, onClose}) => {
   
@@ -67,3 +68,9 @@ const IngredientDetails = ({data, open, onClose}) => {
 }
 
 export default IngredientDetails
+
+IngredientDetails.propTypes = {
+  data: itemPropTypes,
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+};

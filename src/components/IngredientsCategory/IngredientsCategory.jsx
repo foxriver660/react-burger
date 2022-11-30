@@ -2,6 +2,8 @@ import React from "react";
 import IngredientCard from "../IngredientCard/IngredientCard";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import classes from './IngredientsCategory.module.css';
+import PropTypes from "prop-types";
+import itemPropTypes from "../utils/prop-types";
 
 const IngredientsCategory = ({ filteredArr }) => {
   const [openCard, setOpenCard] = React.useState(false);
@@ -25,12 +27,7 @@ const IngredientsCategory = ({ filteredArr }) => {
           setOpenCard(true);
         }}>
           <IngredientCard
-            name={item.name}
-            _id={item._id}
-            type={item.type}
-            price={item.price}
-            image={item.image}
-            key={item._id}
+            data={item}
           />
         </li>
       ))}
@@ -47,3 +44,7 @@ const IngredientsCategory = ({ filteredArr }) => {
 };
 
 export default IngredientsCategory;
+
+IngredientsCategory.propTypes = {
+  filteredArr: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+};

@@ -5,24 +5,24 @@ import classes from "./IngredientCard.module.css";
 import itemPropTypes from "../utils/prop-types";
 import PropTypes from "prop-types";
 
-const IngredientCard = (props) => {
+const IngredientCard = ({data}) => {
   //  ID и тип карточки записываются в состояние
   /* eslint-disable */
-  const [id, setID] = React.useState(props._id);
-  const [ingredientType, setType] = React.useState(props.type);
+  const [id, setID] = React.useState(data._id);
+  const [ingredientType, setType] = React.useState(data.type);
   /* eslint-enable */
 
   return (
     <div className={classes.container}>
-      <img className={classes.image} src={props.image} alt={props.name} />
+      <img className={classes.image} src={data.image} alt={data.name} />
       <div className={classes.currencyContainer}>
         <span className={`pr-2 text text_type_digits-default`}>
-          {props.price}
+          {data.price}
         </span>
         <CurrencyIcon />
       </div>
       <p className={`${classes.ingredientName} text text_type_main-default`}>
-        {props.name}
+        {data.name}
       </p>
       <Counter count={1} size="default" />
     </div>
@@ -31,8 +31,7 @@ const IngredientCard = (props) => {
 
 export default IngredientCard;
 
-/* 
+
 IngredientCard.propTypes = {
-  props: PropTypes.object(itemPropTypes),
+  data: itemPropTypes,
 };
- */
