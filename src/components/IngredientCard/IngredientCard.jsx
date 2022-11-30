@@ -31,5 +31,5 @@ const IngredientCard = (props) => {
 
 export default IngredientCard;
 
-IngredientCard.propTypes = PropTypes.itemPropTypes;
+
 
