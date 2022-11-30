@@ -1,7 +1,6 @@
 import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
-import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
 import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
@@ -42,7 +41,7 @@ const BurgerConstructor = ({ data }) => {
         type="top"
         isLocked={true}
       />
-      <CustomScrollBar side={"right"}>
+      <div className={classes.scrollWrapper}>
         <ul className={`${classes.ingredientList} `}>
           {ingredients.map((item) => {
             return (
@@ -56,7 +55,7 @@ const BurgerConstructor = ({ data }) => {
               >
                 <DragIcon type="primary" />
                 <ConstructorElement
-                  extraClass={classes.ingredientElement}
+                  extraClass={`${classes.ingredientElement} mr-2`}
                   text={item.name}
                   price={item.price}
                   thumbnail={item.image}
@@ -65,7 +64,7 @@ const BurgerConstructor = ({ data }) => {
             );
           })}
         </ul>
-      </CustomScrollBar>
+        </div>
       <ConstructorElement
         extraClass={`${classes.ingredientElement} mt-4 mr-3`}
         text={`${bun.name} (низ)`}

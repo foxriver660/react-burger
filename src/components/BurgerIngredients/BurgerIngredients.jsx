@@ -1,7 +1,6 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
-import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
 import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
@@ -14,13 +13,13 @@ const BurgerIngredients = ({ data }) => {
   const sauceRef = React.useRef(null);
   const bunRef = React.useRef(null);
   const scrollToMain = () => {
-    mainRef.current.scrollIntoView({block: "center", behavior: "smooth"});
+    mainRef.current.scrollIntoView({behavior: "smooth"});
   };
   const scrollToBun = () => {
-    bunRef.current.scrollIntoView({block: "center", behavior: "smooth"});
+    bunRef.current.scrollIntoView({behavior: "smooth"});
   };
   const scrollToSauce = () => {
-    sauceRef.current.scrollIntoView({block: "center", behavior: "smooth"});
+    sauceRef.current.scrollIntoView({behavior: "smooth"});
   };
 
   // ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ
@@ -84,7 +83,7 @@ const BurgerIngredients = ({ data }) => {
         </Tab>
       </div>
 
-      <CustomScrollBar side="left">
+      <div className={classes.scrollWrapper}>
         <h2
           ref={bunRef}
           className={`${classes.subtitle} pb-6 text text_type_main-medium`}
@@ -117,7 +116,7 @@ const BurgerIngredients = ({ data }) => {
         <ul className={classes.ingredientsList}>
           <IngredientsCategory filteredArr={mains} />
         </ul>
-      </CustomScrollBar>
+        </div>
     </section>
   );
 };

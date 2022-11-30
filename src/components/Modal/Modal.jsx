@@ -3,7 +3,6 @@ import * as ReactDOM from "react-dom";
 import classes from "./Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
 const modalRootElement = document.querySelector("#modal");
 
 
