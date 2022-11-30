@@ -10,24 +10,14 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 
 const BurgerConstructor = ({ data }) => {
+  /* РАСПРЕДЕЛЕНИЕ МАССИВОВ ПО ТИПУ */
   const bun = data.find((item) => item.type === "bun");
   const ingredients = data.filter((item) => item.type !== "bun");
-  
-  /* МОДАЛКИ */
+
+  /* СОСТОЯНИЕ МОДАЛОК */
   const [openOrder, setOpenOrder] = React.useState(false);
   const [openCard, setOpenCard] = React.useState(false);
-
-  /* ЗАКРЫТИЕ МОДАЛКИ ПО ESC */
-  const escClose = (e) => {
-    if (e.key === "Escape") {
-      openOrder ? setOpenOrder(false) : setOpenCard(false);
-    }
-  };
-  React.useEffect(() => {
-    window.addEventListener("keydown", escClose);
-    return () => window.removeEventListener("keydown", escClose);
-  }, [openOrder, openCard]);
-
+ 
   /* ВЫБРАННЫЙ ЭНГРЕДИЕНТ */
   const [selectedIngredient, setSelectedIngredient] = React.useState();
 
@@ -64,7 +54,7 @@ const BurgerConstructor = ({ data }) => {
             );
           })}
         </ul>
-        </div>
+      </div>
       <ConstructorElement
         extraClass={`${classes.ingredientElement} mt-4 mr-3`}
         text={`${bun.name} (низ)`}
@@ -88,17 +78,12 @@ const BurgerConstructor = ({ data }) => {
       {selectedIngredient && (
         <IngredientDetails
           data={selectedIngredient}
-          onKeyPress={escClose}
           open={openCard}
           onClose={() => setOpenCard(false)}
         />
       )}
       {openOrder && (
-        <OrderDetails
-          onKeyPress={escClose}
-          open={openOrder}
-          onClose={() => setOpenOrder(false)}
-        />
+        <OrderDetails open={openOrder} onClose={() => setOpenOrder(false)} />
       )}
     </section>
   );

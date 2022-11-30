@@ -6,19 +6,11 @@ import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
 
 const IngredientsCategory = ({ filteredArr }) => {
+  /* СОСТОЯНИЕ МОДАЛКИ */
   const [openCard, setOpenCard] = React.useState(false);
+  /* ВЫБРАННЫЙ ИНГРЕДИЕНТ */
   const [selectedIngredient, setSelectedIngredient] = React.useState();
-  const escClose = (e) => {
-    if (e.key === "Escape") {
-      setOpenCard(false);
-    }
-  };
-  React.useEffect(() => {
-    window.addEventListener("keydown", escClose);
-    return () => window.removeEventListener("keydown", escClose);
-  }, [openCard]);
-
-
+  
   return (
     <>
       {filteredArr.map((item) => (
@@ -34,8 +26,7 @@ const IngredientsCategory = ({ filteredArr }) => {
       {selectedIngredient && (
         <IngredientDetails
           data={selectedIngredient}
-          onKeyPress={escClose}
-          open={openCard}
+                 open={openCard}
           onClose={() => setOpenCard(false)}
         />
       )}

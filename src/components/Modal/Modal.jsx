@@ -12,6 +12,18 @@ const modalRootElement = document.querySelector("#modal");
 const Modal = ({open, onClose, children}) => {
   const element = React.useMemo(() => document.createElement("div"), []);
 
+  const escClose = (e) => {
+    if (e.key === "Escape") {
+      onClose()
+    }
+  };
+  React.useEffect(() => {
+    window.addEventListener("keydown", escClose);
+    return () => window.removeEventListener("keydown", escClose);
+  }, []);
+  
+
+
   React.useEffect(() => {
     if (open) {
       modalRootElement.appendChild(element);
@@ -26,7 +38,7 @@ const Modal = ({open, onClose, children}) => {
   if (open) {
     return createPortal(
       <ModalOverlay onClose={onClose}>
-    <div onClick={(e)=>e.stopPropagation()} className={classes.container}>
+    <div onKeyPress={escClose} onClick={(e)=>{e.stopPropagation(); console.log('click')}} className={classes.container}>
       <button onClick={onClose} className={classes.closeBtn}>
         <CloseIcon type="primary" />
       </button>
