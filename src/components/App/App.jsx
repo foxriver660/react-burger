@@ -11,22 +11,19 @@ const App = () => {
     hasError: false,
     data: [],
   });
- 
 
+  /* eslint-disable */
+  /* зависимость без дополнительных параметров, выполнение тоолько при первом ренедере */
   React.useEffect(() => {
     const getData = async () => {
-      setState({ ...state, hasError: false, isLoading: true });
+      setState({ ...state, isLoading: true });
       getIngredients()
-        .then((res) => {
-          setState({ ...state, data: res.data, isLoading: false}); 
-        })
-        .catch((err) => {
-          console.log(err);
-          setState({ ...state, hasError: true, isLoading: false});
-        }).finally(()=> {});
+        .then((res) => setState({ ...state, data: res.data }))
+        .catch((err) => setState({ ...state, hasError: true }));
     };
     getData();
   }, []);
+  /* eslint-enable */
 
   return (
     <main className={`p-10`}>
@@ -42,16 +39,14 @@ const App = () => {
             Что-то пошло не так :(
           </div>
         )}
-        {!state.isLoading && !state.hasError && state.data.length && (
+        {!state.isLoading && !state.hasError && !!state.data.length && (
           <>
-          
             <BurgerIngredients data={state.data} />
             <BurgerConstructor data={state.data} />
           </>
         )}
       </div>
-      
-     </main>
+    </main>
   );
 };
 

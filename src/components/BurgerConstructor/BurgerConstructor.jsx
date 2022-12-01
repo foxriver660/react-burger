@@ -77,12 +77,14 @@ const BurgerConstructor = ({ data }) => {
         </Button>
       </div>
       {selectedIngredient && isOpenCard && (
-        <Modal onClose={() => setIsOpenCard(false)}><IngredientDetails
-          data={selectedIngredient}
-                 /></Modal>
+        <Modal onClose={() => setIsOpenCard(false)}>
+          <IngredientDetails data={selectedIngredient} />
+        </Modal>
       )}
       {isOpenOrder && (
-        <Modal onClose={() => setIsOpenOrder(false)}><OrderDetails /></Modal>
+        <Modal onClose={() => setIsOpenOrder(false)}>
+          <OrderDetails />
+        </Modal>
       )}
     </section>
   );

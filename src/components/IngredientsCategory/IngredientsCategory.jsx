@@ -27,9 +27,9 @@ const IngredientsCategory = ({ filteredArr }) => {
         </li>
       ))}
       {selectedIngredient && isOpenCard && (
-        <Modal onClose={() => setIsOpenCard(false)}><IngredientDetails
-          data={selectedIngredient}
-                  /></Modal>
+        <Modal onClose={() => setIsOpenCard(false)}>
+          <IngredientDetails data={selectedIngredient} />
+        </Modal>
       )}
     </>
   );
