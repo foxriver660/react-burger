@@ -7,7 +7,7 @@ import itemPropTypes from "../utils/prop-types";
 
 const IngredientsCategory = ({ filteredArr }) => {
   /* СОСТОЯНИЕ МОДАЛКИ */
-  const [openCard, setOpenCard] = React.useState(false);
+  const [isOpenCard, setIsOpenCard] = React.useState(false);
   /* ВЫБРАННЫЙ ИНГРЕДИЕНТ */
   const [selectedIngredient, setSelectedIngredient] = React.useState();
 
@@ -19,17 +19,16 @@ const IngredientsCategory = ({ filteredArr }) => {
           key={item._id}
           onClick={() => {
             setSelectedIngredient(item);
-            setOpenCard(true);
+            setIsOpenCard(true);
           }}
         >
           <IngredientCard data={item} />
         </li>
       ))}
-      {selectedIngredient && (
+      {selectedIngredient && isOpenCard && (
         <IngredientDetails
           data={selectedIngredient}
-          open={openCard}
-          onClose={() => setOpenCard(false)}
+          onClose={() => setIsOpenCard(false)}
         />
       )}
     </>

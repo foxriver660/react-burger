@@ -15,8 +15,8 @@ const BurgerConstructor = ({ data }) => {
   const ingredients = data.filter((item) => item.type !== "bun");
 
   /* СОСТОЯНИЕ МОДАЛОК */
-  const [openOrder, setOpenOrder] = React.useState(false);
-  const [openCard, setOpenCard] = React.useState(false);
+  const [isOpenOrder, setIsOpenOrder] = React.useState(false);
+  const [isOpenCard, setIsOpenCard] = React.useState(false);
 
   /* ВЫБРАННЫЙ ЭНГРЕДИЕНТ */
   const [selectedIngredient, setSelectedIngredient] = React.useState();
@@ -38,7 +38,7 @@ const BurgerConstructor = ({ data }) => {
               <li
                 onClick={() => {
                   setSelectedIngredient(item);
-                  setOpenCard(true);
+                  setIsOpenCard(true);
                 }}
                 key={item._id}
                 className={`${classes.ingredientItem} `}
@@ -67,7 +67,7 @@ const BurgerConstructor = ({ data }) => {
         <p className="text text_type_digits-medium">610</p>
         <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты" />
         <Button
-          onClick={() => setOpenOrder(true)}
+          onClick={() => setIsOpenOrder(true)}
           htmlType="button"
           type="primary"
           size="large"
@@ -75,15 +75,14 @@ const BurgerConstructor = ({ data }) => {
           Оформить заказ
         </Button>
       </div>
-      {selectedIngredient && (
+      {selectedIngredient && isOpenCard && (
         <IngredientDetails
           data={selectedIngredient}
-          open={openCard}
-          onClose={() => setOpenCard(false)}
+          onClose={() => setIsOpenCard(false)}
         />
       )}
-      {openOrder && (
-        <OrderDetails open={openOrder} onClose={() => setOpenOrder(false)} />
+      {isOpenOrder && (
+        <OrderDetails onClose={() => setIsOpenOrder(false)} />
       )}
     </section>
   );

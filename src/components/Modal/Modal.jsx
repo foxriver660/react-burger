@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 const modalRootElement = document.querySelector("#modal");
 
-const Modal = ({ open, onClose, children }) => {
+const Modal = ({onClose, children }) => {
   const element = React.useMemo(() => document.createElement("div"), []);
 
   const escClose = (e) => {
@@ -25,17 +25,14 @@ const Modal = ({ open, onClose, children }) => {
   /* eslint-enable */
 
   React.useEffect(() => {
-    if (open) {
-      modalRootElement.appendChild(element);
-
+          modalRootElement.appendChild(element);
       return () => {
         modalRootElement.removeChild(element);
       };
-    }
+    
   });
 
-  if (open) {
-    return createPortal(
+     return createPortal(
       <ModalOverlay onClose={onClose}>
         <div
           onKeyPress={escClose}
@@ -54,8 +51,7 @@ const Modal = ({ open, onClose, children }) => {
 
       element
     );
-  }
-  return null;
+  
 };
 
 export default Modal;

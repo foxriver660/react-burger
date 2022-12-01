@@ -3,9 +3,9 @@ import classes from "./OrderDetails.module.css";
 import Modal from "../Modal/Modal";
 import PropTypes from "prop-types";
 
-const OrderDetails = ({ open, onClose }) => {
+const OrderDetails = ({ onClose }) => {
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal onClose={onClose}>
       <div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-30`}>
         <p
           className={`${classes.orderNumber} text text_type_digits-large pb-8`}
@@ -36,6 +36,5 @@ const OrderDetails = ({ open, onClose }) => {
 export default OrderDetails;
 
 OrderDetails.propTypes = {
-  open: PropTypes.bool,
   onClose: PropTypes.func,
 };

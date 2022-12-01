@@ -4,9 +4,9 @@ import Modal from "../Modal/Modal";
 import itemPropTypes from "../utils/prop-types";
 import PropTypes from "prop-types";
 
-const IngredientDetails = ({ data, open, onClose }) => {
+const IngredientDetails = ({ data, onClose }) => {
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal onClose={onClose}>
       <div className={`${classes.wrapper} pt-10 pr-10 pl-10 pb-15`}>
         <p className={`${classes.ingredientHeader} text text_type_main-large`}>
           Детали ингредиента
@@ -77,6 +77,5 @@ export default IngredientDetails;
 
 IngredientDetails.propTypes = {
   data: itemPropTypes,
-  open: PropTypes.bool,
   onClose: PropTypes.func,
 };
