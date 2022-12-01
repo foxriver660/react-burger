@@ -3,7 +3,7 @@ import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
-
+import { getIngredients } from "../utils/burger-api";
 
 const App = () => {
   const [state, setState] = React.useState({
@@ -11,19 +11,19 @@ const App = () => {
     hasError: false,
     data: [],
   });
+ 
 
   React.useEffect(() => {
     const getData = async () => {
       setState({ ...state, hasError: false, isLoading: true });
-      fetch("https://norma.nomoreparties.space/api/ingredients")
-        .then((res) => res.json())
+      getIngredients()
         .then((res) => {
-          setState({ ...state, data: res.data, isLoading: false });
+          setState({ ...state, data: res.data, isLoading: false}); 
         })
         .catch((err) => {
           console.log(err);
-          setState({ ...state, hasError: true, isLoading: false });
-        });
+          setState({ ...state, hasError: true, isLoading: false});
+        }).finally(()=> {});
     };
     getData();
   }, []);
@@ -44,6 +44,7 @@ const App = () => {
         )}
         {!state.isLoading && !state.hasError && state.data.length && (
           <>
+          
             <BurgerIngredients data={state.data} />
             <BurgerConstructor data={state.data} />
           </>
