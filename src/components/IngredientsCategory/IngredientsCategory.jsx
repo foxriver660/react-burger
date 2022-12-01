@@ -4,6 +4,7 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import classes from "./IngredientsCategory.module.css";
 import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
+import Modal from "../Modal/Modal";
 
 const IngredientsCategory = ({ filteredArr }) => {
   /* СОСТОЯНИЕ МОДАЛКИ */
@@ -26,10 +27,9 @@ const IngredientsCategory = ({ filteredArr }) => {
         </li>
       ))}
       {selectedIngredient && isOpenCard && (
-        <IngredientDetails
+        <Modal onClose={() => setIsOpenCard(false)}><IngredientDetails
           data={selectedIngredient}
-          onClose={() => setIsOpenCard(false)}
-        />
+                  /></Modal>
       )}
     </>
   );

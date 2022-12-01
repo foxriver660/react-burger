@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import Modal from "../Modal/Modal";
 
 const BurgerConstructor = ({ data }) => {
   /* РАСПРЕДЕЛЕНИЕ МАССИВОВ ПО ТИПУ */
@@ -76,13 +77,12 @@ const BurgerConstructor = ({ data }) => {
         </Button>
       </div>
       {selectedIngredient && isOpenCard && (
-        <IngredientDetails
+        <Modal onClose={() => setIsOpenCard(false)}><IngredientDetails
           data={selectedIngredient}
-          onClose={() => setIsOpenCard(false)}
-        />
+                 /></Modal>
       )}
       {isOpenOrder && (
-        <OrderDetails onClose={() => setIsOpenOrder(false)} />
+        <Modal onClose={() => setIsOpenOrder(false)}><OrderDetails /></Modal>
       )}
     </section>
   );

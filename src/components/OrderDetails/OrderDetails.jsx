@@ -3,10 +3,9 @@ import classes from "./OrderDetails.module.css";
 import Modal from "../Modal/Modal";
 import PropTypes from "prop-types";
 
-const OrderDetails = ({ onClose }) => {
+const OrderDetails = () => {
   return (
-    <Modal onClose={onClose}>
-      <div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-30`}>
+          <div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-30`}>
         <p
           className={`${classes.orderNumber} text text_type_digits-large pb-8`}
         >
@@ -29,12 +28,9 @@ const OrderDetails = ({ onClose }) => {
           Дождитесь готовности на орбитальной станции
         </p>
       </div>
-    </Modal>
-  );
+    );
 };
 
 export default OrderDetails;
 
-OrderDetails.propTypes = {
-  onClose: PropTypes.func,
-};
+
