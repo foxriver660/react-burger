@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 const modalRootElement = document.querySelector("#modal");
 
 const Modal = ({ onClose, children }) => {
-  const element = React.useMemo(() => document.createElement("div"), []);
+  
 
   React.useEffect(() => {
     const escClose = (e) => {
@@ -20,13 +20,6 @@ const Modal = ({ onClose, children }) => {
 
     return () => window.removeEventListener("keydown", escClose);
   }, [onClose]);
-
-  React.useEffect(() => {
-    modalRootElement.appendChild(element);
-    return () => {
-      modalRootElement.removeChild(element);
-    };
-  });
 
   return createPortal(
     <ModalOverlay onClose={onClose}>
@@ -43,14 +36,13 @@ const Modal = ({ onClose, children }) => {
       </div>
     </ModalOverlay>,
 
-    element
+modalRootElement
   );
 };
 
 export default Modal;
 
 Modal.propTypes = {
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };

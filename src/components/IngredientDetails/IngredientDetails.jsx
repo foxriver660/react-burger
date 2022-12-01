@@ -76,6 +76,6 @@ const IngredientDetails = ({ data, onClose }) => {
 export default IngredientDetails;
 
 IngredientDetails.propTypes = {
-  data: itemPropTypes,
-  onClose: PropTypes.func,
+  data: itemPropTypes.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
