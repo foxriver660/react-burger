@@ -7,51 +7,44 @@ import PropTypes from "prop-types";
 
 const modalRootElement = document.querySelector("#modal");
 
-const Modal = ({onClose, children }) => {
+const Modal = ({ onClose, children }) => {
   const element = React.useMemo(() => document.createElement("div"), []);
 
-  const escClose = (e) => {
-    if (e.key === "Escape") {
-      onClose();
-    }
-  };
-
-  /* eslint-disable*/
-  /* запивисимость только на рендер */
   React.useEffect(() => {
+    const escClose = (e) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
     window.addEventListener("keydown", escClose);
+
     return () => window.removeEventListener("keydown", escClose);
-  }, []);
-  /* eslint-enable */
+  }, [onClose]);
 
   React.useEffect(() => {
-          modalRootElement.appendChild(element);
-      return () => {
-        modalRootElement.removeChild(element);
-      };
-    
+    modalRootElement.appendChild(element);
+    return () => {
+      modalRootElement.removeChild(element);
+    };
   });
 
-     return createPortal(
-      <ModalOverlay onClose={onClose}>
-        <div
-          onKeyPress={escClose}
-          onClick={(e) => {
-            e.stopPropagation();
-            console.log("click");
-          }}
-          className={classes.container}
-        >
-          <button onClick={onClose} className={classes.closeBtn}>
-            <CloseIcon type="primary" />
-          </button>
-          {children}
-        </div>
-      </ModalOverlay>,
+  return createPortal(
+    <ModalOverlay onClose={onClose}>
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+        className={classes.container}
+      >
+        <button onClick={onClose} className={classes.closeBtn}>
+          <CloseIcon type="primary" />
+        </button>
+        {children}
+      </div>
+    </ModalOverlay>,
 
-      element
-    );
-  
+    element
+  );
 };
 
 export default Modal;
