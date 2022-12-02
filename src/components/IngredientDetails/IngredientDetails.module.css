@@ -1,0 +1,28 @@
+.wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ingredientHeader {
+  line-height: 64px;
+  vertical-align: center;
+  align-self: flex-start;
+}
+.compoundList {
+  display: flex;
+  gap: 20px;
+}
+.compoundItem {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.compoundName {
+  color: #8585ad;
+}
+.compoundValue {
+  text-align: center;
+  composes: compoundName;
+}

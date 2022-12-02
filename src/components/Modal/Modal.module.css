@@ -1,0 +1,40 @@
+.container {
+  outline: 1px solid #4c4cff;
+  background-color: #1c1c21;
+  border-radius: 35px;
+  width: 720px;
+  z-index: 100;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  animation-duration: 0.5s;
+  animation-name: pump;
+  animation-iteration-count: 1;
+  animation-delay: 0ms;
+}
+
+.closeBtn {
+  padding: 0;
+  margin: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  position: absolute;
+  right: 40px;
+  top: 60px;
+  cursor: pointer;
+}
+
+@keyframes pump {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

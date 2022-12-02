@@ -1,28 +1,36 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
-import CustomScrollBar from "../CustomScrollBar/CustomScrollBar";
 import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
 
 const BurgerIngredients = ({ data }) => {
-  const [current, setCurrent] = React.useState("one");
+  const [current, setCurrent] = React.useState("bun");
 
   // РЕАЛИЗАЦИЯ СКРОЛЛА
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);
   const bunRef = React.useRef(null);
-  const scrollToMain = () => {
-    mainRef.current.scrollIntoView();
-  };
-  const scrollToBun = () => {
-    bunRef.current.scrollIntoView();
-  };
-  const scrollToSauce = () => {
-    sauceRef.current.scrollIntoView();
-  };
 
+  const scrollTo = (ref) => {
+    ref.current.scrollIntoView({ behavior: "smooth" });
+  };
+  const handleClickTab = (tab) => {
+    setCurrent(tab);
+    switch (tab) {
+      case "bun":
+        scrollTo(bunRef);
+        break;
+      case "sauce":
+        scrollTo(sauceRef);
+        break;
+      case "main":
+        scrollTo(mainRef);
+        break;
+      // no default
+    }
+  };
   // ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ
   const { buns, mains, sauces } = React.useMemo(() => {
     return data.reduce(
@@ -53,38 +61,29 @@ const BurgerIngredients = ({ data }) => {
 
       <div className={`${classes.tabContainer} pt-5 pb-10`}>
         <Tab
-          value="one"
-          active={current === "one"}
-          onClick={() => {
-            scrollToBun();
-            setCurrent("one");
-          }}
+          value="bun"
+          active={current === "bun"}
+          onClick={() => handleClickTab("bun")}
         >
           Булки
         </Tab>
         <Tab
-          value="two"
-          active={current === "two"}
-          onClick={() => {
-            scrollToSauce();
-            setCurrent("two");
-          }}
+          value="sauce"
+          active={current === "sauce"}
+          onClick={() => handleClickTab("sauce")}
         >
           Соусы
         </Tab>
         <Tab
-          value="three"
-          active={current === "three"}
-          onClick={() => {
-            scrollToMain();
-            setCurrent("three");
-          }}
+          value="main"
+          active={current === "main"}
+          onClick={() => handleClickTab("main")}
         >
           Начинки
         </Tab>
       </div>
 
-      <CustomScrollBar side="left">
+      <div className={classes.scrollWrapper}>
         <h2
           ref={bunRef}
           className={`${classes.subtitle} pb-6 text text_type_main-medium`}
@@ -117,7 +116,7 @@ const BurgerIngredients = ({ data }) => {
         <ul className={classes.ingredientsList}>
           <IngredientsCategory filteredArr={mains} />
         </ul>
-      </CustomScrollBar>
+      </div>
     </section>
   );
 };
