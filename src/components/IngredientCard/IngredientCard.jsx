@@ -33,3 +33,4 @@ export default IngredientCard;
 IngredientCard.propTypes = {
   data: itemPropTypes.isRequired,
 };
+
