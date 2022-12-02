@@ -19,7 +19,8 @@ const App = () => {
       setState({ ...state, isLoading: true });
       getIngredients()
         .then((res) => setState({ ...state, data: res.data }))
-        .catch((err) => setState({ ...state, hasError: true }));
+        .catch((err) => setState({ ...state, hasError: true }))
+        .finally(()=>setState((prevState) => {return { ...prevState, isLoading: false}}));
     };
     getData();
   }, []);

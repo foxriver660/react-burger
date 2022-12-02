@@ -7,7 +7,6 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/
 import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
 import OrderDetails from "../OrderDetails/OrderDetails";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import Modal from "../Modal/Modal";
 
 const BurgerConstructor = ({ data }) => {
@@ -17,10 +16,6 @@ const BurgerConstructor = ({ data }) => {
 
   /* СОСТОЯНИЕ МОДАЛОК */
   const [isOpenOrder, setIsOpenOrder] = React.useState(false);
-  const [isOpenCard, setIsOpenCard] = React.useState(false);
-
-  /* ВЫБРАННЫЙ ЭНГРЕДИЕНТ */
-  const [selectedIngredient, setSelectedIngredient] = React.useState();
 
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
@@ -36,14 +31,7 @@ const BurgerConstructor = ({ data }) => {
         <ul className={`${classes.ingredientList} `}>
           {ingredients.map((item) => {
             return (
-              <li
-                onClick={() => {
-                  setSelectedIngredient(item);
-                  setIsOpenCard(true);
-                }}
-                key={item._id}
-                className={`${classes.ingredientItem} `}
-              >
+              <li key={item._id} className={`${classes.ingredientItem} `}>
                 <DragIcon type="primary" />
                 <ConstructorElement
                   extraClass={`${classes.ingredientElement} mr-2`}
@@ -76,11 +64,7 @@ const BurgerConstructor = ({ data }) => {
           Оформить заказ
         </Button>
       </div>
-      {selectedIngredient && isOpenCard && (
-        <Modal onClose={() => setIsOpenCard(false)}>
-          <IngredientDetails data={selectedIngredient} />
-        </Modal>
-      )}
+
       {isOpenOrder && (
         <Modal onClose={() => setIsOpenOrder(false)}>
           <OrderDetails />
