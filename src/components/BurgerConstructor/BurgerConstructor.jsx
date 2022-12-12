@@ -8,12 +8,17 @@ import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-
-const BurgerConstructor = ({ data }) => {
+import { IngredientContext } from "../services/ingredientContext";
+const BurgerConstructor = () => {
+  const [totalPrice, setTotalPrice] = React.useState(0)
+  const {data} = React.useContext(IngredientContext)
+ 
   /* РАСПРЕДЕЛЕНИЕ МАССИВОВ ПО ТИПУ */
   const bun = data.find((item) => item.type === "bun");
   const ingredients = data.filter((item) => item.type !== "bun");
-
+ 
+const calcPrice = React.useMemo(() => (setTotalPrice(bun.price*2 + ingredients.reduce((acc, curr) => acc + curr.price, 0))), [])
+  
   /* СОСТОЯНИЕ МОДАЛОК */
   const [isOpenOrder, setIsOpenOrder] = React.useState(false);
 
@@ -53,7 +58,7 @@ const BurgerConstructor = ({ data }) => {
         isLocked={true}
       />
       <div className={`${classes.currencyContainer} pt-10`}>
-        <p className="text text_type_digits-medium">610</p>
+        <p className="text text_type_digits-medium">{totalPrice}</p>
         <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты" />
         <Button
           onClick={() => setIsOpenOrder(true)}
@@ -74,8 +79,8 @@ const BurgerConstructor = ({ data }) => {
   );
 };
 
-BurgerConstructor.propTypes = {
+/* BurgerConstructor.propTypes = {
   data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-};
+}; */
 
 export default BurgerConstructor;

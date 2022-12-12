@@ -4,6 +4,7 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
 import { getIngredients } from "../utils/burger-api";
+import { IngredientContext } from "../services/ingredientContext";
 
 const App = () => {
   const [state, setState] = React.useState({
@@ -11,6 +12,7 @@ const App = () => {
     hasError: false,
     data: [],
   });
+
 
   /* eslint-disable */
   /* зависимость без дополнительных параметров, выполнение тоолько при первом ренедере */
@@ -41,10 +43,10 @@ const App = () => {
           </div>
         )}
         {!state.isLoading && !state.hasError && !!state.data.length && (
-          <>
+          <IngredientContext.Provider value={state}>
             <BurgerIngredients data={state.data} />
-            <BurgerConstructor data={state.data} />
-          </>
+            <BurgerConstructor />
+          </IngredientContext.Provider>
         )}
       </div>
     </main>
