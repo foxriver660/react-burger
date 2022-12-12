@@ -9,4 +9,18 @@ const checkReponse = (res) => {
 const getIngredients = () =>
   fetch(`${BURGER_API_URL}/ingredients`).then(checkReponse);
 
-export { getIngredients };
+
+  const getOrder = (ingredients) =>
+  fetch(`${BURGER_API_URL}/orders`, {
+      method: "POST",
+      headers: {
+              "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ingredients
+      }),
+    }).then(checkReponse);
+  
+
+ 
+export { getIngredients, getOrder };

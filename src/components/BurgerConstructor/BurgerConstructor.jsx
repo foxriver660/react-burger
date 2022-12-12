@@ -4,22 +4,45 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components/dis
 import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import PropTypes from "prop-types";
-import itemPropTypes from "../utils/prop-types";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
 import { IngredientContext } from "../services/ingredientContext";
+import { OrderContext } from "../services/orderContext";
+import { getOrder } from "../utils/burger-api";
+// !КОМПОНЕНТ
 const BurgerConstructor = () => {
-  const [totalPrice, setTotalPrice] = React.useState(0)
-  const {data} = React.useContext(IngredientContext)
- 
-  /* РАСПРЕДЕЛЕНИЕ МАССИВОВ ПО ТИПУ */
+  // DATA ИЗ КОНТЕКСТА
+  const { data } = React.useContext(IngredientContext);
+  // РАСПРЕДЕЛЕНИЕ МАССИВОВ ПО ТИПУ
   const bun = data.find((item) => item.type === "bun");
   const ingredients = data.filter((item) => item.type !== "bun");
- 
-const calcPrice = React.useMemo(() => (setTotalPrice(bun.price*2 + ingredients.reduce((acc, curr) => acc + curr.price, 0))), [])
-  
-  /* СОСТОЯНИЕ МОДАЛОК */
+  // СУММАРНАЯ СТОИМОСТЬ
+  const [totalPrice, setTotalPrice] = React.useState(0);
+  // НОМЕР ОРДЕРА
+  const [order, setOrder] = React.useState();
+  // МАССИВ ID ИНГРЕДИЕНТОВ ДЛЯ ОРДЕРА
+  const [ingredientsId, setIngredientsId] = React.useState([]);
+  // КЛАДЕМ В МАССИВ ID ИНГРЕДИЕТОВ
+  React.useMemo(() => {
+    setIngredientsId([...ingredients.map((item) => item._id), bun._id]);
+  }, []);
+  // НАПРАВЛЯЕМ НА СЕРВЕР
+  const handleClickOrder = () => {
+    getOrder(ingredientsId).then((res) =>
+      setOrder({ number: res.order.number, succes: true })
+    );
+  };
+
+  //  РАССЧЕТ ОБЩЕЙ СТОИМОСТИ
+  React.useMemo(
+    () =>
+      setTotalPrice(
+        bun.price * 2 + ingredients.reduce((acc, curr) => acc + curr.price, 0)
+      ),
+    []
+  );
+
+  // СОСТОЯНИЕ МОДАЛОК
   const [isOpenOrder, setIsOpenOrder] = React.useState(false);
 
   return (
@@ -29,7 +52,7 @@ const calcPrice = React.useMemo(() => (setTotalPrice(bun.price*2 + ingredients.r
         text={`${bun.name} (верх)`}
         price={bun.price}
         thumbnail={bun.image}
-        type="top"
+        type="top"               
         isLocked={true}
       />
       <div className={classes.scrollWrapper}>
@@ -61,7 +84,10 @@ const calcPrice = React.useMemo(() => (setTotalPrice(bun.price*2 + ingredients.r
         <p className="text text_type_digits-medium">{totalPrice}</p>
         <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты" />
         <Button
-          onClick={() => setIsOpenOrder(true)}
+          onClick={() => {
+            setIsOpenOrder(true);
+            handleClickOrder();
+          }}
           htmlType="button"
           type="primary"
           size="large"
@@ -71,16 +97,19 @@ const calcPrice = React.useMemo(() => (setTotalPrice(bun.price*2 + ingredients.r
       </div>
 
       {isOpenOrder && (
-        <Modal onClose={() => setIsOpenOrder(false)}>
-          <OrderDetails />
-        </Modal>
+        <OrderContext.Provider value={{ order }}>
+          <Modal
+            onClose={() => {
+              setIsOpenOrder(false);
+              setOrder();
+            }}
+          >
+            <OrderDetails />
+          </Modal>
+        </OrderContext.Provider>
       )}
     </section>
   );
 };
-
-/* BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-}; */
 
 export default BurgerConstructor;

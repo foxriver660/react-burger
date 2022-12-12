@@ -44,7 +44,7 @@ const App = () => {
         )}
         {!state.isLoading && !state.hasError && !!state.data.length && (
           <IngredientContext.Provider value={state}>
-            <BurgerIngredients data={state.data} />
+            <BurgerIngredients />
             <BurgerConstructor />
           </IngredientContext.Provider>
         )}

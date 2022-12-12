@@ -4,10 +4,13 @@ import classes from "./BurgerIngredients.module.css";
 import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
+import { IngredientContext } from "../services/ingredientContext";
 
-const BurgerIngredients = ({ data }) => {
+
+const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("bun");
-
+  // ДАТА ИЗ КОНТЕКСТА
+  const {data} = React.useContext(IngredientContext)
   // РЕАЛИЗАЦИЯ СКРОЛЛА
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);
@@ -123,6 +126,4 @@ const BurgerIngredients = ({ data }) => {
 
 export default BurgerIngredients;
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-};
+

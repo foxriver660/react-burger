@@ -7,6 +7,7 @@
 }
 .orderNumber {
   box-sizing: border-box;
+  height: 150px;
 }
 .orderStatusImage {
   width: 120px;
@@ -21,4 +22,17 @@
 .orderInstruction {
   margin-bottom: 0;
   composes: orderStatusText;
+}
+.loader{
+  border: 16px solid transparent; 
+  border-top: 16px solid #4c4cff; 
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
