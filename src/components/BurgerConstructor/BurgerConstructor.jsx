@@ -16,6 +16,11 @@ const BurgerConstructor = () => {
   // РАСПРЕДЕЛЕНИЕ МАССИВОВ ПО ТИПУ
   const bun = data.find((item) => item.type === "bun");
   const ingredients = data.filter((item) => item.type !== "bun");
+
+
+/* const [orderState, dispatch] = React.useReducer(reducer, {totalPrice: 0}) */
+
+
   // СУММАРНАЯ СТОИМОСТЬ
   const [totalPrice, setTotalPrice] = React.useState(0);
   // НОМЕР ОРДЕРА
@@ -29,8 +34,8 @@ const BurgerConstructor = () => {
   // НАПРАВЛЯЕМ НА СЕРВЕР
   const handleClickOrder = () => {
     getOrder(ingredientsId).then((res) =>
-      setOrder({ number: res.order.number, succes: true })
-    );
+      setOrder(res.order.number )
+    ).catch((err) => setOrder( `error`))
   };
 
   //  РАССЧЕТ ОБЩЕЙ СТОИМОСТИ

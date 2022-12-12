@@ -4,14 +4,14 @@ import classes from "./OrderDetails.module.css";
 
 const OrderDetails = () => {
   const {order} = React.useContext(OrderContext)
- console.log(order)
+ console.log(typeof(order))
   return (
     <div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-30`}>
       <p className={`${classes.orderNumber} text text_type_digits-large pb-8`}>
-        {order && order.number} 
+        {order && order} 
       </p>
       <p className={`text text_type_main-medium pb-15`}>идентификатор заказа</p>
-      <div className={`${order ? classes.orderStatusImage : classes.loader} mb-15`}></div>
+      <div className={`${order>0 ? classes.orderStatusImage : classes.loader} mb-15`}></div>
       <p
         className={`${classes.orderStatusText} text text_type_main-default pb-2`}
       >

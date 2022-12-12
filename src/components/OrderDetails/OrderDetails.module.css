@@ -15,6 +15,8 @@
   background: url(../../images/graphics.svg);
   background-repeat: no-repeat;
   background-position: center;
+  animation: scale .5s ease-out infinite;
+  animation-iteration-count: 1;
 }
 .orderStatusText {
   margin-top: 0;
@@ -35,4 +37,8 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+@keyframes scale {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
