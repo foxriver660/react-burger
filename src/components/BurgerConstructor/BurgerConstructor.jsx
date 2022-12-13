@@ -25,7 +25,6 @@ const BurgerConstructor = () => {
   /* eslint-disable */
   React.useMemo(() => {
     dispatch({ type: "reset" });
-
     dispatch({
       type: "add",
       payload:
