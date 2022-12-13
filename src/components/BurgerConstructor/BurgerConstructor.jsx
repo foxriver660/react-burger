@@ -6,20 +6,21 @@ import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import { IngredientContext } from "../services/ingredientContext";
+import { DataContext } from "../services/dataContext";
 import { OrderContext } from "../services/orderContext";
 import { getOrder } from "../utils/burger-api";
 import priceReducer from "../services/priceReducer";
 // !КОМПОНЕНТ
 const BurgerConstructor = () => {
   // DATA ИЗ КОНТЕКСТА
-  const { data } = React.useContext(IngredientContext);
+  const { data } = React.useContext(DataContext);
   // УСТАНОВКА СТЕЙТА ЦЕНЫ
   const [state, dispatch] = React.useReducer(priceReducer, { totalPrice: 0 });
   // РАСПРЕДЕЛЕНИЕ МАССИВОВ ПО ТИПУ
   const bun = data.find((item) => item.type === "bun");
   const ingredients = data.filter((item) => item.type !== "bun");
   // ПОДСЧЕТ ОБЩЕЙ СТОИМОСТИ
+  /* eslint-disable */
   React.useMemo(() => {
     bun && ingredients && dispatch({ type: "reset" });
     dispatch({
@@ -27,7 +28,7 @@ const BurgerConstructor = () => {
       payload:
         bun.price * 2 + ingredients.reduce((acc, curr) => acc + curr.price, 0),
     });
-  }, []);
+  }, [data]);
 
   // НОМЕР ОРДЕРА
   const [order, setOrder] = React.useState();
@@ -36,8 +37,9 @@ const BurgerConstructor = () => {
   // КЛАДЕМ В МАССИВ ID ИНГРЕДИЕТОВ
   React.useMemo(() => {
     setIngredientsId([...ingredients.map((item) => item._id), bun._id]);
-  }, []);
-  // НАПРАВЛЯЕМ НА СЕРВЕР
+  }, [data]);
+  /* eslint-enable */
+  // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     getOrder(ingredientsId)
       .then((res) => setOrder(res.order.number))

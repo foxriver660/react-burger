@@ -6,7 +6,7 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
 
 const modalRootElement = document.querySelector("#modal");
-
+// !КОМПОНЕНТ
 const Modal = ({ onClose, children }) => {
   React.useEffect(() => {
     const escClose = (e) => {

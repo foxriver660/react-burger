@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./IngredientDetails.module.css";
 import itemPropTypes from "../utils/prop-types";
 
+// !КОМПОНЕНТ
 const IngredientDetails = ({ data }) => {
   return (
     <div className={`${classes.wrapper} pt-10 pr-10 pl-10 pb-15`}>

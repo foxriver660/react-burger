@@ -2,16 +2,21 @@ import React from "react";
 import { OrderContext } from "../services/orderContext";
 import classes from "./OrderDetails.module.css";
 
+// !КОМПОНЕНТ
 const OrderDetails = () => {
-  const {order} = React.useContext(OrderContext)
+  const { order } = React.useContext(OrderContext);
 
   return (
     <div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-30`}>
       <p className={`${classes.orderNumber} text text_type_digits-large pb-8`}>
-        {order && order} 
+        {order && order}
       </p>
       <p className={`text text_type_main-medium pb-15`}>идентификатор заказа</p>
-      <div className={`${order>0 ? classes.orderStatusImage : classes.loader} mb-15`}></div>
+      <div
+        className={`${
+          order > 0 ? classes.orderStatusImage : classes.loader
+        } mb-15`}
+      ></div>
       <p
         className={`${classes.orderStatusText} text text_type_main-default pb-2`}
       >

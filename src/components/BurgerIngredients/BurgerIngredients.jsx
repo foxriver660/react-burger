@@ -1,16 +1,14 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
-import PropTypes from "prop-types";
-import itemPropTypes from "../utils/prop-types";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
-import { IngredientContext } from "../services/ingredientContext";
+import { DataContext } from "../services/dataContext";
 
-
+// !КОМПОНЕНТ
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("bun");
   // ДАТА ИЗ КОНТЕКСТА
-  const {data} = React.useContext(IngredientContext)
+  const { data } = React.useContext(DataContext);
   // РЕАЛИЗАЦИЯ СКРОЛЛА
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);
@@ -125,5 +123,3 @@ const BurgerIngredients = () => {
 };
 
 export default BurgerIngredients;
-
-

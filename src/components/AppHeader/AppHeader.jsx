@@ -4,9 +4,9 @@ import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components/d
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import classes from "./AppHeader.module.css";
 
+// !КОМПОНЕНТ
 const AppHeader = () => {
   return (
     <section className={`p-4 ${classes.header}`}>

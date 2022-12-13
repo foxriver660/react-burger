@@ -4,15 +4,15 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
 import { getIngredients } from "../utils/burger-api";
-import { IngredientContext } from "../services/ingredientContext";
+import { DataContext } from "../services/dataContext";
 
+// !КОМПОНЕНТ
 const App = () => {
   const [state, setState] = React.useState({
     isLoading: false,
     hasError: false,
     data: [],
   });
-
 
   /* eslint-disable */
   /* зависимость без дополнительных параметров, выполнение тоолько при первом ренедере */
@@ -22,7 +22,11 @@ const App = () => {
       getIngredients()
         .then((res) => setState({ ...state, data: res.data }))
         .catch((err) => setState({ ...state, hasError: true }))
-        .finally(()=>setState((prevState) => {return { ...prevState, isLoading: false}}));
+        .finally(() =>
+          setState((prevState) => {
+            return { ...prevState, isLoading: false };
+          })
+        );
     };
     getData();
   }, []);
@@ -43,10 +47,10 @@ const App = () => {
           </div>
         )}
         {!state.isLoading && !state.hasError && !!state.data.length && (
-          <IngredientContext.Provider value={state}>
+          <DataContext.Provider value={state}>
             <BurgerIngredients />
             <BurgerConstructor />
-          </IngredientContext.Provider>
+          </DataContext.Provider>
         )}
       </div>
     </main>
