@@ -4,7 +4,7 @@ import classes from "./OrderDetails.module.css";
 
 const OrderDetails = () => {
   const {order} = React.useContext(OrderContext)
- console.log(typeof(order))
+
   return (
     <div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-30`}>
       <p className={`${classes.orderNumber} text text_type_digits-large pb-8`}>

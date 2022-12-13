@@ -9,20 +9,26 @@ import Modal from "../Modal/Modal";
 import { IngredientContext } from "../services/ingredientContext";
 import { OrderContext } from "../services/orderContext";
 import { getOrder } from "../utils/burger-api";
+import priceReducer from "../services/priceReducer";
 // !КОМПОНЕНТ
 const BurgerConstructor = () => {
   // DATA ИЗ КОНТЕКСТА
   const { data } = React.useContext(IngredientContext);
+  // УСТАНОВКА СТЕЙТА ЦЕНЫ
+  const [state, dispatch] = React.useReducer(priceReducer, { totalPrice: 0 });
   // РАСПРЕДЕЛЕНИЕ МАССИВОВ ПО ТИПУ
   const bun = data.find((item) => item.type === "bun");
   const ingredients = data.filter((item) => item.type !== "bun");
+  // ПОДСЧЕТ ОБЩЕЙ СТОИМОСТИ
+  React.useMemo(() => {
+    bun && ingredients && dispatch({ type: "reset" });
+    dispatch({
+      type: "add",
+      payload:
+        bun.price * 2 + ingredients.reduce((acc, curr) => acc + curr.price, 0),
+    });
+  }, []);
 
-
-/* const [orderState, dispatch] = React.useReducer(reducer, {totalPrice: 0}) */
-
-
-  // СУММАРНАЯ СТОИМОСТЬ
-  const [totalPrice, setTotalPrice] = React.useState(0);
   // НОМЕР ОРДЕРА
   const [order, setOrder] = React.useState();
   // МАССИВ ID ИНГРЕДИЕНТОВ ДЛЯ ОРДЕРА
@@ -33,19 +39,10 @@ const BurgerConstructor = () => {
   }, []);
   // НАПРАВЛЯЕМ НА СЕРВЕР
   const handleClickOrder = () => {
-    getOrder(ingredientsId).then((res) =>
-      setOrder(res.order.number )
-    ).catch((err) => setOrder( `error`))
+    getOrder(ingredientsId)
+      .then((res) => setOrder(res.order.number))
+      .catch((err) => setOrder(`error`));
   };
-
-  //  РАССЧЕТ ОБЩЕЙ СТОИМОСТИ
-  React.useMemo(
-    () =>
-      setTotalPrice(
-        bun.price * 2 + ingredients.reduce((acc, curr) => acc + curr.price, 0)
-      ),
-    []
-  );
 
   // СОСТОЯНИЕ МОДАЛОК
   const [isOpenOrder, setIsOpenOrder] = React.useState(false);
@@ -57,7 +54,7 @@ const BurgerConstructor = () => {
         text={`${bun.name} (верх)`}
         price={bun.price}
         thumbnail={bun.image}
-        type="top"               
+        type="top"
         isLocked={true}
       />
       <div className={classes.scrollWrapper}>
@@ -86,7 +83,7 @@ const BurgerConstructor = () => {
         isLocked={true}
       />
       <div className={`${classes.currencyContainer} pt-10`}>
-        <p className="text text_type_digits-medium">{totalPrice}</p>
+        <p className="text text_type_digits-medium">{state.totalPrice}</p>
         <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты" />
         <Button
           onClick={() => {
