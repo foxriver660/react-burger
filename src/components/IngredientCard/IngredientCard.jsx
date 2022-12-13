@@ -4,7 +4,7 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist
 import classes from "./IngredientCard.module.css";
 import itemPropTypes from "../utils/prop-types";
 
-// !КОМПОНЕНТ
+
 const IngredientCard = ({ data }) => {
   //  ID и тип карточки записываются в состояние
   /* eslint-disable */

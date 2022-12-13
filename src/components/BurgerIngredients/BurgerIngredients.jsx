@@ -3,10 +3,11 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
 import { DataContext } from "../services/dataContext";
+import { SAUCE, BUN, MAIN } from "../utils/constant";
 
-// !КОМПОНЕНТ
+
 const BurgerIngredients = () => {
-  const [current, setCurrent] = React.useState("bun");
+  const [current, setCurrent] = React.useState(BUN);
   // ДАТА ИЗ КОНТЕКСТА
   const { data } = React.useContext(DataContext);
   // РЕАЛИЗАЦИЯ СКРОЛЛА
@@ -20,13 +21,13 @@ const BurgerIngredients = () => {
   const handleClickTab = (tab) => {
     setCurrent(tab);
     switch (tab) {
-      case "bun":
+      case BUN:
         scrollTo(bunRef);
         break;
-      case "sauce":
+      case SAUCE:
         scrollTo(sauceRef);
         break;
-      case "main":
+      case MAIN:
         scrollTo(mainRef);
         break;
       // no default
@@ -37,13 +38,13 @@ const BurgerIngredients = () => {
     return data.reduce(
       (acc, ingredient) => {
         switch (ingredient.type) {
-          case "bun":
+          case BUN:
             acc.buns.push(ingredient);
             break;
-          case "main":
+          case MAIN:
             acc.mains.push(ingredient);
             break;
-          case "sauce":
+          case SAUCE:
             acc.sauces.push(ingredient);
             break;
           // no default
@@ -62,23 +63,23 @@ const BurgerIngredients = () => {
 
       <div className={`${classes.tabContainer} pt-5 pb-10`}>
         <Tab
-          value="bun"
-          active={current === "bun"}
-          onClick={() => handleClickTab("bun")}
+          value={BUN}
+          active={current === BUN}
+          onClick={() => handleClickTab(BUN)}
         >
           Булки
         </Tab>
         <Tab
-          value="sauce"
-          active={current === "sauce"}
-          onClick={() => handleClickTab("sauce")}
+          value={SAUCE}
+          active={current === SAUCE}
+          onClick={() => handleClickTab(SAUCE)}
         >
           Соусы
         </Tab>
         <Tab
-          value="main"
-          active={current === "main"}
-          onClick={() => handleClickTab("main")}
+          value={MAIN}
+          active={current === MAIN}
+          onClick={() => handleClickTab(MAIN)}
         >
           Начинки
         </Tab>

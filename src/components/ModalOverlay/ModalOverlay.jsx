@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./ModalOverlay.module.css";
 import PropTypes from "prop-types";
 
-// !КОМПОНЕНТ
+
 const ModalOverlay = ({ onClose, children }) => {
   return (
     <div onClick={onClose} className={classes.overlay}>

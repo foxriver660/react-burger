@@ -10,19 +10,23 @@ import { DataContext } from "../services/dataContext";
 import { OrderContext } from "../services/orderContext";
 import { getOrder } from "../utils/burger-api";
 import priceReducer from "../services/priceReducer";
-// !КОМПОНЕНТ
+import { BUN } from "../utils/constant";
+
 const BurgerConstructor = () => {
   // DATA ИЗ КОНТЕКСТА
   const { data } = React.useContext(DataContext);
   // УСТАНОВКА СТЕЙТА ЦЕНЫ
   const [state, dispatch] = React.useReducer(priceReducer, { totalPrice: 0 });
-  // РАСПРЕДЕЛЕНИЕ МАССИВОВ ПО ТИПУ
-  const bun = data.find((item) => item.type === "bun");
-  const ingredients = data.filter((item) => item.type !== "bun");
+  // ОТФИЛЬТРОВАННЫЕ МИССИВЫ
+
+  const bun = data.find((item) => item.type === BUN);
+  const ingredients = data.filter((item) => item.type !== BUN);
+
   // ПОДСЧЕТ ОБЩЕЙ СТОИМОСТИ
   /* eslint-disable */
   React.useMemo(() => {
-    bun && ingredients && dispatch({ type: "reset" });
+    dispatch({ type: "reset" });
+
     dispatch({
       type: "add",
       payload:
@@ -31,23 +35,18 @@ const BurgerConstructor = () => {
   }, [data]);
 
   // НОМЕР ОРДЕРА
-  const [order, setOrder] = React.useState();
-  // МАССИВ ID ИНГРЕДИЕНТОВ ДЛЯ ОРДЕРА
-  const [ingredientsId, setIngredientsId] = React.useState([]);
-  // КЛАДЕМ В МАССИВ ID ИНГРЕДИЕТОВ
-  React.useMemo(() => {
-    setIngredientsId([...ingredients.map((item) => item._id), bun._id]);
-  }, [data]);
+  const [order, setOrder] = React.useState(undefined);
+
   /* eslint-enable */
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
-    getOrder(ingredientsId)
+    getOrder([...ingredients.map((item) => item._id), bun._id])
       .then((res) => setOrder(res.order.number))
-      .catch((err) => setOrder(`error`));
+      .catch((err) => {
+        console.log(err);
+        setOrder(`error`);
+      });
   };
-
-  // СОСТОЯНИЕ МОДАЛОК
-  const [isOpenOrder, setIsOpenOrder] = React.useState(false);
 
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
@@ -89,7 +88,6 @@ const BurgerConstructor = () => {
         <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты" />
         <Button
           onClick={() => {
-            setIsOpenOrder(true);
             handleClickOrder();
           }}
           htmlType="button"
@@ -100,12 +98,11 @@ const BurgerConstructor = () => {
         </Button>
       </div>
 
-      {isOpenOrder && (
+      {order && (
         <OrderContext.Provider value={{ order }}>
           <Modal
             onClose={() => {
-              setIsOpenOrder(false);
-              setOrder();
+              setOrder(undefined);
             }}
           >
             <OrderDetails />
