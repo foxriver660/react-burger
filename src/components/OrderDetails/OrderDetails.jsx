@@ -1,10 +1,10 @@
 import React from "react";
-import { OrderContext } from "../services/orderContext";
+
 import classes from "./OrderDetails.module.css";
 
 
-const OrderDetails = () => {
-  const { order } = React.useContext(OrderContext);
+const OrderDetails = ({order}) => {
+
 
   return (
     <div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-30`}>

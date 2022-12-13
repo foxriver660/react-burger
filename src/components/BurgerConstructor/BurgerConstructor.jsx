@@ -7,7 +7,6 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
 import { DataContext } from "../services/dataContext";
-import { OrderContext } from "../services/orderContext";
 import { getOrder } from "../utils/burger-api";
 import priceReducer from "../services/priceReducer";
 import { BUN } from "../utils/constant";
@@ -99,16 +98,14 @@ const BurgerConstructor = () => {
       </div>
 
       {order && (
-        <OrderContext.Provider value={{ order }}>
-          <Modal
+                  <Modal
             onClose={() => {
               setOrder(undefined);
             }}
           >
-            <OrderDetails />
+            <OrderDetails order={order}/>
           </Modal>
-        </OrderContext.Provider>
-      )}
+              )}
     </section>
   );
 };
