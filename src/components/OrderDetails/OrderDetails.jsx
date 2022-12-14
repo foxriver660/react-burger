@@ -1,5 +1,5 @@
 import React from "react";
-
+import PropTypes from "prop-types";
 import classes from "./OrderDetails.module.css";
 
 const OrderDetails = ({ order }) => {
@@ -21,5 +21,8 @@ const OrderDetails = ({ order }) => {
     </div>
   );
 };
-
+OrderDetails.propTypes = {
+  order: PropTypes.number.isRequired,
+  
+};
 export default OrderDetails;
