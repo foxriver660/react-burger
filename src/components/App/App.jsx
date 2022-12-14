@@ -4,7 +4,7 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
 import { getIngredients } from "../utils/burger-api";
-import { DataContext } from "../services/dataContext";
+import { DataContext } from "../../services/dataContext";
 
 // !КОМПОНЕНТ
 const App = () => {

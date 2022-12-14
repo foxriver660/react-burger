@@ -6,9 +6,9 @@ import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import { DataContext } from "../services/dataContext";
+import { DataContext } from "../../services/dataContext";
 import { getOrder } from "../utils/burger-api";
-import priceReducer from "../services/priceReducer";
+import priceReducer from "../../services/priceReducer";
 import { BUN } from "../utils/constant";
 
 const BurgerConstructor = () => {
