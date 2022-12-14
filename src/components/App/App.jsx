@@ -6,7 +6,6 @@ import classes from "./App.module.css";
 import { getIngredients } from "../utils/burger-api";
 import { DataContext } from "../../services/dataContext";
 
-// !КОМПОНЕНТ
 const App = () => {
   const [state, setState] = React.useState({
     isLoading: false,

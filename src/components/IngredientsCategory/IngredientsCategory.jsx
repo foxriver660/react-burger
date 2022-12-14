@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
 import Modal from "../Modal/Modal";
 
-
 const IngredientsCategory = ({ filteredArr }) => {
   /* СОСТОЯНИЕ МОДАЛКИ */
   const [isOpenCard, setIsOpenCard] = React.useState(false);

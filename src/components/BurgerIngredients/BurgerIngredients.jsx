@@ -55,7 +55,6 @@ const BurgerIngredients = () => {
     );
   }, [data]);
 
- 
   return (
     <section className={`${classes.container}`}>
       <h1 className={`${classes.title} pt-10 text text_type_main-large`}>
@@ -87,45 +86,35 @@ const BurgerIngredients = () => {
       </div>
 
       <div id="scroll-root" className={classes.scrollWrapper}>
-      <Waypoint
-  bottomOffset='90%'
-  onEnter={()=>setCurrent(BUN)}
-/>
+        <Waypoint bottomOffset="90%" onEnter={() => setCurrent(BUN)} />
         <h2
           ref={bunRef}
           className={`${classes.subtitle} pb-6 text text_type_main-medium`}
         >
           Булки
         </h2>
-        
+
         <ul className={classes.ingredientsList}>
           <IngredientsCategory filteredArr={buns} />
         </ul>
-        <Waypoint
-  bottomOffset='90%'
-  onEnter={()=>setCurrent(SAUCE)}
-/>
+        <Waypoint bottomOffset="90%" onEnter={() => setCurrent(SAUCE)} />
         <h2
           ref={sauceRef}
           className={`${classes.subtitle} pt-10 pb-6 text text_type_main-medium`}
         >
           Соусы
         </h2>
-        
+
         <ul className={classes.ingredientsList}>
           <IngredientsCategory filteredArr={sauces} />
         </ul>
-        <Waypoint
-  bottomOffset='90%'
-  onEnter={()=>setCurrent(MAIN)}
-/>
+        <Waypoint bottomOffset="90%" onEnter={() => setCurrent(MAIN)} />
         <h2
           ref={mainRef}
           className={`${classes.subtitle} pt-10 pb-6 text text_type_main-medium`}
         >
           Начинки
         </h2>
-        
 
         <ul className={classes.ingredientsList}>
           <IngredientsCategory filteredArr={mains} />

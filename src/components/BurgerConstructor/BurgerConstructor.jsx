@@ -97,14 +97,14 @@ const BurgerConstructor = () => {
       </div>
 
       {order && (
-                  <Modal
-            onClose={() => {
-              setOrder(undefined);
-            }}
-          >
-            <OrderDetails order={order}/>
-          </Modal>
-              )}
+        <Modal
+          onClose={() => {
+            setOrder(undefined);
+          }}
+        >
+          <OrderDetails order={order} />
+        </Modal>
+      )}
     </section>
   );
 };

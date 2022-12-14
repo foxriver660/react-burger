@@ -6,7 +6,6 @@ import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./AppHeader.module.css";
 
-// !КОМПОНЕНТ
 const AppHeader = () => {
   return (
     <section className={`p-4 ${classes.header}`}>
