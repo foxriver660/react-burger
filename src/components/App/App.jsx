@@ -4,15 +4,30 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
 import { getIngredients } from "../utils/burger-api";
-import { DataContext } from "../../services/dataContext";
+
+import { useSelector, useDispatch } from "react-redux/es/exports";
+import {GET_API_INGREDIENTS} from '../../services/reducers/reducers'
 
 const App = () => {
+
+
+const dispatch = useDispatch()
+ 
+
   const [state, setState] = React.useState({
     isLoading: false,
     hasError: false,
     data: [],
   });
 
+  React.useEffect(() => {
+    const getRedData = async () => { 
+      getIngredients()
+        .then((res) => dispatch({ type: GET_API_INGREDIENTS, payload: res.data }))
+        
+    };
+    getRedData();
+  }, []); 
   /* eslint-disable */
   /* зависимость без дополнительных параметров, выполнение тоолько при первом ренедере */
   React.useEffect(() => {
@@ -46,10 +61,10 @@ const App = () => {
           </div>
         )}
         {!state.isLoading && !state.hasError && !!state.data.length && (
-          <DataContext.Provider value={state}>
+          <>
             <BurgerIngredients />
             <BurgerConstructor />
-          </DataContext.Provider>
+            </>
         )}
       </div>
     </main>

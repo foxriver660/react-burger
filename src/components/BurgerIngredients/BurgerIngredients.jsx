@@ -2,14 +2,14 @@ import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
-import { DataContext } from "../../services/dataContext";
+
 import { SAUCE, BUN, MAIN } from "../utils/constant";
 import { Waypoint } from "react-waypoint";
-
+import { useSelector, useDispatch } from "react-redux/es/exports";
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState(BUN);
   // ДАТА ИЗ КОНТЕКСТА
-  const { data } = React.useContext(DataContext);
+  const data =useSelector(state=>state.availableIngredients);
   // РЕАЛИЗАЦИЯ СКРОЛЛА
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);

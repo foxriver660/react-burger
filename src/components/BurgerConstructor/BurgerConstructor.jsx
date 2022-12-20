@@ -6,31 +6,42 @@ import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import { DataContext } from "../../services/dataContext";
+
 import { getOrder } from "../utils/burger-api";
 import priceReducer from "../../services/priceReducer";
 import { BUN } from "../utils/constant";
-
+import { useSelector, useDispatch } from "react-redux/es/exports";
+import {GET_CONSTRUCTOR_INGREDIENTS} from '../../services/reducers/reducers'
 const BurgerConstructor = () => {
   // DATA ИЗ КОНТЕКСТА
-  const { data } = React.useContext(DataContext);
+  const dataRedux =useSelector(state=>state.availableIngredients);
+// !ГЕНЕРАЦИЯ СЛУЧАЙНОГО МАССИВА
+function arrayRandElement(arr) {
+  let randomArr = []
+  for(let i=0; i <= Math.floor(Math.random() * arr.length); i++ ){
+    randomArr.push(arr[i])
+  }
+  return randomArr;
+}
+const data = arrayRandElement(dataRedux)
+// !ГЕНЕРАЦИЯ СЛУЧАЙНОГО МАССИВА
+
+  const dispatch = useDispatch()
+  React.useEffect(() => {    
+    dispatch({ type: GET_CONSTRUCTOR_INGREDIENTS, payload: data })
+     
+}, []); 
+const totalCost=useSelector(state=>state.totalCost);
+const ordernum=useSelector(state=>state.currentOrder);
+console.log(ordernum)
   // УСТАНОВКА СТЕЙТА ЦЕНЫ
-  const [state, dispatch] = React.useReducer(priceReducer, { totalPrice: 0 });
+ /*  const [state, dispatch] = React.useReducer(priceReducer, { totalPrice: 0 }); */
   // ОТФИЛЬТРОВАННЫЕ МИССИВЫ
 
   const bun = data.find((item) => item.type === BUN);
   const ingredients = data.filter((item) => item.type !== BUN);
 
-  // ПОДСЧЕТ ОБЩЕЙ СТОИМОСТИ
-  /* eslint-disable */
-  React.useMemo(() => {
-    dispatch({ type: "reset" });
-    dispatch({
-      type: "add",
-      payload:
-        bun.price * 2 + ingredients.reduce((acc, curr) => acc + curr.price, 0),
-    });
-  }, [data]);
+
 
   // НОМЕР ОРДЕРА
   const [order, setOrder] = React.useState(undefined);
@@ -82,7 +93,7 @@ const BurgerConstructor = () => {
         isLocked={true}
       />
       <div className={`${classes.currencyContainer} pt-10`}>
-        <p className="text text_type_digits-medium">{state.totalPrice}</p>
+        <p className="text text_type_digits-medium">{totalCost}</p>
         <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты" />
         <Button
           onClick={() => {
