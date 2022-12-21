@@ -8,12 +8,12 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
 
 import { getOrder } from "../utils/burger-api";
-import priceReducer from "../../services/priceReducer";
+
 import { BUN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import {GET_CONSTRUCTOR_INGREDIENTS} from '../../services/reducers/reducers'
+import {GET_CONSTRUCTOR_INGREDIENTS, GET_ORDER, RESET_ORDER} from '../../services/reducers/reducers'
 const BurgerConstructor = () => {
-  // DATA ИЗ КОНТЕКСТА
+  // DATA ИЗ РЕДУКСА
   const dataRedux =useSelector(state=>state.availableIngredients);
 // !ГЕНЕРАЦИЯ СЛУЧАЙНОГО МАССИВА
 function arrayRandElement(arr) {
@@ -31,32 +31,24 @@ const data = arrayRandElement(dataRedux)
     dispatch({ type: GET_CONSTRUCTOR_INGREDIENTS, payload: data })
      
 }, []); 
-const totalCost=useSelector(state=>state.totalCost);
-const ordernum=useSelector(state=>state.currentOrder);
-console.log(ordernum)
-  // УСТАНОВКА СТЕЙТА ЦЕНЫ
- /*  const [state, dispatch] = React.useReducer(priceReducer, { totalPrice: 0 }); */
+
+
   // ОТФИЛЬТРОВАННЫЕ МИССИВЫ
 
   const bun = data.find((item) => item.type === BUN);
   const ingredients = data.filter((item) => item.type !== BUN);
 
-
-
-  // НОМЕР ОРДЕРА
-  const [order, setOrder] = React.useState(undefined);
-
   /* eslint-enable */
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
-    getOrder([...ingredients.map((item) => item._id), bun._id])
-      .then((res) => setOrder(res.order.number))
+    getOrder(order.ingredientsId)
+      .then((res) => {dispatch({ type: GET_ORDER, payload: res.order.number });})
       .catch((err) => {
         console.log(err);
-        setOrder(`error`);
-      });
+              });
   };
-
+  const totalCost=useSelector(state=>state.totalCost);
+  const order=useSelector(state=>state.currentOrder);
   return (
     <section className={`${classes.container} pt-25 pl-4`}>
       <ConstructorElement
@@ -107,13 +99,10 @@ console.log(ordernum)
         </Button>
       </div>
 
-      {order && (
+      {order.order && (
         <Modal
-          onClose={() => {
-            setOrder(undefined);
-          }}
-        >
-          <OrderDetails order={order} />
+            onClose={()=>dispatch({ type: RESET_ORDER })}     >
+          <OrderDetails order={order.order} />
         </Modal>
       )}
     </section>

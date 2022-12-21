@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 
 const store = createStore(rootReducer)
-console.log(store)
+
 
 
 root.render(
