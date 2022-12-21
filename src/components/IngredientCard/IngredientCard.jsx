@@ -3,16 +3,23 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
 import classes from "./IngredientCard.module.css";
 import itemPropTypes from "../utils/prop-types";
-
+import { useDrag } from "react-dnd";
 const IngredientCard = ({ data }) => {
   //  ID и тип карточки записываются в состояние
   /* eslint-disable */
   const [id, setID] = React.useState(data._id);
   const [ingredientType, setType] = React.useState(data.type);
   /* eslint-enable */
+  const [{ opacity }, dragRef] = useDrag({
+    type: 'items',
+    item: { id },
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.4 : 1
+    })
+  });
 
   return (
-    <div className={classes.container}>
+    <div ref={dragRef} style={{ opacity}} className={classes.container}>
       <img className={classes.image} src={data.image} alt={data.name} />
       <div className={classes.currencyContainer}>
         <span className={`pr-2 text text_type_digits-default`}>

@@ -4,7 +4,8 @@ import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
 import { getIngredients } from "../utils/burger-api";
-
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {GET_API_INGREDIENTS} from '../../services/reducers/reducers'
 
@@ -61,10 +62,10 @@ const dispatch = useDispatch()
           </div>
         )}
         {!state.isLoading && !state.hasError && !!state.data.length && (
-          <>
+          <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
             <BurgerConstructor />
-            </>
+            </DndProvider>
         )}
       </div>
     </main>

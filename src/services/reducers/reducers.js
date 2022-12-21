@@ -1,5 +1,10 @@
 export const GET_API_INGREDIENTS = "GET_API_INGREDIENTS";
 export const GET_CONSTRUCTOR_INGREDIENTS = "GET_CONSTRUCTOR_INGREDIENTS";
+
+export const ADD_INGREDIENT_TO_CONSTRUCTOR = "ADD_INGREDIENT_TO_CONSTRUCTOR";
+export const DELETE_INGREDIENT_FROM_CONSTRUCTOR = "DELETE_INGREDIENT_FROM_CONSTRUCTOR";
+
+
 export const OPEN_INGREDIENT_MODAL = "OPEN_MODAL";
 export const CLOSE_INGREDIENT_MODAL = "OPEN_MODAL";
 export const GET_ORDER = "GET_ORDER";
@@ -34,6 +39,18 @@ const rootReducer = (state = defaultState, action) => {
           ),
         },
       };
+      case ADD_INGREDIENT_TO_CONSTRUCTOR:
+      return {
+        ...state,
+        constructorIngredients: [...state.constructorIngredients, state.availableIngredients.find((item)=>item._id === action.payload.id)],
+        
+             };
+             case DELETE_INGREDIENT_FROM_CONSTRUCTOR:
+      return {
+        ...state,
+        constructorIngredients: [...state.constructorIngredients.filter(item => item._id !== action.payload._id)],
+        
+             };
     case OPEN_INGREDIENT_MODAL:
       return { ...state, selectedIngredient: action.payload };
     case CLOSE_INGREDIENT_MODAL:
