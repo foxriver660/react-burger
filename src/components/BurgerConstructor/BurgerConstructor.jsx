@@ -11,7 +11,7 @@ import { getOrder } from "../utils/burger-api";
 import { useDrop } from "react-dnd";
 import { BUN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import { GET_ORDER, RESET_ORDER, ADD_INGREDIENT_TO_CONSTRUCTOR, DELETE_INGREDIENT_FROM_CONSTRUCTOR} from '../../services/reducers/reducers'
+import { GET_ORDER, RESET_ORDER, ADD_INGREDIENT_TO_CONSTRUCTOR, DELETE_INGREDIENT_FROM_CONSTRUCTOR, CALC_INGREDIENTS_IN_CONSTRUCTOR} from '../../services/reducers/reducers'
 const BurgerConstructor = () => {
   
 // !ГЕНЕРАЦИЯ СЛУЧАЙНОГО МАССИВА
@@ -37,6 +37,8 @@ const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
   drop: (item) => {dispatch({
     type: ADD_INGREDIENT_TO_CONSTRUCTOR,
     payload: item,
+  }); dispatch({
+    type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
   })},
   collect: (monitor) => ({
     isOver: monitor.isOver(),
@@ -45,10 +47,16 @@ const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
 }))
 const data=useSelector(state=>state.constructorIngredients);
 
+
+
+
+
+
+
 const bun = data.find((item) => item.type === BUN);
 const ingredients = data.filter((item) => item.type !== BUN);
 
-console.log(data)
+console.log(bun)
 
 
 const isActive = canDrop && isOver
@@ -62,6 +70,9 @@ const deleteIngredient = (ingredient) => {
   dispatch({
     type: DELETE_INGREDIENT_FROM_CONSTRUCTOR,
     payload: ingredient,
+  });
+  dispatch({
+    type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
   })
 }
 const errorMessage = (message) => {

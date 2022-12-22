@@ -1,6 +1,7 @@
 export const GET_API_INGREDIENTS = "GET_API_INGREDIENTS";
 
 export const ADD_INGREDIENT_TO_CONSTRUCTOR = "ADD_INGREDIENT_TO_CONSTRUCTOR";
+export const CALC_INGREDIENTS_IN_CONSTRUCTOR = "CALC_INGREDIENTS_IN_CONSTRUCTOR";
 export const DELETE_INGREDIENT_FROM_CONSTRUCTOR =
   "DELETE_INGREDIENT_FROM_CONSTRUCTOR";
 
@@ -37,12 +38,17 @@ const rootReducer = (state = defaultState, action) => {
             []
           ),
         },
-        totalCost: state.constructorIngredients.reduce(
-          (acc, curr) =>
-            curr.type === "bun" ? acc + curr.price * 2 : acc + curr.price,
-          0
-        ),
+        
       };
+      case CALC_INGREDIENTS_IN_CONSTRUCTOR:
+        return {
+          ...state,
+          totalCost: state.constructorIngredients.reduce(
+            (acc, curr) =>
+              curr.type === "bun" ? acc + curr.price * 2 : acc + curr.price,
+            0
+          ),
+        };
     case DELETE_INGREDIENT_FROM_CONSTRUCTOR:
       return {
         ...state,
