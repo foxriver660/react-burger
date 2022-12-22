@@ -45,6 +45,13 @@ const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     canDrop: monitor.canDrop(),
   }),
 }))
+
+// !DND СПИСКА
+
+
+
+
+
 const data=useSelector(state=>state.constructorIngredients);
 
 const { bun, ingredients } = React.useMemo(() => {
@@ -55,13 +62,10 @@ const { bun, ingredients } = React.useMemo(() => {
 
 
 console.log(data)
-/* 
-const bun = data.find((item) => item.type === BUN);
-const ingredients = data.filter((item) => item.type !== BUN); */
 
-/* 
 
- */
+
+
 const isActive = canDrop && isOver
 let outline = 'none'
 if (isActive) {
@@ -95,7 +99,7 @@ const errorMessage = (message) => {
         <ul className={`${classes.ingredientList} `}>
           {ingredients.map((item, index) => {
             return (
-              <li key={index} className={`${classes.ingredientItem} `}>
+              <li key={item._id} className={`${classes.ingredientItem} `}>
                 <DragIcon type="primary" />
                 <ConstructorElement
                   extraClass={`${classes.ingredientElement} mr-2`}
