@@ -11,7 +11,7 @@ import { getOrder } from "../utils/burger-api";
 import { useDrop } from "react-dnd";
 import { BUN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import {GET_CONSTRUCTOR_INGREDIENTS, GET_ORDER, RESET_ORDER, ADD_INGREDIENT_TO_CONSTRUCTOR, DELETE_INGREDIENT_FROM_CONSTRUCTOR} from '../../services/reducers/reducers'
+import { GET_ORDER, RESET_ORDER, ADD_INGREDIENT_TO_CONSTRUCTOR, DELETE_INGREDIENT_FROM_CONSTRUCTOR} from '../../services/reducers/reducers'
 const BurgerConstructor = () => {
   
 // !ГЕНЕРАЦИЯ СЛУЧАЙНОГО МАССИВА
@@ -43,13 +43,13 @@ const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     canDrop: monitor.canDrop(),
   }),
 }))
-const test=useSelector(state=>state.constructorIngredients);
-console.log(test)
-const bun = test.find((item) => item.type === BUN);
-const ingredients = test.filter((item) => item.type !== BUN);
+const data=useSelector(state=>state.constructorIngredients);
 
-console.log(bun)
-console.log(ingredients)
+const bun = data.find((item) => item.type === BUN);
+const ingredients = data.filter((item) => item.type !== BUN);
+
+console.log(data)
+
 
 const isActive = canDrop && isOver
 let outline = 'none'
@@ -64,10 +64,12 @@ const deleteIngredient = (ingredient) => {
     payload: ingredient,
   })
 }
-
+const errorMessage = (message) => {
+  return (<span className={`${classes.defaultMessage} text text_type_main-default pt-1`}><InfoIcon type={isActive ? "success" : "error"} /> {message} </span>)
+}
   return (
     <section ref={dropRef} style={{outline} } className={`${classes.container} pt-25 pl-4`}>
-      {test.length>0 ? (<>{bun && <ConstructorElement
+      {data.length>0 ? (<>{bun && <ConstructorElement
         extraClass={`${classes.ingredientElement} mb-4 mr-3`}
         text={`${bun.name} (верх)`}
         price={bun.price}
@@ -75,7 +77,7 @@ const deleteIngredient = (ingredient) => {
         type="top"
         isLocked={true}
       />}
-      <div className={classes.scrollWrapper}>
+      {ingredients.length>0 ? <div className={classes.scrollWrapper}>
         <ul className={`${classes.ingredientList} `}>
           {ingredients.map((item, index) => {
             return (
@@ -92,7 +94,7 @@ const deleteIngredient = (ingredient) => {
             );
           })}
         </ul>
-      </div>
+      </div> : errorMessage('Добавьте начинку')}
       {bun ? <ConstructorElement
         extraClass={`${classes.ingredientElement} mt-4 mr-3`}
         text={`${bun.name} (низ)`}
@@ -100,7 +102,7 @@ const deleteIngredient = (ingredient) => {
         thumbnail={bun.image}
         type="bottom"
         isLocked={true}
-      /> : <span className={`${classes.bun} text text_type_main-default pt-4`}><InfoIcon type={isActive ? "success" : "error"} /> Добавьте булочку</span>}
+      /> : errorMessage('Добавьте булочку')}
       <div className={`${classes.currencyContainer} pt-10`}>
         <p className="text text_type_digits-medium">{totalCost}</p>
         <img className="pl-2 pr-10" src={bigCurrencyIcon} alt="иконка валюты" />

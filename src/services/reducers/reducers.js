@@ -1,9 +1,8 @@
 export const GET_API_INGREDIENTS = "GET_API_INGREDIENTS";
-export const GET_CONSTRUCTOR_INGREDIENTS = "GET_CONSTRUCTOR_INGREDIENTS";
 
 export const ADD_INGREDIENT_TO_CONSTRUCTOR = "ADD_INGREDIENT_TO_CONSTRUCTOR";
-export const DELETE_INGREDIENT_FROM_CONSTRUCTOR = "DELETE_INGREDIENT_FROM_CONSTRUCTOR";
-
+export const DELETE_INGREDIENT_FROM_CONSTRUCTOR =
+  "DELETE_INGREDIENT_FROM_CONSTRUCTOR";
 
 export const OPEN_INGREDIENT_MODAL = "OPEN_MODAL";
 export const CLOSE_INGREDIENT_MODAL = "OPEN_MODAL";
@@ -21,16 +20,16 @@ const rootReducer = (state = defaultState, action) => {
   switch (action.type) {
     case GET_API_INGREDIENTS:
       return { ...state, availableIngredients: [...action.payload] };
-    case GET_CONSTRUCTOR_INGREDIENTS:
+
+    case ADD_INGREDIENT_TO_CONSTRUCTOR:
       return {
         ...state,
-        constructorIngredients: [...action.payload],
-        totalCost:
-          state.totalCost +
-          state.constructorIngredients.reduce(
-            (acc, curr) => acc + curr.price,
-            0
+        constructorIngredients: [
+          ...state.constructorIngredients,
+          state.availableIngredients.find(
+            (item) => item._id === action.payload.id
           ),
+        ],
         currentOrder: {
           ...state.currentOrder,
           ingredientsId: state.constructorIngredients.reduce(
@@ -38,19 +37,21 @@ const rootReducer = (state = defaultState, action) => {
             []
           ),
         },
+        totalCost: state.constructorIngredients.reduce(
+          (acc, curr) =>
+            curr.type === "bun" ? acc + curr.price * 2 : acc + curr.price,
+          0
+        ),
       };
-      case ADD_INGREDIENT_TO_CONSTRUCTOR:
+    case DELETE_INGREDIENT_FROM_CONSTRUCTOR:
       return {
         ...state,
-        constructorIngredients: [...state.constructorIngredients, state.availableIngredients.find((item)=>item._id === action.payload.id)],
-        
-             };
-             case DELETE_INGREDIENT_FROM_CONSTRUCTOR:
-      return {
-        ...state,
-        constructorIngredients: [...state.constructorIngredients.filter(item => item._id !== action.payload._id)],
-        
-             };
+        constructorIngredients: [
+          ...state.constructorIngredients.filter(
+            (item) => item._id !== action.payload._id
+          ),
+        ],
+      };
     case OPEN_INGREDIENT_MODAL:
       return { ...state, selectedIngredient: action.payload };
     case CLOSE_INGREDIENT_MODAL:
