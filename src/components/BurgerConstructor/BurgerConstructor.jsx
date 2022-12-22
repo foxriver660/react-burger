@@ -9,7 +9,7 @@ import Modal from "../Modal/Modal";
 
 import { getOrder } from "../utils/burger-api";
 import { useDrop } from "react-dnd";
-import { BUN } from "../utils/constant";
+import { BUN, SAUCE, MAIN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { GET_ORDER, RESET_ORDER, ADD_INGREDIENT_TO_CONSTRUCTOR, DELETE_INGREDIENT_FROM_CONSTRUCTOR, CALC_INGREDIENTS_IN_CONSTRUCTOR} from '../../services/reducers/reducers'
 const BurgerConstructor = () => {
@@ -47,18 +47,21 @@ const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
 }))
 const data=useSelector(state=>state.constructorIngredients);
 
+const { bun, ingredients } = React.useMemo(() => {
+  return {bun: data.find((item) => item.type === BUN),
+  ingredients: data.filter((item) => item.type !== BUN)}
+      }, [data]);
 
 
 
-
-
-
+console.log(data)
+/* 
 const bun = data.find((item) => item.type === BUN);
-const ingredients = data.filter((item) => item.type !== BUN);
+const ingredients = data.filter((item) => item.type !== BUN); */
 
-console.log(bun)
+/* 
 
-
+ */
 const isActive = canDrop && isOver
 let outline = 'none'
 if (isActive) {
