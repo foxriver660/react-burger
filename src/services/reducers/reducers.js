@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 export const GET_API_INGREDIENTS = "GET_API_INGREDIENTS";
 
 export const ADD_INGREDIENT_TO_CONSTRUCTOR = "ADD_INGREDIENT_TO_CONSTRUCTOR";
@@ -11,9 +12,11 @@ export const CLOSE_INGREDIENT_MODAL = "OPEN_MODAL";
 export const GET_ORDER = "GET_ORDER";
 export const RESET_ORDER = "GET_ORDER";
 
+
 const defaultState = {
   availableIngredients: [],
   constructorIngredients: [],
+  moding:[],
   constructorBun: {price: null},
   totalCost: null,
   selectedIngredient: null,
@@ -29,9 +32,9 @@ const rootReducer = (state = defaultState, action) => {
         ...state,
         constructorIngredients: [
           ...state.constructorIngredients,
-          state.availableIngredients.find(
+          {...(state.availableIngredients.find(
             (item) => item._id === action.payload.id
-          ),
+          )), nanoid: nanoid()}
         ],
         currentOrder: {
           ...state.currentOrder,
@@ -51,6 +54,7 @@ const rootReducer = (state = defaultState, action) => {
             ),        
                   
         };
+     
       case SORT: {
         return {
           ...state,
@@ -71,7 +75,7 @@ const rootReducer = (state = defaultState, action) => {
         ...state,
         constructorIngredients: [
           ...state.constructorIngredients.filter(
-            (item) => item._id !== action.payload._id
+            (item) => item.nanoid !== action.payload.nanoid
           ),
         ],
       };

@@ -44,7 +44,9 @@ const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     payload: item,
   }); dispatch({
     type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
-  })},
+  });
+  },
+  
   collect: (monitor) => ({
     isOver: monitor.isOver(),
     canDrop: monitor.canDrop(),
@@ -58,6 +60,7 @@ if (isActive) {
   outline = '1px solid red'
 }
 const ingredients=useSelector(state=>state.constructorIngredients);
+
 const bun=useSelector(state=>state.constructorBun);
 console.log("ING", ingredients)
 console.log("BUN", bun) 
@@ -81,7 +84,7 @@ const errorMessage = (message) => {
       />}
       {ingredients.length>0 ? <div className={classes.scrollWrapper}>
         <Reorder.Group axys="y" values={ingredients} onReorder={(newOrder)=>dispatch({type: SORT, payload: newOrder})} className={`${classes.ingredientList} `}>
-          {ingredients.map((item, index) => <ConstructorList value={item} key={item._id} ingredient={item}  />)}
+          {ingredients.map((item, index) => <ConstructorList value={item} key={item.nanoid} ingredient={item}  />)}
         </Reorder.Group>
       </div> : errorMessage('Добавьте начинку')}
       {bun.type ? <ConstructorElement

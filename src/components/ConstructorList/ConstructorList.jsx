@@ -22,7 +22,7 @@ const dispatch = useDispatch()
   }
 
   return (
-    <Reorder.Item value={value} className={`${classes.ingredientItem} `}>
+    <Reorder.Item whileDrag={{scale: .9}} value={value} className={`${classes.ingredientItem} `}>
                 <DragIcon type="primary" />
                 <ConstructorElement
                   extraClass={`${classes.ingredientElement} mr-2`}

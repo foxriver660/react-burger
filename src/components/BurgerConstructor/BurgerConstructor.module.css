@@ -2,6 +2,7 @@
   width: 580px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-end;
   border-radius: 10px;
 }
@@ -32,6 +33,7 @@
 }
 
 .ingredientElement {
+  max-height: 80px;
   background-color: #1c1c21;
   cursor: pointer;
 }
