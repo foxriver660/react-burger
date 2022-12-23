@@ -1,10 +1,11 @@
 export const GET_API_INGREDIENTS = "GET_API_INGREDIENTS";
 
 export const ADD_INGREDIENT_TO_CONSTRUCTOR = "ADD_INGREDIENT_TO_CONSTRUCTOR";
+export const ADD_BUN_TO_CONSTRUCTOR = "ADD_BUN_TO_CONSTRUCTOR";
 export const CALC_INGREDIENTS_IN_CONSTRUCTOR = "CALC_INGREDIENTS_IN_CONSTRUCTOR";
 export const DELETE_INGREDIENT_FROM_CONSTRUCTOR =
   "DELETE_INGREDIENT_FROM_CONSTRUCTOR";
-
+  export const SORT = "SORT";
 export const OPEN_INGREDIENT_MODAL = "OPEN_MODAL";
 export const CLOSE_INGREDIENT_MODAL = "OPEN_MODAL";
 export const GET_ORDER = "GET_ORDER";
@@ -13,6 +14,7 @@ export const RESET_ORDER = "GET_ORDER";
 const defaultState = {
   availableIngredients: [],
   constructorIngredients: [],
+  constructorBun: {price: null},
   totalCost: null,
   selectedIngredient: null,
   currentOrder: { order: null, ingredientsId: [] },
@@ -40,14 +42,29 @@ const rootReducer = (state = defaultState, action) => {
         },
         
       };
+      case ADD_BUN_TO_CONSTRUCTOR:
+        return {
+          ...state,
+          constructorBun: 
+            state.availableIngredients.find(
+              (item) => item._id === action.payload.id
+            ),        
+                  
+        };
+      case SORT: {
+        return {
+          ...state,
+          constructorIngredients: action.payload
+        };
+      }
       case CALC_INGREDIENTS_IN_CONSTRUCTOR:
         return {
           ...state,
           totalCost: state.constructorIngredients.reduce(
             (acc, curr) =>
-              curr.type === "bun" ? acc + curr.price * 2 : acc + curr.price,
+              acc + curr.price,
             0
-          ),
+          ) + state.constructorBun.price*2,
         };
     case DELETE_INGREDIENT_FROM_CONSTRUCTOR:
       return {

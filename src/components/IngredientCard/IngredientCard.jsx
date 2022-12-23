@@ -8,11 +8,11 @@ const IngredientCard = ({ data }) => {
   //  ID и тип карточки записываются в состояние
   /* eslint-disable */
   const [id, setID] = React.useState(data._id);
-  const [ingredientType, setType] = React.useState(data.type);
+  const [type, setType] = React.useState(data.type);
   /* eslint-enable */
   const [{ opacity }, dragRef] = useDrag({
     type: 'items',
-    item: { id },
+    item: { id, type },
     collect: monitor => ({
       opacity: monitor.isDragging() ? 0.4 : 1
     })

@@ -11,10 +11,12 @@ import { getOrder } from "../utils/burger-api";
 import { useDrop } from "react-dnd";
 import { BUN, SAUCE, MAIN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import { GET_ORDER, RESET_ORDER, ADD_INGREDIENT_TO_CONSTRUCTOR, DELETE_INGREDIENT_FROM_CONSTRUCTOR, CALC_INGREDIENTS_IN_CONSTRUCTOR} from '../../services/reducers/reducers'
+import { ADD_BUN_TO_CONSTRUCTOR, SORT, GET_ORDER, RESET_ORDER, ADD_INGREDIENT_TO_CONSTRUCTOR, DELETE_INGREDIENT_FROM_CONSTRUCTOR, CALC_INGREDIENTS_IN_CONSTRUCTOR} from '../../services/reducers/reducers'
+import ConstructorList from "../ConstructorList/ConstructorList";
+
+import { Reorder } from "framer-motion";
 const BurgerConstructor = () => {
   
-// !ГЕНЕРАЦИЯ СЛУЧАЙНОГО МАССИВА
 
 const dispatch = useDispatch()
 
@@ -34,8 +36,11 @@ const dispatch = useDispatch()
 // !DND
 const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
   accept: 'items',
-  drop: (item) => {dispatch({
-    type: ADD_INGREDIENT_TO_CONSTRUCTOR,
+  drop: (item) => {(item.type === BUN) ? dispatch({
+    type:  ADD_BUN_TO_CONSTRUCTOR,
+    payload: item,
+  }) : dispatch({
+    type:  ADD_INGREDIENT_TO_CONSTRUCTOR,
     payload: item,
   }); dispatch({
     type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
@@ -45,27 +50,6 @@ const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     canDrop: monitor.canDrop(),
   }),
 }))
-
-// !DND СПИСКА
-
-
-
-
-
-const data=useSelector(state=>state.constructorIngredients);
-
-const { bun, ingredients } = React.useMemo(() => {
-  return {bun: data.find((item) => item.type === BUN),
-  ingredients: data.filter((item) => item.type !== BUN)}
-      }, [data]);
-
-
-
-console.log(data)
-
-
-
-
 const isActive = canDrop && isOver
 let outline = 'none'
 if (isActive) {
@@ -73,21 +57,21 @@ if (isActive) {
 } else if (canDrop) {
   outline = '1px solid red'
 }
-const deleteIngredient = (ingredient) => {
-  dispatch({
-    type: DELETE_INGREDIENT_FROM_CONSTRUCTOR,
-    payload: ingredient,
-  });
-  dispatch({
-    type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
-  })
-}
+const ingredients=useSelector(state=>state.constructorIngredients);
+const bun=useSelector(state=>state.constructorBun);
+console.log("ING", ingredients)
+console.log("BUN", bun) 
+
+
+
+
 const errorMessage = (message) => {
   return (<span className={`${classes.defaultMessage} text text_type_main-default pt-1`}><InfoIcon type={isActive ? "success" : "error"} /> {message} </span>)
 }
   return (
+    
     <section ref={dropRef} style={{outline} } className={`${classes.container} pt-25 pl-4`}>
-      {data.length>0 ? (<>{bun && <ConstructorElement
+      {ingredients.length>0 || bun.type ? (<>{bun.type && <ConstructorElement
         extraClass={`${classes.ingredientElement} mb-4 mr-3`}
         text={`${bun.name} (верх)`}
         price={bun.price}
@@ -96,24 +80,11 @@ const errorMessage = (message) => {
         isLocked={true}
       />}
       {ingredients.length>0 ? <div className={classes.scrollWrapper}>
-        <ul className={`${classes.ingredientList} `}>
-          {ingredients.map((item, index) => {
-            return (
-              <li key={item._id} className={`${classes.ingredientItem} `}>
-                <DragIcon type="primary" />
-                <ConstructorElement
-                  extraClass={`${classes.ingredientElement} mr-2`}
-                  text={item.name}
-                  price={item.price}
-                  thumbnail={item.image}
-                  handleClose={()=>{deleteIngredient(item)}}
-                />
-              </li>
-            );
-          })}
-        </ul>
+        <Reorder.Group axys="y" values={ingredients} onReorder={(newOrder)=>dispatch({type: SORT, payload: newOrder})} className={`${classes.ingredientList} `}>
+          {ingredients.map((item, index) => <ConstructorList value={item} key={item._id} ingredient={item}  />)}
+        </Reorder.Group>
       </div> : errorMessage('Добавьте начинку')}
-      {bun ? <ConstructorElement
+      {bun.type ? <ConstructorElement
         extraClass={`${classes.ingredientElement} mt-4 mr-3`}
         text={`${bun.name} (низ)`}
         price={bun.price}
@@ -145,6 +116,7 @@ const errorMessage = (message) => {
       	
         <BurgerIcon type={isActive ? "success" : "primary"} /> {isActive ? 'Можно добавить!' : 'Соберите свой бургер, пока заказ пуст...'} </div>}
     </section>
+    
   );
 };
 
