@@ -11,7 +11,7 @@ import { getOrder } from "../utils/burger-api";
 import { useDrop } from "react-dnd";
 import { BUN, SAUCE, MAIN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import { ADD_BUN_TO_CONSTRUCTOR, SORT, GET_ORDER, RESET_ORDER, ADD_INGREDIENT_TO_CONSTRUCTOR, DELETE_INGREDIENT_FROM_CONSTRUCTOR, CALC_INGREDIENTS_IN_CONSTRUCTOR} from '../../services/reducers/reducers'
+import { ADD_ID_IN_ORDER, ADD_BUN_TO_CONSTRUCTOR, SORT, GET_ORDER, RESET_ORDER, ADD_INGREDIENT_TO_CONSTRUCTOR, DELETE_INGREDIENT_FROM_CONSTRUCTOR, CALC_INGREDIENTS_IN_CONSTRUCTOR} from '../../services/reducers/reducers'
 import ConstructorList from "../ConstructorList/ConstructorList";
 
 import { Reorder } from "framer-motion";
@@ -20,9 +20,10 @@ const BurgerConstructor = () => {
 
 const dispatch = useDispatch()
 
-  
+
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
+    
     getOrder(order.ingredientsId)
       .then((res) => {dispatch({ type: GET_ORDER, payload: res.order.number });})
       .catch((err) => {
@@ -33,7 +34,7 @@ const dispatch = useDispatch()
   const order=useSelector(state=>state.currentOrder);
 
 
-// !DND
+// !DND______________________________
 const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
   accept: 'items',
   drop: (item) => {(item.type === BUN) ? dispatch({
@@ -44,7 +45,7 @@ const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     payload: item,
   }); dispatch({
     type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
-  });
+  }); dispatch({ type: ADD_ID_IN_ORDER })
   },
   
   collect: (monitor) => ({
@@ -59,11 +60,12 @@ if (isActive) {
 } else if (canDrop) {
   outline = '1px solid red'
 }
-const ingredients=useSelector(state=>state.constructorIngredients);
+// !____________________________________
 
+
+const ingredients=useSelector(state=>state.constructorIngredients);
 const bun=useSelector(state=>state.constructorBun);
-console.log("ING", ingredients)
-console.log("BUN", bun) 
+
 
 
 

@@ -36,14 +36,7 @@ const rootReducer = (state = defaultState, action) => {
             (item) => item._id === action.payload.id
           )), nanoid: nanoid()}
         ],
-        currentOrder: {
-          ...state.currentOrder,
-          ingredientsId: state.constructorIngredients.reduce(
-            (acc, curr) => [...acc, curr._id],
-            []
-          ),
-        },
-        
+            
       };
       case ADD_ID_IN_ORDER:
       return {
