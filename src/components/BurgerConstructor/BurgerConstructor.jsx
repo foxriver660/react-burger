@@ -1,7 +1,6 @@
 import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
-  DragIcon,
   InfoIcon,
   BurgerIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
@@ -10,30 +9,35 @@ import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-
 import { getOrder } from "../utils/burger-api";
 import { useDrop } from "react-dnd";
-import { BUN, SAUCE, MAIN } from "../utils/constant";
+import { BUN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
-  ADD_ID_IN_ORDER,
   ADD_BUN_TO_CONSTRUCTOR,
-  SORT,
+  SORT_INSIDE_CONSTRUCTOR,
   GET_ORDER,
   RESET_ORDER,
   ADD_INGREDIENT_TO_CONSTRUCTOR,
-  DELETE_INGREDIENT_FROM_CONSTRUCTOR,
   CALC_INGREDIENTS_IN_CONSTRUCTOR,
 } from "../../services/reducers/reducers";
 import ConstructorList from "../ConstructorList/ConstructorList";
-
 import { Reorder } from "framer-motion";
+
+
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
+  // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
+  const totalCost = useSelector((state) => state.totalCost);
+  const order = useSelector((state) => state.currentOrder);
+  const ingredients = useSelector((state) => state.constructorIngredients);
+  const bun = useSelector((state) => state.constructorBun);
 
+  
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
-    getOrder(order.ingredientsId)
+    const ingredientsId = [...ingredients.map((item)=>item._id), bun._id]
+      getOrder(ingredientsId)
       .then((res) => {
         dispatch({ type: GET_ORDER, payload: res.order.number });
       })
@@ -41,10 +45,8 @@ const BurgerConstructor = () => {
         console.log(err);
       });
   };
-  const totalCost = useSelector((state) => state.totalCost);
-  const order = useSelector((state) => state.currentOrder);
-
-  // !DND______________________________
+  
+  // !DRAG AND DROP
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     accept: "items",
     drop: (item) => {
@@ -60,7 +62,6 @@ const BurgerConstructor = () => {
       dispatch({
         type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
       });
-      dispatch({ type: ADD_ID_IN_ORDER });
     },
 
     collect: (monitor) => ({
@@ -75,10 +76,9 @@ const BurgerConstructor = () => {
   } else if (canDrop) {
     outline = "1px solid red";
   }
-  // !____________________________________
+  // !DRAG AND DROP
 
-  const ingredients = useSelector((state) => state.constructorIngredients);
-  const bun = useSelector((state) => state.constructorBun);
+  
 
   // ИНСТРУМЕНТЫ ДЛЯ УСЛОВНОГО РЕНДЕРИНГА
   const checkIngredient = ingredients.length > 0;
@@ -117,7 +117,7 @@ const BurgerConstructor = () => {
                 axys="y"
                 values={ingredients}
                 onReorder={(newOrder) =>
-                  dispatch({ type: SORT, payload: newOrder })
+                  dispatch({ type: SORT_INSIDE_CONSTRUCTOR, payload: newOrder })
                 }
                 className={`${classes.ingredientList} `}
               >
@@ -175,10 +175,10 @@ const BurgerConstructor = () => {
         <div
           className={`${classes.defaultContainer} text text_type_main-large pt-30`}
         >
-          <BurgerIcon type={isActive ? "success" : "primary"} />{" "}
+          <BurgerIcon type={isActive ? "success" : "primary"} />
           {isActive
             ? "Можно добавить!"
-            : "Соберите свой бургер, пока заказ пуст..."}{" "}
+            : "Соберите свой бургер, пока заказ пуст..."}
         </div>
       )}
     </section>
