@@ -7,7 +7,7 @@ import { getIngredients } from "../utils/burger-api";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import {GET_API_INGREDIENTS} from '../../services/reducers/reducers'
+import {GET_API_INGREDIENTS} from '../../services/actions/ingredientActions'
 
 const App = () => {
 

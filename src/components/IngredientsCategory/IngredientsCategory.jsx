@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
   OPEN_INGREDIENT_MODAL,
   CLOSE_INGREDIENT_MODAL,
-} from "../../services/reducers/reducers";
+} from "../../services/actions/modalActions";
 
 const IngredientsCategory = ({ filteredArr }) => {
   const dispatch = useDispatch();

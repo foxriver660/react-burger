@@ -14,13 +14,12 @@ import { useDrop } from "react-dnd";
 import { BUN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
+   ADD_INGREDIENT_TO_CONSTRUCTOR,
   ADD_BUN_TO_CONSTRUCTOR,
   SORT_INSIDE_CONSTRUCTOR,
-  GET_ORDER,
-  RESET_ORDER,
-  ADD_INGREDIENT_TO_CONSTRUCTOR,
   CALC_INGREDIENTS_IN_CONSTRUCTOR,
-} from "../../services/reducers/reducers";
+} from "../../services/actions/ingredientActions";
+import { GET_ORDER, RESET_ORDER } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
 
