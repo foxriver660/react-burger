@@ -10,14 +10,15 @@ export const DELETE_INGREDIENT_FROM_CONSTRUCTOR =
 export const OPEN_INGREDIENT_MODAL = "OPEN_MODAL";
 export const CLOSE_INGREDIENT_MODAL = "OPEN_MODAL";
 export const GET_ORDER = "GET_ORDER";
+export const GET_COUNT = "GET_COUNT";
 export const RESET_ORDER = "GET_ORDER";
 
 
 const defaultState = {
   availableIngredients: [],
   constructorIngredients: [],
-  moding:[],
   constructorBun: {price: null},
+  count: null,
   totalCost: null,
   selectedIngredient: null,
   currentOrder: { order: null, ingredientsId: [] },
@@ -54,7 +55,15 @@ const rootReducer = (state = defaultState, action) => {
             ),        
                   
         };
-     
+        case GET_COUNT:
+          return {
+            ...state,
+            count: [...state.constructorIngredients.filter(
+              (item) => item._id === action.payload
+            )].length,
+                  
+                    
+          };
       case SORT: {
         return {
           ...state,

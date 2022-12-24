@@ -29,7 +29,7 @@ const dispatch = useDispatch()
     };
     getRedData();
   }, []); 
-  /* eslint-disable */
+  
   /* зависимость без дополнительных параметров, выполнение тоолько при первом ренедере */
   React.useEffect(() => {
     const getData = async () => {
