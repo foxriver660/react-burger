@@ -22,13 +22,13 @@ const IngredientCard = ({ data }) => {
 
 // СЧЕТЧИК КОЛ_ВА ИНГРЕДИЕНТОВ
   let ingredientCounter = 0; 
-  const ingredients = useSelector((state) => state.constructorIngredients);
+  const ingredients = useSelector((state) => state.ingredientReducer.constructorIngredients);
     ingredients.forEach((ingredient) =>
     ingredient._id === id
       ? ingredientCounter += 1
       : ingredientCounter
   );
-  const bun = useSelector((state) => state.constructorBun);
+  const bun = useSelector((state) => state.ingredientReducer.constructorBun);
   [bun].forEach((bun) =>
   bun._id === id
       ? ingredientCounter += 2

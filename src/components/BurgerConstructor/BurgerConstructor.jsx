@@ -28,10 +28,10 @@ import { Reorder } from "framer-motion";
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
-  const totalCost = useSelector((state) => state.totalCost);
-  const order = useSelector((state) => state.currentOrder);
-  const ingredients = useSelector((state) => state.constructorIngredients);
-  const bun = useSelector((state) => state.constructorBun);
+  const totalCost = useSelector((state) => state.ingredientReducer.totalCost);
+  const order = useSelector((state) => state.orderReducer.currentOrder);
+  const ingredients = useSelector((state) => state.ingredientReducer.constructorIngredients);
+  const bun = useSelector((state) => state.ingredientReducer.constructorBun);
 
   
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER

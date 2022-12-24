@@ -1,5 +1,8 @@
 import { nanoid } from 'nanoid';
-
+import { combineReducers } from 'redux';
+import { ingredientReducer } from './ingredientReducer';
+import { modalReducer } from './modalReducer';
+import { orderReducer } from './orderReducer';
 // ИНГРЕДИЕНТЫ
 export const GET_API_INGREDIENTS = "GET_API_INGREDIENTS";
 export const ADD_INGREDIENT_TO_CONSTRUCTOR = "ADD_INGREDIENT_TO_CONSTRUCTOR";
@@ -8,16 +11,20 @@ export const CALC_INGREDIENTS_IN_CONSTRUCTOR = "CALC_INGREDIENTS_IN_CONSTRUCTOR"
 export const DELETE_INGREDIENT_FROM_CONSTRUCTOR ="DELETE_INGREDIENT_FROM_CONSTRUCTOR";
 export const SORT_INSIDE_CONSTRUCTOR = "SORT_INSIDE_CONSTRUCTOR";
 
-
 export const OPEN_INGREDIENT_MODAL = "OPEN_MODAL";
 export const CLOSE_INGREDIENT_MODAL = "OPEN_MODAL";
-
 
 export const GET_ORDER = "GET_ORDER";
 export const RESET_ORDER = "GET_ORDER";
 
 
-const defaultState = {
+
+export const rootReducer = combineReducers({
+  ingredientReducer,
+  modalReducer,
+  orderReducer,
+}); 
+/* const defaultState = {
   availableIngredients: [],
   constructorIngredients: [],
   constructorBun: {price: null},
@@ -27,6 +34,7 @@ const defaultState = {
 
   currentOrder: { order: null },
 };
+
 const rootReducer = (state = defaultState, action) => {
   switch (action.type) {
     case GET_API_INGREDIENTS:
@@ -78,6 +86,10 @@ const rootReducer = (state = defaultState, action) => {
           ),
         ],
       };
+
+
+
+
     case OPEN_INGREDIENT_MODAL:
       return { ...state, selectedIngredient: action.payload };
     case CLOSE_INGREDIENT_MODAL:
@@ -92,6 +104,6 @@ const rootReducer = (state = defaultState, action) => {
     default:
       return state;
   }
-};
+}; */
 
-export { rootReducer };
+

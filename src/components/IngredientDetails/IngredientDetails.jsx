@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux/es/exports";
 import {OPEN_INGREDIENT_MODAL} from '../../services/reducers/reducers'
 
 const IngredientDetails = () => {
-  const data = useSelector(state=>state.selectedIngredient)
+  const data = useSelector(state=>state.modalReducer.selectedIngredient)
   return (
     <div className={`${classes.wrapper} pt-10 pr-10 pl-10 pb-15`}>
       <p className={`${classes.ingredientHeader} text text_type_main-large`}>

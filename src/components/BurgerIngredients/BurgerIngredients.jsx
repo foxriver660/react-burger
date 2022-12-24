@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux/es/exports";
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState(BUN);
   // ДАТА ИЗ КОНТЕКСТА
-  const data =useSelector(state=>state.availableIngredients);
+  const data =useSelector(state=>state.ingredientReducer.availableIngredients);
   // РЕАЛИЗАЦИЯ СКРОЛЛА
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);

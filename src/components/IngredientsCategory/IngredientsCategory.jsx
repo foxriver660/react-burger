@@ -13,7 +13,7 @@ import {
 
 const IngredientsCategory = ({ filteredArr }) => {
   const dispatch = useDispatch();
-  const selectedIngredient = useSelector((state) => state.selectedIngredient);
+  const selectedIngredient = useSelector((state) => state.modalReducer.selectedIngredient);
 
   return (
     <>
