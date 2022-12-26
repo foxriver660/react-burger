@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { getIngredientsAPI } from "../../components/utils/burger-api";
-export const LOADING_ERROR = "LOADING_ERROR";
-export const LOADING_COMPLETED = "LOADING_COMPLETED";
+export const GET_API_INGREDIENTS_ERROR = "GET_API_INGREDIENTS_ERROR";
+export const GET_API_INGREDIENTS_SUCCESS = "GET_API_INGREDIENTS_SUCCESS";
 export const GET_API_INGREDIENTS = "GET_API_INGREDIENTS";
 export const ADD_INGREDIENT_TO_CONSTRUCTOR = "ADD_INGREDIENT_TO_CONSTRUCTOR";
 export const ADD_BUN_TO_CONSTRUCTOR = "ADD_BUN_TO_CONSTRUCTOR";
@@ -16,13 +16,13 @@ export const getApiIngredients = () => (dispatch) => {
     getIngredientsAPI()
       .then((res) => {
         dispatch({ type: GET_API_INGREDIENTS, payload: res.data });
-        dispatch({ type: LOADING_COMPLETED });
+        dispatch({ type: GET_API_INGREDIENTS_SUCCESS });
       })
       .catch((err) => {
         console.log(err);
-        dispatch({ type: LOADING_ERROR });
+        dispatch({ type: GET_API_INGREDIENTS_ERROR });
       })
-      .finally(() => dispatch({ type: LOADING_COMPLETED }));
+      .finally(() => dispatch({ type: GET_API_INGREDIENTS_SUCCESS }));
   };
 
 // ГЕНЕРАТОРЫ

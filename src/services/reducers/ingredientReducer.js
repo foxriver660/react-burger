@@ -1,6 +1,6 @@
 import {
-  LOADING_ERROR,
-  LOADING_COMPLETED,
+  GET_API_INGREDIENTS_ERROR,
+  GET_API_INGREDIENTS_SUCCESS,
   GET_API_INGREDIENTS,
   ADD_INGREDIENT_TO_CONSTRUCTOR,
   ADD_BUN_TO_CONSTRUCTOR,
@@ -18,12 +18,12 @@ const defaultState = {
 };
 export const ingredientReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case LOADING_ERROR:
+    case GET_API_INGREDIENTS_ERROR:
       return {
         ...state,
         serverResponse: { ...state.serverResponse, hasError: true },
       };
-    case LOADING_COMPLETED:
+    case GET_API_INGREDIENTS_SUCCESS:
       return {
         ...state,
         serverResponse: { ...state.serverResponse, isLoading: false },
