@@ -5,14 +5,16 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDispatch } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 import { getApiIngredients} from '../../services/actions/ingredientActions'
 
 const App = () => {
 
 
 const dispatch = useDispatch()
- 
+ const {isLoading, hasError } = useSelector(state=> state.ingredientReducer.serverResponse)
+ const data = useSelector(state=> state.ingredientReducer.availableIngredients)
+console.log(data)
 
 /*   const [state, setState] = React.useState({
     isLoading: false,
@@ -45,17 +47,17 @@ const dispatch = useDispatch()
     <main className={`p-10`}>
       <AppHeader />
       <div className={`${classes.subContainer} p-4`}>
-     {/*    {state.isLoading && (
+        {isLoading && (
           <div className={`${classes.loadingMessage} text_type_main-medium`}>
             Загрузка...
           </div>
         )}
-        {state.hasError && (
+         {hasError && (
           <div className={`${classes.loadingMessage} text_type_main-medium`}>
             Что-то пошло не так :(
           </div>
-        )} */}
-        {/* !state.isLoading && !state.hasError && !!state.data.length && */ (
+        )}   
+        { !isLoading && !hasError &&  !!data.length && (
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
             <BurgerConstructor />
