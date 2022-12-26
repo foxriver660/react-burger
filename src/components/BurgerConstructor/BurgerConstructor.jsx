@@ -9,7 +9,6 @@ import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-
 import { useDrop } from "react-dnd";
 import { BUN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
@@ -19,15 +18,11 @@ import {
   sortIngredient,
   calcIngredients,
 } from "../../services/actions/ingredientActions";
-import {
-  
-  resetOrder,
-  getApiOrder
-  } from "../../services/actions/orderActions";
+import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
 
-const BurgerConstructor = () => {
+const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const totalCost = useSelector((state) => state.ingredientReducer.totalCost);
@@ -40,8 +35,8 @@ const BurgerConstructor = () => {
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
-    dispatch(getApiOrder(ingredientsId))
-     };
+    dispatch(getApiOrder(ingredientsId));
+  };
 
   // !DRAG AND DROP
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
@@ -107,11 +102,7 @@ const BurgerConstructor = () => {
                 className={`${classes.ingredientList} `}
               >
                 {ingredients.map((item) => (
-                  <ConstructorList
-                    value={item}
-                    key={item.nanoid}
-                    ingredient={item}
-                  />
+                  <ConstructorList value={item} key={item.nanoid} />
                 ))}
               </Reorder.Group>
             </div>
@@ -168,6 +159,6 @@ const BurgerConstructor = () => {
       )}
     </section>
   );
-};
+});
 
 export default BurgerConstructor;

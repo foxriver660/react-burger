@@ -5,7 +5,7 @@ import classes from "./IngredientCard.module.css";
 import itemPropTypes from "../utils/prop-types";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux/es/exports";
-const IngredientCard = ({ data }) => {
+const IngredientCard = React.memo(({ data }) => {
   //  ID и тип карточки записываются в состояние
   const [id] = React.useState(data._id);
   const [type] = React.useState(data.type);
@@ -19,22 +19,18 @@ const IngredientCard = ({ data }) => {
     }),
   });
 
-
-// СЧЕТЧИК КОЛ_ВА ИНГРЕДИЕНТОВ
-  let ingredientCounter = 0; 
-  const ingredients = useSelector((state) => state.ingredientReducer.constructorIngredients);
-    ingredients.forEach((ingredient) =>
-    ingredient._id === id
-      ? ingredientCounter += 1
-      : ingredientCounter
+  // СЧЕТЧИК КОЛ_ВА ИНГРЕДИЕНТОВ
+  let ingredientCounter = 0;
+  const ingredients = useSelector(
+    (state) => state.ingredientReducer.constructorIngredients
+  );
+  ingredients.forEach((ingredient) =>
+    ingredient._id === id ? (ingredientCounter += 1) : ingredientCounter
   );
   const bun = useSelector((state) => state.ingredientReducer.constructorBun);
   [bun].forEach((bun) =>
-  bun._id === id
-      ? ingredientCounter += 2
-      : ingredientCounter
+    bun._id === id ? (ingredientCounter += 2) : ingredientCounter
   );
-
 
   return (
     <div ref={dragRef} style={{ opacity }} className={classes.container}>
@@ -51,7 +47,7 @@ const IngredientCard = ({ data }) => {
       <Counter count={ingredientCounter} size="default" />
     </div>
   );
-};
+});
 
 export default IngredientCard;
 

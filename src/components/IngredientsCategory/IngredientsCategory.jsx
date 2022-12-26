@@ -11,9 +11,11 @@ import {
   closeIngredientModal,
 } from "../../services/actions/modalActions";
 
-const IngredientsCategory = ({ filteredArr }) => {
+const IngredientsCategory = React.memo(({ filteredArr }) => {
   const dispatch = useDispatch();
-  const selectedIngredient = useSelector((state) => state.modalReducer.selectedIngredient);
+  const selectedIngredient = useSelector(
+    (state) => state.modalReducer.selectedIngredient
+  );
 
   return (
     <>
@@ -35,7 +37,7 @@ const IngredientsCategory = ({ filteredArr }) => {
       )}
     </>
   );
-};
+});
 
 export default IngredientsCategory;
 

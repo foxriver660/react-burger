@@ -8,17 +8,15 @@ import {
 import {
   deleteIngredient,
   calcIngredients,
- 
 } from "../../services/actions/ingredientActions";
 import React from "react";
 import { Reorder } from "framer-motion";
-
-const ConstructorList = ({ ingredient, value }) => {
-  const { name, price, image } = ingredient;
+import itemPropTypes from "../utils/prop-types";
+const ConstructorList = React.memo(({ value }) => {
   const dispatch = useDispatch();
 
-  const handleDeleteIngredient = (ingredient) => {
-    dispatch(deleteIngredient(ingredient));
+  const handleDeleteIngredient = (value) => {
+    dispatch(deleteIngredient(value));
     dispatch(calcIngredients());
   };
 
@@ -31,15 +29,19 @@ const ConstructorList = ({ ingredient, value }) => {
       <DragIcon type="primary" />
       <ConstructorElement
         extraClass={`${classes.ingredientElement} mr-2`}
-        text={name}
-        price={price}
-        thumbnail={image}
+        text={value.name}
+        price={value.price}
+        thumbnail={value.image}
         handleClose={() => {
-          handleDeleteIngredient(ingredient);
+          handleDeleteIngredient(value);
         }}
       />
     </Reorder.Item>
   );
-};
+});
 
 export default ConstructorList;
+
+ConstructorList.propTypes = {
+  value: itemPropTypes.isRequired,
+};

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import classes from "./OrderDetails.module.css";
 
-const OrderDetails = ({ order }) => {
+const OrderDetails = React.memo(({ order }) => {
   return (
     <div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-30`}>
       <p className={`${classes.orderNumber} text text_type_digits-large pb-8`}>
@@ -20,9 +20,8 @@ const OrderDetails = ({ order }) => {
       </p>
     </div>
   );
-};
+});
 OrderDetails.propTypes = {
   order: PropTypes.number.isRequired,
-  
 };
 export default OrderDetails;

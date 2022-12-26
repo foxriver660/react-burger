@@ -7,11 +7,10 @@ import {
   SORT_INSIDE_CONSTRUCTOR,
   CALC_INGREDIENTS_IN_CONSTRUCTOR,
   DELETE_INGREDIENT_FROM_CONSTRUCTOR,
-  
 } from "../actions/ingredientActions";
 
 const defaultState = {
-  serverResponse: {isLoading: true, hasError: false},
+  serverResponse: { isLoading: true, hasError: false },
   availableIngredients: [],
   constructorIngredients: [],
   constructorBun: { price: null },
@@ -20,9 +19,15 @@ const defaultState = {
 export const ingredientReducer = (state = defaultState, action) => {
   switch (action.type) {
     case LOADING_ERROR:
-      return { ...state, serverResponse: {...state.serverResponse, hasError: true} };
-      case LOADING_COMPLETED:
-        return { ...state, serverResponse: {...state.serverResponse, isLoading: false} };
+      return {
+        ...state,
+        serverResponse: { ...state.serverResponse, hasError: true },
+      };
+    case LOADING_COMPLETED:
+      return {
+        ...state,
+        serverResponse: { ...state.serverResponse, isLoading: false },
+      };
     case GET_API_INGREDIENTS:
       return { ...state, availableIngredients: [...action.payload] };
 
@@ -35,7 +40,7 @@ export const ingredientReducer = (state = defaultState, action) => {
             ...state.availableIngredients.find(
               (item) => item._id === action.payload.id
             ),
-           nanoid: action.generateId
+            nanoid: action.generateId,
           },
         ],
       };
