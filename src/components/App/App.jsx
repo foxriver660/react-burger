@@ -3,11 +3,10 @@ import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
-import { getIngredientsAPI } from "../utils/burger-api";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch } from "react-redux/es/exports";
-import {GET_API_INGREDIENTS} from '../../services/actions/ingredientActions'
+import { getApiIngredients} from '../../services/actions/ingredientActions'
 
 const App = () => {
 
@@ -15,23 +14,18 @@ const App = () => {
 const dispatch = useDispatch()
  
 
-  const [state, setState] = React.useState({
+/*   const [state, setState] = React.useState({
     isLoading: false,
     hasError: false,
     data: [],
-  });
+  }); */
 
   React.useEffect(() => {
-    const getRedData = async () => { 
-      getIngredientsAPI()
-        .then((res) => dispatch({ type: GET_API_INGREDIENTS, payload: res.data }))
-        
-    };
-    getRedData();
-  }, []); 
+   dispatch(getApiIngredients())
+  }, [dispatch]); 
   
   /* зависимость без дополнительных параметров, выполнение тоолько при первом ренедере */
- React.useEffect(() => {
+/*  React.useEffect(() => {
     const getData = async () => {
       setState({ ...state, isLoading: true });
       getIngredientsAPI()
@@ -44,14 +38,14 @@ const dispatch = useDispatch()
         );
     };
     getData();
-  }, []); 
+  }, []);  */
   /* eslint-enable */
 
   return (
     <main className={`p-10`}>
       <AppHeader />
       <div className={`${classes.subContainer} p-4`}>
-        {state.isLoading && (
+     {/*    {state.isLoading && (
           <div className={`${classes.loadingMessage} text_type_main-medium`}>
             Загрузка...
           </div>
@@ -60,8 +54,8 @@ const dispatch = useDispatch()
           <div className={`${classes.loadingMessage} text_type_main-medium`}>
             Что-то пошло не так :(
           </div>
-        )}
-        {!state.isLoading && !state.hasError && !!state.data.length && (
+        )} */}
+        {/* !state.isLoading && !state.hasError && !!state.data.length && */ (
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
             <BurgerConstructor />

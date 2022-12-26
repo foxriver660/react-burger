@@ -27,7 +27,7 @@ export const ingredientReducer = (state = defaultState, action) => {
             ...state.availableIngredients.find(
               (item) => item._id === action.payload.id
             ),
-           nanoid: action.nanoid
+           nanoid: action.generateId
           },
         ],
       };

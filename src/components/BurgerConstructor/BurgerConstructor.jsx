@@ -9,47 +9,44 @@ import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import { getOrderAPI } from "../utils/burger-api";
+
 import { useDrop } from "react-dnd";
 import { BUN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
   addIngredient,
-   addBun,
+  addBun,
   sortIngredient,
   calcIngredients,
 } from "../../services/actions/ingredientActions";
-import { getOrder, resetOrder, GET_ORDER, RESET_ORDER } from "../../services/actions/orderActions";
+import {
+  
+  resetOrder,
+  getApiOrder
+  } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
-
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const totalCost = useSelector((state) => state.ingredientReducer.totalCost);
   const order = useSelector((state) => state.orderReducer.currentOrder);
-  const ingredients = useSelector((state) => state.ingredientReducer.constructorIngredients);
+  const ingredients = useSelector(
+    (state) => state.ingredientReducer.constructorIngredients
+  );
   const bun = useSelector((state) => state.ingredientReducer.constructorBun);
 
-  
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
-    const ingredientsId = [...ingredients.map((item)=>item._id), bun._id]
-      getOrderAPI(ingredientsId)
-      .then((res) => {
-        dispatch(getOrder(res.order.number));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  
+    const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
+    dispatch(getApiOrder(ingredientsId))
+     };
+
   // !DRAG AND DROP
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     accept: "items",
     drop: (item) => {
-      console.log(item)
       item.type === BUN
         ? dispatch(addBun(item))
         : dispatch(addIngredient(item));
@@ -69,8 +66,6 @@ const BurgerConstructor = () => {
     outline = "1px solid red";
   }
   // !DRAG AND DROP
-console.log(ingredients)
-  
 
   // ИНСТРУМЕНТЫ ДЛЯ УСЛОВНОГО РЕНДЕРИНГА
   const checkIngredient = ingredients.length > 0;
@@ -108,12 +103,10 @@ console.log(ingredients)
               <Reorder.Group
                 axys="y"
                 values={ingredients}
-                onReorder={(newOrder) =>
-                  dispatch(sortIngredient(newOrder))
-                }
+                onReorder={(newOrder) => dispatch(sortIngredient(newOrder))}
                 className={`${classes.ingredientList} `}
               >
-                {ingredients.map((item, index) => (
+                {ingredients.map((item) => (
                   <ConstructorList
                     value={item}
                     key={item.nanoid}
