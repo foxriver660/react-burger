@@ -6,10 +6,10 @@ const checkReponse = (res) => {
 };
 
 /* ЗАПРОС НА СЕРВЕР НА ПОЛУЧЕНИЕ ДАННЫХ ИНГРЕДИЕНТОВ */
-const getIngredients = () =>
+const getIngredientsAPI = () =>
   fetch(`${BURGER_API_URL}/ingredients`).then(checkReponse);
 
-const getOrder = (ingredients) =>
+const getOrderAPI = (ingredients) =>
   fetch(`${BURGER_API_URL}/orders`, {
     method: "POST",
     headers: {
@@ -20,4 +20,4 @@ const getOrder = (ingredients) =>
     }),
   }).then(checkReponse);
 
-export { getIngredients, getOrder };
+export { getIngredientsAPI, getOrderAPI };

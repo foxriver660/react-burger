@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import {
   GET_API_INGREDIENTS,
   ADD_INGREDIENT_TO_CONSTRUCTOR,
@@ -28,7 +27,7 @@ export const ingredientReducer = (state = defaultState, action) => {
             ...state.availableIngredients.find(
               (item) => item._id === action.payload.id
             ),
-            nanoid: nanoid(),
+           nanoid: action.nanoid
           },
         ],
       };

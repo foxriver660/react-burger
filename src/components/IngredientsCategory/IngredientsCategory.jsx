@@ -7,8 +7,8 @@ import itemPropTypes from "../utils/prop-types";
 import Modal from "../Modal/Modal";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
-  OPEN_INGREDIENT_MODAL,
-  CLOSE_INGREDIENT_MODAL,
+  openIngredientModal,
+  closeIngredientModal,
 } from "../../services/actions/modalActions";
 
 const IngredientsCategory = ({ filteredArr }) => {
@@ -22,14 +22,14 @@ const IngredientsCategory = ({ filteredArr }) => {
           className={classes.card}
           key={item._id}
           onClick={() => {
-            dispatch({ type: OPEN_INGREDIENT_MODAL, payload: item });
+            dispatch(openIngredientModal(item));
           }}
         >
           <IngredientCard data={item} />
         </li>
       ))}
       {selectedIngredient && (
-        <Modal onClose={() => dispatch({ type: CLOSE_INGREDIENT_MODAL })}>
+        <Modal onClose={() => dispatch(closeIngredientModal())}>
           <IngredientDetails data={selectedIngredient} />
         </Modal>
       )}

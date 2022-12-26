@@ -3,10 +3,10 @@ import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import classes from "./App.module.css";
-import { getIngredients } from "../utils/burger-api";
+import { getIngredientsAPI } from "../utils/burger-api";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { useDispatch } from "react-redux/es/exports";
 import {GET_API_INGREDIENTS} from '../../services/actions/ingredientActions'
 
 const App = () => {
@@ -23,7 +23,7 @@ const dispatch = useDispatch()
 
   React.useEffect(() => {
     const getRedData = async () => { 
-      getIngredients()
+      getIngredientsAPI()
         .then((res) => dispatch({ type: GET_API_INGREDIENTS, payload: res.data }))
         
     };
@@ -31,10 +31,10 @@ const dispatch = useDispatch()
   }, []); 
   
   /* зависимость без дополнительных параметров, выполнение тоолько при первом ренедере */
-  React.useEffect(() => {
+ React.useEffect(() => {
     const getData = async () => {
       setState({ ...state, isLoading: true });
-      getIngredients()
+      getIngredientsAPI()
         .then((res) => setState({ ...state, data: res.data }))
         .catch((err) => setState({ ...state, hasError: true }))
         .finally(() =>
@@ -44,7 +44,7 @@ const dispatch = useDispatch()
         );
     };
     getData();
-  }, []);
+  }, []); 
   /* eslint-enable */
 
   return (

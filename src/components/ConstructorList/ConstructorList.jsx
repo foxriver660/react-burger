@@ -1,13 +1,14 @@
 import classes from "./ConstructorList.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {
-  DELETE_INGREDIENT_FROM_CONSTRUCTOR,
-  CALC_INGREDIENTS_IN_CONSTRUCTOR,
+  deleteIngredient,
+  calcIngredients,
+ 
 } from "../../services/actions/ingredientActions";
 import React from "react";
 import { Reorder } from "framer-motion";
@@ -16,14 +17,9 @@ const ConstructorList = ({ ingredient, value }) => {
   const { name, price, image } = ingredient;
   const dispatch = useDispatch();
 
-  const deleteIngredient = (ingredient) => {
-    dispatch({
-      type: DELETE_INGREDIENT_FROM_CONSTRUCTOR,
-      payload: ingredient,
-    });
-    dispatch({
-      type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
-    });
+  const handleDeleteIngredient = (ingredient) => {
+    dispatch(deleteIngredient(ingredient));
+    dispatch(calcIngredients());
   };
 
   return (
@@ -39,7 +35,7 @@ const ConstructorList = ({ ingredient, value }) => {
         price={price}
         thumbnail={image}
         handleClose={() => {
-          deleteIngredient(ingredient);
+          handleDeleteIngredient(ingredient);
         }}
       />
     </Reorder.Item>

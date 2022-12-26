@@ -9,17 +9,17 @@ import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import Modal from "../Modal/Modal";
-import { getOrder } from "../utils/burger-api";
+import { getOrderAPI } from "../utils/burger-api";
 import { useDrop } from "react-dnd";
 import { BUN } from "../utils/constant";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
-   ADD_INGREDIENT_TO_CONSTRUCTOR,
-  ADD_BUN_TO_CONSTRUCTOR,
-  SORT_INSIDE_CONSTRUCTOR,
-  CALC_INGREDIENTS_IN_CONSTRUCTOR,
+  addIngredient,
+   addBun,
+  sortIngredient,
+  calcIngredients,
 } from "../../services/actions/ingredientActions";
-import { GET_ORDER, RESET_ORDER } from "../../services/actions/orderActions";
+import { getOrder, resetOrder, GET_ORDER, RESET_ORDER } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
 
@@ -36,9 +36,9 @@ const BurgerConstructor = () => {
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [...ingredients.map((item)=>item._id), bun._id]
-      getOrder(ingredientsId)
+      getOrderAPI(ingredientsId)
       .then((res) => {
-        dispatch({ type: GET_ORDER, payload: res.order.number });
+        dispatch(getOrder(res.order.number));
       })
       .catch((err) => {
         console.log(err);
@@ -49,18 +49,11 @@ const BurgerConstructor = () => {
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     accept: "items",
     drop: (item) => {
+      console.log(item)
       item.type === BUN
-        ? dispatch({
-            type: ADD_BUN_TO_CONSTRUCTOR,
-            payload: item,
-          })
-        : dispatch({
-            type: ADD_INGREDIENT_TO_CONSTRUCTOR,
-            payload: item,
-          });
-      dispatch({
-        type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
-      });
+        ? dispatch(addBun(item))
+        : dispatch(addIngredient(item));
+      dispatch(calcIngredients());
     },
 
     collect: (monitor) => ({
@@ -76,7 +69,7 @@ const BurgerConstructor = () => {
     outline = "1px solid red";
   }
   // !DRAG AND DROP
-
+console.log(ingredients)
   
 
   // ИНСТРУМЕНТЫ ДЛЯ УСЛОВНОГО РЕНДЕРИНГА
@@ -116,7 +109,7 @@ const BurgerConstructor = () => {
                 axys="y"
                 values={ingredients}
                 onReorder={(newOrder) =>
-                  dispatch({ type: SORT_INSIDE_CONSTRUCTOR, payload: newOrder })
+                  dispatch(sortIngredient(newOrder))
                 }
                 className={`${classes.ingredientList} `}
               >
@@ -165,7 +158,7 @@ const BurgerConstructor = () => {
           </div>
 
           {order.order && (
-            <Modal onClose={() => dispatch({ type: RESET_ORDER })}>
+            <Modal onClose={() => dispatch(resetOrder())}>
               <OrderDetails order={order.order} />
             </Modal>
           )}
