@@ -22,15 +22,18 @@ import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
 
+const getTotalCost = (state) => state.ingredientReducer.totalCost;
+const getOrder = (state) => state.orderReducer.currentOrder;
+const getIngredients = (state) => state.ingredientReducer.constructorIngredients;
+const getBun = (state) => state.ingredientReducer.constructorBun;
+
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
-  const totalCost = useSelector((state) => state.ingredientReducer.totalCost);
-  const order = useSelector((state) => state.orderReducer.currentOrder);
-  const ingredients = useSelector(
-    (state) => state.ingredientReducer.constructorIngredients
-  );
-  const bun = useSelector((state) => state.ingredientReducer.constructorBun);
+  const totalCost = useSelector(getTotalCost);
+  const order = useSelector(getOrder);
+  const ingredients = useSelector(getIngredients);
+  const bun = useSelector(getBun);
 
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {

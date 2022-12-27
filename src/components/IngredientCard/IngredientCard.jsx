@@ -5,6 +5,11 @@ import classes from "./IngredientCard.module.css";
 import itemPropTypes from "../utils/prop-types";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux/es/exports";
+
+const getIngredients = (state) => state.ingredientReducer.constructorIngredients;
+const getBun = (state) => state.ingredientReducer.constructorBun;
+
+
 const IngredientCard = React.memo(({ data }) => {
   //  ID и тип карточки записываются в состояние
   const [id] = React.useState(data._id);
@@ -21,13 +26,11 @@ const IngredientCard = React.memo(({ data }) => {
 
   // СЧЕТЧИК КОЛ_ВА ИНГРЕДИЕНТОВ
   let ingredientCounter = 0;
-  const ingredients = useSelector(
-    (state) => state.ingredientReducer.constructorIngredients
-  );
+  const ingredients = useSelector(getIngredients);
   ingredients.forEach((ingredient) =>
     ingredient._id === id ? (ingredientCounter += 1) : ingredientCounter
   );
-  const bun = useSelector((state) => state.ingredientReducer.constructorBun);
+  const bun = useSelector(getBun);
   [bun].forEach((bun) =>
     bun._id === id ? (ingredientCounter += 2) : ingredientCounter
   );

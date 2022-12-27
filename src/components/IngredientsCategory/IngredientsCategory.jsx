@@ -11,11 +11,11 @@ import {
   closeIngredientModal,
 } from "../../services/actions/modalActions";
 
+const getSelectedIngredient = (state) => state.modalReducer.selectedIngredient;
+
 const IngredientsCategory = React.memo(({ filteredArr }) => {
   const dispatch = useDispatch();
-  const selectedIngredient = useSelector(
-    (state) => state.modalReducer.selectedIngredient
-  );
+  const selectedIngredient = useSelector(getSelectedIngredient);
 
   return (
     <>

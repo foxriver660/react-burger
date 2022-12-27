@@ -8,14 +8,13 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { getApiIngredients } from "../../services/actions/ingredientActions";
 
+const getServerResponse = (state) => state.ingredientReducer.serverResponse;
+const getData = (state) => state.ingredientReducer.availableIngredients;
+
 const App = React.memo(() => {
   const dispatch = useDispatch();
-  const { isLoading, hasError } = useSelector(
-    (state) => state.ingredientReducer.serverResponse
-  );
-  const data = useSelector(
-    (state) => state.ingredientReducer.availableIngredients
-  );
+  const { isLoading, hasError } = useSelector(getServerResponse);
+  const data = useSelector(getData);
 
   React.useEffect(() => {
     dispatch(getApiIngredients());
