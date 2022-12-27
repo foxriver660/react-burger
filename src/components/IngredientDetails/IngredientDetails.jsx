@@ -1,8 +1,11 @@
 import React from "react";
 import classes from "./IngredientDetails.module.css";
-import itemPropTypes from "../utils/prop-types";
+import { useSelector } from "react-redux/es/exports";
 
-const IngredientDetails = ({ data }) => {
+const getSelectedIngredient = (state) => state.modalReducer.selectedIngredient;
+
+const IngredientDetails = React.memo(() => {
+  const data = useSelector(getSelectedIngredient);
   return (
     <div className={`${classes.wrapper} pt-10 pr-10 pl-10 pb-15`}>
       <p className={`${classes.ingredientHeader} text text_type_main-large`}>
@@ -59,10 +62,6 @@ const IngredientDetails = ({ data }) => {
       </div>
     </div>
   );
-};
+});
 
 export default IngredientDetails;
-
-IngredientDetails.propTypes = {
-  data: itemPropTypes.isRequired,
-};

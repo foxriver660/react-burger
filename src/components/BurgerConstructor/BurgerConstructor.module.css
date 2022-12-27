@@ -2,7 +2,14 @@
   width: 580px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: flex-end;
+  border-radius: 10px;
+}
+.defaultContainer{
+  width: 100%;
+ 
+  text-align: center;
 }
 .ingredientList {
   display: flex;
@@ -26,6 +33,7 @@
 }
 
 .ingredientElement {
+  max-height: 80px;
   background-color: #1c1c21;
   cursor: pointer;
 }
@@ -51,4 +59,10 @@
   background-color: #8585ad;
   height: 288px;
   width: 100%;
+}
+.defaultMessage{
+  
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }

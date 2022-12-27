@@ -1,13 +1,17 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
-import PropTypes from "prop-types";
-import itemPropTypes from "../utils/prop-types";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
 
-const BurgerIngredients = ({ data }) => {
-  const [current, setCurrent] = React.useState("bun");
+import { SAUCE, BUN, MAIN } from "../utils/constant";
+import { Waypoint } from "react-waypoint";
+import { useSelector } from "react-redux/es/exports";
 
+const getData = (state) => state.ingredientReducer.availableIngredients;
+
+const BurgerIngredients = React.memo(() => {
+  const [current, setCurrent] = React.useState(BUN);
+  const data = useSelector(getData);
   // РЕАЛИЗАЦИЯ СКРОЛЛА
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);
@@ -19,13 +23,13 @@ const BurgerIngredients = ({ data }) => {
   const handleClickTab = (tab) => {
     setCurrent(tab);
     switch (tab) {
-      case "bun":
+      case BUN:
         scrollTo(bunRef);
         break;
-      case "sauce":
+      case SAUCE:
         scrollTo(sauceRef);
         break;
-      case "main":
+      case MAIN:
         scrollTo(mainRef);
         break;
       // no default
@@ -36,13 +40,13 @@ const BurgerIngredients = ({ data }) => {
     return data.reduce(
       (acc, ingredient) => {
         switch (ingredient.type) {
-          case "bun":
+          case BUN:
             acc.buns.push(ingredient);
             break;
-          case "main":
+          case MAIN:
             acc.mains.push(ingredient);
             break;
-          case "sauce":
+          case SAUCE:
             acc.sauces.push(ingredient);
             break;
           // no default
@@ -61,29 +65,30 @@ const BurgerIngredients = ({ data }) => {
 
       <div className={`${classes.tabContainer} pt-5 pb-10`}>
         <Tab
-          value="bun"
-          active={current === "bun"}
-          onClick={() => handleClickTab("bun")}
+          value={BUN}
+          active={current === BUN}
+          onClick={() => handleClickTab(BUN)}
         >
           Булки
         </Tab>
         <Tab
-          value="sauce"
-          active={current === "sauce"}
-          onClick={() => handleClickTab("sauce")}
+          value={SAUCE}
+          active={current === SAUCE}
+          onClick={() => handleClickTab(SAUCE)}
         >
           Соусы
         </Tab>
         <Tab
-          value="main"
-          active={current === "main"}
-          onClick={() => handleClickTab("main")}
+          value={MAIN}
+          active={current === MAIN}
+          onClick={() => handleClickTab(MAIN)}
         >
           Начинки
         </Tab>
       </div>
 
-      <div className={classes.scrollWrapper}>
+      <div id="scroll-root" className={classes.scrollWrapper}>
+        <Waypoint bottomOffset="90%" onEnter={() => setCurrent(BUN)} />
         <h2
           ref={bunRef}
           className={`${classes.subtitle} pb-6 text text_type_main-medium`}
@@ -94,7 +99,7 @@ const BurgerIngredients = ({ data }) => {
         <ul className={classes.ingredientsList}>
           <IngredientsCategory filteredArr={buns} />
         </ul>
-
+        <Waypoint bottomOffset="90%" onEnter={() => setCurrent(SAUCE)} />
         <h2
           ref={sauceRef}
           className={`${classes.subtitle} pt-10 pb-6 text text_type_main-medium`}
@@ -105,7 +110,7 @@ const BurgerIngredients = ({ data }) => {
         <ul className={classes.ingredientsList}>
           <IngredientsCategory filteredArr={sauces} />
         </ul>
-
+        <Waypoint bottomOffset="90%" onEnter={() => setCurrent(MAIN)} />
         <h2
           ref={mainRef}
           className={`${classes.subtitle} pt-10 pb-6 text text_type_main-medium`}
@@ -119,10 +124,6 @@ const BurgerIngredients = ({ data }) => {
       </div>
     </section>
   );
-};
+});
 
 export default BurgerIngredients;
-
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
-};

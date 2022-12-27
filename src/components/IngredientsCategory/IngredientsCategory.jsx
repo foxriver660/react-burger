@@ -5,12 +5,17 @@ import classes from "./IngredientsCategory.module.css";
 import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
 import Modal from "../Modal/Modal";
+import { useSelector, useDispatch } from "react-redux/es/exports";
+import {
+  openIngredientModal,
+  closeIngredientModal,
+} from "../../services/actions/modalActions";
 
-const IngredientsCategory = ({ filteredArr }) => {
-  /* СОСТОЯНИЕ МОДАЛКИ */
-  const [isOpenCard, setIsOpenCard] = React.useState(false);
-  /* ВЫБРАННЫЙ ИНГРЕДИЕНТ */
-  const [selectedIngredient, setSelectedIngredient] = React.useState();
+const getSelectedIngredient = (state) => state.modalReducer.selectedIngredient;
+
+const IngredientsCategory = React.memo(({ filteredArr }) => {
+  const dispatch = useDispatch();
+  const selectedIngredient = useSelector(getSelectedIngredient);
 
   return (
     <>
@@ -19,21 +24,20 @@ const IngredientsCategory = ({ filteredArr }) => {
           className={classes.card}
           key={item._id}
           onClick={() => {
-            setSelectedIngredient(item);
-            setIsOpenCard(true);
+            dispatch(openIngredientModal(item));
           }}
         >
           <IngredientCard data={item} />
         </li>
       ))}
-      {selectedIngredient && isOpenCard && (
-        <Modal onClose={() => setIsOpenCard(false)}>
+      {selectedIngredient && (
+        <Modal onClose={() => dispatch(closeIngredientModal())}>
           <IngredientDetails data={selectedIngredient} />
         </Modal>
       )}
     </>
   );
-};
+});
 
 export default IngredientsCategory;
 

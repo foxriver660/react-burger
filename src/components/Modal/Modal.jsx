@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 const modalRootElement = document.querySelector("#modal");
 
-const Modal = ({ onClose, children }) => {
+const Modal = React.memo(({ onClose, children }) => {
   React.useEffect(() => {
     const escClose = (e) => {
       if (e.key === "Escape") {
@@ -36,7 +36,7 @@ const Modal = ({ onClose, children }) => {
 
     modalRootElement
   );
-};
+});
 
 export default Modal;
 
