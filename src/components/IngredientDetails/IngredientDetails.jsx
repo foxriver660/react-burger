@@ -5,6 +5,7 @@ import { useSelector } from "react-redux/es/exports";
 const getSelectedIngredient = (state) => state.modalReducer.selectedIngredient;
 
 const IngredientDetails = React.memo(() => {
+  console.log("МЕНЯ ОТРЕНДЕРИЛИ")
   const data = useSelector(getSelectedIngredient);
   return (
     <div className={`${classes.wrapper} pt-10 pr-10 pl-10 pb-15`}>

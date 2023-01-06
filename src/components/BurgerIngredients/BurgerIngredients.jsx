@@ -2,16 +2,21 @@ import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
-
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import Modal from "../Modal/Modal";
+import { closeIngredientModal } from "../../services/actions/modalActions";
 import { SAUCE, BUN, MAIN } from "../utils/constant";
 import { Waypoint } from "react-waypoint";
-import { useSelector } from "react-redux/es/exports";
+import { useSelector, useDispatch } from "react-redux/es/exports";
 
 const getData = (state) => state.ingredientReducer.availableIngredients;
+const getSelectedIngredient = (state) => state.modalReducer.selectedIngredient;
 
 const BurgerIngredients = React.memo(() => {
   const [current, setCurrent] = React.useState(BUN);
+  const dispatch = useDispatch();
   const data = useSelector(getData);
+  const selectedIngredient = useSelector(getSelectedIngredient);
   // РЕАЛИЗАЦИЯ СКРОЛЛА
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);
@@ -122,6 +127,11 @@ const BurgerIngredients = React.memo(() => {
           <IngredientsCategory filteredArr={mains} />
         </ul>
       </div>
+      {selectedIngredient && (
+        <Modal onClose={() => dispatch(closeIngredientModal())}>
+          <IngredientDetails data={selectedIngredient} />
+        </Modal>
+      )}
     </section>
   );
 });
