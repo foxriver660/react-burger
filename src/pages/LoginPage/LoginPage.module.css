@@ -5,3 +5,6 @@
   font-size: 16px;
   line-height: 24px;
 }
+.clarification:first-of-type{
+padding-bottom: 16px;
+}
