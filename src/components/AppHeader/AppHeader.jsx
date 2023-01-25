@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
@@ -19,12 +20,12 @@ const AppHeader = React.memo(() => {
                 type="secondary"
                 size="medium"
               >
-                <a
+                <Link
                   className={`${classes.navItemActive} ${classes.navItem}`}
-                  href="/#"
+                  to="/"
                 >
                   <BurgerIcon type="primary" /> Конструктор
-                </a>
+                </Link>
               </Button>
             </li>
             <li>
@@ -49,9 +50,9 @@ const AppHeader = React.memo(() => {
           type="secondary"
           size="medium"
         >
-          <a className={`${classes.navItem}`} href="/#">
+          <Link className={`${classes.navItem}`} to="/profile">
             <ProfileIcon type="secondary" /> Личный кабинет
-          </a>
+          </Link>
         </Button>
       </div>
     </header>
