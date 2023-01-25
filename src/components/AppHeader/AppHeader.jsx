@@ -8,7 +8,7 @@ import classes from "./AppHeader.module.css";
 
 const AppHeader = React.memo(() => {
   return (
-    <section className={`p-4 ${classes.header}`}>
+    <header className={`p-4 ${classes.header}`}>
       <div className={`${classes.container}`}>
         <nav className={classes.navContainer}>
           <ul className={classes.navList}>
@@ -54,7 +54,7 @@ const AppHeader = React.memo(() => {
           </a>
         </Button>
       </div>
-    </section>
+    </header>
   );
 });
 export default AppHeader;

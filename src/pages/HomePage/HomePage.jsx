@@ -1,8 +1,9 @@
 import React from "react";
-import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import classes from "./App.module.css";
+import {Routes,  Route} from "react-router-dom";
+import AppHeader from "../../components/AppHeader/AppHeader";
+import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
+import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
+import classes from "./HomePage.module.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useDispatch, useSelector } from "react-redux/es/exports";
@@ -11,7 +12,7 @@ import { getApiIngredients } from "../../services/actions/ingredientActions";
 const getServerResponse = (state) => state.ingredientReducer.serverResponse;
 const getData = (state) => state.ingredientReducer.availableIngredients;
 
-const App = React.memo(() => {
+const HomePage = React.memo(() => {
   const dispatch = useDispatch();
   const { isLoading, hasError } = useSelector(getServerResponse);
   const data = useSelector(getData);
@@ -21,9 +22,7 @@ const App = React.memo(() => {
   }, [dispatch]);
 
   return (
-    <main className={`p-10`}>
-      <AppHeader />
-      <div className={`${classes.subContainer} p-4`}>
+          <div className={`${classes.container} p-4`}>
         {isLoading && (
           <div className={`${classes.loadingMessage} text_type_main-medium`}>
             Загрузка...
@@ -41,8 +40,8 @@ const App = React.memo(() => {
           </DndProvider>
         )}
       </div>
-    </main>
+   
   );
 });
 
-export default App;
+export default HomePage;
