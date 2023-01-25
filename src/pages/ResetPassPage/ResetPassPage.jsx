@@ -18,7 +18,7 @@ const ResetPassPage = () => {
       <Form formName="Восстановление пароля" btnName="Сохранить">
         
         
-        <Input type={"password"} placeholder={"Введите новый пароль"} />
+        <Input type={"password"} placeholder={"Введите новый пароль"} icon={'ShowIcon'} />
         <Input type={"text"} placeholder={"Введите код из письма"} />
       </Form>
 

@@ -14,14 +14,15 @@ const Form = ({children, formName, btnName }) => {
           </legend>
           {children}
         </fieldset>
-        <Button
+        {formName && <Button
           htmlType="button"
           type="primary submit"
           size="medium"
           extraClass=""
         >
           {btnName}
-        </Button>
+        </Button>}
+        
       </form>
       );
 };

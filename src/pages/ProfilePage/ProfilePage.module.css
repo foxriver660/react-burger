@@ -1,0 +1,20 @@
+.container{
+outline: 1px solid red;
+display: flex;
+gap:84px
+}
+.subcontainer{
+  outline: 1px solid green;
+  max-width: 320px;
+}
+.list{
+ padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+.item{
+  line-height: 64px;
+}
+.item:hover{
+  color: #fff;
+}

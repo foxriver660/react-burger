@@ -1,9 +1,14 @@
-.container {
+.login {
   outline: 1px solid red;
   display: flex;
-padding-top: 180px;
-flex-direction: column;
-align-items: center;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  
+  padding-top: 180px;
+}
+.profile {
+  composes: login;
+  padding-top: 120px;
+  padding-left: 80px;
+  align-items: flex-start;
 }

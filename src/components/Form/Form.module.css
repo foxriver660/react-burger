@@ -9,7 +9,7 @@
   align-items: center;
   background-color: transparent;
   position: relative;
-  gap: 24px;
+  /* gap: 24px; */
 }
 
 .fieldset {

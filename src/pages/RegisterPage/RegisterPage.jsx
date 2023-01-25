@@ -18,7 +18,7 @@ const RegisterPage = () => {
       <Form formName="Регистрация" btnName="Зарегистрироваться">
         <Input type={"text"} placeholder={"Имя"} />
         <Input type={"email"} placeholder={"E-mail"} />
-        <Input type={"password"} placeholder={"Пароль"} />
+        <Input type={"password"} placeholder={"Пароль"} icon={'ShowIcon'} />
       </Form>
 
       <p className={`${classes.clarification} text text_type_main-default`}>
