@@ -7,11 +7,12 @@ const Form = ({children, formName, btnName }) => {
   return (
           <form className={classes.form}>
         <fieldset className={`${classes.fieldset} `}>
-          <legend
+        {formName && <legend
             className={`${classes.title} pb-6 text text_type_main-medium`}
           >
             {formName}
-          </legend>
+          </legend>}
+          
           {children}
         </fieldset>
         {formName && <Button
