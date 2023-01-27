@@ -7,23 +7,28 @@ import {
  } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import classes from "./LoginPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import { getApiLoginUser } from '../../services/actions/profileActions';
+import { login } from '../../services/actions/profileActions';
 import { useSelector, useDispatch } from "react-redux/es/exports";
-
-
+import { getCookie } from '../../components/utils/cookie';
+import {Navigate, useNavigate} from 'react-router-dom'
 const LoginPage = () => {
   const [user, setUser] = React.useState({});
   const dispatch = useDispatch();
-
-  const res = useSelector((state) => state.profileReducer.resultLI);
-  const handleClick = (e) => {
+  const navigate = useNavigate()
+ 
+  
+  const handleSubmit = React.useCallback((e) => {
     e.preventDefault();
-    dispatch(getApiLoginUser(user));
-  };
-console.log(user)
+    dispatch(login(user));
+    navigate('/profile')
+  },
+  [user]
+);
+
+  
   return (
     <FormOverlay>
-    <Form onSubmit={handleClick} formName="Вход" >
+    <Form onSubmit={handleSubmit} formName="Вход" >
             <Input onChange={(e) => setUser({ ...user, email: e.target.value })}
           value={user.email} type={"email"} placeholder={"E-mail"} />
       <Input onChange={(e) => setUser({ ...user, password: e.target.value })}

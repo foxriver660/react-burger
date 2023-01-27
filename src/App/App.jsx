@@ -7,6 +7,7 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import ForgotPassPage from "../pages/ForgotPassPage/ForgotPassPage";
 import ResetPassPage from "../pages/ResetPassPage/ResetPassPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import { ProtectedRouteElement } from "../components/ProtectedRouteElement/ProtectedRouteElement";
 const App = React.memo(() => {
   return (
     <>
@@ -17,7 +18,7 @@ const App = React.memo(() => {
           <Route path="login" element={<LoginPage />} />
           <Route path="forgot-password" element={<ForgotPassPage />} />
           <Route path="reset-password" element={<ResetPassPage />} />
-          <Route path="profile" element={<ProfilePage />} />
+          <Route path="profile" element={<ProtectedRouteElement element={<ProfilePage/>} />} />
         </Route>
       </Routes>
     </>

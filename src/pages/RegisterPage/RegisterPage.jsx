@@ -10,7 +10,7 @@ import {
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import Form from "../../components/Form/Form";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import { getApiRegisterUser } from "../../services/actions/profileActions";
+import { registerUser } from "../../services/actions/profileActions";
 
 const RegisterPage = () => {
   const [user, setUser] = React.useState({});
@@ -19,7 +19,7 @@ const RegisterPage = () => {
   const res = useSelector((state) => state.profileReducer.name);
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch(getApiRegisterUser(user));
+    dispatch(registerUser(user));
   };
   
   return (

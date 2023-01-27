@@ -10,9 +10,18 @@
   margin: 0;
   list-style: none;
 }
-.item {
+.link {
   line-height: 64px;
+  cursor: pointer;
+  background: inherit;
+  outline: none;
+  border: none;
+  text-decoration: none;
 }
-.item:hover {
+.linkActive {
+  composes: link;
+  color: white;
+}
+.link:hover {
   color: #fff;
 }

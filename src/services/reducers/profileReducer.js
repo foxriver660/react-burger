@@ -1,43 +1,81 @@
+import { NodeBuilderFlags } from "typescript";
 import {
   UPDATE_PASS,
+  RESET_PASS,
+  RESET_USER,
   REGISTER_USER,
   SET_USER,
   LOGIN_USER,
+  LOGIN,
+  LOGOUT,
 } from "../actions/profileActions";
 
 const defaultState = {
-  resultFP: null,
-  resultRU: null,
-  resultLI:null,
-  name: null,
-  email: null,
-  password: null,
+  login: false,
+
+  updatePassRequest: null,
+  resetPassRequest: null,
+
+  logoutRequest: null,
+
+  registerUserRequest: null,
+  signInRequest: null,
+  signOutRequest: null,
+
+  user: { name: null, email: null, password: null },
 };
 export const profileReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case LOGIN:
+      return {
+        ...state,
+        login: true,
+      };
     case UPDATE_PASS:
       return {
         ...state,
-        resultFP: action.payload,
+        updatePassRequest: action.payload,
+      };
+    case RESET_PASS:
+      return {
+        ...state,
+        resetPassRequest: action.payload,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        logoutRequest: action.payload,
+      };
+    case RESET_USER:
+      return {
+        ...state,
+        user: {
+          name: null,
+          email: null,
+          password: null,
+        },
       };
     case REGISTER_USER:
       return {
         ...state,
-        resultRU: action.payload,
+        registerUserRequest: action.payload,
       };
     case SET_USER:
       return {
         ...state,
-        name: action.payload.name,
-        email: action.payload.email,
-        password: action.payload.password,
+        user: {
+          name: action.payload.name,
+          email: action.payload.email,
+          password: action.payload.password,
+        },
       };
-      case LOGIN_USER:
+
+    case LOGIN_USER:
       return {
         ...state,
-        email: action.payload.email,
-        password: action.payload.password,
+        resultLI: action.payload,
       };
+
     default:
       return state;
   }
