@@ -25,3 +25,15 @@
 .link:hover {
   color: #fff;
 }
+.btnContainer{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.btn{
+  background-color: inherit;
+  font-size: 30px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}

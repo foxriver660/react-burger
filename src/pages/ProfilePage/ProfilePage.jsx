@@ -10,15 +10,29 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/u
 import {NavLink} from 'react-router-dom'
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import { logout } from "../../services/actions/profileActions";
+import { logout, updateUserProfile } from "../../services/actions/profileActions";
+
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { getCookie } from "../../components/utils/cookie";
 const ProfilePage = () => {
+  const user = useSelector((state) => state.profileReducer.authUser);
+  const [updateUser, setUpdateUser] = React.useState(user);
   const dispatch = useDispatch();
+  const accessToken = getCookie("token");
   const refreshToken = getCookie('refreshToken');
   const setActive = ({isActive}) => `${isActive ? classes.linkActive : classes.link} text text_type_main-medium text_color_inactive`
   const handleClick = () => {
      dispatch(logout(refreshToken));
   };
+  const handleSubmit = React.useCallback((e) => {
+    e.preventDefault();
+    dispatch(updateUserProfile(`Bearer ${accessToken}`, updateUser));
+      },
+  [updateUser]
+);
+console.log(accessToken)
+const reset = () => {setUpdateUser(user)}
+  console.log(updateUser)
   return (
     <FormOverlay type='profile'>
       <div className={classes.container}>
@@ -31,10 +45,13 @@ const ProfilePage = () => {
         <p className="text text_type_main-default text_color_inactive">В этом разделе вы можете
 изменить свои персональные данные</p>
         </div>
-        <Form>
-          <Input value={'value'} type={"text"} placeholder={"Имя"} icon={'EditIcon'}/>
-          <Input value={'value'} type={"email"} placeholder={"Логин"} icon={'EditIcon'}/>
-          <Input value={'value'} type={"passward"} placeholder={"Пароль"} icon={'EditIcon'}/>
+        <Form onSubmit={handleSubmit}>
+          <Input value={updateUser.name} onChange={(e) => setUpdateUser({ ...updateUser, name: e.target.value })} type={"text"} placeholder={"Имя"} icon={'EditIcon'}/>
+          <Input value={updateUser.email} onChange={(e) => setUpdateUser({ ...updateUser, email: e.target.value })} type={"email"} placeholder={"Логин"} icon={'EditIcon'}/>
+          <Input value={updateUser.password} onChange={(e) => setUpdateUser({ ...updateUser, password: e.target.value })} type={"password"} placeholder={"Пароль"} icon={'EditIcon'}/>
+          <div className={classes.btnContainer}>{/* showReset && */ <button onClick={reset} className={classes.btn}>&#11119;</button>}<Button htmlType="submit" type="primary" size="medium" extraClass="">
+          Сохранить
+        </Button></div>
         </Form>
       </div>
     </FormOverlay>

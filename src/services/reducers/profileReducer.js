@@ -8,29 +8,27 @@ import {
   LOGIN_USER,
   LOGIN,
   LOGOUT,
+  
 } from "../actions/profileActions";
 
 const defaultState = {
-  login: false,
-
+  authUser: null,
+  
   updatePassRequest: null,
   resetPassRequest: null,
 
   logoutRequest: null,
 
   registerUserRequest: null,
-  signInRequest: null,
-  signOutRequest: null,
+  loginRequest: null,
 
-  user: { name: null, email: null, password: null },
+  
+
+  
 };
 export const profileReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case LOGIN:
-      return {
-        ...state,
-        login: true,
-      };
+    
     case UPDATE_PASS:
       return {
         ...state,
@@ -45,15 +43,20 @@ export const profileReducer = (state = defaultState, action) => {
       return {
         ...state,
         logoutRequest: action.payload,
+        authUser: null,
+      };
+      case LOGIN:
+      return {
+        ...state,
+        loginRequest: action.payload,
       };
     case RESET_USER:
       return {
         ...state,
-        user: {
+        authUser: {
           name: null,
           email: null,
-          password: null,
-        },
+                  },
       };
     case REGISTER_USER:
       return {
@@ -63,18 +66,13 @@ export const profileReducer = (state = defaultState, action) => {
     case SET_USER:
       return {
         ...state,
-        user: {
+        authUser: {
           name: action.payload.name,
           email: action.payload.email,
-          password: action.payload.password,
-        },
+                  },
       };
 
-    case LOGIN_USER:
-      return {
-        ...state,
-        resultLI: action.payload,
-      };
+  
 
     default:
       return state;

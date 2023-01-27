@@ -5,8 +5,9 @@ import {
   registerUserAPI,
   loginAPI,
   logoutAPI,
-  getUserAPI,
+  checkUserAccessAPI,
   resetPassAPI,
+  updateUserProfileAPI,
 } from "../../components/utils/burger-api";
 import { getCookie } from "../../components/utils/cookie";
 export const UPDATE_PASS = "UPDATE_PASS";
@@ -17,6 +18,7 @@ export const REGISTER_USER = "REGISTER_USER";
 export const SET_USER = "SET_USER";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGIN = "LOGIN";
+export const AUTHORISATION = "AUTHORISATION";
 // !ГЕНЕРАТОР THUNK
 export const updatePassRequest = (email) => (dispatch) => {
   updatePassRequestAPI(email)
@@ -44,7 +46,7 @@ export const logout = (refreshToken) => (dispatch) => {
   logoutAPI(refreshToken)
     .then((res) => {
       dispatch({ type: LOGOUT, payload: res.success });
-      dispatch({ type: RESET_USER });
+      /* dispatch({ type: RESET_USER }); */
       console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res);
       deleteCookie("token");
       deleteCookie("refreshToken");
@@ -67,7 +69,8 @@ export const registerUser = (user) => (dispatch) => {
       console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res);
       if (res.success) {
         dispatch({ type: REGISTER_USER, payload: res.success });
-        dispatch({ type: SET_USER, payload: user });
+        dispatch({ type: SET_USER, payload: res.user });
+        
       }
     })
     .catch((err) => {
@@ -76,7 +79,7 @@ export const registerUser = (user) => (dispatch) => {
 };
 
 // !ГЕНЕРАТОР THUNK
-export const login = (user) => (dispatch) => {
+export const login = (user, cb) => (dispatch) => {
   loginAPI(user)
     .then((res) => {
       let authToken;
@@ -87,39 +90,40 @@ export const login = (user) => (dispatch) => {
       setCookie("refreshToken", res.refreshToken);
       console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res);
       if (res.success) {
-        dispatch({ type: SET_USER, payload: user });
+        dispatch({ type: LOGIN, payload: res.success });
+        dispatch({ type: SET_USER, payload: res.user });
+        
       }
+      cb()
     })
     .catch((err) => {
       console.log(err);
     });
 };
-// ГЕНЕРАТОР THUNK
-/* export const signOut = (user) => (dispatch) => {
-  logoutAPI(user)
+// !ГЕНЕРАТОР THUNK
+export const checkUserAccess = (accessToken) => (dispatch) => {
+  checkUserAccessAPI(accessToken)
     .then((res) => {
-      dispatch({ type: LOGIN_USER, payload: res });
-      dispatch({ type: SET_USER, payload: user });
-      console.log('РЕЗУЛЬАТАТ ЗАПРОСА',res.accessToken);
-      let authToken;
-      authToken = res.accessToken.split('Bearer ')[1];
-      if (authToken) {
-        setCookie('token', authToken, {'max-age': 15});
-        setCookie('refreshToken', res.refreshToken);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}; */
-export const getUser = (accessToken) => (dispatch) => {
-  getUserAPI(accessToken)
-    .then((res) => {
-      console.log("ДАННЫЕ ПОЛУЧЕНЫ getUser:", res);
+      console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res);
       dispatch({ type: SET_USER, payload: res.user });
+      
       return res.success;
     })
     .catch((err) => {
       console.log(err);
     });
 };
+// !ГЕНЕРАТОР THUNK
+export const updateUserProfile = (accessToken, {name, email, password}) => (dispatch) => {
+  updateUserProfileAPI(accessToken, {name, email, password})
+    .then((res) => {
+      console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);
+      dispatch({ type: SET_USER, payload: res.user });
+      
+      return res.success;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+

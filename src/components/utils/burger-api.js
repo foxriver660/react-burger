@@ -85,7 +85,7 @@ const loginAPI = ({ email, password }) =>
   }).then(checkResponse);
 
 /* ЗАПРОС ДАННЫХ ПОЛЬЗОВАТЕЛЯ */
-const getUserAPI = (accessToken) =>
+const checkUserAccessAPI = (accessToken) =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "GET",
     headers: {
@@ -95,7 +95,7 @@ const getUserAPI = (accessToken) =>
   }).then(checkResponse);
 
 /* ЗАПРОС НА РЕДАКТИРОВАНИЕ ПРОФИЛЯ */
-const updateProfileAPI = (accessToken, name, email, password) =>
+const updateUserProfileAPI = (accessToken, {name, email, password}) =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "PATCH",
     headers: {
@@ -132,6 +132,6 @@ export {
   loginAPI,
   logoutAPI,
   refreshTokenAPI,
-  updateProfileAPI,
-  getUserAPI
+  updateUserProfileAPI,
+  checkUserAccessAPI
 };
