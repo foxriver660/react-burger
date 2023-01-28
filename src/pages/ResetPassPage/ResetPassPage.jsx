@@ -1,6 +1,6 @@
 import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import React from "react";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate, Navigate, useLocation } from "react-router-dom";
 import classes from "./ResetPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import {
@@ -15,6 +15,11 @@ const ResetPassPage = () => {
   const dispatch = useDispatch();
   const [newPassword, setNewPassword] = React.useState(null);
   const [code, setCode] = React.useState(null);
+  const [loading, setLoading] = React.useState(false)
+  const location = useLocation()
+  const forgotPage = location.state?.from?.pathname
+  console.log(location)
+  const authUser = useSelector((state) => state.profileReducer.authUser);
   const res = useSelector((state) => state.profileReducer.resetPassRequest);
   console.log(res);
   const handleSubmit = (e) => {
@@ -24,9 +29,8 @@ const ResetPassPage = () => {
   if (res) {
     return <Navigate to={"/"} />;
   }
-  /* const res = useSelector((state) => state.profileReducer.updatePassRequest);
-  const navigate = useNavigate();
-  console.log(res);  */
+ 
+  if(authUser && !loading) {return <Navigate to={"/"} replace/>}
 
   return (
     <FormOverlay>

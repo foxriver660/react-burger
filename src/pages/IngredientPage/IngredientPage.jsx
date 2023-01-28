@@ -1,20 +1,26 @@
 import React from "react";
-import classes from "./IngredientDetails.module.css";
-import { useSelector } from "react-redux/es/exports";
+import classes from "./IngredientPage.module.css";
+import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useParams } from "react-router-dom";
-const getSelectedIngredient = (state) => state.modalReducer.selectedIngredient;
+import { getApiIngredients } from "../../services/actions/ingredientActions";
+
 const getAvailableIngredients = (state) => state.ingredientReducer.availableIngredients;
-const IngredientDetails = React.memo(() => {
+
+const IngredientPage = () => {
+  const dispatch = useDispatch()
+
+  React.useEffect(() => {
+    dispatch(getApiIngredients());
+  }, [dispatch]);
+
   const availableIngredients = useSelector(getAvailableIngredients)
   const {id} = useParams()
   const data = availableIngredients.find((item)=> item._id === id)
-  console.log("МЕНЯ ОТРЕНДЕРИЛИ")
   
-  console.log(data)
+
   return (
     <>
-      {data && (
-    <div className={`${classes.wrapper} pt-10 pr-10 pl-10 pb-15`}>
+    {data && (<div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-15`}>
       <p className={`${classes.ingredientHeader} text text_type_main-large`}>
         Детали ингредиента
       </p>
@@ -67,8 +73,9 @@ const IngredientDetails = React.memo(() => {
           </p>
         </div>
       </div>
-    </div>)} </>
+    </div>)}
+    </>
   );
-});
+};
 
-export default IngredientDetails;
+export default IngredientPage;

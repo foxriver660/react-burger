@@ -13,18 +13,26 @@ import { getCookie } from '../../components/utils/cookie';
 import {Navigate, useNavigate, useLocation} from 'react-router-dom'
 const LoginPage = () => {
   const [user, setUser] = React.useState({});
+  const [loading, setLoading] = React.useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const fromPage = location.state?.from?.pathname || '/'
   const res = useSelector((state) => state.profileReducer.loginRequest);
-  
+  const authUser = useSelector((state) => state.profileReducer.authUser);
   const handleSubmit = React.useCallback((e) => {
     e.preventDefault();
     dispatch(login(user, () => navigate(fromPage, {replace: true})));
+    setLoading(true)
       },
   [user]
 );
+
+console.log(authUser)
+
+  if(authUser && !loading) {return <Navigate to={"/"} replace/>}
+
+
 
   
   return (

@@ -5,9 +5,11 @@ import PropTypes from "prop-types";
 import itemPropTypes from "../utils/prop-types";
 import { useDispatch } from "react-redux/es/exports";
 import { openIngredientModal } from "../../services/actions/modalActions";
-
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 const IngredientsCategory = React.memo(({ filteredArr }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   return (
     <>
@@ -19,7 +21,9 @@ const IngredientsCategory = React.memo(({ filteredArr }) => {
             dispatch(openIngredientModal(item));
           }}
         >
-          <IngredientCard data={item} />
+          <Link className={classes.link} to={`/ingredients/${item._id}`} state={{ backgroundLocation: location }}>
+            <IngredientCard data={item} />
+          </Link>
         </li>
       ))}
     </>

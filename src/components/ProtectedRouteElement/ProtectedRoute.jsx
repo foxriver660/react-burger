@@ -5,14 +5,14 @@ import { getUser } from "../../services/actions/profileActions";
 import { getCookie } from "../utils/cookie";
 import { getUserAPI } from "../utils/burger-api";
 
-export const ProtectedRouteElement = ({ element }) => {
+export const ProtectedRoute = ({ element }) => {
   const location = useLocation();
    const authUser = useSelector((state) => state.profileReducer.authUser);
   
 
-if(!authUser) {
+if(authUser) {
   
-  return <Navigate to="/login" replace state={{from: location}} />
+  return <Navigate to="/"  />
 }
 return element
 

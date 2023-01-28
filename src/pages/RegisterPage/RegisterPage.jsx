@@ -1,6 +1,6 @@
 import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import classes from "./RegisterPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import {
@@ -14,14 +14,17 @@ import { registerUser } from "../../services/actions/profileActions";
 
 const RegisterPage = () => {
   const [user, setUser] = React.useState({});
+  const [loading, setLoading] = React.useState(false)
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const res = useSelector((state) => state.profileReducer.name);
+  const authUser = useSelector((state) => state.profileReducer.authUser);
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch(registerUser(user));
+    dispatch(registerUser(user, () => navigate('/', {replace: true})));
+    setLoading(true)
   };
-  
+  if(authUser && !loading) {return <Navigate to={"/"} replace/>}
   return (
     <FormOverlay>
       <Form onSubmit={handleClick} formName="Регистрация">

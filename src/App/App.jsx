@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "../pages/HomePage/HomePage";
 import Layout from "../pages/Layout";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
@@ -8,20 +8,26 @@ import ForgotPassPage from "../pages/ForgotPassPage/ForgotPassPage";
 import ResetPassPage from "../pages/ResetPassPage/ResetPassPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import { ProtectedRouteElement } from "../components/ProtectedRouteElement/ProtectedRouteElement";
+import { ProtectedRoute } from "../components/ProtectedRouteElement/ProtectedRoute";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { checkUserAccess } from "../services/actions/profileActions";
 import { getCookie } from "../components/utils/cookie";
+import Modal from "../components/Modal/Modal";
+import IngredientDetails from "../components/IngredientDetails/IngredientDetails";
+import { closeIngredientModal } from "../services/actions/modalActions";
+import IngredientPage from "../pages/IngredientPage/IngredientPage";
 const App = React.memo(() => {
   const dispatch = useDispatch();
-  const accessToken = getCookie("token");
-
   
+  const accessToken = getCookie("token");
+  const location = useLocation();
+
   React.useEffect(() => {
     dispatch(checkUserAccess(`Bearer ${accessToken}`));
   }, []);
   return (
     <>
-      <Routes>
+      <Routes location={location.state?.backgroundLocation || location}>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="register" element={<RegisterPage />} />
@@ -32,8 +38,20 @@ const App = React.memo(() => {
             path="profile"
             element={<ProtectedRouteElement element={<ProfilePage />} />}
           />
+           <Route path="ingredients/:id" element={<IngredientPage />} /> 
         </Route>
+       
       </Routes>
+      {location.state && (
+        <Routes>
+          <Route path="ingredients/:id" element={ <Modal
+            onClose={() => dispatch(closeIngredientModal())}
+             >
+              <IngredientDetails />
+            </Modal>} />
+        </Routes>
+      )}
+     
     </>
   );
 });

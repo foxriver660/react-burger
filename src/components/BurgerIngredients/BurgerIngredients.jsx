@@ -127,11 +127,11 @@ const BurgerIngredients = React.memo(() => {
           <IngredientsCategory filteredArr={mains} />
         </ul>
       </div>
-      {selectedIngredient && (
+       {/* {selectedIngredient && (
         <Modal onClose={() => dispatch(closeIngredientModal())}>
-          <IngredientDetails data={selectedIngredient} />
+          <IngredientDetails/>
         </Modal>
-      )}
+      )} */}
     </section>
   );
 });

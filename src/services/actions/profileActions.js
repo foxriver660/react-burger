@@ -57,7 +57,7 @@ export const logout = (refreshToken) => (dispatch) => {
 };
 
 // !ГЕНЕРАТОР THUNK
-export const registerUser = (user) => (dispatch) => {
+export const registerUser = (user, cb) => (dispatch) => {
   registerUserAPI(user)
     .then((res) => {
       let authToken;
@@ -72,6 +72,7 @@ export const registerUser = (user) => (dispatch) => {
         dispatch({ type: SET_USER, payload: res.user });
         
       }
+      cb()
     })
     .catch((err) => {
       console.log(err);
