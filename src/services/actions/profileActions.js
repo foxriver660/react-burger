@@ -1,5 +1,10 @@
-import { setCookie, deleteCookie } from "../../components/utils/cookie";
-import { navigate } from "react-router-dom";
+import {
+  setCookie,
+  deleteCookie,
+  getCookie,
+  parsForCookie,
+} from "../../components/utils/cookie";
+
 import {
   updatePassRequestAPI,
   registerUserAPI,
@@ -8,8 +13,9 @@ import {
   checkUserAccessAPI,
   resetPassAPI,
   updateUserProfileAPI,
+  refreshTokenAPI,
 } from "../../components/utils/burger-api";
-import { getCookie } from "../../components/utils/cookie";
+import { JWT_MALFORMED } from "../../components/utils/constant";
 export const UPDATE_PASS = "UPDATE_PASS";
 export const RESET_PASS = "RESET_PASS";
 export const LOGOUT = "LOGOUT";
@@ -19,6 +25,7 @@ export const SET_USER = "SET_USER";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGIN = "LOGIN";
 export const AUTHORISATION = "AUTHORISATION";
+
 // !ГЕНЕРАТОР THUNK
 export const updatePassRequest = (email) => (dispatch) => {
   updatePassRequestAPI(email)
@@ -60,19 +67,14 @@ export const logout = (refreshToken) => (dispatch) => {
 export const registerUser = (user, cb) => (dispatch) => {
   registerUserAPI(user)
     .then((res) => {
-      let authToken;
-      authToken = res.accessToken.split("Bearer ")[1];
-      if (authToken) {
-        setCookie("token", authToken, { "max-age": 1500 });
-      }
+      setCookie("token", parsForCookie(res.accessToken), { "max-age": 15 });
       setCookie("refreshToken", res.refreshToken);
       console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res);
       if (res.success) {
         dispatch({ type: REGISTER_USER, payload: res.success });
         dispatch({ type: SET_USER, payload: res.user });
-        
       }
-      cb()
+      cb();
     })
     .catch((err) => {
       console.log(err);
@@ -83,19 +85,14 @@ export const registerUser = (user, cb) => (dispatch) => {
 export const login = (user, cb) => (dispatch) => {
   loginAPI(user)
     .then((res) => {
-      let authToken;
-      authToken = res.accessToken.split("Bearer ")[1];
-      if (authToken) {
-        setCookie("token", authToken, { "max-age": 1500 });
-      }
+      setCookie("token", parsForCookie(res.accessToken), { "max-age": 15 });
       setCookie("refreshToken", res.refreshToken);
       console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res);
       if (res.success) {
         dispatch({ type: LOGIN, payload: res.success });
         dispatch({ type: SET_USER, payload: res.user });
-        
       }
-      cb()
+      cb();
     })
     .catch((err) => {
       console.log(err);
@@ -107,24 +104,40 @@ export const checkUserAccess = (accessToken) => (dispatch) => {
     .then((res) => {
       console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res);
       dispatch({ type: SET_USER, payload: res.user });
-      
-      return res.success;
+    })
+    .catch((err) => {
+      console.log(err);
+      if (err.message === JWT_MALFORMED) {
+        dispatch(refreshToken(getCookie("refreshToken")));
+      }
+    });
+};
+// !ГЕНЕРАТОР THUNK
+export const refreshToken = (refreshToken) => (dispatch) => {
+  refreshTokenAPI(refreshToken)
+    .then((res) => {
+      console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);
+      setCookie("token", parsForCookie(res.accessToken), { "max-age": 15 });
+      setCookie("refreshToken", res.refreshToken);
+      dispatch(checkUserAccess(res.accessToken));
     })
     .catch((err) => {
       console.log(err);
     });
 };
 // !ГЕНЕРАТОР THUNK
-export const updateUserProfile = (accessToken, {name, email, password}) => (dispatch) => {
-  updateUserProfileAPI(accessToken, {name, email, password})
-    .then((res) => {
-      console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);
-      dispatch({ type: SET_USER, payload: res.user });
-      
-      return res.success;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-
+export const updateUserProfile =
+  (accessToken, { name, email, password }) =>
+  (dispatch) => {
+    updateUserProfileAPI(accessToken, { name, email, password })
+      .then((res) => {
+        console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);
+        dispatch({ type: SET_USER, payload: res.user });
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.message === JWT_MALFORMED) {
+          dispatch(refreshToken(getCookie("refreshToken")));
+        }
+      });
+  };

@@ -16,6 +16,7 @@ import Modal from "../components/Modal/Modal";
 import IngredientDetails from "../components/IngredientDetails/IngredientDetails";
 import { closeIngredientModal } from "../services/actions/modalActions";
 import IngredientPage from "../pages/IngredientPage/IngredientPage";
+import OrderPage from "../pages/OrderPage/OrderPage";
 const App = React.memo(() => {
   const dispatch = useDispatch();
   
@@ -35,9 +36,11 @@ const App = React.memo(() => {
           <Route path="forgot-password" element={<ForgotPassPage />} />
           <Route path="reset-password" element={<ResetPassPage />} />
           <Route
-            path="profile"
+            path="profile/*"
             element={<ProtectedRouteElement element={<ProfilePage />} />}
-          />
+          >
+            <Route path="orders" element={<OrderPage />} />
+            </Route>
            <Route path="ingredients/:id" element={<IngredientPage />} /> 
         </Route>
        

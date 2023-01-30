@@ -7,7 +7,7 @@ import {
   HideIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
-import {NavLink} from 'react-router-dom'
+import {NavLink, Outlet, useLocation, useMatch, useMatches} from 'react-router-dom'
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { logout, updateUserProfile } from "../../services/actions/profileActions";
@@ -18,6 +18,8 @@ const ProfilePage = () => {
   const user = useSelector((state) => state.profileReducer.authUser);
   const [updateUser, setUpdateUser] = React.useState(user);
   const dispatch = useDispatch();
+  const location = useLocation();
+
   const accessToken = getCookie("token");
   const refreshToken = getCookie('refreshToken');
   const setActive = ({isActive}) => `${isActive ? classes.linkActive : classes.link} text text_type_main-medium text_color_inactive`
@@ -28,31 +30,33 @@ const ProfilePage = () => {
     e.preventDefault();
     dispatch(updateUserProfile(`Bearer ${accessToken}`, updateUser));
       },
-  [updateUser]
+  [dispatch, accessToken, updateUser]
 );
-console.log(accessToken)
+console.log(location)
 const reset = () => {setUpdateUser(user)}
-  console.log(updateUser)
+  
   return (
     <FormOverlay type='profile'>
       <div className={classes.container}>
         <div className={classes.subcontainer}>
         <ul className={`${classes.list} pb-20`}>
-          <li ><NavLink to='/profile' className={setActive}>Профиль</NavLink></li>
-          <li ><NavLink to='/profile/orders' className={setActive}>История заказов</NavLink></li>
+          <li ><NavLink to='/profile' className={setActive} end>Профиль</NavLink></li>
+          <li ><NavLink to='/profile/orders' className={setActive} state={{order: true}} end>История заказов</NavLink></li>
           <li ><NavLink onClick={handleClick} to='/' className={setActive}>Выход</NavLink></li>
         </ul>
         <p className="text text_type_main-default text_color_inactive">В этом разделе вы можете
 изменить свои персональные данные</p>
         </div>
-        <Form onSubmit={handleSubmit}>
+        {location.state ? <Outlet/> : <Form onSubmit={handleSubmit}>
           <Input value={updateUser.name} onChange={(e) => setUpdateUser({ ...updateUser, name: e.target.value })} type={"text"} placeholder={"Имя"} icon={'EditIcon'}/>
           <Input value={updateUser.email} onChange={(e) => setUpdateUser({ ...updateUser, email: e.target.value })} type={"email"} placeholder={"Логин"} icon={'EditIcon'}/>
           <Input value={updateUser.password} onChange={(e) => setUpdateUser({ ...updateUser, password: e.target.value })} type={"password"} placeholder={"Пароль"} icon={'EditIcon'}/>
           <div className={classes.btnContainer}>{/* showReset && */ <button onClick={reset} className={classes.btn}>&#11119;</button>}<Button htmlType="submit" type="primary" size="medium" extraClass="">
           Сохранить
         </Button></div>
-        </Form>
+        </Form>}
+       
+        
       </div>
     </FormOverlay>
   );

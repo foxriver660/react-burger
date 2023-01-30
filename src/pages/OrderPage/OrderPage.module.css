@@ -1,0 +1,8 @@
+.container{
+  outline: 1px solid red;
+  font-size: 40px;
+  width: 844px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

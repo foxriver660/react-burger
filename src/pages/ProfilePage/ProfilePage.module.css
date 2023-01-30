@@ -4,6 +4,7 @@
 }
 .subcontainer {
   max-width: 320px;
+  padding-top: 120px;
 }
 .list {
   padding-left: 0;

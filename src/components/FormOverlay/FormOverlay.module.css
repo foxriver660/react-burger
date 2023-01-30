@@ -8,7 +8,7 @@
 }
 .profile {
   composes: login;
-  padding-top: 120px;
+  padding-top: 0;
   padding-left: 17.5%;
   align-items: flex-start;
 }
