@@ -17,7 +17,7 @@ const RegisterPage = () => {
   const [loading, setLoading] = React.useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const res = useSelector((state) => state.profileReducer.name);
+  
   const authUser = useSelector((state) => state.profileReducer.authUser);
   const handleClick = (e) => {
     e.preventDefault();

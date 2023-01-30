@@ -8,7 +8,7 @@ import ForgotPassPage from "../pages/ForgotPassPage/ForgotPassPage";
 import ResetPassPage from "../pages/ResetPassPage/ResetPassPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import { ProtectedRouteElement } from "../components/ProtectedRouteElement/ProtectedRouteElement";
-import { ProtectedRoute } from "../components/ProtectedRouteElement/ProtectedRoute";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { checkUserAccess } from "../services/actions/profileActions";
 import { getCookie } from "../components/utils/cookie";
@@ -19,7 +19,6 @@ import IngredientPage from "../pages/IngredientPage/IngredientPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
 const App = React.memo(() => {
   const dispatch = useDispatch();
-  
   const accessToken = getCookie("token");
   const location = useLocation();
 
@@ -42,8 +41,9 @@ const App = React.memo(() => {
             <Route path="orders" element={<OrderPage />} />
             </Route>
            <Route path="ingredients/:id" element={<IngredientPage />} /> 
+           <Route path="*" element={<NotFoundPage />} />
         </Route>
-       
+        
       </Routes>
       {location.state && (
         <Routes>

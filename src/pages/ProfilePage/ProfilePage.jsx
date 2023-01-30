@@ -32,7 +32,7 @@ const ProfilePage = () => {
       },
   [dispatch, accessToken, updateUser]
 );
-console.log(location)
+
 const reset = () => {setUpdateUser(user)}
   
   return (

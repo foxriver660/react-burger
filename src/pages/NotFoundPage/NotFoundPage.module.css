@@ -1,0 +1,13 @@
+
+.errorContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.btn{
+  outline: none;
+  border: none;
+  text-decoration: none;
+  color: #fff;
+}

@@ -2,15 +2,13 @@ import React from "react";
 import classes from "./IngredientDetails.module.css";
 import { useSelector } from "react-redux/es/exports";
 import { useParams } from "react-router-dom";
-const getSelectedIngredient = (state) => state.modalReducer.selectedIngredient;
+
 const getAvailableIngredients = (state) => state.ingredientReducer.availableIngredients;
 const IngredientDetails = React.memo(() => {
   const availableIngredients = useSelector(getAvailableIngredients)
   const {id} = useParams()
   const data = availableIngredients.find((item)=> item._id === id)
-  console.log("МЕНЯ ОТРЕНДЕРИЛИ")
-  
-  console.log(data)
+ 
   return (
     <>
       {data && (

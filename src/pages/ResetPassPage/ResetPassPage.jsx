@@ -17,11 +17,10 @@ const ResetPassPage = () => {
   const [code, setCode] = React.useState(null);
   const [loading, setLoading] = React.useState(false)
   const location = useLocation()
-  const forgotPage = location.state?.from?.pathname
-  console.log(location)
+  
   const authUser = useSelector((state) => state.profileReducer.authUser);
   const res = useSelector((state) => state.profileReducer.resetPassRequest);
-  console.log(res);
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(resetPass(newPassword, code));

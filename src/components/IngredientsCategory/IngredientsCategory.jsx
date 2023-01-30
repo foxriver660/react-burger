@@ -14,14 +14,12 @@ const IngredientsCategory = React.memo(({ filteredArr }) => {
   return (
     <>
       {filteredArr.map((item) => (
-        <li
-          className={classes.card}
-          key={item._id}
-          onClick={() => {
-            dispatch(openIngredientModal(item));
-          }}
-        >
-          <Link className={classes.link} to={`/ingredients/${item._id}`} state={{ backgroundLocation: location }}>
+        <li className={classes.card} key={item._id}>
+          <Link
+            className={classes.link}
+            to={`/ingredients/${item._id}`}
+            state={{ backgroundLocation: location }}
+          >
             <IngredientCard data={item} />
           </Link>
         </li>
