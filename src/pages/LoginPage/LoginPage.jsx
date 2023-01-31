@@ -33,7 +33,7 @@ const LoginPage = () => {
 
   return (
     <FormOverlay>
-      <Form onSubmit={handleSubmit} formName="Вход">
+      <Form onSubmit={handleSubmit} formName="Вход" mainForm={true}>
         <Input
           onChange={(e) => setUser({ ...user, email: e.target.value })}
           value={user.email}
@@ -52,11 +52,11 @@ const LoginPage = () => {
         </Button>
       </Form>
 
-      <p className={`${classes.clarification} text text_type_main-default`}>
-        Вы — новый пользователь? <Link to="/register">Зарегистрироваться</Link>
+      <p className={`${classes.clarification} text text_type_main-default text_color_inactive`}>
+        Вы — новый пользователь? <Link className={classes.link} to="/register">Зарегистрироваться</Link>
       </p>
-      <p className={`${classes.clarification} text text_type_main-default`}>
-        Забыли пароль? <Link to="/forgot-password">Восстановить пароль</Link>
+      <p className={`${classes.clarification} text text_type_main-default text_color_inactive`}>
+        Забыли пароль? <Link className={classes.link} to="/forgot-password">Восстановить пароль</Link>
       </p>
     </FormOverlay>
   );

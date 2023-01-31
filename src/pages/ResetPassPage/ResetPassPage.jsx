@@ -17,23 +17,25 @@ const ResetPassPage = () => {
   const [code, setCode] = React.useState(null);
   const [loading, setLoading] = React.useState(false)
   const location = useLocation()
-  
+  console.log(location)
   const authUser = useSelector((state) => state.profileReducer.authUser);
-  const res = useSelector((state) => state.profileReducer.resetPassRequest);
-  
+  const resetPassRequest = useSelector((state) => state.profileReducer.resetPassRequest);
+  const updatePassRequest = useSelector((state) => state.profileReducer.updatePassRequest);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(resetPass(newPassword, code));
   };
-  if (res) {
+  if (resetPassRequest) {
     return <Navigate to={"/"} />;
   }
- 
+  if (!updatePassRequest) {
+    return <Navigate to={"/forgot-password"} />;
+  }
   if(authUser && !loading) {return <Navigate to={"/"} replace/>}
 
   return (
     <FormOverlay>
-      <Form onSubmit={handleSubmit} formName="Восстановление пароля">
+      <Form onSubmit={handleSubmit} formName="Восстановление пароля" mainForm={true}>
         <Input
           onChange={(e) => setNewPassword(e.target.value)}
           value={newPassword}
@@ -53,7 +55,7 @@ const ResetPassPage = () => {
       </Form>
 
       <p className={`${classes.clarification} text text_type_main-default`}>
-        Вспомнили пароль? <Link to="/login">Войти</Link>
+        Вспомнили пароль? <Link className={classes.link} to="/login">Войти</Link>
       </p>
     </FormOverlay>
   );

@@ -27,8 +27,13 @@ const ForgotPassPage = () => {
   }
   return (
     <FormOverlay>
-      <Form onSubmit={handleSubmit} formName="Восстановление пароля">
+      <Form
+        onSubmit={handleSubmit}
+        formName="Восстановление пароля"
+        mainForm={true}
+      >
         <Input
+          name={"email"}
           onChange={(e) => setValue(e.target.value)}
           value={value}
           type={"email"}
@@ -39,8 +44,13 @@ const ForgotPassPage = () => {
         </Button>
       </Form>
 
-      <p className={`${classes.clarification} text text_type_main-default`}>
-        Вспомнили пароль? <Link to="/login">Войти</Link>
+      <p
+        className={`${classes.clarification} text text_type_main-default text_color_inactive`}
+      >
+        Вспомнили пароль?{" "}
+        <Link className={classes.link} to="/login">
+          Войти
+        </Link>
       </p>
     </FormOverlay>
   );

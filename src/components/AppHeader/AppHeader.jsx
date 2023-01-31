@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from 'react-router-dom'
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
@@ -8,6 +8,11 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./AppHeader.module.css";
 
 const AppHeader = React.memo(() => {
+  const location = useLocation();
+
+  const setActive = ({ isActive }) =>
+    isActive ? classes.linkActive : classes.link;
+
   return (
     <header className={`p-4 ${classes.header}`}>
       <div className={`${classes.container}`}>
@@ -20,12 +25,14 @@ const AppHeader = React.memo(() => {
                 type="secondary"
                 size="medium"
               >
-                <Link
-                  className={`${classes.navItemActive} ${classes.navItem}`}
-                  to="/"
-                >
-                  <BurgerIcon type="primary" /> Конструктор
-                </Link>
+                <NavLink className={setActive} to="/" state={"constructor"}>
+                  <BurgerIcon
+                    type={
+                      location.state === "constructor" ? "primary" : "secondary"
+                    }
+                  />{" "}
+                  Конструктор
+                </NavLink>
               </Button>
             </li>
             <li>
@@ -35,9 +42,17 @@ const AppHeader = React.memo(() => {
                 type="secondary"
                 size="medium"
               >
-                <a className={`${classes.navItem}`} href="/#">
-                  <ListIcon type="secondary" /> Лента заказов
-                </a>
+                <NavLink
+                  className={setActive}
+                  to="profile/orders"
+                  state={"order"}
+                  end
+                >
+                  <ListIcon
+                    type={location.state === "order" ? "primary" : "secondary"}
+                  />{" "}
+                  Лента заказов
+                </NavLink>
               </Button>
             </li>
           </ul>
@@ -50,9 +65,12 @@ const AppHeader = React.memo(() => {
           type="secondary"
           size="medium"
         >
-          <Link className={`${classes.navItem}`} to="/profile">
-            <ProfileIcon type="secondary" /> Личный кабинет
-          </Link>
+          <NavLink className={setActive} to="/profile" state={"profile"} end>
+            <ProfileIcon
+              type={location.state === "profile" ? "primary" : "secondary"}
+            />{" "}
+            Личный кабинет
+          </NavLink>
         </Button>
       </div>
     </header>

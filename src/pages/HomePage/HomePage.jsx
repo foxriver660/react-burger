@@ -37,7 +37,7 @@ const HomePage = React.memo(() => {
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
             <BurgerConstructor />
-          </DndProvider>
+                     </DndProvider>
         )}
       </div>
    

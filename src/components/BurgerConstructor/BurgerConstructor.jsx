@@ -21,24 +21,31 @@ import {
 import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
 
 const getTotalCost = (state) => state.ingredientReducer.totalCost;
 const getOrder = (state) => state.orderReducer.currentOrder;
-const getIngredients = (state) => state.ingredientReducer.constructorIngredients;
+const getIngredients = (state) =>
+  state.ingredientReducer.constructorIngredients;
 const getBun = (state) => state.ingredientReducer.constructorBun;
 
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const totalCost = useSelector(getTotalCost);
   const order = useSelector(getOrder);
   const ingredients = useSelector(getIngredients);
   const bun = useSelector(getBun);
-
+  const authUser = useSelector((state) => state.profileReducer.authUser);
+  console.log(authUser)
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
-    dispatch(getApiOrder(ingredientsId));
+    if (authUser) {
+      dispatch(getApiOrder(ingredientsId));
+    } else  {navigate('/login')}
+    
   };
 
   // !DRAG AND DROP

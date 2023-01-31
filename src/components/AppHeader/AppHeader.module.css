@@ -24,12 +24,16 @@
   display: flex;
   gap: 8px;
 }
-.navItem {
+.link {
   display: flex;
   align-items: center;
   gap: 8px;
   color: #8585ad;
   text-decoration: none;
+}
+.linkActive{
+composes: link;
+color: white;
 }
 .navItemActive {
   color: #fff;

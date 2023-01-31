@@ -1,3 +1,5 @@
+
+
 export function parsForCookie(name) {
   let authToken;
       authToken = name.split("Bearer ")[1];

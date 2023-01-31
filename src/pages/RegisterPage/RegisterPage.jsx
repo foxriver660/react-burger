@@ -27,7 +27,7 @@ const RegisterPage = () => {
   if(authUser && !loading) {return <Navigate to={"/"} replace/>}
   return (
     <FormOverlay>
-      <Form onSubmit={handleClick} formName="Регистрация">
+      <Form onSubmit={handleClick} formName="Регистрация" mainForm={true}>
         <Input
           onChange={(e) => setUser({ ...user, name: e.target.value })}
           value={user.name}
@@ -52,8 +52,8 @@ const RegisterPage = () => {
         </Button>
       </Form>
 
-      <p className={`${classes.clarification} text text_type_main-default`}>
-        Уже зарегистрированы? <Link to="/login">Войти</Link>
+      <p className={`${classes.clarification} text text_type_main-default text_color_inactive`}>
+        Уже зарегистрированы? <Link className={classes.link} to="/login">Войти</Link>
       </p>
     </FormOverlay>
   );
