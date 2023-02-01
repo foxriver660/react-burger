@@ -12,12 +12,12 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // ЛОКАЛЬНЫЕ СТЕТЫ
-  const [user, setUser] = React.useState({name: '', email: '', password:''});
+  const [user, setUser] = React.useState({ name: "", email: "", password: "" });
   // СТЕЙТ УСПЕХА РЕГИСТРАЦИИ
   const [loading, setLoading] = React.useState(false);
   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
   const authUser = useSelector((state) => state.profileReducer.authUser);
- // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
+  // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const [isValidEmail, setIsValidEmail] = React.useState(true);
   const [isValidName, setIsValidName] = React.useState(true);
@@ -45,7 +45,7 @@ const RegisterPage = () => {
     maxLength: 12,
     minLength: 2,
     errorText: "Ошибка",
-    autoComplete: 'off'
+    autoComplete: "off",
   };
 
   const emailInputConfig = {
@@ -61,10 +61,10 @@ const RegisterPage = () => {
     name: "name",
     placeholder: "Имя",
     errorText: "Ошибка",
-    pattern: "[A-Za-zА-Яа-яЁё0-9]{3,}"
+    pattern: "[A-Za-zА-Яа-яЁё0-9]{3,}",
   };
   return (
-    <FormOverlay>
+    <FormOverlay type="form">
       <Form onSubmit={handleSubmit} formName="Регистрация" mainForm={true}>
         <Input
           {...nameInputConfig}

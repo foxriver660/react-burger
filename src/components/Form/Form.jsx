@@ -1,9 +1,12 @@
 import React from "react";
 import classes from "./Form.module.css";
-
-const Form = ({ children, formName, onSubmit, mainForm }) => {
+import PropTypes from "prop-types";
+const Form = React.memo(({ children, formName, onSubmit, mainForm }) => {
   return (
-    <form onSubmit={onSubmit} className={mainForm ? classes.form : classes.profile}>
+    <form
+      onSubmit={onSubmit}
+      className={mainForm ? classes.form : classes.profile}
+    >
       <fieldset className={`${classes.fieldset} `}>
         {formName && (
           <legend
@@ -17,6 +20,11 @@ const Form = ({ children, formName, onSubmit, mainForm }) => {
       </fieldset>
     </form>
   );
+});
+Form.propTypes = {
+  children: PropTypes.element.isRequired,
+  formName: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  mainForm: PropTypes.bool.isRequired,
 };
-
 export default Form;

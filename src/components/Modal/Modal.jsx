@@ -10,14 +10,14 @@ const modalRootElement = document.querySelector("#modal");
 const Modal = React.memo(({ onClose, children }) => {
   const close = () => {
     navigate(-1);
-    onClose()
-  }
-  const navigate = useNavigate()
+    onClose();
+  };
+  const navigate = useNavigate();
   React.useEffect(() => {
     const escClose = (e) => {
       if (e.key === "Escape") {
         onClose();
-        navigate(-1)
+        navigate(-1);
       }
     };
     window.addEventListener("keydown", escClose);
@@ -29,9 +29,9 @@ const Modal = React.memo(({ onClose, children }) => {
     <ModalOverlay onClose={close}>
       <div
         onClick={(e) => {
-          e.stopPropagation(); 
+          e.stopPropagation();
         }}
-        className={classes.container} 
+        className={classes.container}
       >
         <button onClick={close} className={classes.closeBtn}>
           <CloseIcon type="primary" />

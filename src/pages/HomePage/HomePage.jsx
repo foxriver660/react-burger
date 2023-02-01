@@ -20,25 +20,24 @@ const HomePage = React.memo(() => {
   }, [dispatch]);
 
   return (
-          <div className={`${classes.container} p-4`}>
-        {isLoading && (
-          <div className={`${classes.loadingMessage} text_type_main-medium`}>
-            Загрузка...
-          </div>
-        )}
-        {hasError && (
-          <div className={`${classes.loadingMessage} text_type_main-medium`}>
-            Что-то пошло не так :(
-          </div>
-        )}
-        {!isLoading && !hasError && !!data.length && (
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-                     </DndProvider>
-        )}
-      </div>
-   
+    <div className={`${classes.container} p-4`}>
+      {isLoading && (
+        <div className={`${classes.loadingMessage} text_type_main-medium`}>
+          Загрузка...
+        </div>
+      )}
+      {hasError && (
+        <div className={`${classes.loadingMessage} text_type_main-medium`}>
+          Что-то пошло не так :(
+        </div>
+      )}
+      {!isLoading && !hasError && !!data.length && (
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider>
+      )}
+    </div>
   );
 });
 

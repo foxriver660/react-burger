@@ -84,23 +84,23 @@ const loginAPI = ({ email, password }) =>
     }),
   }).then(checkResponse);
 
-/* ЗАПРОС ДАННЫХ ПОЛЬЗОВАТЕЛЯ */
+// ! ЗАПРОС ДАННЫХ ПОЛЬЗОВАТЕЛЯ 
 const checkUserAccessAPI = (accessToken) =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "authorization": accessToken,
+      "authorization": `Bearer ${accessToken}`,
     },
   }).then(checkResponse);
 
-/* ЗАПРОС НА РЕДАКТИРОВАНИЕ ПРОФИЛЯ */
+//  !ЗАПРОС НА РЕДАКТИРОВАНИЕ ПРОФИЛЯ 
 const updateUserProfileAPI = (accessToken, {name, email, password}) =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      "authorization": accessToken,
+      "authorization": `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
       email,
@@ -109,7 +109,7 @@ const updateUserProfileAPI = (accessToken, {name, email, password}) =>
     }),
   }).then(checkResponse);
 
-/* ЗАПРОС НА РЕФРЕШ ТОКЕНА */
+// !ЗАПРОС НА РЕФРЕШ ТОКЕНА 
 const refreshTokenAPI = (refreshToken) => {
   return fetch(`${BURGER_API_AUTH_URL}/token`, {
     method: "POST",
@@ -121,7 +121,7 @@ const refreshTokenAPI = (refreshToken) => {
     }),
   }).then(checkResponse);
 };
-/* ЗАПРОС НА ЛОГАУТ */
+
 
 export {
   getIngredientsAPI,

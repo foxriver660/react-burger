@@ -11,9 +11,9 @@ const ResetPassPage = () => {
   // ХУКИ
   const dispatch = useDispatch();
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ ПАРОЛЬ
-  const [newPassword, setNewPassword] = React.useState('');
+  const [newPassword, setNewPassword] = React.useState("");
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ КОДА ИЗ ПОЧТЫ
-  const [code, setCode] = React.useState('');
+  const [code, setCode] = React.useState("");
   // СТЕЙТ УСПЕХА ВОССТАНОВЛЕНИЯ ПАРОЛЯ
   const [loading, setLoading] = React.useState(false);
   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
@@ -60,7 +60,7 @@ const ResetPassPage = () => {
     maxLength: 12,
     minLength: 2,
     errorText: "Ошибка",
-    autoComplete: 'off'
+    autoComplete: "off",
   };
 
   const codeInputConfig = {
@@ -71,7 +71,7 @@ const ResetPassPage = () => {
     errorText: "Ошибка",
   };
   return (
-    <FormOverlay>
+    <FormOverlay type="form">
       <Form
         onSubmit={handleSubmit}
         formName="Восстановление пароля"

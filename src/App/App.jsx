@@ -25,9 +25,9 @@ const App = React.memo(() => {
   const successTokenUpdate = useSelector(
     (state) => state.profileReducer.successTokenUpdate
   );
-/* eslint-disable */
+  /* eslint-disable */
   React.useEffect(() => {
-    dispatch(checkUserAccess(`Bearer ${accessToken}`));
+    dispatch(checkUserAccess(accessToken));
   }, [successTokenUpdate]);
   /* eslint-enable */
   return (
@@ -44,22 +44,23 @@ const App = React.memo(() => {
             element={<ProtectedRouteElement element={<ProfilePage />} />}
           >
             <Route path="orders" element={<OrderPage />} />
-            </Route>
-           <Route path="ingredients/:id" element={<IngredientPage />} /> 
-           <Route path="*" element={<NotFoundPage />} />
+          </Route>
+          <Route path="ingredients/:id" element={<IngredientPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
-        
       </Routes>
       {location.state?.backgroundLocation && (
         <Routes>
-          <Route path="/ingredients/:id" element={ <Modal
-            onClose={() => dispatch(closeIngredientModal())}
-             >
-              <IngredientDetails />
-            </Modal>} />
+          <Route
+            path="/ingredients/:id"
+            element={
+              <Modal onClose={() => dispatch(closeIngredientModal())}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
         </Routes>
       )}
-     
     </>
   );
 });

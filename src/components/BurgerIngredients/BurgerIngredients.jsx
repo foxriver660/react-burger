@@ -9,12 +9,11 @@ import { useSelector } from "react-redux/es/exports";
 
 const getData = (state) => state.ingredientReducer.availableIngredients;
 
-
 const BurgerIngredients = React.memo(() => {
   const [current, setCurrent] = React.useState(BUN);
- 
+
   const data = useSelector(getData);
-  
+
   // РЕАЛИЗАЦИЯ СКРОЛЛА
   const mainRef = React.useRef(null);
   const sauceRef = React.useRef(null);
@@ -125,7 +124,6 @@ const BurgerIngredients = React.memo(() => {
           <IngredientsCategory filteredArr={mains} />
         </ul>
       </div>
-    
     </section>
   );
 });

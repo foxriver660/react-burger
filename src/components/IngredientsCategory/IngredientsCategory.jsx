@@ -24,7 +24,7 @@ const IngredientsCategory = React.memo(({ filteredArr }) => {
     </>
   );
 });
- 
+
 export default IngredientsCategory;
 
 IngredientsCategory.propTypes = {

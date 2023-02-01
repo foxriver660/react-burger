@@ -7,11 +7,9 @@
   gap: 8px;
   position: relative;
 }
-.container:hover{
+.container:hover {
   outline: 1px solid #00cccc;
   border-radius: 16px;
-
-  
 }
 .image {
   width: 240px;

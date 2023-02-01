@@ -32,21 +32,22 @@ const getBun = (state) => state.ingredientReducer.constructorBun;
 
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const totalCost = useSelector(getTotalCost);
   const order = useSelector(getOrder);
   const ingredients = useSelector(getIngredients);
   const bun = useSelector(getBun);
-   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
+  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
   const authUser = useSelector((state) => state.profileReducer.authUser);
-    // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
+  // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
     if (authUser) {
       dispatch(getApiOrder(ingredientsId));
-    } else  {navigate('/login')}
-    
+    } else {
+      navigate("/login");
+    }
   };
 
   // !DRAG AND DROP
@@ -71,7 +72,7 @@ const BurgerConstructor = React.memo(() => {
   } else if (canDrop) {
     outline = "1px solid red";
   }
-  
+
   // ИНСТРУМЕНТЫ ДЛЯ УСЛОВНОГО РЕНДЕРИНГА
   const checkIngredient = ingredients.length > 0;
   const checkBun = !!bun.type;
@@ -152,7 +153,12 @@ const BurgerConstructor = React.memo(() => {
           </div>
 
           {order.order && (
-            <Modal onClose={() => {dispatch(resetOrder()); dispatch(resetConstructor())}}>
+            <Modal
+              onClose={() => {
+                dispatch(resetOrder());
+                dispatch(resetConstructor());
+              }}
+            >
               <OrderDetails order={order.order} />
             </Modal>
           )}

@@ -3,7 +3,7 @@ import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import classes from "./ProfilePage.module.css";
 import Form from "../../components/Form/Form";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
   logout,
@@ -15,7 +15,8 @@ import { getCookie } from "../../components/utils/cookie";
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-   const [isLoading, setIsLoading] = React.useState(false);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = React.useState(false);
   // ПОЛУЧАЕМ ТОКЕНЫ
   const accessToken = getCookie("token");
   const refreshToken = getCookie("refreshToken");
@@ -31,7 +32,7 @@ const ProfilePage = () => {
   const successTokenUpdate = useSelector(
     (state) => state.profileReducer.successTokenUpdate
   );
- 
+
   // КЛИКИ ИНПУТОВ
   const nameRef = React.useRef(null);
   const emailRef = React.useRef(null);
@@ -54,26 +55,29 @@ const ProfilePage = () => {
   const handleSubmit = React.useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(updateUserProfile(`Bearer ${accessToken}`, updateUser));
-      setIsLoading(true)
+      dispatch(updateUserProfile(accessToken, updateUser));
+      setIsLoading(true);
     },
     [dispatch, accessToken, updateUser]
   );
-/* eslint-disable */
-React.useEffect(() => {if(updateRequestFailed)
-  {dispatch(updateUserProfile(`Bearer ${accessToken}`, updateUser)); setIsLoading(true)}
-}, [successTokenUpdate]);
-/* eslint-enable */
+  /* eslint-disable */
+  React.useEffect(() => {
+    if (updateRequestFailed) {
+      dispatch(updateUserProfile(accessToken, updateUser));
+      setIsLoading(true);
+    }
+  }, [successTokenUpdate]);
+  /* eslint-enable */
 
   // ВЫХОД
   const handleClick = () => {
-    dispatch(logout(refreshToken));
-  };
+    dispatch(logout(refreshToken, () => navigate("/", {replace: true})));
+  }
   // СБРОС ЛОКАЛЬНОГО СТЕЙТА
   const handleReset = () => {
     setUpdateUser({ name: authUser.name, email: authUser.email, password: "" });
   };
-
+  const orderLocation = location.pathname === "/profile/orders"
   return (
     <FormOverlay type="profile">
       <div className={classes.container}>
@@ -95,24 +99,23 @@ React.useEffect(() => {if(updateRequestFailed)
               </NavLink>
             </li>
             <li>
-              <NavLink
+              <button
                 onClick={handleClick}
-                to="/login"
-                replace
-                className={setActive}
+                className={`${classes.link}
+                } text text_type_main-medium text_color_inactive`}
               >
                 Выход
-              </NavLink>
+              </button>
             </li>
           </ul>
           <p className="text text_type_main-default text_color_inactive">
             В этом разделе вы можете изменить свои персональные данные
           </p>
         </div>
-        {location.state?.order ? (
+        {location.state?.order || orderLocation ? (
           <Outlet />
         ) : (
-          <Form onSubmit={handleSubmit} mainForm={false}>
+          <Form formName="Профиль" onSubmit={handleSubmit} mainForm={false}>
             <Input
               value={updateUser.name}
               onChange={(e) =>
@@ -154,9 +157,13 @@ React.useEffect(() => {if(updateRequestFailed)
               size={"default"}
               ref={passwordRef}
               onIconClick={handlePasswordClick}
-              autoComplete={'off'}
+              autoComplete={"off"}
             />
-            {(updateRequestSuccess && isLoading) && <p className='text text_type_main-small text_color_inactive'>Данные успешно обновлены</p>}
+            {updateRequestSuccess && isLoading && (
+              <p className="text text_type_main-small text_color_inactive">
+                Данные успешно обновлены
+              </p>
+            )}
             <div className={classes.btnContainer}>
               <button onClick={handleReset} className={classes.btn}>
                 &#11119;

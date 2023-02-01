@@ -15,7 +15,7 @@
   background: url(../../images/graphics.svg);
   background-repeat: no-repeat;
   background-position: center;
-  animation: scale .5s ease-out infinite;
+  animation: scale 0.5s ease-out infinite;
   animation-iteration-count: 1;
 }
 .orderStatusText {
@@ -26,8 +26,13 @@
   composes: orderStatusText;
 }
 
-
 @keyframes scale {
-  0% { transform: scale(0); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

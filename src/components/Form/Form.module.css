@@ -10,9 +10,8 @@
   background-color: transparent;
   position: relative;
   gap: 24px;
-  
 }
-.profile{
+.profile {
   composes: form;
   padding-top: 120px;
 }
@@ -29,7 +28,7 @@
 }
 .title {
   text-align: center;
-   font-style: normal;
+  font-style: normal;
   font-weight: 700;
   font-size: 24px;
   line-height: 30px;

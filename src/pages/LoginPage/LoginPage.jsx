@@ -15,7 +15,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   // ЛОКАЛЬНЫЕ СТЕЙТЫ
-  const [user, setUser] = React.useState({email: '', password:''});
+  const [user, setUser] = React.useState({ email: "", password: "" });
   const [loading, setLoading] = React.useState(false);
   // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidPassword, setIsValidPassword] = React.useState(true);
@@ -51,7 +51,7 @@ const LoginPage = () => {
     maxLength: 12,
     minLength: 2,
     errorText: "Ошибка",
-    autoComplete: 'off'
+    autoComplete: "off",
   };
 
   const emailInputConfig = {
@@ -63,7 +63,7 @@ const LoginPage = () => {
   };
 
   return (
-    <FormOverlay>
+    <FormOverlay type="form">
       <Form onSubmit={handleSubmit} formName="Вход" mainForm={true}>
         <Input
           {...emailInputConfig}

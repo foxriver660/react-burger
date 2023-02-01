@@ -13,23 +13,17 @@ import {
 
 const defaultState = {
   authUser: null,
-  
   updatePassRequest: null,
   resetPassRequest: null,
-
   logoutRequest: null,
-
   registerUserRequest: null,
   loginRequest: null,
-
   updateUserProfileFailed: null,
   updateUserProfileSuccess: null,
-
-  successTokenUpdate: null
+  successTokenUpdate: null,
 };
 export const profileReducer = (state = defaultState, action) => {
   switch (action.type) {
-    
     case UPDATE_PASS:
       return {
         ...state,
@@ -46,7 +40,7 @@ export const profileReducer = (state = defaultState, action) => {
         logoutRequest: action.payload,
         authUser: null,
       };
-      case LOGIN:
+    case LOGIN:
       return {
         ...state,
         loginRequest: action.payload,
@@ -57,41 +51,38 @@ export const profileReducer = (state = defaultState, action) => {
         authUser: {
           name: null,
           email: null,
-                  },
+        },
       };
     case REGISTER_USER:
       return {
         ...state,
         registerUserRequest: action.payload,
       };
-      case UPDATE_USER_FAILED:
+    case UPDATE_USER_FAILED:
       return {
         ...state,
         updateUserProfileFailed: action.payload,
         updateUserProfileSuccess: false,
       };
-      case UPDATE_USER_SUCCESS:
-        return {
-          ...state,
-          updateUserProfileSuccess: action.payload,
-          updateUserProfileFailed: false,
-        };
-        case UPDATE_TOKEN:
-        return {
-          ...state,
-          successTokenUpdate: action.payload,
-                  };
+    case UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        updateUserProfileSuccess: action.payload,
+        updateUserProfileFailed: false,
+      };
+    case UPDATE_TOKEN:
+      return {
+        ...state,
+        successTokenUpdate: action.payload,
+      };
     case SET_USER:
       return {
         ...state,
         authUser: {
           name: action.payload.name,
           email: action.payload.email,
-                  },
+        },
       };
-
-  
-
     default:
       return state;
   }

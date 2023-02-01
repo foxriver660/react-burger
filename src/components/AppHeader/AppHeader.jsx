@@ -34,7 +34,7 @@ const AppHeader = React.memo(() => {
                   Конструктор
                 </NavLink>
               </Button>
-            </li> 
+            </li>
             <li>
               <Button
                 extraClass={`${classes.navItem} pl-5 pr-5 pt-4 pb-4`}
@@ -45,11 +45,11 @@ const AppHeader = React.memo(() => {
                 <NavLink
                   className={setActive}
                   to="profile/orders"
-                  state={"order"}
+                  state={{ order: true }}
                   end
                 >
                   <ListIcon
-                    type={location.state === "order" ? "primary" : "secondary"}
+                    type={location.state?.order ? "primary" : "secondary"}
                   />{" "}
                   Лента заказов
                 </NavLink>

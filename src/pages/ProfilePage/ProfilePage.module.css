@@ -26,12 +26,12 @@
 .link:hover {
   color: #fff;
 }
-.btnContainer{
+.btnContainer {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-.btn{
+.btn {
   background-color: inherit;
   font-size: 30px;
   color: #fff;

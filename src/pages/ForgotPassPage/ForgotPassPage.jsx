@@ -42,11 +42,10 @@ const ForgotPassPage = () => {
     type: "email",
     name: "email",
     placeholder: "Укажите e-mail",
-
     errorText: "Ошибка",
   };
   return (
-    <FormOverlay>
+    <FormOverlay type="form">
       <Form
         onSubmit={handleSubmit}
         formName="Восстановление пароля"
@@ -70,8 +69,8 @@ const ForgotPassPage = () => {
       <p
         className={`${classes.clarification} text text_type_main-default text_color_inactive`}
       >
-        Вспомнили пароль?{" "}
-        <Link className={classes.link} to="/login">
+        Вспомнили пароль?
+        <Link className={`${classes.link} pl-2`} to="/login">
           Войти
         </Link>
       </p>
