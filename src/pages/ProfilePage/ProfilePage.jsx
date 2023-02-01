@@ -23,7 +23,7 @@ const ProfilePage = () => {
   const accessToken = getCookie("token");
   const refreshToken = getCookie("refreshToken");
   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТЕЙТА
-  const user = useSelector((state) => state.profileReducer.authUser);
+  const authUser = useSelector((state) => state.profileReducer.authUser);
   // КЛИКИ ИНПУТОВ
   const nameRef = React.useRef(null);
   const emailRef = React.useRef(null);
@@ -32,7 +32,7 @@ const ProfilePage = () => {
   const handleEmailClick = () => emailRef.current.focus();
   const handlePasswordClick = () => passwordRef.current.focus();
   // ЗАПИСЫВАЕМ В ЛОКАЛЬНЫЙ СТЕЙТ VALUE
-  const [updateUser, setUpdateUser] = React.useState(user);
+  const [updateUser, setUpdateUser] = React.useState(authUser);
   // УСТАНОВКА КЛАССА АКТИНОЙ ССЫЛКЕ
   const setActive = ({ isActive }) =>
     `${
@@ -52,7 +52,7 @@ const ProfilePage = () => {
   };
   // СБРОС ЛОКАЛЬНОГО СТЕЙТА
   const handleReset = () => {
-    setUpdateUser({ name: user.name, email: user.email, password: "" });
+    setUpdateUser({ name: authUser.name, email: authUser.email, password: "" });
   };
 
   return (

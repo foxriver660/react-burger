@@ -7,17 +7,30 @@ import classes from "./LoginPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { login } from "../../services/actions/profileActions";
 import { useSelector, useDispatch } from "react-redux/es/exports";
-import { getCookie } from "../../components/utils/cookie";
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
+
 const LoginPage = () => {
-  const [user, setUser] = React.useState({});
-  const [loading, setLoading] = React.useState(false);
+  // ХУКИ
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  // ЛОКАЛЬНЫЕ СТЕЙТЫ
+  const [user, setUser] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
+  // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
+  const [isValidPassword, setIsValidPassword] = React.useState(true);
+  const [isValidEmail, setIsValidEmail] = React.useState(true);
+  const [showPassword, setShowPassword] = React.useState(false);
+  const passwordRef = React.useRef(null);
+  const handlePasswordClick = () => {
+    passwordRef.current.focus();
+    setShowPassword(!showPassword);
+  };
+  // ОПРЕДЛЕЯЕМ С КАКОЙ СТРАНИЦЫ ПРИШЛИ
   const fromPage = location.state?.from?.pathname || "/";
-
+  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТЕЙТА
   const authUser = useSelector((state) => state.profileReducer.authUser);
+  // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   const handleSubmit = React.useCallback(
     (e) => {
       e.preventDefault();
@@ -26,37 +39,75 @@ const LoginPage = () => {
     },
     [user]
   );
-
+  // !РЕДИРЕКТ ЕСЛИ АВТОРИЗОВАННЫЙ ПОЛЬЗОВАТЕЛЬ
   if (authUser && !loading) {
     return <Navigate to={"/"} replace />;
   }
+  // КОНФИГУРАЦИЯ ИНПУТОВ
+  const passwordInputConfig = {
+    required: true,
+    name: "password",
+    placeholder: "Пароль",
+    maxlength: 12,
+    minlength: 2,
+    value: user.password,
+    errorText: "Ошибка",
+  };
+
+  const emailInputConfig = {
+    required: true,
+    type: "email",
+    name: "email",
+    placeholder: "E-mail",
+    value: user.email,
+    errorText: "Ошибка",
+  };
 
   return (
     <FormOverlay>
       <Form onSubmit={handleSubmit} formName="Вход" mainForm={true}>
         <Input
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-          value={user.email}
-          type={"email"}
-          placeholder={"E-mail"}
+          {...emailInputConfig}
+          error={isValidEmail ? false : true}
+          onInvalid={(e) => setIsValidEmail(false)}
+          onChange={(e) => {
+            setUser({ ...user, email: e.target.value });
+            setIsValidEmail(true);
+          }}
         />
         <Input
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-          value={user.password}
-          type={"password"}
-          placeholder={"Пароль"}
-          icon={"ShowIcon"}
+          {...passwordInputConfig}
+          ref={passwordRef}
+          type={showPassword ? "text" : "password"}
+          icon={showPassword ? "HideIcon" : "ShowIcon"}
+          error={isValidPassword ? false : true}
+          onInvalid={(e) => setIsValidPassword(false)}
+          onIconClick={handlePasswordClick}
+          onChange={(e) => {
+            setUser({ ...user, password: e.target.value });
+            setIsValidPassword(true);
+          }}
         />
         <Button htmlType="submit" type="primary" size="medium" extraClass="">
           Войти
         </Button>
       </Form>
 
-      <p className={`${classes.clarification} text text_type_main-default text_color_inactive`}>
-        Вы — новый пользователь? <Link className={classes.link} to="/register">Зарегистрироваться</Link>
+      <p
+        className={`${classes.clarification} text text_type_main-default text_color_inactive`}
+      >
+        Вы — новый пользователь?{" "}
+        <Link className={classes.link} to="/register">
+          Зарегистрироваться
+        </Link>
       </p>
-      <p className={`${classes.clarification} text text_type_main-default text_color_inactive`}>
-        Забыли пароль? <Link className={classes.link} to="/forgot-password">Восстановить пароль</Link>
+      <p
+        className={`${classes.clarification} text text_type_main-default text_color_inactive`}
+      >
+        Забыли пароль?{" "}
+        <Link className={classes.link} to="/forgot-password">
+          Восстановить пароль
+        </Link>
       </p>
     </FormOverlay>
   );

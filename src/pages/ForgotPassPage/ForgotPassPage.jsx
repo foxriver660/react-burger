@@ -8,23 +8,42 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { updatePassRequest } from "../../services/actions/profileActions";
 const ForgotPassPage = () => {
-  const [value, setValue] = React.useState("");
-  const [loading, setLoading] = React.useState(false);
+  // ХУКИ
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ ИНПУТА
+  const [value, setValue] = React.useState("");
+  // СТЕЙТ УСПЕХА ОТПРАВКИ ПОЧТЫ
+  const [loading, setLoading] = React.useState(false);
+  // ПОЛУЧАЕМ РЕКВЕСТ ОБ ОТПРАВКЕ ПОЧТЫ ИЗ СТОРА
   const res = useSelector((state) => state.profileReducer.updatePassRequest);
+  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
   const authUser = useSelector((state) => state.profileReducer.authUser);
+  // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
+  const [isValidEmail, setIsValidEmail] = React.useState(true);
+  // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updatePassRequest(value));
   };
+  // !РЕДИРЕКТ на /reset-password ЕСЛИ res(true)
   if (res) {
     return <Navigate to={"/reset-password"} state={{ from: location }} />;
   }
+  // !РЕДИРЕКТ ЕСЛИ АВТОРИЗОВАННЫЙ ПОЛЬЗОВАТЕЛЬ
   if (authUser && !loading) {
     navigate("/", { replace: true });
   }
+  // КОНФИГУРАЦИЯ ИНПУТОВ
+  const emailInputConfig = {
+    required: true,
+    type: "email",
+    name: "email",
+    placeholder: "Укажите e-mail",
+    value: value,
+    errorText: "Ошибка",
+  };
   return (
     <FormOverlay>
       <Form
@@ -33,11 +52,13 @@ const ForgotPassPage = () => {
         mainForm={true}
       >
         <Input
-          name={"email"}
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-          type={"email"}
-          placeholder={"Укажите e-mail"}
+          {...emailInputConfig}
+          error={isValidEmail ? false : true}
+          onInvalid={(e) => setIsValidEmail(false)}
+          onChange={(e) => {
+            setValue(e.target.value);
+            setIsValidEmail(true);
+          }}
         />
         <Button htmlType="submit" type="primary" size="medium" extraClass="">
           Восстановить

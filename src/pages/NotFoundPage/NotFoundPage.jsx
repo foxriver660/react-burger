@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 const NotFoundPage = () => {
   return (
     <div className={classes.errorContainer}>
-      <h1 className={`text text_type_main-large pt-30 pb-30`} >Такая страница не существует ❌</h1>
+      <h1 className={`${classes.text} text text_type_main-large pt-30 pb-30`} >Такая страница не существует.</h1>
       <Button><Link to={'/'} replace className={`${classes.btn} text text_type_main-default`}>Вернуться на главную страницу</Link></Button>
     </div>
   )
