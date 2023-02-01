@@ -17,14 +17,18 @@ import IngredientDetails from "../components/IngredientDetails/IngredientDetails
 import { closeIngredientModal } from "../services/actions/modalActions";
 import IngredientPage from "../pages/IngredientPage/IngredientPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
+import { useSelector } from "react-redux/es/hooks/useSelector";
 const App = React.memo(() => {
   const dispatch = useDispatch();
   const accessToken = getCookie("token");
   const location = useLocation();
+  const successTokenUpdate = useSelector(
+    (state) => state.profileReducer.successTokenUpdate
+  );
 /* eslint-disable */
   React.useEffect(() => {
     dispatch(checkUserAccess(`Bearer ${accessToken}`));
-  }, []);
+  }, [successTokenUpdate]);
   /* eslint-enable */
   return (
     <>

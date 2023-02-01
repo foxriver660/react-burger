@@ -11,9 +11,9 @@ const ResetPassPage = () => {
   // ХУКИ
   const dispatch = useDispatch();
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ ПАРОЛЬ
-  const [newPassword, setNewPassword] = React.useState(null);
+  const [newPassword, setNewPassword] = React.useState('');
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ КОДА ИЗ ПОЧТЫ
-  const [code, setCode] = React.useState(null);
+  const [code, setCode] = React.useState('');
   // СТЕЙТ УСПЕХА ВОССТАНОВЛЕНИЯ ПАРОЛЯ
   const [loading, setLoading] = React.useState(false);
   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА

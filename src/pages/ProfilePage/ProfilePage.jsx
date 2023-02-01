@@ -3,11 +3,7 @@ import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import classes from "./ProfilePage.module.css";
 import Form from "../../components/Form/Form";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
-import {
-  NavLink,
-  Outlet,
-  useLocation,
- } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
   logout,
@@ -19,11 +15,23 @@ import { getCookie } from "../../components/utils/cookie";
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+   const [isLoading, setIsLoading] = React.useState(false);
   // ПОЛУЧАЕМ ТОКЕНЫ
   const accessToken = getCookie("token");
   const refreshToken = getCookie("refreshToken");
   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТЕЙТА
   const authUser = useSelector((state) => state.profileReducer.authUser);
+  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТЕЙТА
+  const updateRequestFailed = useSelector(
+    (state) => state.profileReducer.updateUserProfileFailed
+  );
+  const updateRequestSuccess = useSelector(
+    (state) => state.profileReducer.updateUserProfileSuccess
+  );
+  const successTokenUpdate = useSelector(
+    (state) => state.profileReducer.successTokenUpdate
+  );
+ 
   // КЛИКИ ИНПУТОВ
   const nameRef = React.useRef(null);
   const emailRef = React.useRef(null);
@@ -32,7 +40,11 @@ const ProfilePage = () => {
   const handleEmailClick = () => emailRef.current.focus();
   const handlePasswordClick = () => passwordRef.current.focus();
   // ЗАПИСЫВАЕМ В ЛОКАЛЬНЫЙ СТЕЙТ VALUE
-  const [updateUser, setUpdateUser] = React.useState(authUser);
+  const [updateUser, setUpdateUser] = React.useState({
+    ...authUser,
+    password: "",
+  });
+
   // УСТАНОВКА КЛАССА АКТИНОЙ ССЫЛКЕ
   const setActive = ({ isActive }) =>
     `${
@@ -43,9 +55,16 @@ const ProfilePage = () => {
     (e) => {
       e.preventDefault();
       dispatch(updateUserProfile(`Bearer ${accessToken}`, updateUser));
+      setIsLoading(true)
     },
     [dispatch, accessToken, updateUser]
   );
+/* eslint-disable */
+React.useEffect(() => {if(updateRequestFailed)
+  {dispatch(updateUserProfile(`Bearer ${accessToken}`, updateUser)); setIsLoading(true)}
+}, [successTokenUpdate]);
+/* eslint-enable */
+
   // ВЫХОД
   const handleClick = () => {
     dispatch(logout(refreshToken));
@@ -90,7 +109,7 @@ const ProfilePage = () => {
             В этом разделе вы можете изменить свои персональные данные
           </p>
         </div>
-        {location.state ? (
+        {location.state?.order ? (
           <Outlet />
         ) : (
           <Form onSubmit={handleSubmit} mainForm={false}>
@@ -135,7 +154,9 @@ const ProfilePage = () => {
               size={"default"}
               ref={passwordRef}
               onIconClick={handlePasswordClick}
+              autoComplete={'off'}
             />
+            {(updateRequestSuccess && isLoading) && <p className='text text_type_main-small text_color_inactive'>Данные успешно обновлены</p>}
             <div className={classes.btnContainer}>
               <button onClick={handleReset} className={classes.btn}>
                 &#11119;

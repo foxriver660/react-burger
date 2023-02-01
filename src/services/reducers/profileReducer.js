@@ -6,7 +6,9 @@ import {
   SET_USER,
   LOGIN,
   LOGOUT,
-  
+  UPDATE_USER_FAILED,
+  UPDATE_USER_SUCCESS,
+  UPDATE_TOKEN,
 } from "../actions/profileActions";
 
 const defaultState = {
@@ -20,9 +22,10 @@ const defaultState = {
   registerUserRequest: null,
   loginRequest: null,
 
-  
+  updateUserProfileFailed: null,
+  updateUserProfileSuccess: null,
 
-  
+  successTokenUpdate: null
 };
 export const profileReducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -61,6 +64,23 @@ export const profileReducer = (state = defaultState, action) => {
         ...state,
         registerUserRequest: action.payload,
       };
+      case UPDATE_USER_FAILED:
+      return {
+        ...state,
+        updateUserProfileFailed: action.payload,
+        updateUserProfileSuccess: false,
+      };
+      case UPDATE_USER_SUCCESS:
+        return {
+          ...state,
+          updateUserProfileSuccess: action.payload,
+          updateUserProfileFailed: false,
+        };
+        case UPDATE_TOKEN:
+        return {
+          ...state,
+          successTokenUpdate: action.payload,
+                  };
     case SET_USER:
       return {
         ...state,

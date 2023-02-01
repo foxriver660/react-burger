@@ -15,7 +15,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   // ЛОКАЛЬНЫЕ СТЕЙТЫ
-  const [user, setUser] = React.useState({});
+  const [user, setUser] = React.useState({email: '', password:''});
   const [loading, setLoading] = React.useState(false);
   // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidPassword, setIsValidPassword] = React.useState(true);

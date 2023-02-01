@@ -2,10 +2,9 @@
 
 export function parsForCookie(name) {
   let authToken;
-      authToken = name.split("Bearer ")[1];
-      return authToken
+  authToken = name.split("Bearer ")[1];
+  return authToken;
 }
-
 
 export function getCookie(name) {
   let matches = document.cookie.match(
@@ -18,11 +17,9 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-
 export function setCookie(name, value, options = {}) {
   options = {
     path: "/",
-    // при необходимости добавьте другие значения по умолчанию
     ...options,
   };
 
@@ -43,8 +40,6 @@ export function setCookie(name, value, options = {}) {
 
   document.cookie = updatedCookie;
 }
-
-
 
 export function deleteCookie(name) {
   setCookie(name, null, { expires: -1 });

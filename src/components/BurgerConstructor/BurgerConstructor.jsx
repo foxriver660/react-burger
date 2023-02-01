@@ -17,6 +17,7 @@ import {
   addBun,
   sortIngredient,
   calcIngredients,
+  resetConstructor,
 } from "../../services/actions/ingredientActions";
 import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
@@ -151,7 +152,7 @@ const BurgerConstructor = React.memo(() => {
           </div>
 
           {order.order && (
-            <Modal onClose={() => dispatch(resetOrder())}>
+            <Modal onClose={() => {dispatch(resetOrder()); dispatch(resetConstructor())}}>
               <OrderDetails order={order.order} />
             </Modal>
           )}

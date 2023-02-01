@@ -12,7 +12,7 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // ЛОКАЛЬНЫЕ СТЕТЫ
-  const [user, setUser] = React.useState({});
+  const [user, setUser] = React.useState({name: '', email: '', password:''});
   // СТЕЙТ УСПЕХА РЕГИСТРАЦИИ
   const [loading, setLoading] = React.useState(false);
   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА

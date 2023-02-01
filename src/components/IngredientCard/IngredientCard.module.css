@@ -8,8 +8,10 @@
   position: relative;
 }
 .container:hover{
-  outline: 2px solid #00cccc;
-  border-radius: 12px
+  outline: 1px solid #00cccc;
+  border-radius: 16px;
+
+  
 }
 .image {
   width: 240px;

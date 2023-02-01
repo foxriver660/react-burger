@@ -10,7 +10,7 @@ export const CALC_INGREDIENTS_IN_CONSTRUCTOR =
 export const DELETE_INGREDIENT_FROM_CONSTRUCTOR =
   "DELETE_INGREDIENT_FROM_CONSTRUCTOR";
 export const SORT_INSIDE_CONSTRUCTOR = "SORT_INSIDE_CONSTRUCTOR";
-
+export const RESET_CONSTRUCTOR_AFTER_ORDER = "RESET_CONSTRUCTOR_AFTER_ORDER";
 // ГЕНЕРАТОР THUNK
 export const getApiIngredients = () => (dispatch) => {
     getIngredientsAPI()
@@ -43,3 +43,4 @@ export const addIngredient = (payload) => ({
   payload,
   generateId: nanoid(),
 });
+export const resetConstructor = () => ({ type: RESET_CONSTRUCTOR_AFTER_ORDER });

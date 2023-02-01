@@ -25,7 +25,9 @@ export const SET_USER = "SET_USER";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOGIN = "LOGIN";
 export const AUTHORISATION = "AUTHORISATION";
-
+export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED";
+export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+export const  UPDATE_TOKEN = "UPDATE_TOKEN";
 // !ГЕНЕРАТОР THUNK
 export const updatePassRequest = (email) => (dispatch) => {
   updatePassRequestAPI(email)
@@ -104,11 +106,12 @@ export const checkUserAccess = (accessToken) => (dispatch) => {
     .then((res) => {
       console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res);
       dispatch({ type: SET_USER, payload: res.user });
+      dispatch({ type: UPDATE_TOKEN, payload: null });
     })
     .catch((err) => {
-      console.log(err);
+      console.log("ОШИБКА checkUserAccess:", err);
       if (err.message === JWT_MALFORMED) {
-        dispatch(refreshToken(getCookie("refreshToken")));
+        dispatch(refreshToken(getCookie("refreshToken")), true);
       }
     });
 };
@@ -119,7 +122,8 @@ export const refreshToken = (refreshToken) => (dispatch) => {
       console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);
       setCookie("token", parsForCookie(res.accessToken), { "max-age": 15 });
       setCookie("refreshToken", res.refreshToken);
-      dispatch(checkUserAccess(res.accessToken));
+      dispatch({ type: UPDATE_TOKEN, payload: res.success });
+      /* dispatch(checkUserAccess(res.accessToken)); */
     })
     .catch((err) => {
       console.log(err);
@@ -133,11 +137,13 @@ export const updateUserProfile =
       .then((res) => {
         console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);
         dispatch({ type: SET_USER, payload: res.user });
+        dispatch({ type: UPDATE_USER_SUCCESS, payload: res.success })
       })
       .catch((err) => {
-        console.log(err);
+        console.log("ОШИБКА updateUserProfile:", err);
         if (err.message === JWT_MALFORMED) {
           dispatch(refreshToken(getCookie("refreshToken")));
+          dispatch({ type: UPDATE_USER_FAILED, payload: !err.success });
         }
       });
   };

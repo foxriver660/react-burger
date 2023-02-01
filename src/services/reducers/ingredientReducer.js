@@ -7,6 +7,7 @@ import {
   SORT_INSIDE_CONSTRUCTOR,
   CALC_INGREDIENTS_IN_CONSTRUCTOR,
   DELETE_INGREDIENT_FROM_CONSTRUCTOR,
+  RESET_CONSTRUCTOR_AFTER_ORDER,
 } from "../actions/ingredientActions";
 
 const defaultState = {
@@ -77,6 +78,12 @@ export const ingredientReducer = (state = defaultState, action) => {
             (item) => item.nanoid !== action.payload.nanoid
           ),
         ],
+      };
+      case RESET_CONSTRUCTOR_AFTER_ORDER:
+      return {
+        ...state,
+        constructorIngredients: [],
+        constructorBun: { price: null },
       };
     default:
       return state;
