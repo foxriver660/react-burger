@@ -16,6 +16,7 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = React.useState(false);
   // ПОЛУЧАЕМ ТОКЕНЫ
   const accessToken = getCookie("token");
   const refreshToken = getCookie("refreshToken");
@@ -25,7 +26,9 @@ const ProfilePage = () => {
   const updateRequestFailed = useSelector(
     (state) => state.profileReducer.updateUserProfileFailed
   );
-
+  const updateRequestSuccess = useSelector(
+    (state) => state.profileReducer.updateUserProfileSuccess
+  );
   const successTokenUpdate = useSelector(
     (state) => state.profileReducer.successTokenUpdate
   );
@@ -53,6 +56,7 @@ const ProfilePage = () => {
     (e) => {
       e.preventDefault();
       dispatch(updateUserProfile(accessToken, updateUser));
+      setIsLoading(true);
     },
     [dispatch, accessToken, updateUser]
   );
@@ -60,19 +64,19 @@ const ProfilePage = () => {
   React.useEffect(() => {
     if (updateRequestFailed) {
       dispatch(updateUserProfile(accessToken, updateUser));
-    }
+          }
   }, [successTokenUpdate]);
   /* eslint-enable */
 
   // ВЫХОД
   const handleClick = () => {
-    dispatch(logout(refreshToken, () => navigate("/", { replace: true })));
-  };
+    dispatch(logout(refreshToken, () => navigate("/", {replace: true})));
+  }
   // СБРОС ЛОКАЛЬНОГО СТЕЙТА
   const handleReset = () => {
     setUpdateUser({ name: authUser.name, email: authUser.email, password: "" });
   };
-  const orderLocation = location.pathname === "/profile/orders";
+  const orderLocation = location.pathname === "/profile/orders"
   return (
     <FormOverlay type="profile">
       <div className={classes.container}>
@@ -154,11 +158,11 @@ const ProfilePage = () => {
               onIconClick={handlePasswordClick}
               autoComplete={"off"}
             />
-            {/*  <div>{updateRequestSuccess && isLoading && (
+            <div>{updateRequestSuccess && isLoading && (
               <p className="text text_type_main-small text_color_inactive">
                 Данные успешно обновлены
               </p>
-            )}</div> */}
+            )}</div>
             <div className={classes.btnContainer}>
               <button onClick={handleReset} className={classes.btn}>
                 &#11119;

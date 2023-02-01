@@ -134,7 +134,7 @@ export const updateUserProfile =
   (dispatch) => {
     updateUserProfileAPI(accessToken, { name, email, password })
       .then((res) => {
-        /* console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res); */
+        console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res); 
         dispatch({ type: SET_USER, payload: res.user });
         dispatch({ type: UPDATE_USER_SUCCESS, payload: res.success });
       })
