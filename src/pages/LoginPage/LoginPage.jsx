@@ -37,7 +37,7 @@ const LoginPage = () => {
       dispatch(login(user, () => navigate(fromPage, { replace: true })));
       setLoading(true);
     },
-    [user]
+    [dispatch, user, fromPage, navigate]
   );
   // !РЕДИРЕКТ ЕСЛИ АВТОРИЗОВАННЫЙ ПОЛЬЗОВАТЕЛЬ
   if (authUser && !loading) {
@@ -48,10 +48,10 @@ const LoginPage = () => {
     required: true,
     name: "password",
     placeholder: "Пароль",
-    maxlength: 12,
-    minlength: 2,
-    value: user.password,
+    maxLength: 12,
+    minLength: 2,
     errorText: "Ошибка",
+    autoComplete: 'off'
   };
 
   const emailInputConfig = {
@@ -59,7 +59,6 @@ const LoginPage = () => {
     type: "email",
     name: "email",
     placeholder: "E-mail",
-    value: user.email,
     errorText: "Ошибка",
   };
 
@@ -68,6 +67,7 @@ const LoginPage = () => {
       <Form onSubmit={handleSubmit} formName="Вход" mainForm={true}>
         <Input
           {...emailInputConfig}
+          value={user.email}
           error={isValidEmail ? false : true}
           onInvalid={(e) => setIsValidEmail(false)}
           onChange={(e) => {
@@ -77,6 +77,7 @@ const LoginPage = () => {
         />
         <Input
           {...passwordInputConfig}
+          value={user.password}
           ref={passwordRef}
           type={showPassword ? "text" : "password"}
           icon={showPassword ? "HideIcon" : "ShowIcon"}

@@ -3,10 +3,6 @@ import React from "react";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import classes from "./RegisterPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import {
-  ShowIcon,
-  HideIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import Form from "../../components/Form/Form";
 import { useSelector, useDispatch } from "react-redux/es/exports";
@@ -46,10 +42,10 @@ const RegisterPage = () => {
     required: true,
     name: "password",
     placeholder: "Пароль",
-    maxlength: 12,
-    minlength: 2,
-    value: user.password,
+    maxLength: 12,
+    minLength: 2,
     errorText: "Ошибка",
+    autoComplete: 'off'
   };
 
   const emailInputConfig = {
@@ -57,7 +53,6 @@ const RegisterPage = () => {
     type: "email",
     name: "email",
     placeholder: "E-mail",
-    value: user.email,
     errorText: "Ошибка",
   };
   const nameInputConfig = {
@@ -65,7 +60,6 @@ const RegisterPage = () => {
     type: "text",
     name: "name",
     placeholder: "Имя",
-    value: user.name,
     errorText: "Ошибка",
     pattern: "[A-Za-zА-Яа-яЁё0-9]{3,}"
   };
@@ -74,12 +68,14 @@ const RegisterPage = () => {
       <Form onSubmit={handleSubmit} formName="Регистрация" mainForm={true}>
         <Input
           {...nameInputConfig}
+          value={user.name}
           onChange={(e) => setUser({ ...user, name: e.target.value })}
           error={isValidName ? false : true}
           onInvalid={(e) => setIsValidName(false)}
         />
         <Input
           {...emailInputConfig}
+          value={user.email}
           error={isValidEmail ? false : true}
           onInvalid={(e) => setIsValidEmail(false)}
           onChange={(e) => {
@@ -89,6 +85,7 @@ const RegisterPage = () => {
         />
         <Input
           {...passwordInputConfig}
+          value={user.password}
           ref={passwordRef}
           type={showPassword ? "text" : "password"}
           icon={showPassword ? "HideIcon" : "ShowIcon"}

@@ -21,7 +21,7 @@ import {
 import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const getTotalCost = (state) => state.ingredientReducer.totalCost;
 const getOrder = (state) => state.orderReducer.currentOrder;
@@ -37,9 +37,9 @@ const BurgerConstructor = React.memo(() => {
   const order = useSelector(getOrder);
   const ingredients = useSelector(getIngredients);
   const bun = useSelector(getBun);
+   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
   const authUser = useSelector((state) => state.profileReducer.authUser);
-  console.log(authUser)
-  // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
+    // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
     if (authUser) {
@@ -70,8 +70,7 @@ const BurgerConstructor = React.memo(() => {
   } else if (canDrop) {
     outline = "1px solid red";
   }
-  // !DRAG AND DROP
-
+  
   // ИНСТРУМЕНТЫ ДЛЯ УСЛОВНОГО РЕНДЕРИНГА
   const checkIngredient = ingredients.length > 0;
   const checkBun = !!bun.type;

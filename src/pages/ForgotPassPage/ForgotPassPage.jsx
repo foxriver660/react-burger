@@ -26,6 +26,7 @@ const ForgotPassPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updatePassRequest(value));
+    setLoading(true);
   };
   // !РЕДИРЕКТ на /reset-password ЕСЛИ res(true)
   if (res) {
@@ -41,7 +42,7 @@ const ForgotPassPage = () => {
     type: "email",
     name: "email",
     placeholder: "Укажите e-mail",
-    value: value,
+
     errorText: "Ошибка",
   };
   return (
@@ -53,6 +54,7 @@ const ForgotPassPage = () => {
       >
         <Input
           {...emailInputConfig}
+          value={value}
           error={isValidEmail ? false : true}
           onInvalid={(e) => setIsValidEmail(false)}
           onChange={(e) => {

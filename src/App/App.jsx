@@ -9,7 +9,7 @@ import ResetPassPage from "../pages/ResetPassPage/ResetPassPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import { ProtectedRouteElement } from "../components/ProtectedRouteElement/ProtectedRouteElement";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { useDispatch } from "react-redux/es/exports";
 import { checkUserAccess } from "../services/actions/profileActions";
 import { getCookie } from "../components/utils/cookie";
 import Modal from "../components/Modal/Modal";
@@ -21,10 +21,11 @@ const App = React.memo(() => {
   const dispatch = useDispatch();
   const accessToken = getCookie("token");
   const location = useLocation();
-
+/* eslint-disable */
   React.useEffect(() => {
     dispatch(checkUserAccess(`Bearer ${accessToken}`));
   }, []);
+  /* eslint-enable */
   return (
     <>
       <Routes location={location.state?.backgroundLocation || location}>
@@ -45,9 +46,9 @@ const App = React.memo(() => {
         </Route>
         
       </Routes>
-      {location.state && (
+      {location.state?.backgroundLocation && (
         <Routes>
-          <Route path="ingredients/:id" element={ <Modal
+          <Route path="/ingredients/:id" element={ <Modal
             onClose={() => dispatch(closeIngredientModal())}
              >
               <IngredientDetails />
