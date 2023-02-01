@@ -1,6 +1,6 @@
-import { useLocation, Navigate, useNavigate } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import React from "react";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { useSelector } from "react-redux/es/exports";
 
 
 export const ProtectedRouteElement = ({ element }) => {

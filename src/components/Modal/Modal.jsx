@@ -4,7 +4,6 @@ import classes from "./Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 const modalRootElement = document.querySelector("#modal");
 
@@ -24,15 +23,15 @@ const Modal = React.memo(({ onClose, children }) => {
     window.addEventListener("keydown", escClose);
 
     return () => window.removeEventListener("keydown", escClose);
-  }, [onClose]);
+  }, [onClose, navigate]);
 
   return createPortal(
     <ModalOverlay onClose={close}>
       <div
         onClick={(e) => {
-          e.stopPropagation();
+          e.stopPropagation(); 
         }}
-        className={classes.container}
+        className={classes.container} 
       >
         <button onClick={close} className={classes.closeBtn}>
           <CloseIcon type="primary" />

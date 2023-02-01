@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
@@ -34,7 +34,7 @@ const AppHeader = React.memo(() => {
                   Конструктор
                 </NavLink>
               </Button>
-            </li>
+            </li> 
             <li>
               <Button
                 extraClass={`${classes.navItem} pl-5 pr-5 pt-4 pb-4`}

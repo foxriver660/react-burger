@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 
 export function parsForCookie(name) {
   let authToken;

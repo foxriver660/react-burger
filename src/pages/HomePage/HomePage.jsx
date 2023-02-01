@@ -1,6 +1,4 @@
 import React from "react";
-import {Routes,  Route} from "react-router-dom";
-import AppHeader from "../../components/AppHeader/AppHeader";
 import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import classes from "./HomePage.module.css";
