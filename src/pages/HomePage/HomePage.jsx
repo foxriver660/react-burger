@@ -4,18 +4,14 @@ import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstruc
 import classes from "./HomePage.module.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { useDispatch, useSelector } from "react-redux/es/exports";
-import { getApiIngredients } from "../../services/actions/ingredientActions";
+import { useSelector } from "react-redux/es/exports";
 
 const getServerResponse = (state) => state.ingredientReducer.serverResponse;
 const getData = (state) => state.ingredientReducer.availableIngredients;
 
 const HomePage = React.memo(() => {
-  const dispatch = useDispatch();
   const { isLoading, hasError } = useSelector(getServerResponse);
   const data = useSelector(getData);
-
-  
 
   return (
     <div className={`${classes.container} p-4`}>

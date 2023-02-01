@@ -5,7 +5,7 @@ import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
 
 import { SAUCE, BUN, MAIN } from "../utils/constant";
 import { Waypoint } from "react-waypoint";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { useSelector } from "react-redux/es/exports";
 
 const getData = (state) => state.ingredientReducer.availableIngredients;
 
