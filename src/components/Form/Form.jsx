@@ -2,7 +2,8 @@ import React from "react";
 import classes from "./Form.module.css";
 import PropTypes from "prop-types";
 const Form = React.memo(({ children, formName, onSubmit, mainForm }) => {
-  return (
+ 
+   return (
     <form
       onSubmit={onSubmit}
       className={mainForm ? classes.form : classes.profile}
@@ -22,7 +23,7 @@ const Form = React.memo(({ children, formName, onSubmit, mainForm }) => {
   );
 });
 Form.propTypes = {
-  children: PropTypes.element.isRequired,
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
   formName: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   mainForm: PropTypes.bool.isRequired,

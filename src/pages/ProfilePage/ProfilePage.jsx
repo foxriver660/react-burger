@@ -159,11 +159,11 @@ const ProfilePage = () => {
               onIconClick={handlePasswordClick}
               autoComplete={"off"}
             />
-            {updateRequestSuccess && isLoading && (
+            <div>{updateRequestSuccess && isLoading && (
               <p className="text text_type_main-small text_color_inactive">
                 Данные успешно обновлены
               </p>
-            )}
+            )}</div>
             <div className={classes.btnContainer}>
               <button onClick={handleReset} className={classes.btn}>
                 &#11119;
