@@ -18,6 +18,7 @@ import { closeIngredientModal } from "../services/actions/modalActions";
 import IngredientPage from "../pages/IngredientPage/IngredientPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import { useSelector } from "react-redux/es/hooks/useSelector";
+import { getApiIngredients } from "../services/actions/ingredientActions";
 const App = React.memo(() => {
   const dispatch = useDispatch();
   const accessToken = getCookie("token");
@@ -29,6 +30,10 @@ const App = React.memo(() => {
   React.useEffect(() => {
     dispatch(checkUserAccess(accessToken));
   }, [successTokenUpdate]);
+
+  React.useEffect(() => {
+    dispatch(getApiIngredients());
+  }, []);
   /* eslint-enable */
   return (
     <>

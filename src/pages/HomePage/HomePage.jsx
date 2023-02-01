@@ -15,9 +15,7 @@ const HomePage = React.memo(() => {
   const { isLoading, hasError } = useSelector(getServerResponse);
   const data = useSelector(getData);
 
-  React.useEffect(() => {
-    dispatch(getApiIngredients());
-  }, [dispatch]);
+  
 
   return (
     <div className={`${classes.container} p-4`}>
