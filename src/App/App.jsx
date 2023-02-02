@@ -42,10 +42,19 @@ const App = React.memo(() => {
       <Routes location={location.state?.backgroundLocation || location}>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="register" element={<OnlyUnAuthRoute element={<RegisterPage />}/>} />
-          <Route path="login" element={<OnlyUnAuthRoute element={<LoginPage />} />} />
+          <Route
+            path="register"
+            element={<OnlyUnAuthRoute element={<RegisterPage />} />}
+          />
+          <Route
+            path="login"
+            element={<OnlyUnAuthRoute element={<LoginPage />} />}
+          />
           <Route path="feed" element={<FeedPage />} />
-          <Route path="forgot-password" element={<OnlyUnAuthRoute element={<ForgotPassPage />}/>} />
+          <Route
+            path="forgot-password"
+            element={<OnlyUnAuthRoute element={<ForgotPassPage />} />}
+          />
           <Route path="reset-password" element={<ResetPassPage />} />
           <Route
             path="profile/"

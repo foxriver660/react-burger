@@ -14,7 +14,7 @@ const ResetPassPage = () => {
   const [newPassword, setNewPassword] = React.useState("");
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ КОДА ИЗ ПОЧТЫ
   const [code, setCode] = React.useState("");
- 
+
   // ПОЛУЧАЕМ РЕКВЕСТЫ ИЗ СТОРА
   const resetPassRequest = useSelector(
     (state) => state.profileReducer.resetPassRequest
@@ -35,7 +35,7 @@ const ResetPassPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(resetPass(newPassword, code));
-     };
+  };
   // !РЕДИРЕКТ ЕСЛИ ПРОШЕЛ ЗАПРОС
   if (resetPassRequest) {
     return <Navigate to={"/"} />;
@@ -44,7 +44,7 @@ const ResetPassPage = () => {
   if (!updatePassRequest) {
     return <Navigate to={"/forgot-password"} />;
   }
- 
+
   // КОНФИГУРАЦИЯ ИНПУТОВ
   const passwordInputConfig = {
     required: true,

@@ -1,11 +1,11 @@
 import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import React from "react";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./RegisterPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import Form from "../../components/Form/Form";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+import { useDispatch } from "react-redux/es/exports";
 import { registerUser } from "../../services/actions/profileActions";
 
 const RegisterPage = () => {
@@ -13,9 +13,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   // ЛОКАЛЬНЫЕ СТЕТЫ
   const [user, setUser] = React.useState({ name: "", email: "", password: "" });
-  // СТЕЙТ УСПЕХА РЕГИСТРАЦИИ
-  const [loading, setLoading] = React.useState(false);
- 
+
   // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const [isValidEmail, setIsValidEmail] = React.useState(true);
@@ -30,9 +28,8 @@ const RegisterPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(registerUser(user, () => navigate("/", { replace: true })));
-    setLoading(true);
   };
- 
+
   // КОНФИГУРАЦИЯ ИНПУТОВ
   const passwordInputConfig = {
     required: true,

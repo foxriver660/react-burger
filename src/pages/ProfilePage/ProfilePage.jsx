@@ -80,7 +80,7 @@ const ProfilePage = () => {
   const handleReset = () => {
     setUpdateUser({ name: authUser.name, email: authUser.email, password: "" });
   };
- // КОНФИГУРАЦИЯ ИНПУТОВ
+  // КОНФИГУРАЦИЯ ИНПУТОВ
   const passwordInputConfig = {
     required: true,
     name: "password",
@@ -112,7 +112,7 @@ const ProfilePage = () => {
     icon: "EditIcon",
     size: "default",
   };
-  const orderLocation = location.pathname === '/profile/orders'
+  const orderLocation = location.pathname === "/profile/orders";
   return (
     <FormOverlay type="profile">
       <div className={classes.container}>

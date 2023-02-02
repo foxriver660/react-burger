@@ -10,7 +10,7 @@ const FormOverlay = React.memo(({ children, type }) => {
   );
 });
 FormOverlay.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.any).isRequired,
+  children: PropTypes.node.isRequired,
   type: PropTypes.string.isRequired,
 };
 export default FormOverlay;

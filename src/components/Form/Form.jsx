@@ -23,7 +23,7 @@ const Form = React.memo(({ children, formName, onSubmit, mainForm }) => {
   );
 });
 Form.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.any).isRequired,
+  children: PropTypes.node.isRequired,
   formName: PropTypes.string.isRequired,
   onSubmit: PropTypes.func.isRequired,
   mainForm: PropTypes.bool.isRequired,

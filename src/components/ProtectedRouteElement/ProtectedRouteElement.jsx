@@ -6,7 +6,6 @@ export const ProtectedRouteElement = ({ element }) => {
   const location = useLocation();
   const authUser = useSelector((state) => state.profileReducer.authUser);
 
-  
   if (!authUser) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
@@ -14,5 +13,4 @@ export const ProtectedRouteElement = ({ element }) => {
 };
 ProtectedRouteElement.propTypes = {
   element: PropTypes.element.isRequired,
-  onlyUnAuth: PropTypes.bool.isRequired,
 };

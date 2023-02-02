@@ -6,8 +6,8 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/u
 import classes from "./LoginPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { login } from "../../services/actions/profileActions";
-import { useSelector, useDispatch } from "react-redux/es/exports";
-import { Navigate, useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux/es/exports";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const LoginPage = () => {
   // ХУКИ
@@ -16,7 +16,7 @@ const LoginPage = () => {
   const location = useLocation();
   // ЛОКАЛЬНЫЕ СТЕЙТЫ
   const [user, setUser] = React.useState({ email: "", password: "" });
-  
+
   // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const [isValidEmail, setIsValidEmail] = React.useState(true);
@@ -28,16 +28,17 @@ const LoginPage = () => {
   };
   // ОПРЕДЛЕЯЕМ С КАКОЙ СТРАНИЦЫ ПРИШЛИ
   const fromPage = location.state?.from?.pathname || "/";
- console.log(location)
+  
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
+  /* eslint-disable */
   const handleSubmit = React.useCallback(
     (e) => {
       e.preventDefault();
       dispatch(login(user, () => navigate(fromPage, { replace: true })));
-          },
+    },
     [user]
   );
- 
+  /* eslint-enable */
   // КОНФИГУРАЦИЯ ИНПУТОВ
   const passwordInputConfig = {
     required: true,
