@@ -6,5 +6,5 @@ const BUN = "bun";
 const MAIN = "main";
 // ТИП ОШИБКИ
 const JWT_MALFORMED = "jwt malformed";
-
-export { BURGER_API_URL, BURGER_API_AUTH_URL, SAUCE, BUN, MAIN, JWT_MALFORMED };
+const JWT_EXPIRED = "jwt expired"
+export { BURGER_API_URL, BURGER_API_AUTH_URL, SAUCE, BUN, MAIN, JWT_MALFORMED, JWT_EXPIRED };

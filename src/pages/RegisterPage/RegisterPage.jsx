@@ -15,8 +15,7 @@ const RegisterPage = () => {
   const [user, setUser] = React.useState({ name: "", email: "", password: "" });
   // СТЕЙТ УСПЕХА РЕГИСТРАЦИИ
   const [loading, setLoading] = React.useState(false);
-  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
-  const authUser = useSelector((state) => state.profileReducer.authUser);
+ 
   // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const [isValidEmail, setIsValidEmail] = React.useState(true);
@@ -33,10 +32,7 @@ const RegisterPage = () => {
     dispatch(registerUser(user, () => navigate("/", { replace: true })));
     setLoading(true);
   };
-  // !РЕДИРЕКТ ЕСЛИ АВТОРИЗОВАННЫЙ ПОЛЬЗОВАТЕЛЬ
-  if (authUser && !loading) {
-    return <Navigate to={"/"} replace />;
-  }
+ 
   // КОНФИГУРАЦИЯ ИНПУТОВ
   const passwordInputConfig = {
     required: true,

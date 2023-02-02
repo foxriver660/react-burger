@@ -45,7 +45,7 @@ const BurgerConstructor = React.memo(() => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
     if (authUser) {
       dispatch(getApiOrder(ingredientsId));
-    } else {
+        } else {
       navigate("/login");
     }
   };

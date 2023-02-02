@@ -40,6 +40,10 @@ const ProfilePage = () => {
   const handleNameClick = () => nameRef.current.focus();
   const handleEmailClick = () => emailRef.current.focus();
   const handlePasswordClick = () => passwordRef.current.focus();
+  // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
+  const [isValidPassword, setIsValidPassword] = React.useState(true);
+  const [isValidEmail, setIsValidEmail] = React.useState(true);
+  const [isValidName, setIsValidName] = React.useState(true);
   // ЗАПИСЫВАЕМ В ЛОКАЛЬНЫЙ СТЕЙТ VALUE
   const [updateUser, setUpdateUser] = React.useState({
     ...authUser,
@@ -64,19 +68,51 @@ const ProfilePage = () => {
   React.useEffect(() => {
     if (updateRequestFailed) {
       dispatch(updateUserProfile(accessToken, updateUser));
-          }
+    }
   }, [successTokenUpdate]);
   /* eslint-enable */
 
   // ВЫХОД
   const handleClick = () => {
-    dispatch(logout(refreshToken, () => navigate("/", {replace: true})));
-  }
+    dispatch(logout(refreshToken, () => navigate("/", { replace: true })));
+  };
   // СБРОС ЛОКАЛЬНОГО СТЕЙТА
   const handleReset = () => {
     setUpdateUser({ name: authUser.name, email: authUser.email, password: "" });
   };
-  const orderLocation = location.pathname === "/profile/orders"
+ // КОНФИГУРАЦИЯ ИНПУТОВ
+  const passwordInputConfig = {
+    required: true,
+    name: "password",
+    type: "password",
+    placeholder: "Пароль",
+    maxLength: 12,
+    minLength: 2,
+    errorText: "Ошибка",
+    size: "default",
+    autoComplete: "off",
+    icon: "EditIcon",
+  };
+
+  const emailInputConfig = {
+    required: true,
+    type: "email",
+    name: "email",
+    placeholder: "Логин",
+    errorText: "Ошибка",
+    icon: "EditIcon",
+    size: "default",
+  };
+  const nameInputConfig = {
+    required: true,
+    type: "text",
+    name: "name",
+    placeholder: "Имя",
+    errorText: "Ошибка",
+    icon: "EditIcon",
+    size: "default",
+  };
+  const orderLocation = location.pathname === '/profile/orders'
   return (
     <FormOverlay type="profile">
       <div className={classes.container}>
@@ -116,57 +152,62 @@ const ProfilePage = () => {
         ) : (
           <Form formName="Профиль" onSubmit={handleSubmit} mainForm={false}>
             <Input
+              {...nameInputConfig}
               value={updateUser.name}
-              onChange={(e) =>
-                setUpdateUser({ ...updateUser, name: e.target.value })
-              }
-              type={"text"}
-              placeholder={"Имя"}
-              icon={"EditIcon"}
-              name={"name"}
-              errorText={"Ошибка"}
-              size={"default"}
+              onChange={(e) => {
+                setUpdateUser({ ...updateUser, name: e.target.value });
+                setIsLoading(false);
+                setIsValidName(true);
+              }}
               ref={nameRef}
               onIconClick={handleNameClick}
+              error={isValidName ? false : true}
+              onInvalid={(e) => setIsValidName(false)}
             />
             <Input
+              {...emailInputConfig}
               value={updateUser.email}
-              onChange={(e) =>
-                setUpdateUser({ ...updateUser, email: e.target.value })
-              }
-              type={"email"}
-              placeholder={"Логин"}
-              icon={"EditIcon"}
-              name={"email"}
-              errorText={"Ошибка"}
-              size={"default"}
+              onChange={(e) => {
+                setUpdateUser({ ...updateUser, email: e.target.value });
+                setIsLoading(false);
+                setIsValidEmail(true);
+              }}
               ref={emailRef}
               onIconClick={handleEmailClick}
+              error={isValidEmail ? false : true}
+              onInvalid={(e) => setIsValidEmail(false)}
             />
             <Input
+              {...passwordInputConfig}
               value={updateUser.password}
-              onChange={(e) =>
-                setUpdateUser({ ...updateUser, password: e.target.value })
-              }
-              type={"password"}
-              placeholder={"Пароль"}
-              icon={"EditIcon"}
-              name={"password"}
-              errorText={"Ошибка"}
-              size={"default"}
+              onChange={(e) => {
+                setUpdateUser({ ...updateUser, password: e.target.value });
+                setIsLoading(false);
+                setIsValidPassword(true);
+              }}
               ref={passwordRef}
               onIconClick={handlePasswordClick}
-              autoComplete={"off"}
+              error={isValidPassword ? false : true}
+              onInvalid={(e) => setIsValidPassword(false)}
             />
-            <div>{updateRequestSuccess && isLoading && (
-              <p className="text text_type_main-small text_color_inactive">
-                Данные успешно обновлены
-              </p>
-            )}</div>
+            <div>
+              {updateRequestSuccess && isLoading && (
+                <p className="text text_type_main-small text_color_inactive">
+                  Данные успешно обновлены
+                </p>
+              )}
+            </div>
             <div className={classes.btnContainer}>
-              <button onClick={handleReset} className={classes.btn}>
-                &#11119;
-              </button>
+              {!isLoading && (
+                <Button
+                  htmlType="button"
+                  type="secondary"
+                  size="medium"
+                  onClick={handleReset}
+                >
+                  Отменить изменения
+                </Button>
+              )}
               <Button
                 htmlType="submit"
                 type="primary"

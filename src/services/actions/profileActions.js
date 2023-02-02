@@ -15,7 +15,7 @@ import {
   updateUserProfileAPI,
   refreshTokenAPI,
 } from "../../components/utils/burger-api";
-import { JWT_MALFORMED } from "../../components/utils/constant";
+import { JWT_MALFORMED, JWT_EXPIRED } from "../../components/utils/constant";
 export const UPDATE_PASS = "UPDATE_PASS";
 export const RESET_PASS = "RESET_PASS";
 export const LOGOUT = "LOGOUT";
@@ -33,7 +33,7 @@ export const updatePassRequest = (email) => (dispatch) => {
   updatePassRequestAPI(email)
     .then((res) => {
       dispatch({ type: UPDATE_PASS, payload: res.success });
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res); */
+       console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res); 
     })
     .catch((err) => {
       console.log(err);
@@ -44,7 +44,7 @@ export const resetPass = (newPassword, emailCode) => (dispatch) => {
   resetPassAPI(newPassword, emailCode)
     .then((res) => {
       dispatch({ type: RESET_PASS, payload: res.success });
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res); */
+       console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res); 
     })
     .catch((err) => {
       console.log(err);
@@ -55,7 +55,7 @@ export const logout = (refreshToken, cb) => (dispatch) => {
   logoutAPI(refreshToken)
     .then((res) => {
       dispatch({ type: LOGOUT, payload: res.success });
-      /*  console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res);  */
+       console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res);  
       deleteCookie("token");
       deleteCookie("refreshToken");
       cb();
@@ -71,7 +71,7 @@ export const registerUser = (user, cb) => (dispatch) => {
     .then((res) => {
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res); */
+      console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res);
       if (res.success) {
         dispatch({ type: REGISTER_USER, payload: res.success });
         dispatch({ type: SET_USER, payload: res.user });
@@ -89,7 +89,7 @@ export const login = (user, cb) => (dispatch) => {
     .then((res) => {
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res); */
+      console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res);
       if (res.success) {
         dispatch({ type: LOGIN, payload: res.success });
         dispatch({ type: SET_USER, payload: res.user });
@@ -104,14 +104,14 @@ export const login = (user, cb) => (dispatch) => {
 export const checkUserAccess = (accessToken) => (dispatch) => {
   checkUserAccessAPI(accessToken)
     .then((res) => {
-      /* console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res); */
+       console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res); 
       dispatch({ type: SET_USER, payload: res.user });
       dispatch({ type: UPDATE_TOKEN, payload: null });
     })
     .catch((err) => {
       console.log(err);
-      if (err.message === JWT_MALFORMED) {
-        dispatch(refreshToken(getCookie("refreshToken")), true);
+      if (err.message === JWT_MALFORMED || JWT_EXPIRED) {
+        dispatch(refreshToken(getCookie("refreshToken")));
       }
     });
 };
@@ -119,8 +119,8 @@ export const checkUserAccess = (accessToken) => (dispatch) => {
 export const refreshToken = (refreshToken) => (dispatch) => {
   refreshTokenAPI(refreshToken)
     .then((res) => {
-      /* console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res); */
-      setCookie("token", parsForCookie(res.accessToken), { "max-age": 15 });
+       console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res); 
+      setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
       dispatch({ type: UPDATE_TOKEN, payload: res.success });
           })
@@ -140,7 +140,7 @@ export const updateUserProfile =
       })
       .catch((err) => {
         console.log(err);
-        if (err.message === JWT_MALFORMED) {
+        if (err.message === JWT_MALFORMED || JWT_EXPIRED) {
           dispatch(refreshToken(getCookie("refreshToken")));
           dispatch({ type: UPDATE_USER_FAILED, payload: !err.success });
         }

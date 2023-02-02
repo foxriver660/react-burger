@@ -16,7 +16,7 @@ const LoginPage = () => {
   const location = useLocation();
   // ЛОКАЛЬНЫЕ СТЕЙТЫ
   const [user, setUser] = React.useState({ email: "", password: "" });
-  const [loading, setLoading] = React.useState(false);
+  
   // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const [isValidEmail, setIsValidEmail] = React.useState(true);
@@ -28,21 +28,16 @@ const LoginPage = () => {
   };
   // ОПРЕДЛЕЯЕМ С КАКОЙ СТРАНИЦЫ ПРИШЛИ
   const fromPage = location.state?.from?.pathname || "/";
-  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТЕЙТА
-  const authUser = useSelector((state) => state.profileReducer.authUser);
+ console.log(location)
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   const handleSubmit = React.useCallback(
     (e) => {
       e.preventDefault();
       dispatch(login(user, () => navigate(fromPage, { replace: true })));
-      setLoading(true);
-    },
-    [dispatch, user, fromPage, navigate]
+          },
+    [user]
   );
-  // !РЕДИРЕКТ ЕСЛИ АВТОРИЗОВАННЫЙ ПОЛЬЗОВАТЕЛЬ
-  if (authUser && !loading) {
-    return <Navigate to={"/"} replace />;
-  }
+ 
   // КОНФИГУРАЦИЯ ИНПУТОВ
   const passwordInputConfig = {
     required: true,

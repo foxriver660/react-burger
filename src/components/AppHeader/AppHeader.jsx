@@ -44,12 +44,12 @@ const AppHeader = React.memo(() => {
               >
                 <NavLink
                   className={setActive}
-                  to="profile/orders"
-                  state={{ order: true }}
+                  to="feed"
+                  state={{ feed: true }}
                   end
                 >
                   <ListIcon
-                    type={location.state?.order ? "primary" : "secondary"}
+                    type={location.state?.feed ? "primary" : "secondary"}
                   />{" "}
                   Лента заказов
                 </NavLink>

@@ -8,6 +8,7 @@ import ForgotPassPage from "../pages/ForgotPassPage/ForgotPassPage";
 import ResetPassPage from "../pages/ResetPassPage/ResetPassPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import { ProtectedRouteElement } from "../components/ProtectedRouteElement/ProtectedRouteElement";
+import { OnlyUnAuthRoute } from "../components/ProtectedRouteElement/OnlyUnAuthRoute";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import { useDispatch } from "react-redux/es/exports";
 import { checkUserAccess } from "../services/actions/profileActions";
@@ -17,6 +18,7 @@ import IngredientDetails from "../components/IngredientDetails/IngredientDetails
 import { closeIngredientModal } from "../services/actions/modalActions";
 import IngredientPage from "../pages/IngredientPage/IngredientPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
+import FeedPage from "../pages/FeedPage/FeedPage";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getApiIngredients } from "../services/actions/ingredientActions";
 const App = React.memo(() => {
@@ -40,12 +42,13 @@ const App = React.memo(() => {
       <Routes location={location.state?.backgroundLocation || location}>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="register" element={<RegisterPage />} />
-          <Route path="login" element={<LoginPage />} />
-          <Route path="forgot-password" element={<ForgotPassPage />} />
+          <Route path="register" element={<OnlyUnAuthRoute element={<RegisterPage />}/>} />
+          <Route path="login" element={<OnlyUnAuthRoute element={<LoginPage />} />} />
+          <Route path="feed" element={<FeedPage />} />
+          <Route path="forgot-password" element={<OnlyUnAuthRoute element={<ForgotPassPage />}/>} />
           <Route path="reset-password" element={<ResetPassPage />} />
           <Route
-            path="profile/*"
+            path="profile/"
             element={<ProtectedRouteElement element={<ProfilePage />} />}
           >
             <Route path="orders" element={<OrderPage />} />

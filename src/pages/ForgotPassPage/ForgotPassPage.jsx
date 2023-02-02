@@ -18,8 +18,7 @@ const ForgotPassPage = () => {
   const [loading, setLoading] = React.useState(false);
   // ПОЛУЧАЕМ РЕКВЕСТ ОБ ОТПРАВКЕ ПОЧТЫ ИЗ СТОРА
   const res = useSelector((state) => state.profileReducer.updatePassRequest);
-  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
-  const authUser = useSelector((state) => state.profileReducer.authUser);
+  
   // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidEmail, setIsValidEmail] = React.useState(true);
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
@@ -32,10 +31,7 @@ const ForgotPassPage = () => {
   if (res) {
     return <Navigate to={"/reset-password"} state={{ from: location }} />;
   }
-  // !РЕДИРЕКТ ЕСЛИ АВТОРИЗОВАННЫЙ ПОЛЬЗОВАТЕЛЬ
-  if (authUser && !loading) {
-    navigate("/", { replace: true });
-  }
+
   // КОНФИГУРАЦИЯ ИНПУТОВ
   const emailInputConfig = {
     required: true,

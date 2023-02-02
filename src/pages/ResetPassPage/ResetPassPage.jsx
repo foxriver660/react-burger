@@ -14,10 +14,7 @@ const ResetPassPage = () => {
   const [newPassword, setNewPassword] = React.useState("");
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ КОДА ИЗ ПОЧТЫ
   const [code, setCode] = React.useState("");
-  // СТЕЙТ УСПЕХА ВОССТАНОВЛЕНИЯ ПАРОЛЯ
-  const [loading, setLoading] = React.useState(false);
-  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
-  const authUser = useSelector((state) => state.profileReducer.authUser);
+ 
   // ПОЛУЧАЕМ РЕКВЕСТЫ ИЗ СТОРА
   const resetPassRequest = useSelector(
     (state) => state.profileReducer.resetPassRequest
@@ -38,8 +35,7 @@ const ResetPassPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(resetPass(newPassword, code));
-    setLoading(true);
-  };
+     };
   // !РЕДИРЕКТ ЕСЛИ ПРОШЕЛ ЗАПРОС
   if (resetPassRequest) {
     return <Navigate to={"/"} />;
@@ -48,10 +44,7 @@ const ResetPassPage = () => {
   if (!updatePassRequest) {
     return <Navigate to={"/forgot-password"} />;
   }
-  // !РЕДИРЕКТ ЕСЛИ АВТОРИЗОВАННЫЙ ПОЛЬЗОВАТЕЛЬ
-  if (authUser && !loading) {
-    return <Navigate to={"/"} replace />;
-  }
+ 
   // КОНФИГУРАЦИЯ ИНПУТОВ
   const passwordInputConfig = {
     required: true,
