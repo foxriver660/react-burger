@@ -19,6 +19,7 @@ import { closeIngredientModal } from "../services/actions/modalActions";
 import IngredientPage from "../pages/IngredientPage/IngredientPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import FeedPage from "../pages/FeedPage/FeedPage";
+import FeedInfoPage from "../pages/SingleFeedPage/FeedInfoPage";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getApiIngredients } from "../services/actions/ingredientActions";
 const App = React.memo(() => {
@@ -51,6 +52,7 @@ const App = React.memo(() => {
             element={<OnlyUnAuthRoute element={<LoginPage />} />}
           />
           <Route path="feed" element={<FeedPage />} />
+          <Route path="feed/:id" element={<FeedInfoPage />} />
           <Route
             path="forgot-password"
             element={<OnlyUnAuthRoute element={<ForgotPassPage />} />}

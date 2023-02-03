@@ -65,7 +65,7 @@ const AppHeader = React.memo(() => {
           type="secondary"
           size="medium"
         >
-          <NavLink className={setActive} to="/profile" state={"profile"} end>
+          <NavLink className={setActive} to="/profile" state={"profile"}>
             <ProfileIcon
               type={location.state === "profile" ? "primary" : "secondary"}
             />{" "}
