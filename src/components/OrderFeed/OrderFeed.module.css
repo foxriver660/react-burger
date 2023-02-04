@@ -7,53 +7,31 @@
   border-radius: 40px;
   background: #1c1c21;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr auto;
   grid-template-rows: 24px 30px 64px;
   row-gap: 24px;
   column-gap: 24px;
 }
 .orderID {
-  outline: 1px solid rgb(4, 226, 255);
 }
 
 .orderDate {
-  outline: 1px solid rgb(4, 226, 255);
   justify-self: end;
 }
 
 .orderTitle {
-  outline: 1px solid rgb(4, 226, 255);
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
 .orderImgs {
-  outline: 1px solid rgb(4, 226, 255);
   color: red;
   display: grid;
-  grid-template-columns: repeat(8, 45px);
+  grid-template-columns: repeat(auto-fill, 45px);
   grid-template-rows: 1fr;
 }
-.imgContainer {
-  width: 64px;
-  height: 64px;
-  border: 2px solid #801ab2;
-  box-sizing: border-box;
-  border-radius: 50%;
 
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #131316;
-  padding: 15px;
-}
-.img {
-  width: 100px;
-  height: 70px;
-}
 .orderPrice {
-  outline: 1px solid rgb(4, 226, 255);
   display: flex;
   align-items: center;
   gap: 8px;
