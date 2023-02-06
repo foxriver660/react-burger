@@ -9,15 +9,15 @@ const OrderFeed = ({ order }) => {
     (state) => state.ingredientReducer.availableIngredients
   );
   /* console.log(availableIngredients); */
-   console.log(order); 
-   var curOffset = new Date().getTimezoneOffset() / 60; 
-   var gmt = "i-GMT" + (curOffset > 0 ? "-" + curOffset : "+" + (-curOffset));
-   
+  console.log(order);
+  var curOffset = new Date().getTimezoneOffset() / 60;
+  var gmt = "i-GMT" + (curOffset > 0 ? "-" + curOffset : "+" + -curOffset);
+
   const resultArray = availableIngredients.filter((item) => {
     return order.ingredients.some((item2) => item2 === item._id);
   });
   const totalCost = resultArray.reduce((acc, item) => acc + item.price, 0);
-  
+
   return (
     <div className={`${classes.orderWrapper} p-6`}>
       <div className={`${classes.orderID} text text_type_digits-default`}>
@@ -26,7 +26,8 @@ const OrderFeed = ({ order }) => {
       <div
         className={`${classes.orderDate} text text_type_main-default text_color_inactive`}
       >
-        <FormattedDate date={new Date(order.createdAt)} />{` ${gmt}`}
+        <FormattedDate date={new Date(order.createdAt)} />
+        {` ${gmt}`}
       </div>
       <div className={`${classes.orderTitle} text text_type_main-medium`}>
         {order.name}
