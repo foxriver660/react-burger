@@ -21,9 +21,12 @@
   height: 152px;
   flex-wrap: wrap;
   gap: 8px;
+ 
 }
+
 .digits {
   margin: 0;
+  display: flex;
 }
 .digitsReady {
   color: #00cccc;
@@ -37,6 +40,7 @@
   flex-wrap: wrap;
   gap: 8px;
 }
+
 .div5 {
   grid-area: 3 / 1 / 4 / 3;
 }

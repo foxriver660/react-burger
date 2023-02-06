@@ -22,6 +22,7 @@ import FeedPage from "../pages/FeedPage/FeedPage";
 import FeedInfoPage from "../pages/SingleFeedPage/FeedInfoPage";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getApiIngredients } from "../services/actions/ingredientActions";
+import { WS_CONNECTION_START } from "../services/actions/wsActions";
 const App = React.memo(() => {
   const dispatch = useDispatch();
   const accessToken = getCookie("token");
@@ -38,6 +39,19 @@ const App = React.memo(() => {
     dispatch(getApiIngredients());
   }, []);
   /* eslint-enable */
+  React.useEffect(
+    () => {
+             dispatch({ type: WS_CONNECTION_START });
+          },
+    [] 
+  );
+/*   React.useEffect(() => {
+    dispatch(wsConnectionSuccess());
+  }, []); */
+ /*  let socket = new WebSocket(`wss://norma.nomoreparties.space/orders/all`);
+  socket.onopen = (event) => {
+    console.log("Соединение установлено")
+}  */
   return (
     <>
       <Routes location={location.state?.backgroundLocation || location}>
