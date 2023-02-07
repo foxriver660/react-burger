@@ -5,7 +5,7 @@ import {
 
 const initialState = {
   wsConnected: false,
-  orders: [],
+  orders: {orders:[]},
 };
 
 export const wsReducer = (state = initialState, action) => {

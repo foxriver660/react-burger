@@ -15,6 +15,7 @@ import { checkUserAccess } from "../services/actions/profileActions";
 import { getCookie } from "../components/utils/cookie";
 import Modal from "../components/Modal/Modal";
 import IngredientDetails from "../components/IngredientDetails/IngredientDetails";
+import OrderDetails from "../components/OrderDetails/OrderDetails";
 import { closeIngredientModal } from "../services/actions/modalActions";
 import IngredientPage from "../pages/IngredientPage/IngredientPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
@@ -38,20 +39,16 @@ const App = React.memo(() => {
   React.useEffect(() => {
     dispatch(getApiIngredients());
   }, []);
-  /* eslint-enable */
+  
   React.useEffect(
     () => {
              dispatch({ type: WS_CONNECTION_START });
+             console.log('ОТРАБОТ КОННЕКТ')
           },
-    [] 
+    [dispatch] 
   );
-/*   React.useEffect(() => {
-    dispatch(wsConnectionSuccess());
-  }, []); */
- /*  let socket = new WebSocket(`wss://norma.nomoreparties.space/orders/all`);
-  socket.onopen = (event) => {
-    console.log("Соединение установлено")
-}  */
+/* eslint-enable */
+
   return (
     <>
       <Routes location={location.state?.backgroundLocation || location}>
@@ -89,6 +86,18 @@ const App = React.memo(() => {
             element={
               <Modal onClose={() => dispatch(closeIngredientModal())}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+      {location.state?.backgroundLocationFeed && (
+        <Routes>
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal onClose={() => dispatch(closeIngredientModal())}>
+                 <OrderDetails />
               </Modal>
             }
           />

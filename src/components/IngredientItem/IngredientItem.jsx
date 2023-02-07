@@ -2,18 +2,19 @@ import React from 'react'
 import classes from './IngredientItem.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ImageCicle from '../ImageCicle/ImageCicle'
-const IngredientItem = () => {
+const IngredientItem = ({ingredient}) => {
+  console.log(ingredient)
   return (
     <li className={classes.item}>
-            <ImageCicle />
+            <ImageCicle src={ingredient?.image_mobile} />
             <p className={`${classes.itemName} text text_type_main-default`}>
-              Флюоресцентная булка R2-D3
+              {ingredient?.name}
             </p>
             <div className={classes.orderPrice}>
               <p
                 className={`${classes.orderSum} text text_type_digits-default`}
               >
-                2 x 20
+                2 x {ingredient?.price}
               </p>{" "}
               <CurrencyIcon />
             </div>

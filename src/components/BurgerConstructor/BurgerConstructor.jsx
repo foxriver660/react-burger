@@ -7,7 +7,7 @@ import {
 import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import OrderDetails from "../OrderDetails/OrderDetails";
+import OrderСompletedModal from "../OrderСompletedModal/OrderСompletedModal";
 import Modal from "../Modal/Modal";
 import { useDrop } from "react-dnd";
 import { BUN } from "../utils/constant";
@@ -159,7 +159,7 @@ const BurgerConstructor = React.memo(() => {
                 dispatch(resetConstructor());
               }}
             >
-              <OrderDetails order={order.order} />
+              <OrderСompletedModal order={order.order} />
             </Modal>
           )}
         </>
