@@ -40,13 +40,7 @@ const App = React.memo(() => {
     dispatch(getApiIngredients());
   }, []);
   
-  React.useEffect(
-    () => {
-             dispatch({ type: WS_CONNECTION_START });
-             console.log('ОТРАБОТ КОННЕКТ')
-          },
-    [dispatch] 
-  );
+  
 /* eslint-enable */
 
   return (

@@ -6,10 +6,11 @@ import IngredientItem from '../IngredientItem/IngredientItem'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons'
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date'
 import { BUN } from '../utils/constant'
-
+import { Loader } from '../Loader/Loader'
 const OrderDetails = () => {
  
   const orders = useSelector((state) => state.wsReducer.orders);
+  console.log(orders)
   const availableIngredients = useSelector(
     (state) => state.ingredientReducer.availableIngredients
   );
@@ -19,13 +20,13 @@ const OrderDetails = () => {
   const gmt = "i-GMT" + (curOffset > 0 ? "-" + curOffset : "+" + -curOffset);
 
  const filteredIngredients = availableIngredients.filter((item)=> {
-  return order.ingredients.some((item2) => item2 === item._id);
+  return order?.ingredients?.some((item2) => item2 === item._id);
 })
 const totalCost = filteredIngredients.reduce((acc, item) => item.type === BUN ? acc + item.price*2 : acc + item.price, 0);
 
   return (
     <div className={classes.wrapper}>
-        <h3
+        {order ? <><h3
           className={`${classes.orderID} text text_type_digits-default pb-10`}
         >
           #{order.number}
@@ -60,7 +61,7 @@ const totalCost = filteredIngredients.reduce((acc, item) => item.type === BUN ? 
             </p>{" "}
             <CurrencyIcon />
           </div>
-        </div>
+        </div></> : <Loader/>}
       </div>
   )
 }

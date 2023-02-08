@@ -19,7 +19,7 @@ const StatisticFeed = ({ doneTotal, doneToday }) => {
       { doneOrder: [], waitOrder: [] }
     );
   }, [orders])
-  console.log(doneOrder)
+  
   return (
     <div className={classes.statisticsWrapper}>
       <div className={`${classes.div1} text text_type_main-medium pb-6`}>

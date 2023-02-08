@@ -1,9 +1,8 @@
-
  .loader {
   margin: auto;
   width: 75px;
   height: 75px;
-  border:12px solid rgba(0, 204, 204, .5);;
+  border:12px solid rgba(0, 204, 204, .2);;
   border-radius: 50%;
   border-left-color:#00cccc;
   animation: loader 0.3s linear infinite;

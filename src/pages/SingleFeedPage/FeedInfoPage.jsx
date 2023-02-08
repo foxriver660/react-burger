@@ -10,6 +10,7 @@ import { getApiIngredients } from "../../services/actions/ingredientActions";
 import { BUN } from "../../components/utils/constant";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
 import { WS_CONNECTION_START } from "../../services/actions/wsActions";
+import { Loader } from "../../components/Loader/Loader";
 const FeedInfoPage = () => {
   const dispatch = useDispatch();
   React.useEffect(() => {
@@ -42,7 +43,7 @@ const FeedInfoPage = () => {
   const gmt = "i-GMT" + (curOffset > 0 ? "-" + curOffset : "+" + -curOffset);
   return (
     <section className={classes.container}>
-      {order && <div className={classes.wrapper}>
+      {order ? <div className={classes.wrapper}>
         <h3
           className={`${classes.orderID} text text_type_digits-default pb-10`}
         >
@@ -80,7 +81,7 @@ const FeedInfoPage = () => {
             <CurrencyIcon />
           </div>
         </div>
-      </div>}
+      </div> : <Loader/>}
     </section>
   );
 };

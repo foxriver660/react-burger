@@ -30,7 +30,7 @@ const OrderFeed = ({ order, type }) => {
   }, {});
 
   const selector = type === "orderHistory";
-  console.log(selector);
+  
   return (
     <li className={`${classes.orderWrapper} p-6`}>
       <div className={`${classes.orderID} text text_type_digits-default`}>

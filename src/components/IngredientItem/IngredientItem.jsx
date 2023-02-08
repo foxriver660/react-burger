@@ -3,7 +3,7 @@ import classes from './IngredientItem.module.css'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import ImageCicle from '../ImageCicle/ImageCicle'
 const IngredientItem = ({ingredient}) => {
-  console.log(ingredient)
+ 
   return (
     <li className={classes.item}>
             <ImageCicle src={ingredient?.image_mobile} />

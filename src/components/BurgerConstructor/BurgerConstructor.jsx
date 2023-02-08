@@ -23,6 +23,7 @@ import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../utils/cookie";
 
 const getTotalCost = (state) => state.ingredientReducer.totalCost;
 const getOrder = (state) => state.orderReducer.currentOrder;
@@ -44,7 +45,7 @@ const BurgerConstructor = React.memo(() => {
   const handleClickOrder = () => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
     if (authUser) {
-      dispatch(getApiOrder(ingredientsId));
+      dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie('token')}`));
         } else {
       navigate("/login");
     }

@@ -9,12 +9,10 @@ const checkResponse = (res) => {
 const getIngredientsAPI = () =>
   fetch(`${BURGER_API_URL}/ingredients`).then(checkResponse);
 
-const getOrderAPI = (ingredients) =>
+const getOrderAPI = (ingredients, token) =>
   fetch(`${BURGER_API_URL}/orders`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "authorization": token, "Content-Type": "application/json" },
     body: JSON.stringify({
       ingredients,
     }),
@@ -31,7 +29,7 @@ const updatePassRequestAPI = (email) =>
       email,
     }),
   }).then(checkResponse);
-//  !ЗАПРОС НА ИЗМЕНЕНИЕ ПАРОЛЯ 
+//  !ЗАПРОС НА ИЗМЕНЕНИЕ ПАРОЛЯ
 const resetPassAPI = (newPassword, emailCode) =>
   fetch(`${BURGER_API_URL}/password-reset/reset`, {
     method: "POST",
@@ -39,23 +37,23 @@ const resetPassAPI = (newPassword, emailCode) =>
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      "password": newPassword,
-      "token": emailCode
+      password: newPassword,
+      token: emailCode,
     }),
   }).then(checkResponse);
 
-//  !ЗАПРОС НА ВЫХОД ПОЛЬЗОВАТЕЛЯ 
-  const logoutAPI = (refreshToken) => {
-    return fetch(`${BURGER_API_AUTH_URL}/logout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        "token": refreshToken,
-      }),
-    }).then(checkResponse);
-  };
+//  !ЗАПРОС НА ВЫХОД ПОЛЬЗОВАТЕЛЯ
+const logoutAPI = (refreshToken) => {
+  return fetch(`${BURGER_API_AUTH_URL}/logout`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: refreshToken,
+    }),
+  }).then(checkResponse);
+};
 
 // !ЗАПРОС НА РЕГИСТРАЦИЮ ПОЛЬЗОВАТЕЛЯ
 const registerUserAPI = ({ email, password, name }) =>
@@ -71,7 +69,7 @@ const registerUserAPI = ({ email, password, name }) =>
     }),
   }).then(checkResponse);
 
-//  !ЗАПРОС НА ВХОД ПОЛЬЗОВАТЕЛЯ 
+//  !ЗАПРОС НА ВХОД ПОЛЬЗОВАТЕЛЯ
 const loginAPI = ({ email, password }) =>
   fetch(`${BURGER_API_AUTH_URL}/login`, {
     method: "POST",
@@ -84,23 +82,23 @@ const loginAPI = ({ email, password }) =>
     }),
   }).then(checkResponse);
 
-// ! ЗАПРОС ДАННЫХ ПОЛЬЗОВАТЕЛЯ 
+// ! ЗАПРОС ДАННЫХ ПОЛЬЗОВАТЕЛЯ
 const checkUserAccessAPI = (accessToken) =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "authorization": `Bearer ${accessToken}`,
+      authorization: `Bearer ${accessToken}`,
     },
   }).then(checkResponse);
 
-//  !ЗАПРОС НА РЕДАКТИРОВАНИЕ ПРОФИЛЯ 
-const updateUserProfileAPI = (accessToken, {name, email, password}) =>
+//  !ЗАПРОС НА РЕДАКТИРОВАНИЕ ПРОФИЛЯ
+const updateUserProfileAPI = (accessToken, { name, email, password }) =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      "authorization": `Bearer ${accessToken}`,
+      authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({
       email,
@@ -109,7 +107,7 @@ const updateUserProfileAPI = (accessToken, {name, email, password}) =>
     }),
   }).then(checkResponse);
 
-// !ЗАПРОС НА РЕФРЕШ ТОКЕНА 
+// !ЗАПРОС НА РЕФРЕШ ТОКЕНА
 const refreshTokenAPI = (refreshToken) => {
   return fetch(`${BURGER_API_AUTH_URL}/token`, {
     method: "POST",
@@ -122,7 +120,6 @@ const refreshTokenAPI = (refreshToken) => {
   }).then(checkResponse);
 };
 
-
 export {
   getIngredientsAPI,
   getOrderAPI,
@@ -133,5 +130,5 @@ export {
   logoutAPI,
   refreshTokenAPI,
   updateUserProfileAPI,
-  checkUserAccessAPI
+  checkUserAccessAPI,
 };
