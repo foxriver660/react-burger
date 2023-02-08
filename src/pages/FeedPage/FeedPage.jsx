@@ -38,7 +38,7 @@ const FeedPage = () => {
                className={classes.link}
                to={`/feed/${order._id}`}
                state={{ backgroundLocationFeed: location }}
-             ><OrderFeed key={index} order={order} /></Link>
+             ><OrderFeed key={index} order={order} type='feed' /></Link>
             ))}
           </ul>
           <StatisticFeed
