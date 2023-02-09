@@ -70,7 +70,7 @@ const App = React.memo(() => {
             <Route path="orders" element={<OrderPage />} />
              
           </Route>
-          <Route path="profile/orders/:id" element={<OrderDetailPage source={'history'} />} /> 
+          <Route path="profile/orders/:id" element={<ProtectedRouteElement element={<OrderDetailPage source={'history'} />} />} /> 
           <Route path="ingredients/:id" element={<IngredientPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

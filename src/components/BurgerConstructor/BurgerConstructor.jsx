@@ -24,7 +24,7 @@ import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../utils/cookie";
-
+import { wsDisconnect, wsConnectionStartHistory } from "../../services/actions/wsActions";
 const getTotalCost = (state) => state.ingredientReducer.totalCost;
 const getOrder = (state) => state.orderReducer.currentOrder;
 const getIngredients = (state) =>
@@ -39,6 +39,7 @@ const BurgerConstructor = React.memo(() => {
   const order = useSelector(getOrder);
   const ingredients = useSelector(getIngredients);
   const bun = useSelector(getBun);
+  
   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
   const authUser = useSelector((state) => state.profileReducer.authUser);
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
@@ -46,6 +47,7 @@ const BurgerConstructor = React.memo(() => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
     if (authUser) {
       dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie('token')}`));
+      dispatch(wsConnectionStartHistory());
         } else {
       navigate("/login");
     }

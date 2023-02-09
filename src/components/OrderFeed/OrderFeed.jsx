@@ -30,7 +30,8 @@ const OrderFeed = ({ order, type }) => {
   }, {});
 
   const selector = type === "orderHistory";
-  
+  const status = order?.status === 'done' ? 'Выполнен' : order?.status === 'created' ? 'Создан' : order?.status === 'pending' ? 'Готовится' : 'Отменен'
+  const statusColor = order?.status === 'pending' ? {color: '#00cccc'} : order?.status === 'cancel' ? {color: 'red'} : {color: 'white'}
   return (
     <li className={`${classes.orderWrapper} p-6`}>
       <div className={`${classes.orderID} text text_type_digits-default`}>
@@ -44,7 +45,7 @@ const OrderFeed = ({ order, type }) => {
       </div>
       <div className={`${classes.orderTitle} text text_type_main-medium`}>
         {order.name}
-        {selector && <div className="text text_type_main-default pt-2">Создан</div>}
+        {selector && <div className="text text_type_main-default pt-2" style={statusColor}>{status}</div>}
       </div>
       <div className={classes.orderImgs}>
         {resultArray.map((item, index) => (

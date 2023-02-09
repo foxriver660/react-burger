@@ -1,8 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classes from "./OrderСompletedModal.module.css";
-
+import { useSelector, useDispatch } from "react-redux";
+import { wsDisconnect, wsConnectionStartFeed } from "../../services/actions/wsActions";
 const OrderСompletedModal = React.memo(({ order }) => {
+  const dispatch = useDispatch();
+  
+  const orders = useSelector((state) => state.wsReducer.orders);
+
+  React.useEffect(() => {
+    
+
+    return () => {dispatch(wsDisconnect())};
+  }, []);
   return (
     <div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-30`}>
       <p className={`${classes.orderNumber} text text_type_digits-large pb-8`}>
