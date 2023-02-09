@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./FeedInfoPage.module.css";
+import classes from "./OrderDetailPage.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ImageCicle from "../../components/ImageCicle/ImageCicle";
 import IngredientItem from "../../components/IngredientItem/IngredientItem";
@@ -9,21 +9,29 @@ import { useParams } from "react-router-dom";
 import { getApiIngredients } from "../../services/actions/ingredientActions";
 import { BUN } from "../../components/utils/constant";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
-import { WS_CONNECTION_START } from "../../services/actions/wsActions";
+
 import { Loader } from "../../components/Loader/Loader";
-const FeedInfoPage = () => {
+import { wsDisconnect, wsConnectionStartFeed, wsConnectionStartHistory  } from "../../services/actions/wsActions";
+const OrderDetailPage = ({source}) => {
+  const orders = useSelector((state) => state.wsReducer.orders);
+  const availableIngredients = useSelector(
+    (state) => state.ingredientReducer.availableIngredients
+  );
+  const {authUser} = useSelector(
+    (state) => state.profileReducer
+  );
+  console.log(authUser);
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getApiIngredients());
   }, []);
 
   React.useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START });
-  }, []);
-  const orders = useSelector((state) => state.wsReducer.orders);
-  const availableIngredients = useSelector(
-    (state) => state.ingredientReducer.availableIngredients
-  );
+   source === 'feed' ? dispatch(wsConnectionStartFeed()) : dispatch(wsConnectionStartHistory());
+
+    return () => {dispatch(wsDisconnect())};
+  }, [authUser]); 
+ 
 
 
 
@@ -86,4 +94,4 @@ const FeedInfoPage = () => {
   );
 };
 
-export default FeedInfoPage;
+export default OrderDetailPage;

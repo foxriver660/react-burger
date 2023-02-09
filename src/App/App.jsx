@@ -20,7 +20,7 @@ import { closeIngredientModal } from "../services/actions/modalActions";
 import IngredientPage from "../pages/IngredientPage/IngredientPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import FeedPage from "../pages/FeedPage/FeedPage";
-import FeedInfoPage from "../pages/SingleFeedPage/FeedInfoPage";
+import OrderDetailPage from "../pages/OrderDetailPage/OrderDetailPage";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getApiIngredients } from "../services/actions/ingredientActions";
 import { WS_CONNECTION_START } from "../services/actions/wsActions";
@@ -45,7 +45,7 @@ const App = React.memo(() => {
 
   return (
     <>
-      <Routes location={location.state?.backgroundLocation || location}>
+      <Routes location={location.state?.backgroundLocation || location.state?.backgroundLocationFeed || location.state?.backgroundLocationHistory || location}>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route
@@ -57,7 +57,7 @@ const App = React.memo(() => {
             element={<OnlyUnAuthRoute element={<LoginPage />} />}
           />
           <Route path="feed" element={<FeedPage />} />
-          <Route path="feed/:id" element={<FeedInfoPage />} />
+          <Route path="feed/:id" element={<OrderDetailPage source={'feed'} />} />
           <Route
             path="forgot-password"
             element={<OnlyUnAuthRoute element={<ForgotPassPage />} />}
@@ -68,7 +68,9 @@ const App = React.memo(() => {
             element={<ProtectedRouteElement element={<ProfilePage />} />}
           >
             <Route path="orders" element={<OrderPage />} />
+             
           </Route>
+          <Route path="profile/orders/:id" element={<OrderDetailPage source={'history'} />} /> 
           <Route path="ingredients/:id" element={<IngredientPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
@@ -89,6 +91,18 @@ const App = React.memo(() => {
         <Routes>
           <Route
             path="/feed/:id"
+            element={
+              <Modal onClose={() => dispatch(closeIngredientModal())}>
+                 <OrderDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+      {location.state?.backgroundLocationHistory && (
+        <Routes>
+          <Route
+            path="/profile/orders/:id"
             element={
               <Modal onClose={() => dispatch(closeIngredientModal())}>
                  <OrderDetails />

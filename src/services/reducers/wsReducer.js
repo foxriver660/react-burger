@@ -1,7 +1,8 @@
 import {
   WS_CONNECTION_SUCCESS,
   WS_GET_MESSAGE,
-  WS_CONNECTION_CLOSED
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_ERROR
 } from "../actions/wsActions";
 
 const initialState = {
@@ -23,7 +24,12 @@ export const wsReducer = (state = initialState, action) => {
         wsConnected: false,
                 
       };
-      
+      case WS_CONNECTION_ERROR:
+      return {
+        ...state,
+        wsConnected: false,
+                
+      };
     case WS_GET_MESSAGE:
       return {
         ...state,

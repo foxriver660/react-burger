@@ -5,19 +5,15 @@ import OrderFeed from "../../components/OrderFeed/OrderFeed";
 import StatisticFeed from "../../components/StatisticFeed/StatisticFeed";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import {
-  WS_CONNECTION_START,
-  WS_CONNECTION_CLOSED,
-  WS_DISCONNECT,
-} from "../../services/actions/wsActions";
-import { wsDisconnect, wsConnectionStart } from "../../services/actions/wsActions";
+
+import { wsDisconnect, wsConnectionStartFeed } from "../../services/actions/wsActions";
 const FeedPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const orders = useSelector((state) => state.wsReducer.orders);
 
   React.useEffect(() => {
-    dispatch(wsConnectionStart());
+    dispatch(wsConnectionStartFeed());
 
     return () => {dispatch(wsDisconnect())};
   }, []);
@@ -52,8 +48,9 @@ const FeedPage = () => {
                   className={classes.link}
                   to={`/feed/${order._id}`}
                   state={{ backgroundLocationFeed: location }}
+                  key={index} 
                 >
-                  <OrderFeed key={index} order={order} type="feed" />
+                  <OrderFeed order={order} type="feed" />
                 </Link>
               ))}
             </ul>

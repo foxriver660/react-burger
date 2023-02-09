@@ -5,11 +5,16 @@ import OrderFeed from "../../components/OrderFeed/OrderFeed";
 import StatisticFeed from "../../components/StatisticFeed/StatisticFeed";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { WS_CONNECTION_START } from "../../services/actions/wsActions";
+
+import {
+  wsDisconnect,
+  wsConnectionStartHistory,
+} from "../../services/actions/wsActions";
 const OrderPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const orders = useSelector((state) => state.wsReducer.orders);
+  const { orders } = useSelector((state) => state.wsReducer.orders);
+  
   /* const { doneOrder, waitOrder } = React.useMemo(() => {
     return  orders?.orders?.reduce(
       (acc, order) => {
@@ -26,32 +31,30 @@ const OrderPage = () => {
       { doneOrder: [], waitOrder: [] }
     );
   }, [orders.orders]); */
-  React.useEffect(
-    () => {
-             dispatch({ type: WS_CONNECTION_START });
-             console.log('ОТРАБОТ КОННЕКТ')
-          },
-    [dispatch] 
-  );
+  React.useEffect(() => {
+    dispatch(wsConnectionStartHistory());
+
+    return () => {
+      dispatch(wsDisconnect());
+    };
+  }, [dispatch]);
+
   return (
     <section className={`${classes.container} mt-10`}>
-    
-        <div className={classes.wrapper}>
-         
-            <ul className={classes.scrollWrapper}>
-              {orders?.orders?.map((order, index) => (
-                <Link
-                  className={classes.link}
-                  to={`/feed/${order._id}`}
-                  state={{ backgroundLocationFeed: location }}
-                >
-                  <OrderFeed key={index} order={order} type='orderHistory' />
-                </Link>
-              ))}
-            </ul>
-          
-        </div>
-    
+      <div className={classes.wrapper}>
+        {orders && <ul className={classes.scrollWrapper}>
+          {[...orders].reverse().map((order, index) => (
+            <Link
+              className={classes.link}
+              to={`${order._id}`}
+              state={{ backgroundLocationHistory: location }}
+              key={index}
+            >
+              <OrderFeed order={order} type="orderHistory" />
+            </Link>
+          ))}
+        </ul>}
+      </div>
     </section>
   );
 };
