@@ -117,7 +117,7 @@ export const checkUserAccess = (accessToken) => (dispatch) => {
 };
 // !ГЕНЕРАТОР THUNK
 export const refreshToken = (refreshToken) => (dispatch) => {
-  refreshTokenAPI(refreshToken)
+  return refreshTokenAPI(refreshToken)
     .then((res) => {
        console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);  
       setCookie("token", parsForCookie(res.accessToken), {'max-age': 15});

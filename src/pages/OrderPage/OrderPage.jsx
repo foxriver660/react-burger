@@ -5,17 +5,19 @@ import OrderFeed from "../../components/OrderFeed/OrderFeed";
 import StatisticFeed from "../../components/StatisticFeed/StatisticFeed";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-
+import { refreshToken } from "../../services/actions/profileActions";
 import {
   wsDisconnect,
   wsConnectionStartHistory,
 } from "../../services/actions/wsActions";
 import { Loader } from "../../components/Loader/Loader";
+import { getCookie } from "../../components/utils/cookie";
 const OrderPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { orders } = useSelector((state) => state.wsReducer.orders);
-  
+  const accessToken = getCookie('token')
+ 
   /* const { doneOrder, waitOrder } = React.useMemo(() => {
     return  orders?.orders?.reduce(
       (acc, order) => {
@@ -34,11 +36,11 @@ const OrderPage = () => {
   }, [orders.orders]); */
   React.useEffect(() => {
     dispatch(wsConnectionStartHistory());
-
+if(!accessToken) {dispatch(refreshToken(getCookie("refreshToken")))}
     return () => {
       dispatch(wsDisconnect());
     };
-  }, [dispatch]);
+  }, [dispatch, accessToken]);
 
   return (
     <section className={`${classes.container} mt-10`}>

@@ -11,9 +11,21 @@
   align-items: center;
   background: #131316;
   padding: 15px;
+  position: relative;
 }
 .img {
   width: 100px;
-  height: 70px;
-  
+  height: 60px;
+}
+.lastImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  background: rgba(28, 28, 33, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

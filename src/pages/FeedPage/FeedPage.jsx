@@ -18,22 +18,7 @@ const FeedPage = () => {
 
     return () => {dispatch(wsDisconnect())};
   }, []);
-  /* const { doneOrder, waitOrder } = React.useMemo(() => {
-    return  orders?.orders?.reduce(
-      (acc, order) => {
-        switch (order?.status) {
-          case "done":
-            acc.doneOrder.push(order.number);
-            break;
-          default:
-            acc.waitOrder.push(order.number);
-            break;
-        }
-        return acc;
-      },
-      { doneOrder: [], waitOrder: [] }
-    );
-  }, [orders.orders]); */
+  
 
   return (
     <section className={classes.container}>
@@ -56,12 +41,8 @@ const FeedPage = () => {
               ))}
             </ul>
             <StatisticFeed
-              /* doneOrder={doneOrder}
-            waitOrder={waitOrder} */
               orders={orders}
-              doneTotal={orders.total}
-              doneToday={orders.totalToday}
-            />
+                          />
           </div>
         </div>
       ) : <Loader/>}

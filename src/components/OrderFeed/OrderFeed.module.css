@@ -6,7 +6,7 @@
   border-radius: 40px;
   background: #1c1c21;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr 1fr auto;
   grid-template-rows: 24px 1fr 64px;
   row-gap: 24px;
   column-gap: 24px;
@@ -16,11 +16,13 @@
 
 .orderDate {
   justify-self: end;
+  grid-column-start: 2;
+  grid-column-end: 4;
 }
 
 .orderTitle {
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: 4;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -33,6 +35,11 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, 45px);
   grid-template-rows: 1fr;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  white-space: nowrap;
+  overflow: hidden;
+  
 }
 
 .orderPrice {

@@ -7,11 +7,9 @@ const OrderСompletedModal = React.memo(({ order }) => {
   const dispatch = useDispatch();
   
   const orders = useSelector((state) => state.wsReducer.orders);
-
+console.log(orders)
   React.useEffect(() => {
-    
-
-    return () => {dispatch(wsDisconnect())};
+        return () => {dispatch(wsDisconnect())};
   }, []);
   return (
     <div className={`${classes.wrapper} pt-30 pr-10 pl-10 pb-30`}>

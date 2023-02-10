@@ -11,7 +11,6 @@ const OrderFeed = ({ order, type }) => {
   const availableIngredients = useSelector(
     (state) => state.ingredientReducer.availableIngredients
   );
-
   const curOffset = new Date().getTimezoneOffset() / 60;
   const gmt = "i-GMT" + (curOffset > 0 ? "-" + curOffset : "+" + -curOffset);
 
@@ -24,10 +23,7 @@ const OrderFeed = ({ order, type }) => {
     0
   );
 
-  var result = testArray.reduce(function (acc, el) {
-    acc[el._id] = (acc[el._id] || 0) + 1;
-    return acc;
-  }, {});
+
 
   const selector = type === "orderHistory";
   const status = order?.status === 'done' ? 'Выполнен' : order?.status === 'created' ? 'Создан' : order?.status === 'pending' ? 'Готовится' : 'Отменен'
@@ -48,8 +44,8 @@ const OrderFeed = ({ order, type }) => {
         {selector && <div className="text text_type_main-default pt-2" style={statusColor}>{status}</div>}
       </div>
       <div className={classes.orderImgs}>
-        {resultArray.map((item, index) => (
-          <ImageCicle key={index} src={item.image_mobile} />
+        {resultArray.slice(0, 6).map((item, index) => (
+          <ImageCicle key={index} src={item.image_mobile} index={index} rest={resultArray.length-6} />
         ))}
       </div>
       <div className={classes.orderPrice}>

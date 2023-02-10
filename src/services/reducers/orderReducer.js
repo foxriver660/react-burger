@@ -11,6 +11,7 @@ export const orderReducer = (state = defaultState, action) => {
       return {
         ...state,
         currentOrder: { ...state.currentOrder, order: action.payload },
+        orderRequestFailed: false,
       };
       case GET_ORDER_FAILED:
       return {

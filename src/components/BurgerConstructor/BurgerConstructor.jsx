@@ -41,7 +41,13 @@ const BurgerConstructor = React.memo(() => {
   const bun = useSelector(getBun);
   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
   const authUser = useSelector((state) => state.profileReducer.authUser);
-  // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
+  const successTokenUpdate = useSelector(
+    (state) => state.profileReducer.successTokenUpdate
+  );
+  const orderRequestFailed = useSelector(
+    (state) => state.orderReducer.orderRequestFailed
+  );
+    // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
     if (authUser) {
@@ -51,6 +57,13 @@ const BurgerConstructor = React.memo(() => {
       navigate("/login");
     }
   };
+  // ПРЕДОХРАНИТЕЛЬ НА СЛУЧАЙ ИСТЕЧЕНИЯ СРОКА ***accessToken***
+  React.useEffect(() => {
+    const ingredientsId = [...ingredients.map((item) => item._id), bun._id]
+    if(successTokenUpdate && orderRequestFailed) {dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie('token')}`)); dispatch(wsConnectionStartHistory());}
+  }, [successTokenUpdate, orderRequestFailed]);
+
+
 
   // !DRAG AND DROP
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
