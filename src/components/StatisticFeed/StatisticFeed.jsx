@@ -2,9 +2,10 @@ import React from "react";
 import classes from "./StatisticFeed.module.css";
 import { useSelector } from "react-redux/es/exports";
 import OrderBox from "./OrderBox/OrderBox";
+import { getOrders } from "../../selectors/selectors";
 const StatisticFeed = () => {
   // ПОЛУЧЕНИЕ ИЗ СТОРА ВСЕГО СТЕКА
-  const orders = useSelector((state) => state.wsReducer.orders);
+  const orders = useSelector(getOrders);
 
   // РАЗДЕЛЯЕМ ПО ГОТОВНОСТИ
   const { doneOrder, waitOrder } = React.useMemo(() => {
@@ -33,14 +34,8 @@ const StatisticFeed = () => {
         В работе:{" "}
       </div>
       <div className={classes.doneOrderWrapper}>
-      <OrderBox doneOrder={doneOrder}/>
-</div>
-
-
-
-
-
-
+        <OrderBox doneOrder={doneOrder} />
+      </div>
 
       <div className={`${classes.div4} text text_type_digits-default`}>
         {waitOrder.length ? (

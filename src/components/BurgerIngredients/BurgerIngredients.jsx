@@ -6,13 +6,11 @@ import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
 import { SAUCE, BUN, MAIN } from "../utils/constant";
 import { Waypoint } from "react-waypoint";
 import { useSelector } from "react-redux/es/exports";
-
-const getData = (state) => state.ingredientReducer.availableIngredients;
+import { getData } from "../../selectors/selectors";
 
 const BurgerIngredients = React.memo(() => {
-  
   const [current, setCurrent] = React.useState(BUN);
- 
+  // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const data = useSelector(getData);
 
   // РЕАЛИЗАЦИЯ СКРОЛЛА

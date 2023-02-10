@@ -71,7 +71,7 @@ export const registerUser = (user, cb) => (dispatch) => {
     .then((res) => {
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
-       console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res); 
+      console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res);
       if (res.success) {
         dispatch({ type: REGISTER_USER, payload: res.success });
         dispatch({ type: SET_USER, payload: res.user });
@@ -89,7 +89,7 @@ export const login = (user, cb) => (dispatch) => {
     .then((res) => {
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
-       console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res);
+      console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res);
       if (res.success) {
         dispatch({ type: LOGIN, payload: res.success });
         dispatch({ type: SET_USER, payload: res.user });
@@ -104,7 +104,7 @@ export const login = (user, cb) => (dispatch) => {
 export const checkUserAccess = (accessToken) => (dispatch) => {
   checkUserAccessAPI(accessToken)
     .then((res) => {
-      console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res); 
+      console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res);
       dispatch({ type: SET_USER, payload: res.user });
       dispatch({ type: UPDATE_TOKEN, payload: null });
     })
@@ -119,8 +119,8 @@ export const checkUserAccess = (accessToken) => (dispatch) => {
 export const refreshToken = (refreshToken) => (dispatch) => {
   return refreshTokenAPI(refreshToken)
     .then((res) => {
-       console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);  
-      setCookie("token", parsForCookie(res.accessToken), {'max-age': 15});
+      console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);
+      setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
       dispatch({ type: UPDATE_TOKEN, payload: res.success });
     })
@@ -134,7 +134,7 @@ export const updateUserProfile =
   (dispatch) => {
     updateUserProfileAPI(accessToken, { name, email, password })
       .then((res) => {
-         console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);  
+        console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);
         dispatch({ type: SET_USER, payload: res.user });
         dispatch({ type: UPDATE_USER_SUCCESS, payload: res.success });
       })

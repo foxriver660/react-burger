@@ -6,7 +6,7 @@ export const WS_CONNECTION_CLOSED = "WS_CONNECTION_CLOSED";
 export const WS_GET_MESSAGE = "WS_GET_MESSAGE";
 export const WS_USER_NAME_UPDATE = "WS_USER_NAME_UPDATE";
 export const WS_DISCONNECT = "WS_DISCONNECT";
-
+export const WS_RESET_MESSAGE = "WS_RESET_MESSAGE";
 export const wsConnectionStartFeed = () => {
   return {
     type: WS_CONNECTION_START_FEED,
@@ -47,9 +47,8 @@ export const wsGetMessage = (message) => {
   };
 };
 
-export const wsUserNameUpdate = (userName) => {
+export const wsResetMessage = () => {
   return {
-    type: WS_USER_NAME_UPDATE,
-    payload: userName,
+    type: WS_RESET_MESSAGE,
   };
 };

@@ -2,13 +2,12 @@ import React from "react";
 import classes from "./IngredientDetails.module.css";
 import { useSelector } from "react-redux/es/exports";
 import { useParams } from "react-router-dom";
-
-const getAvailableIngredients = (state) =>
-  state.ingredientReducer.availableIngredients;
+import { getData } from "../../selectors/selectors";
+import { findIngredient } from "../utils/calculationFunc";
 const IngredientDetails = React.memo(() => {
-  const availableIngredients = useSelector(getAvailableIngredients);
   const { id } = useParams();
-  const data = availableIngredients.find((item) => item._id === id);
+  const availableIngredients = useSelector(getData);
+  const data = findIngredient(availableIngredients, id);
 
   return (
     <>

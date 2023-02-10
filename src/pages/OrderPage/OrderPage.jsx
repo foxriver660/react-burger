@@ -1,8 +1,6 @@
 import React from "react";
 import classes from "./OrderPage.module.css";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderFeed from "../../components/OrderFeed/OrderFeed";
-import StatisticFeed from "../../components/StatisticFeed/StatisticFeed";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { refreshToken } from "../../services/actions/profileActions";
@@ -18,22 +16,7 @@ const OrderPage = () => {
   const { orders } = useSelector((state) => state.wsReducer.orders);
   const accessToken = getCookie('token')
  
-  /* const { doneOrder, waitOrder } = React.useMemo(() => {
-    return  orders?.orders?.reduce(
-      (acc, order) => {
-        switch (order?.status) {
-          case "done":
-            acc.doneOrder.push(order.number);
-            break;
-          default:
-            acc.waitOrder.push(order.number);
-            break;
-        }
-        return acc;
-      },
-      { doneOrder: [], waitOrder: [] }
-    );
-  }, [orders.orders]); */
+  
   React.useEffect(() => {
     dispatch(wsConnectionStartHistory());
 if(!accessToken) {dispatch(refreshToken(getCookie("refreshToken")))}

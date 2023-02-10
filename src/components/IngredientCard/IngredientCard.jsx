@@ -5,10 +5,7 @@ import classes from "./IngredientCard.module.css";
 import itemPropTypes from "../utils/prop-types";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux/es/exports";
-
-const getIngredients = (state) =>
-  state.ingredientReducer.constructorIngredients;
-const getBun = (state) => state.ingredientReducer.constructorBun;
+import { getIngredients, getBun } from "../../selectors/selectors";
 
 const IngredientCard = React.memo(({ data }) => {
   //  ID и тип карточки записываются в состояние

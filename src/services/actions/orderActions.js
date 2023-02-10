@@ -7,11 +7,14 @@ export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
 // ГЕНЕРАТОР THUNK
 export const getApiOrder = (ingredients, token) => (dispatch) => {
   getOrderAPI(ingredients, token)
-    .then((res) => {dispatch({ type: GET_ORDER, payload: res.order.number }); console.log("ДАННЫЕ НАПРАВЛЕНЫ getApiOrder:", res);})
+    .then((res) => {
+      dispatch({ type: GET_ORDER, payload: res.order.number });
+      console.log("ДАННЫЕ НАПРАВЛЕНЫ getApiOrder:", res);
+    })
     .catch((err) => {
       console.log(err);
-      dispatch(refreshToken(getCookie("refreshToken")))
-      dispatch({ type: GET_ORDER_FAILED })
+      dispatch(refreshToken(getCookie("refreshToken")));
+      dispatch({ type: GET_ORDER_FAILED });
     });
 };
 // ГЕНЕРАТОРЫ

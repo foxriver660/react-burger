@@ -1,11 +1,9 @@
 import React from "react";
 import classes from "./FeedPage.module.css";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import OrderFeed from "../../components/OrderFeed/OrderFeed";
 import StatisticFeed from "../../components/StatisticFeed/StatisticFeed";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-
 import { wsDisconnect, wsConnectionStartFeed } from "../../services/actions/wsActions";
 import { Loader } from "../../components/Loader/Loader";
 const FeedPage = () => {

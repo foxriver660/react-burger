@@ -8,23 +8,27 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 import { Loader } from "../Loader/Loader";
 import { gmt } from "../utils/determineGMT";
 import { status, statusColor } from "../utils/determineStatus";
-import { calcTotalPrice, filterAvailableIngredients, countingOccurrences, findIngredient } from "../utils/calculationFunc";
+import {
+  calcTotalPrice,
+  filterAvailableIngredients,
+  countingOccurrences,
+  findIngredient,
+} from "../utils/calculationFunc";
+import { getData, getOrders } from "../../selectors/selectors";
 const OrderDetails = () => {
   const { id } = useParams();
   // ВСЕ ЗАКАЗЫ ЗАГРУЖЕННЫЕ ПО WS
-  const {orders} = useSelector((state) => state.wsReducer.orders);
-    // ВСЕ ДОСТУПНЫЕ ИНГРЕДИЕНТЫ ИЗ СТОРА
-  const availableIngredients = useSelector(
-    (state) => state.ingredientReducer.availableIngredients
-  );
-  //  ИЩЕМ КОНКРЕТНЫЙ ЗАКАЗ ПО ID
+  const { orders } = useSelector(getOrders);
+  // ВСЕ ДОСТУПНЫЕ ИНГРЕДИЕНТЫ ИЗ СТОРА
+  const availableIngredients = useSelector(getData);
+  //  ВЫЧИСЛЕНИЯ
   const order = findIngredient(orders, id);
-  // ИЗ ДОСТПУНЫХ ИНГРЕДИЕНТОВ БЕРЕМ ИНГРЕДИЕНТЫ ПРИШЕДШИЕ ПО WS
-  const filteredIngredients = filterAvailableIngredients(availableIngredients, order)
-    // СЧИТАЕМ ОБЩУЮ СТОИМОСТЬ
-   const totalPrice = calcTotalPrice(filteredIngredients)
-  // СЧИТАЕМ КОЛИЧЕСТВО ВХОЖДЕНИЙ ПО ID
-   const quantityIngredients = countingOccurrences(order)
+  const filteredIngredients = filterAvailableIngredients(
+    availableIngredients,
+    order
+  );
+  const totalPrice = calcTotalPrice(filteredIngredients);
+  const quantityIngredients = countingOccurrences(order);
   return (
     <div className={classes.wrapper}>
       {order ? (

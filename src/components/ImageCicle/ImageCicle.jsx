@@ -17,7 +17,7 @@ const ImageCicle = ({ src, index, rest }) => {
       : 0;
   return (
     <div className={classes.imgContainer} style={{ zIndex: `${zIndex}` }}>
-      <img className={classes.img} src={src} alt="" />
+      <img className={classes.img} src={src} alt="Изорбажение ингредиента" />
       {index === 5 && (
         <div className={`${classes.lastImg} text text_type_main-small`}>
           +{rest}

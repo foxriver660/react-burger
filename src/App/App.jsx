@@ -16,21 +16,19 @@ import { getCookie } from "../components/utils/cookie";
 import Modal from "../components/Modal/Modal";
 import IngredientDetails from "../components/IngredientDetails/IngredientDetails";
 import OrderDetails from "../components/OrderDetails/OrderDetails";
-import { closeIngredientModal } from "../services/actions/modalActions";
 import IngredientPage from "../pages/IngredientPage/IngredientPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import FeedPage from "../pages/FeedPage/FeedPage";
 import OrderDetailPage from "../pages/OrderDetailPage/OrderDetailPage";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getApiIngredients } from "../services/actions/ingredientActions";
-import { WS_CONNECTION_START } from "../services/actions/wsActions";
+import { getSuccessTokenUpdate } from "../selectors/selectors";
 const App = React.memo(() => {
   const dispatch = useDispatch();
   const accessToken = getCookie("token");
   const location = useLocation();
-  const successTokenUpdate = useSelector(
-    (state) => state.profileReducer.successTokenUpdate
-  );
+  const successTokenUpdate = useSelector(getSuccessTokenUpdate);
+
   /* eslint-disable */
   React.useEffect(() => {
     dispatch(checkUserAccess(accessToken));
@@ -39,13 +37,15 @@ const App = React.memo(() => {
   React.useEffect(() => {
     dispatch(getApiIngredients());
   }, []);
-  
-  
-/* eslint-enable */
-
+  /* eslint-enable */
+  const locationBackground =
+    location.state?.backgroundLocation ||
+    location.state?.backgroundLocationFeed ||
+    location.state?.backgroundLocationHistory ||
+    location;
   return (
     <>
-      <Routes location={location.state?.backgroundLocation || location.state?.backgroundLocationFeed || location.state?.backgroundLocationHistory || location}>
+      <Routes location={locationBackground}>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route
@@ -57,7 +57,10 @@ const App = React.memo(() => {
             element={<OnlyUnAuthRoute element={<LoginPage />} />}
           />
           <Route path="feed" element={<FeedPage />} />
-          <Route path="feed/:id" element={<OrderDetailPage source={'feed'} />} />
+          <Route
+            path="feed/:id"
+            element={<OrderDetailPage source={"feed"} />}
+          />
           <Route
             path="forgot-password"
             element={<OnlyUnAuthRoute element={<ForgotPassPage />} />}
@@ -68,9 +71,15 @@ const App = React.memo(() => {
             element={<ProtectedRouteElement element={<ProfilePage />} />}
           >
             <Route path="orders" element={<OrderPage />} />
-             
           </Route>
-          <Route path="profile/orders/:id" element={<ProtectedRouteElement element={<OrderDetailPage source={'history'} />} />} /> 
+          <Route
+            path="profile/orders/:id"
+            element={
+              <ProtectedRouteElement
+                element={<OrderDetailPage source={"history"} />}
+              />
+            }
+          />
           <Route path="ingredients/:id" element={<IngredientPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
@@ -80,7 +89,7 @@ const App = React.memo(() => {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal onClose={() => dispatch(closeIngredientModal())}>
+              <Modal type='modalInRoute'>
                 <IngredientDetails />
               </Modal>
             }
@@ -92,8 +101,8 @@ const App = React.memo(() => {
           <Route
             path="/feed/:id"
             element={
-              <Modal onClose={() => dispatch(closeIngredientModal())}>
-                 <OrderDetails />
+              <Modal type='modalInRoute'>
+                <OrderDetails />
               </Modal>
             }
           />
@@ -104,8 +113,8 @@ const App = React.memo(() => {
           <Route
             path="/profile/orders/:id"
             element={
-              <Modal onClose={() => dispatch(closeIngredientModal())}>
-                 <OrderDetails />
+              <Modal type='modalInRoute'>
+                <OrderDetails />
               </Modal>
             }
           />

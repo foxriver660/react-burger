@@ -5,23 +5,28 @@ import ImageCicle from "../ImageCicle/ImageCicle";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
 import { status, statusColor } from "../utils/determineStatus";
-import { BUN } from "../utils/constant";
-import { calcTotalPrice, filterAvailableIngredients } from "../utils/calculationFunc";
+
+import {
+  calcTotalPrice,
+  filterAvailableIngredients,
+} from "../utils/calculationFunc";
 import { gmt } from "../utils/determineGMT";
+import { getData} from "../../selectors/selectors";
 const OrderFeed = ({ order, type }) => {
   // ОТКУДА РЕНДЕРИМ
   const selector = type === "orderHistory";
   // ИНГРЕДИЕНТЫ ИЗ СТОРА
-  const availableIngredients = useSelector(
-    (state) => state.ingredientReducer.availableIngredients
-  );
+  const availableIngredients = useSelector(getData);
   // ВЫЧИСЛЕНИЯ
-  const filteredIngredients = filterAvailableIngredients(availableIngredients, order)
-  const totalPrice = calcTotalPrice(filteredIngredients)
+  const filteredIngredients = filterAvailableIngredients(
+    availableIngredients,
+    order
+  );
+  const totalPrice = calcTotalPrice(filteredIngredients);
 
   return (
     <li className={`${classes.orderWrapper} p-6`}>
-      <div className={`${classes.orderID} text text_type_digits-default`}>
+      <div className={`text text_type_digits-default`}>
         #{order.number}
       </div>
       <div
