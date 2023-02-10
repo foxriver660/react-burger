@@ -120,7 +120,7 @@ export const refreshToken = (refreshToken) => (dispatch) => {
   refreshTokenAPI(refreshToken)
     .then((res) => {
        console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);  
-      setCookie("token", parsForCookie(res.accessToken));
+      setCookie("token", parsForCookie(res.accessToken), {'max-age': 15});
       setCookie("refreshToken", res.refreshToken);
       dispatch({ type: UPDATE_TOKEN, payload: res.success });
     })

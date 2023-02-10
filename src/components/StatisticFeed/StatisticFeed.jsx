@@ -3,6 +3,7 @@ import classes from "./StatisticFeed.module.css";
 import { useSelector } from "react-redux/es/exports";
 const StatisticFeed = ({ doneTotal, doneToday }) => {
   const orders = useSelector((state) => state.wsReducer.orders);
+  console.log(orders);
   const { doneOrder, waitOrder } = React.useMemo(() => {
     return  orders.orders.reduce(
       (acc, order) => {

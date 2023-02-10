@@ -10,6 +10,7 @@ import {
   wsDisconnect,
   wsConnectionStartHistory,
 } from "../../services/actions/wsActions";
+import { Loader } from "../../components/Loader/Loader";
 const OrderPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -42,7 +43,7 @@ const OrderPage = () => {
   return (
     <section className={`${classes.container} mt-10`}>
       <div className={classes.wrapper}>
-        {orders && <ul className={classes.scrollWrapper}>
+        {orders ? <ul className={classes.scrollWrapper}>
           {[...orders].reverse().map((order, index) => (
             <Link
               className={classes.link}
@@ -53,7 +54,7 @@ const OrderPage = () => {
               <OrderFeed order={order} type="orderHistory" />
             </Link>
           ))}
-        </ul>}
+        </ul> : <Loader/>}
       </div>
     </section>
   );

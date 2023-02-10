@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 import { wsDisconnect, wsConnectionStartFeed } from "../../services/actions/wsActions";
+import { Loader } from "../../components/Loader/Loader";
 const FeedPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -36,7 +37,7 @@ const FeedPage = () => {
 
   return (
     <section className={classes.container}>
-      {orders && (
+      {orders ? (
         <div className={classes.wrapper}>
           <h2 className={`${classes.title} text text_type_main-large pb-5`}>
             Лента заказов
@@ -63,7 +64,7 @@ const FeedPage = () => {
             />
           </div>
         </div>
-      )}
+      ) : <Loader/>}
     </section>
   );
 };

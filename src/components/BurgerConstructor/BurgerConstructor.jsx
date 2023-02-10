@@ -39,7 +39,6 @@ const BurgerConstructor = React.memo(() => {
   const order = useSelector(getOrder);
   const ingredients = useSelector(getIngredients);
   const bun = useSelector(getBun);
-  
   // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
   const authUser = useSelector((state) => state.profileReducer.authUser);
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
