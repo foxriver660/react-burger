@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./ImageCicle.module.css";
-const ImageCicle = ({ src, index, rest }) => {
+const ImageCicle = React.memo(({ src, index, rest }) => {
   const zIndex =
     index === 0
       ? 5
@@ -25,6 +25,6 @@ const ImageCicle = ({ src, index, rest }) => {
       )}
     </div>
   );
-};
+});
 
 export default ImageCicle;

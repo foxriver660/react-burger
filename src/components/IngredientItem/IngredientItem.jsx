@@ -3,7 +3,7 @@ import classes from "./IngredientItem.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ImageCicle from "../ImageCicle/ImageCicle";
 import { BUN } from "../utils/constant";
-const IngredientItem = ({ ingredient, quantityIngredients }) => {
+const IngredientItem = React.memo(({ ingredient, quantityIngredients }) => {
   return (
     <li className={classes.item}>
       <ImageCicle src={ingredient?.image_mobile} />
@@ -21,6 +21,6 @@ const IngredientItem = ({ ingredient, quantityIngredients }) => {
       </div>
     </li>
   );
-};
+});
 
 export default IngredientItem;

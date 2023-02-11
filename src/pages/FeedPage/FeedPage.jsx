@@ -4,19 +4,24 @@ import OrderFeed from "../../components/OrderFeed/OrderFeed";
 import StatisticFeed from "../../components/StatisticFeed/StatisticFeed";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { wsDisconnect, wsConnectionStartFeed } from "../../services/actions/wsActions";
+import {
+  wsDisconnect,
+  wsConnectionStartFeed,
+} from "../../services/actions/wsActions";
 import { Loader } from "../../components/Loader/Loader";
-const FeedPage = () => {
+import { getOrders } from "../../selectors/selectors";
+const FeedPage = React.memo(() => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const orders = useSelector((state) => state.wsReducer.orders);
+  const orders = useSelector(getOrders);
 
   React.useEffect(() => {
     dispatch(wsConnectionStartFeed());
 
-    return () => {dispatch(wsDisconnect())};
+    return () => {
+      dispatch(wsDisconnect());
+    };
   }, []);
-  
 
   return (
     <section className={classes.container}>
@@ -32,20 +37,20 @@ const FeedPage = () => {
                   className={classes.link}
                   to={`/feed/${order._id}`}
                   state={{ backgroundLocationFeed: location }}
-                  key={index} 
+                  key={index}
                 >
                   <OrderFeed order={order} type="feed" />
                 </Link>
               ))}
             </ul>
-            <StatisticFeed
-              orders={orders}
-                          />
+            <StatisticFeed />
           </div>
         </div>
-      ) : <Loader/>}
+      ) : (
+        <Loader />
+      )}
     </section>
   );
-};
+});
 
 export default FeedPage;

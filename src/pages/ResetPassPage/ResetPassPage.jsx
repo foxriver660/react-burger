@@ -7,21 +7,20 @@ import { useSelector, useDispatch } from "react-redux/es/exports";
 import Form from "../../components/Form/Form";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import { resetPass } from "../../services/actions/profileActions";
-const ResetPassPage = () => {
+import {
+  getUpdatePassRequest,
+  getResetPassRequest,
+} from "../../selectors/selectors";
+const ResetPassPage = React.memo(() => {
   // ХУКИ
   const dispatch = useDispatch();
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ ПАРОЛЬ
   const [newPassword, setNewPassword] = React.useState("");
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ КОДА ИЗ ПОЧТЫ
   const [code, setCode] = React.useState("");
-
   // ПОЛУЧАЕМ РЕКВЕСТЫ ИЗ СТОРА
-  const resetPassRequest = useSelector(
-    (state) => state.profileReducer.resetPassRequest
-  );
-  const updatePassRequest = useSelector(
-    (state) => state.profileReducer.updatePassRequest
-  );
+  const resetPassRequest = useSelector(getResetPassRequest);
+  const updatePassRequest = useSelector(getUpdatePassRequest);
   // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const [isValidCode, setIsValidCode] = React.useState(true);
@@ -104,6 +103,6 @@ const ResetPassPage = () => {
       </p>
     </FormOverlay>
   );
-};
+});
 
 export default ResetPassPage;

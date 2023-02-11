@@ -11,8 +11,13 @@ import {
 } from "../../services/actions/profileActions";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { getCookie } from "../../components/utils/cookie";
-
-const ProfilePage = () => {
+import {
+  getSuccessTokenUpdate,
+  getAuthUser,
+  getUpdateUserProfileFailed,
+  getUpdateUserProfileSuccess,
+} from "../../selectors/selectors";
+const ProfilePage = React.memo(() => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,18 +25,11 @@ const ProfilePage = () => {
   // ПОЛУЧАЕМ ТОКЕНЫ
   const accessToken = getCookie("token");
   const refreshToken = getCookie("refreshToken");
-  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТЕЙТА
-  const authUser = useSelector((state) => state.profileReducer.authUser);
-  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТЕЙТА
-  const updateRequestFailed = useSelector(
-    (state) => state.profileReducer.updateUserProfileFailed
-  );
-  const updateRequestSuccess = useSelector(
-    (state) => state.profileReducer.updateUserProfileSuccess
-  );
-  const successTokenUpdate = useSelector(
-    (state) => state.profileReducer.successTokenUpdate
-  );
+  // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
+  const authUser = useSelector(getAuthUser);
+  const updateRequestFailed = useSelector(getUpdateUserProfileFailed);
+  const updateRequestSuccess = useSelector(getUpdateUserProfileSuccess);
+  const successTokenUpdate = useSelector(getSuccessTokenUpdate);
 
   // КЛИКИ ИНПУТОВ
   const nameRef = React.useRef(null);
@@ -222,6 +220,6 @@ const ProfilePage = () => {
       </div>
     </FormOverlay>
   );
-};
+});
 
 export default ProfilePage;

@@ -15,7 +15,7 @@ import {
   findIngredient,
 } from "../utils/calculationFunc";
 import { getData, getOrders } from "../../selectors/selectors";
-const OrderDetails = () => {
+const OrderDetails = React.memo(() => {
   const { id } = useParams();
   // ВСЕ ЗАКАЗЫ ЗАГРУЖЕННЫЕ ПО WS
   const { orders } = useSelector(getOrders);
@@ -85,6 +85,6 @@ const OrderDetails = () => {
       )}
     </div>
   );
-};
+});
 
 export default OrderDetails;

@@ -10,16 +10,18 @@ import {
 } from "../../services/actions/wsActions";
 import { Loader } from "../../components/Loader/Loader";
 import { getCookie } from "../../components/utils/cookie";
-const OrderPage = () => {
+import { getOrders } from "../../selectors/selectors";
+const OrderPage = React.memo(() => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { orders } = useSelector((state) => state.wsReducer.orders);
-  const accessToken = getCookie('token')
- 
-  
+  const { orders } = useSelector(getOrders);
+  const accessToken = getCookie("token");
+
   React.useEffect(() => {
     dispatch(wsConnectionStartHistory());
-if(!accessToken) {dispatch(refreshToken(getCookie("refreshToken")))}
+    if (!accessToken) {
+      dispatch(refreshToken(getCookie("refreshToken")));
+    }
     return () => {
       dispatch(wsDisconnect());
     };
@@ -28,21 +30,25 @@ if(!accessToken) {dispatch(refreshToken(getCookie("refreshToken")))}
   return (
     <section className={`${classes.container} mt-10`}>
       <div className={classes.wrapper}>
-        {orders ? <ul className={classes.scrollWrapper}>
-          {[...orders].reverse().map((order, index) => (
-            <Link
-              className={classes.link}
-              to={`${order._id}`}
-              state={{ backgroundLocationHistory: location }}
-              key={index}
-            >
-              <OrderFeed order={order} type="orderHistory" />
-            </Link>
-          ))}
-        </ul> : <Loader/>}
+        {orders ? (
+          <ul className={classes.scrollWrapper}>
+            {[...orders].reverse().map((order, index) => (
+              <Link
+                className={classes.link}
+                to={`${order._id}`}
+                state={{ backgroundLocationHistory: location }}
+                key={index}
+              >
+                <OrderFeed order={order} type="orderHistory" />
+              </Link>
+            ))}
+          </ul>
+        ) : (
+          <Loader />
+        )}
       </div>
     </section>
   );
-};
+});
 
 export default OrderPage;

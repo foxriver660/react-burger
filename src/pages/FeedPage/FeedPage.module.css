@@ -19,17 +19,15 @@
 .scrollWrapper {
   display: flex;
   flex-direction: column;
-list-style: none;
+  list-style: none;
   max-width: 600px;
   width: 100%;
-  padding: 0;
+  padding: 0 8px 0 0;
   margin: 0;
   gap: 16px;
   overflow-y: scroll;
   max-height: 900px;
 }
-
-
 .scrollWrapper::-webkit-scrollbar {
   width: 8px;
 }
@@ -42,7 +40,7 @@ list-style: none;
   height: 638px;
   width: 100%;
 }
-.link{
+.link {
   text-decoration: none;
   color: white;
   cursor: pointer;

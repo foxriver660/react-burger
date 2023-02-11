@@ -1,0 +1,8 @@
+.compoundName {
+  color: #8585ad;
+  list-style: none;
+}
+.compoundValue {
+  text-align: center;
+  composes: compoundName;
+}

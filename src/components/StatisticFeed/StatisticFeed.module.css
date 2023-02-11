@@ -7,18 +7,13 @@
   grid-column-gap: 36px;
   grid-row-gap: 0px;
 }
-.div1 {
+.subTitleDone {
   grid-area: 1 / 1 / 2 / 2;
+  margin: 0;
 }
-.div2 {
+.subTitleWait {
   grid-area: 1 / 2 / 2 / 3;
-}
-.div3 {
-  display: flex;
-  flex-direction: column;
-  height: 153px;
-  flex-wrap: wrap;
-  gap: 8px;
+  margin: 0;
 }
 
 .digits {
@@ -28,9 +23,8 @@
 .digitsReady {
   color: #00cccc;
 }
-.div4 {
+.waitOrderWrapper {
   grid-area: 2 / 2 / 3 / 3;
-
   display: flex;
   flex-direction: column;
   height: 152px;
@@ -38,18 +32,20 @@
   gap: 8px;
 }
 
-.div5 {
+.totalNumberTitle {
+  margin: 0;
   grid-area: 3 / 1 / 4 / 3;
 }
-.div6 {
+.totalNumberWrapper {
   grid-area: 4 / 1 / 5 / 3;
   text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25),
     0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
 }
-.div7 {
+.todayNumberTitle {
+  margin: 0;
   grid-area: 5 / 1 / 6 / 3;
 }
-.div8 {
+.todayNumberWrapper {
   grid-area: 6 / 1 / 7 / 3;
   text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25),
     0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);

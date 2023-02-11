@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./OrderBox.module.css";
-const OrderBox = ({ doneOrder }) => {
+const OrderBox = React.memo(({ doneOrder }) => {
   return (
     <>
       <div className={`${classes.div3} text text_type_digits-default`}>
@@ -69,6 +69,6 @@ const OrderBox = ({ doneOrder }) => {
       )}
     </>
   );
-};
+});
 
 export default OrderBox;

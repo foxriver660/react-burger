@@ -8,7 +8,7 @@ import Form from "../../components/Form/Form";
 import { useDispatch } from "react-redux/es/exports";
 import { registerUser } from "../../services/actions/profileActions";
 
-const RegisterPage = () => {
+const RegisterPage = React.memo(() => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // ЛОКАЛЬНЫЕ СТЕТЫ
@@ -105,6 +105,6 @@ const RegisterPage = () => {
       </p>
     </FormOverlay>
   );
-};
+});
 
 export default RegisterPage;

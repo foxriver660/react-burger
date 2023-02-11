@@ -7,23 +7,25 @@ import classes from "./ForgotPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { updatePassRequest } from "../../services/actions/profileActions";
-const ForgotPassPage = () => {
+import { getUpdatePassRequest } from "../../selectors/selectors";
+const ForgotPassPage = React.memo(() => {
   // ХУКИ
   const dispatch = useDispatch();
   const location = useLocation();
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ ИНПУТА
   const [value, setValue] = React.useState("");
-   // ПОЛУЧАЕМ РЕКВЕСТ ОБ ОТПРАВКЕ ПОЧТЫ ИЗ СТОРА
-  const res = useSelector((state) => state.profileReducer.updatePassRequest);
-    // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
+  // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidEmail, setIsValidEmail] = React.useState(true);
+  // ПОЛУЧАЕМ РЕКВЕСТ ОБ ОТПРАВКЕ ПОЧТЫ ИЗ СТОРА
+  const isUpdatePass = useSelector(getUpdatePassRequest);
+
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updatePassRequest(value));
-     };
+  };
   // !РЕДИРЕКТ на /reset-password ЕСЛИ res(true)
-  if (res) {
+  if (isUpdatePass) {
     return <Navigate to={"/reset-password"} state={{ from: location }} />;
   }
 
@@ -67,6 +69,6 @@ const ForgotPassPage = () => {
       </p>
     </FormOverlay>
   );
-};
+});
 
 export default ForgotPassPage;

@@ -12,7 +12,7 @@ import {
 } from "../utils/calculationFunc";
 import { gmt } from "../utils/determineGMT";
 import { getData} from "../../selectors/selectors";
-const OrderFeed = ({ order, type }) => {
+const OrderFeed = React.memo(({ order, type }) => {
   // ОТКУДА РЕНДЕРИМ
   const selector = type === "orderHistory";
   // ИНГРЕДИЕНТЫ ИЗ СТОРА
@@ -64,6 +64,6 @@ const OrderFeed = ({ order, type }) => {
       </div>
     </li>
   );
-};
+});
 
 export default OrderFeed;
