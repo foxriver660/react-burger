@@ -17,6 +17,7 @@ import {
   getUpdateUserProfileFailed,
   getUpdateUserProfileSuccess,
 } from "../../selectors/selectors";
+import { wsResetMessage } from "../../services/actions/wsActions";
 const ProfilePage = React.memo(() => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -64,9 +65,11 @@ const ProfilePage = React.memo(() => {
   );
   /* eslint-disable */
   React.useEffect(() => {
+    dispatch(wsResetMessage())
     if (updateRequestFailed) {
       dispatch(updateUserProfile(accessToken, updateUser));
     }
+    return ()=>{dispatch(wsResetMessage());}
   }, [successTokenUpdate]);
   /* eslint-enable */
 

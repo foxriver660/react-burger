@@ -25,7 +25,7 @@
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
-  animation: scale 2s ease-in infinite;
+  animation: loader 4s linear infinite;
 }
 .orderStatusText {
   margin-top: 0;
@@ -46,3 +46,9 @@
     opacity: 1;
   }
 }
+@keyframes loader {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+ 

@@ -42,3 +42,6 @@
   cursor: pointer;
   width: 844px;
 }
+.emptyContainerMessage{
+  text-align: center;
+}

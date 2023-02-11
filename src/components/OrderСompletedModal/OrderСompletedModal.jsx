@@ -31,12 +31,12 @@ const OrderСompletedModal = React.memo(() => {
             className={`${classes.orderStatusText} text text_type_main-default pb-2`}
           >
             Статус заказа:{" "}
-            <p
+            <span
               style={statusColor(selected)}
               className={`${classes.orderStatusText} text text_type_main-default pb-2 pl-2`}
             >
               {status(selected)}
-            </p>
+            </span>
           </p>
           <p
             className={`${classes.orderInstruction} text text_type_main-default`}

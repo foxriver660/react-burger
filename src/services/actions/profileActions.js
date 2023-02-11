@@ -33,7 +33,7 @@ export const updatePassRequest = (email) => (dispatch) => {
   updatePassRequestAPI(email)
     .then((res) => {
       dispatch({ type: UPDATE_PASS, payload: res.success });
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res);  */
+       console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res);  
     })
     .catch((err) => {
       console.log(err);
@@ -44,7 +44,7 @@ export const resetPass = (newPassword, emailCode) => (dispatch) => {
   resetPassAPI(newPassword, emailCode)
     .then((res) => {
       dispatch({ type: RESET_PASS, payload: res.success });
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res);  */
+       console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res);  
     })
     .catch((err) => {
       console.log(err);
@@ -55,7 +55,7 @@ export const logout = (refreshToken, cb) => (dispatch) => {
   logoutAPI(refreshToken)
     .then((res) => {
       dispatch({ type: LOGOUT, payload: res.success });
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res);   */
+       console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res);   
       deleteCookie("token");
       deleteCookie("refreshToken");
       cb();

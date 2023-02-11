@@ -27,7 +27,7 @@ const OrderDetailPage = React.memo(({ source }) => {
   const { id } = useParams();
   const { orders } = useSelector(getOrders);
   const availableIngredients = useSelector(getData);
-  const { authUser } = useSelector(getAuthUser);
+  const authUser = useSelector(getAuthUser);
   // ДИСПАТИМ АПИ НА ДОСТУПНЫЕ ИНГРЕДИЕНТЫ
   React.useEffect(() => {
     dispatch(getApiIngredients());
