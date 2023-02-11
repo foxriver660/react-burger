@@ -27,26 +27,6 @@ export const wsDisconnect = () => {
     type: WS_DISCONNECT,
   };
 };
-
-export const wsConnectionError = () => {
-  return {
-    type: WS_CONNECTION_ERROR,
-  };
-};
-
-export const wsConnectionClosed = () => {
-  return {
-    type: WS_CONNECTION_CLOSED,
-  };
-};
-
-export const wsGetMessage = (message) => {
-  return {
-    type: WS_GET_MESSAGE,
-    payload: message,
-  };
-};
-
 export const wsResetMessage = () => {
   return {
     type: WS_RESET_MESSAGE,

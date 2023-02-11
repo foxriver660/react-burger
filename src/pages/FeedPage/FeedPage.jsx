@@ -21,7 +21,7 @@ const FeedPage = React.memo(() => {
     return () => {
       dispatch(wsDisconnect());
     };
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <section className={classes.container}>

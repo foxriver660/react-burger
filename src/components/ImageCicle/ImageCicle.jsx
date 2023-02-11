@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./ImageCicle.module.css";
 import PropTypes from "prop-types";
 const ImageCicle = React.memo(({ src, ...props }) => {
-  const {index, rest} = props
+  const { index, rest } = props;
   const zIndex =
     index === 0
       ? 5
@@ -20,7 +20,7 @@ const ImageCicle = React.memo(({ src, ...props }) => {
   return (
     <div className={classes.imgContainer} style={{ zIndex: `${zIndex}` }}>
       <img className={classes.img} src={src} alt="Изорбажение ингредиента" />
-      {index === 5 && rest>0 && (
+      {index === 5 && rest > 0 && (
         <div className={`${classes.lastImg} text text_type_main-small`}>
           +{rest}
         </div>
@@ -30,5 +30,5 @@ const ImageCicle = React.memo(({ src, ...props }) => {
 });
 ImageCicle.propTypes = {
   src: PropTypes.string.isRequired,
-  };
+};
 export default ImageCicle;

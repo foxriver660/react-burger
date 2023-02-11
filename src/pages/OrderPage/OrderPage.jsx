@@ -7,9 +7,7 @@ import { refreshToken } from "../../services/actions/profileActions";
 import {
   wsDisconnect,
   wsConnectionStartHistory,
-  wsResetMessage
 } from "../../services/actions/wsActions";
-import { Loader } from "../../components/Loader/Loader";
 import { getCookie } from "../../components/utils/cookie";
 import { getOrders } from "../../selectors/selectors";
 const OrderPage = React.memo(() => {
@@ -19,14 +17,12 @@ const OrderPage = React.memo(() => {
   const accessToken = getCookie("token");
 
   React.useEffect(() => {
-    
     dispatch(wsConnectionStartHistory());
     if (!accessToken) {
       dispatch(refreshToken(getCookie("refreshToken")));
     }
     return () => {
       dispatch(wsDisconnect());
-      
     };
   }, [dispatch, accessToken]);
 
@@ -47,7 +43,11 @@ const OrderPage = React.memo(() => {
             ))}
           </ul>
         ) : (
-          <h2 className={`${classes.emptyContainerMessage} text text_type_main-medium text_color_inactive`}>У Вас пока нет заказов</h2>
+          <h2
+            className={`${classes.emptyContainerMessage} text text_type_main-medium text_color_inactive`}
+          >
+            У Вас пока нет заказов
+          </h2>
         )}
       </div>
     </section>

@@ -75,7 +75,7 @@ const ProfilePage = React.memo(() => {
 
   // ВЫХОД
   const handleClick = () => {
-    dispatch(logout(refreshToken, () => navigate("/", { replace: true })));
+    dispatch(logout(refreshToken)).then(() => navigate("/", { replace: true }));
   };
   // СБРОС ЛОКАЛЬНОГО СТЕЙТА
   const handleReset = () => {

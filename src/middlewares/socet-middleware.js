@@ -32,22 +32,22 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       if (socket) {
         socket.onopen = (event) => {
           dispatch({ type: onOpen });
-          console.log("socket.onopen:", event);
+          /* console.log("socket.onopen:", event); */
         };
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          console.log("socket.onmessage:", parsedData);
+          /* console.log("socket.onmessage:", parsedData); */
           const { success, ...restParsedData } = parsedData;
           success && dispatch({ type: onMessage, payload: restParsedData });
         };
         socket.onerror = (event) => {
           dispatch({ type: onError });
-          console.log("socket.onerror:", event);
+          /* console.log("socket.onerror:", event); */
         };
         socket.onclose = (event) => {
           dispatch({ type: onClose });
-          console.log("socket.onclose:", event);
+          /* console.log("socket.onclose:", event); */
         };
       }
 

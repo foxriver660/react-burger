@@ -34,7 +34,7 @@ const LoginPage = React.memo(() => {
   const handleSubmit = React.useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(login(user, () => navigate(fromPage, { replace: true })));
+      dispatch(login(user)).then(() => navigate(fromPage, { replace: true }));
     },
     [user]
   );

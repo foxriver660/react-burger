@@ -27,7 +27,7 @@ const RegisterPage = React.memo(() => {
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerUser(user, () => navigate("/", { replace: true })));
+    dispatch(registerUser(user)).then(() => navigate("/", { replace: true }));
   };
 
   // КОНФИГУРАЦИЯ ИНПУТОВ

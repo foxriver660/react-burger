@@ -28,83 +28,80 @@ export const AUTHORISATION = "AUTHORISATION";
 export const UPDATE_USER_FAILED = "UPDATE_USER_FAILED";
 export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const UPDATE_TOKEN = "UPDATE_TOKEN";
-// !ГЕНЕРАТОР THUNK
+
 export const updatePassRequest = (email) => (dispatch) => {
   updatePassRequestAPI(email)
     .then((res) => {
       dispatch({ type: UPDATE_PASS, payload: res.success });
-       console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res);  
+      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res); */
     })
     .catch((err) => {
       console.log(err);
     });
 };
-// !ГЕНЕРАТОР THUNK
+
 export const resetPass = (newPassword, emailCode) => (dispatch) => {
   resetPassAPI(newPassword, emailCode)
     .then((res) => {
       dispatch({ type: RESET_PASS, payload: res.success });
-       console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res);  
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
-// !ГЕНЕРАТОР THUNK
-export const logout = (refreshToken, cb) => (dispatch) => {
-  logoutAPI(refreshToken)
-    .then((res) => {
-      dispatch({ type: LOGOUT, payload: res.success });
-       console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res);   
-      deleteCookie("token");
-      deleteCookie("refreshToken");
-      cb();
+      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res); */
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-// !ГЕНЕРАТОР THUNK
-export const registerUser = (user, cb) => (dispatch) => {
-  registerUserAPI(user)
+export const logout = (refreshToken) => (dispatch) => {
+  return logoutAPI(refreshToken)
+    .then((res) => {
+      dispatch({ type: LOGOUT, payload: res.success });
+      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res); */
+      deleteCookie("token");
+      deleteCookie("refreshToken");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+
+export const registerUser = (user) => (dispatch) => {
+  return registerUserAPI(user)
     .then((res) => {
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
-      console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res);
+      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res); */
       if (res.success) {
         dispatch({ type: REGISTER_USER, payload: res.success });
         dispatch({ type: SET_USER, payload: res.user });
       }
-      cb();
     })
     .catch((err) => {
       console.log(err);
     });
 };
 
-// !ГЕНЕРАТОР THUNK
-export const login = (user, cb) => (dispatch) => {
-  loginAPI(user)
+
+export const login = (user) => (dispatch) => {
+  return loginAPI(user)
     .then((res) => {
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
-      console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res);
+      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res); */
       if (res.success) {
         dispatch({ type: LOGIN, payload: res.success });
         dispatch({ type: SET_USER, payload: res.user });
       }
-      cb();
     })
     .catch((err) => {
       console.log(err);
     });
 };
-// !ГЕНЕРАТОР THUNK
+
 export const checkUserAccess = (accessToken) => (dispatch) => {
   checkUserAccessAPI(accessToken)
     .then((res) => {
-      console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res);
+      /* console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res); */
       dispatch({ type: SET_USER, payload: res.user });
       dispatch({ type: UPDATE_TOKEN, payload: null });
     })
@@ -115,11 +112,11 @@ export const checkUserAccess = (accessToken) => (dispatch) => {
       }
     });
 };
-// !ГЕНЕРАТОР THUNK
+
 export const refreshToken = (refreshToken) => (dispatch) => {
   return refreshTokenAPI(refreshToken)
     .then((res) => {
-      console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);
+      /* console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res); */
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
       dispatch({ type: UPDATE_TOKEN, payload: res.success });
@@ -128,13 +125,13 @@ export const refreshToken = (refreshToken) => (dispatch) => {
       console.log(err);
     });
 };
-// !ГЕНЕРАТОР THUNK
+
 export const updateUserProfile =
   (accessToken, { name, email, password }) =>
   (dispatch) => {
     updateUserProfileAPI(accessToken, { name, email, password })
       .then((res) => {
-        console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);
+        /* console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res); */
         dispatch({ type: SET_USER, payload: res.user });
         dispatch({ type: UPDATE_USER_SUCCESS, payload: res.success });
       })

@@ -10,21 +10,19 @@ const modalRootElement = document.querySelector("#modal");
 const Modal = React.memo(({ children, ...props }) => {
   const { onClose, type } = props;
   const close = () => {
-    navigate(-1);
-    type === "modalOutRoute" && onClose();
+    type === "modalOutRoute" ? onClose() : navigate(-1);
   };
   const navigate = useNavigate();
   React.useEffect(() => {
     const escClose = (e) => {
       if (e.key === "Escape") {
-        navigate(-1);
-        type === "modalOutRoute" && onClose();
+        type === "modalOutRoute" ? onClose() : navigate(-1);
       }
     };
     window.addEventListener("keydown", escClose);
 
     return () => window.removeEventListener("keydown", escClose);
-  }, [navigate]);
+  }, [navigate]); // eslint-disable-line
 
   return createPortal(
     <ModalOverlay onClose={close}>
