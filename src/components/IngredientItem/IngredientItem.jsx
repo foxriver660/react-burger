@@ -3,6 +3,7 @@ import classes from "./IngredientItem.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ImageCicle from "../ImageCicle/ImageCicle";
 import { BUN } from "../utils/constant";
+import PropTypes from "prop-types";
 const IngredientItem = React.memo(({ ingredient, quantityIngredients }) => {
   return (
     <li className={classes.item}>
@@ -22,5 +23,8 @@ const IngredientItem = React.memo(({ ingredient, quantityIngredients }) => {
     </li>
   );
 });
-
+IngredientItem.propTypes = {
+  ingredient: PropTypes.object.isRequired,
+  quantityIngredients: PropTypes.object.isRequired,
+};
 export default IngredientItem;

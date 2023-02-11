@@ -68,7 +68,7 @@ const BurgerConstructor = React.memo(() => {
       dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie("token")}`));
       dispatch(wsConnectionStartHistory());
     }
-  }, [successTokenUpdate, orderRequestFailed]);
+  }, [successTokenUpdate, orderRequestFailed]); // eslint-disable-line
 
   // !DRAG AND DROP
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({

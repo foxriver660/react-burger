@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { getApiIngredients } from "../../services/actions/ingredientActions";
 import { getData } from "../../selectors/selectors";
 import { findIngredient } from "../../components/utils/calculationFunc";
-import CompoundItem from "./CompoundItem/CompoundItem";
+import CompoundItem from "../../components/IngredientDetails/CompoundItem/CompoundItem";
 import { Loader } from "../../components/Loader/Loader";
 const IngredientPage = React.memo(() => {
   const dispatch = useDispatch();

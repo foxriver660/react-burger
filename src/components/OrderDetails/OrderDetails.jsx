@@ -21,14 +21,20 @@ const OrderDetails = React.memo(() => {
   const { orders } = useSelector(getOrders);
   // ВСЕ ДОСТУПНЫЕ ИНГРЕДИЕНТЫ ИЗ СТОРА
   const availableIngredients = useSelector(getData);
-  //  ВЫЧИСЛЕНИЯ
-  const order = findIngredient(orders, id);
-  const filteredIngredients = filterAvailableIngredients(
-    availableIngredients,
-    order
+  //  !ВЫЧИСЛЕНИЯ
+  const order = React.useMemo(() => findIngredient(orders, id), [orders, id]);
+  const filteredIngredients = React.useMemo(
+    () => filterAvailableIngredients(availableIngredients, order),
+    [availableIngredients, order]
   );
-  const totalPrice = calcTotalPrice(filteredIngredients);
-  const quantityIngredients = countingOccurrences(order);
+  const totalPrice = React.useMemo(
+    () => calcTotalPrice(filteredIngredients),
+    [filteredIngredients]
+  );
+  const quantityIngredients = React.useMemo(
+    () => countingOccurrences(order),
+    [order]
+  );
   return (
     <div className={classes.wrapper}>
       {order ? (

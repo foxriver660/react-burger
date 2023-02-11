@@ -11,24 +11,25 @@ import {
   filterAvailableIngredients,
 } from "../utils/calculationFunc";
 import { gmt } from "../utils/determineGMT";
-import { getData} from "../../selectors/selectors";
+import { getData } from "../../selectors/selectors";
 const OrderFeed = React.memo(({ order, type }) => {
   // ОТКУДА РЕНДЕРИМ
   const selector = type === "orderHistory";
   // ИНГРЕДИЕНТЫ ИЗ СТОРА
   const availableIngredients = useSelector(getData);
-  // ВЫЧИСЛЕНИЯ
-  const filteredIngredients = filterAvailableIngredients(
-    availableIngredients,
-    order
+  // !ВЫЧИСЛЕНИЯ
+  const filteredIngredients = React.useMemo(
+    () => filterAvailableIngredients(availableIngredients, order),
+    [availableIngredients, order]
   );
-  const totalPrice = calcTotalPrice(filteredIngredients);
+  const totalPrice = React.useMemo(
+    () => calcTotalPrice(filteredIngredients),
+    [filteredIngredients]
+  );
 
   return (
     <li className={`${classes.orderWrapper} p-6`}>
-      <div className={`text text_type_digits-default`}>
-        #{order.number}
-      </div>
+      <div className={`text text_type_digits-default`}>#{order.number}</div>
       <div
         className={`${classes.orderDate} text text_type_main-default text_color_inactive`}
       >

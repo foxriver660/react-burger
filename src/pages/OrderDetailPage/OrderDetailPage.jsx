@@ -31,7 +31,7 @@ const OrderDetailPage = React.memo(({ source }) => {
   // ДИСПАТИМ АПИ НА ДОСТУПНЫЕ ИНГРЕДИЕНТЫ
   React.useEffect(() => {
     dispatch(getApiIngredients());
-  }, []);
+  }, []); // eslint-disable-line
   // ДИСПАТИМ WS НА ИНГРЕДИЕНТЫ
   React.useEffect(() => {
     source === "feed"
@@ -40,16 +40,22 @@ const OrderDetailPage = React.memo(({ source }) => {
     return () => {
       dispatch(wsDisconnect());
     };
-  }, [authUser]);
+  }, [authUser]); // eslint-disable-line
 
   //  !ВЫЧИСЛЕНИЯ
-  const order = findIngredient(orders, id);
-  const filteredIngredients = filterAvailableIngredients(
-    availableIngredients,
-    order
+  const order = React.useMemo(() => findIngredient(orders, id), [orders, id]);
+  const filteredIngredients = React.useMemo(
+    () => filterAvailableIngredients(availableIngredients, order),
+    [availableIngredients, order]
   );
-  const totalPrice = calcTotalPrice(filteredIngredients);
-  const quantityIngredients = countingOccurrences(order);
+  const totalPrice = React.useMemo(
+    () => calcTotalPrice(filteredIngredients),
+    [filteredIngredients]
+  );
+  const quantityIngredients = React.useMemo(
+    () => countingOccurrences(order),
+    [order]
+  );
   return (
     <section className={classes.container}>
       {order ? (

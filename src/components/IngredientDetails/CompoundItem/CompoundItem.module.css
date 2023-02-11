@@ -1,6 +1,10 @@
+.compoundItem {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
 .compoundName {
   color: #8585ad;
-  list-style: none;
 }
 .compoundValue {
   text-align: center;

@@ -19,8 +19,4 @@
   display: flex;
   gap: 20px;
 }
-.compoundItem {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
+

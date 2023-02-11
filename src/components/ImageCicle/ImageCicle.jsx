@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./ImageCicle.module.css";
+import PropTypes from "prop-types";
 const ImageCicle = React.memo(({ src, index, rest }) => {
   const zIndex =
     index === 0
@@ -26,5 +27,9 @@ const ImageCicle = React.memo(({ src, index, rest }) => {
     </div>
   );
 });
-
+ImageCicle.propTypes = {
+  src: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  rest: PropTypes.number.isRequired,
+};
 export default ImageCicle;
