@@ -7,7 +7,7 @@ const MAIN = "main";
 // ТИП ОШИБКИ
 const JWT_MALFORMED = "jwt malformed";
 const JWT_EXPIRED = "jwt expired";
-
+const INVALID_TOKEN = 'Invalid or missing token';
 export {
   BURGER_API_URL,
   BURGER_API_AUTH_URL,
@@ -16,4 +16,5 @@ export {
   MAIN,
   JWT_MALFORMED,
   JWT_EXPIRED,
+  INVALID_TOKEN
 };

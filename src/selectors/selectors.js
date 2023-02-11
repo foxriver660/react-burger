@@ -11,6 +11,7 @@ const getOrderRequestFailed = (state) => state.orderReducer.orderRequestFailed;
 const getAuthUser = (state) => state.profileReducer.authUser;
 const getData = (state) => state.ingredientReducer.availableIngredients;
 const getOrders = (state) => state.wsReducer.orders;
+const getWsConnectedFailed = (state) => state.wsReducer.wsConnectedFailed;
 const getServerResponse = (state) => state.ingredientReducer.serverResponse;
 const getUpdateUserProfileFailed = (state) =>
   state.profileReducer.updateUserProfileFailed;
@@ -31,4 +32,5 @@ export {
   getUpdateUserProfileFailed,
   getUpdateUserProfileSuccess,
   getResetPassRequest,
+  getWsConnectedFailed,
 };

@@ -36,6 +36,7 @@ import {
   getBun,
   getOrderRequestFailed,
   getAuthUser,
+  getWsConnectedFailed,
 } from "../../selectors/selectors";
 
 const BurgerConstructor = React.memo(() => {
@@ -49,6 +50,7 @@ const BurgerConstructor = React.memo(() => {
   const authUser = useSelector(getAuthUser);
   const successTokenUpdate = useSelector(getSuccessTokenUpdate);
   const orderRequestFailed = useSelector(getOrderRequestFailed);
+  const wsConnectedFailed = useSelector(getWsConnectedFailed);
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
@@ -64,11 +66,11 @@ const BurgerConstructor = React.memo(() => {
   // ПРЕДОХРАНИТЕЛЬ НА СЛУЧАЙ ИСТЕЧЕНИЯ СРОКА ***accessToken***
   React.useEffect(() => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
-    if (successTokenUpdate && orderRequestFailed) {
+    if (successTokenUpdate && (orderRequestFailed || wsConnectedFailed)) {
       dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie("token")}`));
-      dispatch(wsConnectionStartHistory());
+      wsConnectedFailed && dispatch(wsConnectionStartHistory());
     }
-  }, [successTokenUpdate, orderRequestFailed]); // eslint-disable-line
+  }, [successTokenUpdate, orderRequestFailed,  wsConnectedFailed]); // eslint-disable-line
 
   // !DRAG AND DROP
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({

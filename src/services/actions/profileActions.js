@@ -116,7 +116,7 @@ export const checkUserAccess = (accessToken) => (dispatch) => {
 export const refreshToken = (refreshToken) => (dispatch) => {
   return refreshTokenAPI(refreshToken)
     .then((res) => {
-      /* console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res); */
+       console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res); 
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
       dispatch({ type: UPDATE_TOKEN, payload: res.success });

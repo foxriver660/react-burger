@@ -8,6 +8,7 @@ import {
   WS_CONNECTION_START_FEED,
   WS_CONNECTION_START_HISTORY,
   WS_CONNECTION_SUCCESS,
+  WS_CONNECTION_FAILED,
   WS_GET_MESSAGE,
   WS_DISCONNECT,
 } from "./actions/wsActions";
@@ -16,6 +17,7 @@ const wsUrl = "wss://norma.nomoreparties.space/orders";
 const wsActions = {
   wsConnectFeed: WS_CONNECTION_START_FEED,
   wsConnectHistory: WS_CONNECTION_START_HISTORY,
+  wsConnectFailed: WS_CONNECTION_FAILED,
   wsDisconnect: WS_DISCONNECT,
   onOpen: WS_CONNECTION_SUCCESS,
   onClose: WS_CONNECTION_CLOSED,

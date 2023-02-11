@@ -3,28 +3,26 @@ import classes from "./OrderPage.module.css";
 import OrderFeed from "../../components/OrderFeed/OrderFeed";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { refreshToken } from "../../services/actions/profileActions";
 import {
   wsDisconnect,
   wsConnectionStartHistory,
 } from "../../services/actions/wsActions";
-import { getCookie } from "../../components/utils/cookie";
-import { getOrders } from "../../selectors/selectors";
+import { getOrders, getWsConnectedFailed, getSuccessTokenUpdate } from "../../selectors/selectors";
 const OrderPage = React.memo(() => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { orders } = useSelector(getOrders);
-  const accessToken = getCookie("token");
+  const wsConnectedFailed = useSelector(getWsConnectedFailed);
+  const successTokenUpdate = useSelector(getSuccessTokenUpdate);
+  
 
   React.useEffect(() => {
     dispatch(wsConnectionStartHistory());
-    if (!accessToken) {
-      dispatch(refreshToken(getCookie("refreshToken")));
-    }
-    return () => {
+    if(successTokenUpdate && wsConnectedFailed){dispatch(wsConnectionStartHistory())}
+       return () => {
       dispatch(wsDisconnect());
     };
-  }, [dispatch, accessToken]);
+  }, [dispatch, successTokenUpdate, wsConnectedFailed]);
 
   return (
     <section className={`${classes.container} mt-10`}>

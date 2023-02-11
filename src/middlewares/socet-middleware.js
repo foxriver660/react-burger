@@ -1,4 +1,6 @@
 import { getCookie } from "../components/utils/cookie";
+import { INVALID_TOKEN } from "../components/utils/constant";
+import { refreshToken } from "../services/actions/profileActions";
 export const socketMiddleware = (wsUrl, wsActions) => {
   return (store) => {
     let socket = null;
@@ -14,6 +16,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         onClose,
         onError,
         onMessage,
+        wsConnectFailed,
       } = wsActions;
       const { authUser } = getState().profileReducer;
       const accessToken = getCookie("token");
@@ -37,9 +40,13 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          /* console.log("socket.onmessage:", parsedData); */
+          console.log("socket.onmessage:", parsedData);
           const { success, ...restParsedData } = parsedData;
           success && dispatch({ type: onMessage, payload: restParsedData });
+          if (restParsedData.message === INVALID_TOKEN) {
+            dispatch({ type: wsConnectFailed });
+            dispatch(refreshToken(getCookie("refreshToken")));
+          }
         };
         socket.onerror = (event) => {
           dispatch({ type: onError });
