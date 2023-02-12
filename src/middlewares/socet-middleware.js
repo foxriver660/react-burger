@@ -1,10 +1,14 @@
 import { getCookie } from "../components/utils/cookie";
 import { INVALID_TOKEN } from "../components/utils/constant";
 import { refreshToken } from "../services/actions/profileActions";
+
 export const socketMiddleware = (wsUrl, wsActions) => {
   return (store) => {
     let socket = null;
-
+    let isConnectedAuthUser = false;
+    let isConnected = false;
+    let reconnectTimer = 0;
+    let timeout = 5000;
     return (next) => (action) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
@@ -21,15 +25,23 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       const { authUser } = getState().profileReducer;
       const accessToken = getCookie("token");
       if (type === wsConnectHistory && authUser) {
+        isConnectedAuthUser = true;
         socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
-        /* console.log("***СОЕДИНЕНИЕ ИСТОРИЯ УСТАНОВЛЕНО***"); */
+        /*  console.log("***create WebSocket History***"); */
       }
       if (type === wsConnectFeed) {
         socket = new WebSocket(`${wsUrl}/all`);
-        /* console.log("***СОЕДИНЕНИЕ ЛЕНТА ЗАКАЗОВ УСТАНОВЛЕНО***"); */
+        isConnected = true;
+        /*  console.log("***create WebSocket Feed***"); */
       }
       if (type === wsDisconnect) {
+        clearTimeout(reconnectTimer);
+        isConnected = false;
+        isConnectedAuthUser = false;
+        reconnectTimer = 0;
         socket?.close(1000, "User disconnected");
+        socket = null;
+        /* console.log("***DISCONNECT***"); */
       }
       /* СОЕДИНЕНИЕ С СЕРВЕРОМ */
       if (socket) {
@@ -40,7 +52,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          console.log("socket.onmessage:", parsedData);
+           console.log("socket.onmessage:", parsedData);  
           const { success, ...restParsedData } = parsedData;
           success && dispatch({ type: onMessage, payload: restParsedData });
           if (restParsedData.message === INVALID_TOKEN) {
@@ -53,8 +65,21 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           /* console.log("socket.onerror:", event); */
         };
         socket.onclose = (event) => {
-          dispatch({ type: onClose });
           /* console.log("socket.onclose:", event); */
+          if (event.code !== 1000) {
+            dispatch({ type: onError });
+          }
+          dispatch({ type: onClose });
+          if (isConnectedAuthUser) {
+            reconnectTimer = window.setTimeout(() => {
+              dispatch({ type: wsConnectHistory });
+            }, timeout);
+          }
+          if (isConnected) {
+            reconnectTimer = window.setTimeout(() => {
+              dispatch({ type: wsConnectFeed });
+            }, timeout);
+          }
         };
       }
 

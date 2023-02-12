@@ -26,6 +26,11 @@ export const wsReducer = (state = initialState, action) => {
         ...state,
         wsConnectedFailed: true,
       };
+      case WS_CONNECTION_FAILED:
+      return {
+        ...state,
+        wsConnectedFailed: true,
+      };
     case WS_CONNECTION_CLOSED:
       return {
         ...state,

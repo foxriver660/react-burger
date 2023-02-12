@@ -7,19 +7,25 @@ import {
   wsDisconnect,
   wsConnectionStartHistory,
 } from "../../services/actions/wsActions";
-import { getOrders, getWsConnectedFailed, getSuccessTokenUpdate } from "../../selectors/selectors";
+import {
+  getOrders,
+  getWsConnectedFailed,
+  getSuccessTokenUpdate,
+} from "../../selectors/selectors";
+
 const OrderPage = React.memo(() => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { orders } = useSelector(getOrders);
   const wsConnectedFailed = useSelector(getWsConnectedFailed);
   const successTokenUpdate = useSelector(getSuccessTokenUpdate);
-  
 
   React.useEffect(() => {
     dispatch(wsConnectionStartHistory());
-    if(successTokenUpdate && wsConnectedFailed){dispatch(wsConnectionStartHistory())}
-       return () => {
+    if (successTokenUpdate && wsConnectedFailed) {
+      dispatch(wsConnectionStartHistory());
+    }
+    return () => {
       dispatch(wsDisconnect());
     };
   }, [dispatch, successTokenUpdate, wsConnectedFailed]);
