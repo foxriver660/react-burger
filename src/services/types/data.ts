@@ -19,3 +19,11 @@ export type TIngredient = {
   readonly sdfdsf: string;
   };
 export type TIngredientNanoId = TIngredient & { readonly nanoid: string };
+
+
+export type TUser = {
+  readonly email: string, 
+  readonly name: string
+}
+export type TUserInfo = TUser & { readonly password: string}
+export type TUserLogin = Omit<TUser, 'name'> & { readonly password: string };

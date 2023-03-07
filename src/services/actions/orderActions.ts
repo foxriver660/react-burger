@@ -37,14 +37,13 @@ export const getApiOrder: AppThunk =
   (ingredients: string[], token: string) => (dispatch: AppDispatch) => {
     getOrderAPI(ingredients, token)
       .then((res) => {
-        console.log(ingredients);
-        console.log(token);
-        dispatch(getOrder(res.order.number));
+         dispatch(getOrder(res.order.number));
         /* console.log("ДАННЫЕ НАПРАВЛЕНЫ getApiOrder:", res); */
       })
       .catch((err) => {
         console.log(err);
-        dispatch(refreshToken(getCookie("refreshToken")));
+        // TODO РАЗОБРАТЬСЯ
+        /* dispatch(refreshToken(getCookie("refreshToken"))); */
         dispatch(getOrderFailed());
       });
   };

@@ -1,7 +1,6 @@
 import {
   UPDATE_PASS,
   RESET_PASS,
-  RESET_USER,
   REGISTER_USER,
   SET_USER,
   LOGIN,
@@ -10,8 +9,21 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_TOKEN,
 } from "../actions/profileActions";
+import { TProfileActions } from "../actions/profileActions";
+import { TUser } from "../types/data";
 
-const defaultState = {
+export type TProfileState = {
+  authUser: null | TUser;
+  updatePassRequest: null | boolean;
+  resetPassRequest: null | boolean;
+  logoutRequest: null | boolean;
+  registerUserRequest: null | boolean;
+  loginRequest: null | boolean;
+  updateUserProfileFailed: null | boolean;
+  updateUserProfileSuccess: null | boolean;
+  successTokenUpdate: null | boolean;
+};
+const defaultState: TProfileState = {
   authUser: null,
   updatePassRequest: null,
   resetPassRequest: null,
@@ -22,7 +34,10 @@ const defaultState = {
   updateUserProfileSuccess: null,
   successTokenUpdate: null,
 };
-export const profileReducer = (state = defaultState, action) => {
+export const profileReducer = (
+  state = defaultState,
+  action: TProfileActions
+) => {
   switch (action.type) {
     case UPDATE_PASS:
       return {
@@ -44,14 +59,6 @@ export const profileReducer = (state = defaultState, action) => {
       return {
         ...state,
         loginRequest: action.payload,
-      };
-    case RESET_USER:
-      return {
-        ...state,
-        authUser: {
-          name: null,
-          email: null,
-        },
       };
     case REGISTER_USER:
       return {
