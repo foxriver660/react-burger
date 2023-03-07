@@ -13,24 +13,25 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       const { dispatch, getState } = store;
       const { type } = action;
       const {
-        wsConnectFeed,
-        wsConnectHistory,
+        
+        wsConnectionStartFeed,
+        wsConnectionStartHistory,
         wsDisconnect,
-        onOpen,
-        onClose,
-        onError,
-        onMessage,
-        wsConnectFailed,
+        wsConnectionSuccess,
+        wsConnectionClosed,
+        wsConnectionError,
+        wsGetMessage,
+        wsConnectionFailed,
       } = wsActions;
       const { authUser } = getState().profileReducer;
       const accessToken = getCookie("token");
-      if (type === wsConnectHistory && authUser) {
+      if (type === wsConnectionStartHistory().type && authUser) {
         isConnectedAuthUser = true;
         socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
         /*  console.log("***create WebSocket History***"); */
       }
-      if (type === wsConnectFeed) {
-        socket = new WebSocket(`${wsUrl}/all`);
+      if (type === wsConnectionStartFeed().type) {
+                socket = new WebSocket(`${wsUrl}/all`);
         isConnected = true;
         /*  console.log("***create WebSocket Feed***"); */
       }
@@ -46,7 +47,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       /* СОЕДИНЕНИЕ С СЕРВЕРОМ */
       if (socket) {
         socket.onopen = (event) => {
-          dispatch({ type: onOpen });
+          dispatch(wsConnectionSuccess());
           /* console.log("socket.onopen:", event); */
         };
         socket.onmessage = (event) => {
@@ -54,30 +55,31 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           const parsedData = JSON.parse(data);
            /* console.log("socket.onmessage:", parsedData);  */ 
           const { success, ...restParsedData } = parsedData;
-          success && dispatch({ type: onMessage, payload: restParsedData });
+          console.log(restParsedData);
+          success && dispatch(wsGetMessage(restParsedData));
           if (restParsedData.message === INVALID_TOKEN) {
-            dispatch({ type: wsConnectFailed });
+            dispatch(wsConnectionFailed());
             dispatch(refreshToken(getCookie("refreshToken")));
           }
         };
         socket.onerror = (event) => {
-          dispatch({ type: onError });
+          dispatch(wsConnectionError());
           /* console.log("socket.onerror:", event); */
         };
         socket.onclose = (event) => {
           /* console.log("socket.onclose:", event); */
           if (event.code !== 1000) {
-            dispatch({ type: onError });
+            dispatch(wsConnectionError());
           }
-          dispatch({ type: onClose });
+          dispatch(wsConnectionClosed());
           if (isConnectedAuthUser) {
             reconnectTimer = window.setTimeout(() => {
-              dispatch({ type: wsConnectHistory });
+              dispatch(wsConnectionStartHistory());
             }, timeout);
           }
           if (isConnected) {
             reconnectTimer = window.setTimeout(() => {
-              dispatch({ type: wsConnectFeed });
+              dispatch(wsConnectionStartFeed());
             }, timeout);
           }
         };

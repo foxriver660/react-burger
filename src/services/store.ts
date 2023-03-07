@@ -3,26 +3,27 @@ import thunk from "redux-thunk";
 import { socketMiddleware } from "../middlewares/socet-middleware";
 import { compose, createStore, applyMiddleware } from "redux";
 import {
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_ERROR,
   WS_CONNECTION_START_FEED,
-  WS_CONNECTION_START_HISTORY,
-  WS_CONNECTION_SUCCESS,
-  WS_CONNECTION_FAILED,
-  WS_GET_MESSAGE,
-  WS_DISCONNECT,
+  wsDisconnect,
+  wsGetMessage,
+  wsConnectionError,
+  wsConnectionClosed,
+  wsConnectionSuccess,
+  wsConnectionFailed,
+  wsConnectionStartFeed,
+  wsConnectionStartHistory
 } from "./actions/wsActions";
 
 const wsUrl = "wss://norma.nomoreparties.space/orders";
 const wsActions = {
-  wsConnectFeed: WS_CONNECTION_START_FEED,
-  wsConnectHistory: WS_CONNECTION_START_HISTORY,
-  wsConnectFailed: WS_CONNECTION_FAILED,
-  wsDisconnect: WS_DISCONNECT,
-  onOpen: WS_CONNECTION_SUCCESS,
-  onClose: WS_CONNECTION_CLOSED,
-  onError: WS_CONNECTION_ERROR,
-  onMessage: WS_GET_MESSAGE,
+  wsConnectionStartFeed,
+  wsConnectionStartHistory,
+  wsConnectionFailed,
+  wsDisconnect,
+  wsConnectionSuccess,
+  wsConnectionClosed,
+  wsConnectionError,
+  wsGetMessage,
 };
 declare global {
   interface Window {

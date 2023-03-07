@@ -1,7 +1,7 @@
 export type TIngredientShortInfo = {
   readonly id: string;
   readonly type: string;
-}
+};
 
 export type TIngredient = {
   readonly calories: number;
@@ -17,13 +17,27 @@ export type TIngredient = {
   readonly __v: number;
   readonly _id: string;
   readonly sdfdsf: string;
-  };
+};
 export type TIngredientNanoId = TIngredient & { readonly nanoid: string };
 
-
 export type TUser = {
-  readonly email: string, 
-  readonly name: string
-}
-export type TUserInfo = TUser & { readonly password: string}
-export type TUserLogin = Omit<TUser, 'name'> & { readonly password: string };
+  readonly email: string;
+  readonly name: string;
+};
+export type TUserInfo = TUser & { readonly password: string };
+export type TUserLogin = Omit<TUser, "name"> & { readonly password: string };
+
+export type TOrder = {
+  createdAt: string;
+  ingredients: ReadonlyArray<string>;
+  name: string;
+  number: number;
+  status: string;
+  updatedAt: string;
+  _id: string;
+};
+export type TAllOrders = {
+  orders: ReadonlyArray<TOrder>;
+  total: number;
+  totalToday: number;
+};
