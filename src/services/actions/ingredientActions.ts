@@ -71,7 +71,7 @@ export type TIngredientsActions =
   | IGetApiIngredientSuccessAction
   | IGetApiIngredientAction;
 
-// ГЕНЕРАТОРЫ
+// ACTIONS GENERATE
 export const getIngredientsError = (): IGetApiIngredientErrorAction => ({
   type: GET_API_INGREDIENTS_ERROR,
 });

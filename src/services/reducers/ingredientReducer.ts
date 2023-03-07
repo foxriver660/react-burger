@@ -11,6 +11,7 @@ import {
 } from "../actions/ingredientActions";
 import { TIngredientsActions } from "../actions/ingredientActions";
 import { TIngredient, TIngredientNanoId } from "../types/data";
+
 export type TIngredientsState = {
   serverResponse: { isLoading: boolean, hasError: boolean },
   availableIngredients: ReadonlyArray<TIngredient>,
