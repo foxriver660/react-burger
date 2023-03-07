@@ -16,7 +16,7 @@ const ConstructorList = React.memo(({ value }) => {
   const dispatch = useDispatch();
 
   const handleDeleteIngredient = (value) => {
-    dispatch(deleteIngredient(value));
+        dispatch(deleteIngredient(value));
     dispatch(calcIngredients());
   };
 

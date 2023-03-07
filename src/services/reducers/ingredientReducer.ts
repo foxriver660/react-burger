@@ -9,15 +9,24 @@ import {
   DELETE_INGREDIENT_FROM_CONSTRUCTOR,
   RESET_CONSTRUCTOR_AFTER_ORDER,
 } from "../actions/ingredientActions";
+import { TIngredientsActions } from "../actions/ingredientActions";
+import { TIngredient, TIngredientNanoId } from "../types/data";
+export type TIngredientsState = {
+  serverResponse: { isLoading: boolean, hasError: boolean },
+  availableIngredients: ReadonlyArray<TIngredient>,
+  constructorIngredients: ReadonlyArray<TIngredientNanoId>,
+  constructorBun: { price: null | number },
+  totalCost: null | number,
+};
 
-const defaultState = {
+const defaultState: TIngredientsState = {
   serverResponse: { isLoading: true, hasError: false },
   availableIngredients: [],
   constructorIngredients: [],
   constructorBun: { price: null },
   totalCost: null,
 };
-export const ingredientReducer = (state = defaultState, action) => {
+export const ingredientReducer = (state = defaultState, action: TIngredientsActions): TIngredientsState => {
   switch (action.type) {
     case GET_API_INGREDIENTS_ERROR:
       return {

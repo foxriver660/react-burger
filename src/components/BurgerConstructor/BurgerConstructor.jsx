@@ -76,6 +76,7 @@ const BurgerConstructor = React.memo(() => {
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     accept: "items",
     drop: (item) => {
+      console.log(item)
       item.type === BUN
         ? dispatch(addBun(item))
         : dispatch(addIngredient(item));
