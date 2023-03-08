@@ -1,9 +1,9 @@
-import { useLocation, Navigate } from "react-router-dom";
-import React from "react";
+import { useLocation, Navigate, RouteProps } from "react-router-dom";
+import React, { FC, ReactNode } from "react";
 import { useSelector } from "react-redux/es/exports";
-import PropTypes from "prop-types";
 import { getAuthUser } from "../../selectors/selectors";
-const OnlyUnAuthRoute = ({ element }) => {
+
+export const OnlyUnAuthRoute: FC<RouteProps> = ({ element }) => {
   const location = useLocation();
   const authUser = useSelector(getAuthUser);
 
@@ -11,9 +11,6 @@ const OnlyUnAuthRoute = ({ element }) => {
   if (authUser) {
     return <Navigate to={fromPage} replace state={{ from: location }} />;
   }
-  return element;
+  return <>{element}</>;
 };
-OnlyUnAuthRoute.propTypes = {
-  element: PropTypes.element.isRequired,
-};
-export { OnlyUnAuthRoute };
+

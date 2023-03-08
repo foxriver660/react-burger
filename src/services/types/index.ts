@@ -5,6 +5,7 @@ import { TIngredientsActions } from "../actions/ingredientActions";
 import { TOrderActions } from "../actions/orderActions";
 import { TProfileActions } from "../actions/profileActions";
 import { TWSActions } from "../actions/wsActions";
+import { ReactFragment, ReactNode } from "react";
 
 type TApplicationActions =
   | TIngredientsActions
