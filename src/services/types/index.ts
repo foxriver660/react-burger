@@ -21,3 +21,4 @@ export type AppThunk<ReturnType = void> = ActionCreator<
 export type TOrderBox = {
   doneOrder: number[];
 }
+

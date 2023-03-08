@@ -1,17 +1,20 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./StatisticFeed.module.css";
 import { useSelector } from "react-redux/es/exports";
 import OrderBox from "./OrderBox/OrderBox";
 import { getOrders } from "../../selectors/selectors";
 import { Loader } from "../Loader/Loader";
-const StatisticFeed = React.memo(() => {
+import { TOrder } from "../../services/types/data";
+const StatisticFeed: FC = React.memo(() => {
   // ПОЛУЧЕНИЕ ИЗ СТОРА ВСЕГО СТЕКА
   const orders = useSelector(getOrders);
 
   // РАЗДЕЛЯЕМ ПО ГОТОВНОСТИ
   const { doneOrder, waitOrder } = React.useMemo(() => {
     return orders.orders.reduce(
-      (acc, order) => {
+      (acc: {doneOrder: number[], waitOrder: number[]}, order: TOrder) => {
+        console.log(acc)
+        console.log(order)
         switch (order.status) {
           case "done":
             acc.doneOrder.push(order.number);
@@ -53,7 +56,7 @@ const StatisticFeed = React.memo(() => {
             className={`${classes.waitOrderWrapper} text text_type_digits-default`}
           >
             {waitOrder.length ? (
-              waitOrder.map((item, index) => (
+              waitOrder.map((item: number, index: number) => (
                 <p key={index} className={classes.digits}>
                   {item}
                 </p>
@@ -78,7 +81,7 @@ const StatisticFeed = React.memo(() => {
           </div>
         </>
       ) : (
-        <Loader />
+        <Loader classname={undefined} />
       )}
     </div>
   );
