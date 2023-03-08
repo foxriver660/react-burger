@@ -1,4 +1,6 @@
-export const status = (order) => {
+import { TOrder } from "../../services/types/data";
+
+export const status = (order: TOrder) => {
   return order?.status === "done"
     ? "Выполнен"
     : order?.status === "created"
@@ -7,8 +9,8 @@ export const status = (order) => {
     ? "Готовится"
     : "Отменен";
 };
-export const statusColor = (order) => {
-  return order?.status === "done"
+export const statusColor = (order: TOrder) => {
+   return order?.status === "done"
     ? { color: "#00cccc" }
     : order?.status === "cancel"
     ? { color: "red" }

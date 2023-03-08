@@ -14,9 +14,10 @@ import { TIngredient, TIngredientNanoId } from "../types/data";
 
 export type TIngredientsState = {
   serverResponse: { isLoading: boolean, hasError: boolean },
-  availableIngredients: ReadonlyArray<TIngredient>,
-  constructorIngredients: ReadonlyArray<TIngredientNanoId>,
-  constructorBun: { price: null | number },
+  availableIngredients: TIngredient[],
+  // TODO подумать над этими двумя
+  constructorIngredients: any,
+  constructorBun: any,
   totalCost: null | number,
 };
 
@@ -75,7 +76,7 @@ export const ingredientReducer = (state = defaultState, action: TIngredientsActi
         ...state,
         totalCost:
           state.constructorIngredients.reduce(
-            (acc, curr) => acc + curr.price,
+            (acc: number, curr: { price: number; }) => acc + curr.price,
             0
           ) +
           state.constructorBun.price * 2,
@@ -85,7 +86,7 @@ export const ingredientReducer = (state = defaultState, action: TIngredientsActi
         ...state,
         constructorIngredients: [
           ...state.constructorIngredients.filter(
-            (item) => item.nanoid !== action.payload.nanoid
+            (item: { nanoid: string; }) => item.nanoid !== action.payload.nanoid
           ),
         ],
       };

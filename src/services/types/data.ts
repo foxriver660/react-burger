@@ -4,7 +4,7 @@ export type TIngredientShortInfo = {
 };
 
 export type TIngredient = {
-  readonly calories: number;
+  readonly calories: number | undefined;
   readonly carbohydrates: number;
   readonly fat: number;
   readonly image: string;
@@ -16,8 +16,7 @@ export type TIngredient = {
   readonly type: string;
   readonly __v: number;
   readonly _id: string;
-  readonly sdfdsf: string;
-};
+ };
 export type TIngredientNanoId = TIngredient & { readonly nanoid: string };
 
 export type TUser = {

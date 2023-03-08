@@ -11,9 +11,9 @@ export const socketMiddleware = (wsUrl, wsActions) => {
     let timeout = 5000;
     return (next) => (action) => {
       const { dispatch, getState } = store;
+     
       const { type } = action;
       const {
-        
         wsConnectionStartFeed,
         wsConnectionStartHistory,
         wsDisconnect,
@@ -31,7 +31,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         /*  console.log("***create WebSocket History***"); */
       }
       if (type === wsConnectionStartFeed().type) {
-                socket = new WebSocket(`${wsUrl}/all`);
+        socket = new WebSocket(`${wsUrl}/all`);
         isConnected = true;
         /*  console.log("***create WebSocket Feed***"); */
       }
@@ -53,7 +53,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-           /* console.log("socket.onmessage:", parsedData);  */ 
+          /* console.log("socket.onmessage:", parsedData);  */
           const { success, ...restParsedData } = parsedData;
           console.log(restParsedData);
           success && dispatch(wsGetMessage(restParsedData));

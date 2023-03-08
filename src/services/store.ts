@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import { socketMiddleware } from "../middlewares/socet-middleware";
 import { compose, createStore, applyMiddleware } from "redux";
 import {
-  WS_CONNECTION_START_FEED,
+  
   wsDisconnect,
   wsGetMessage,
   wsConnectionError,

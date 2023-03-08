@@ -115,6 +115,7 @@ export const resetConstructor = (): IReserConstructorAfterOrderAction => ({
 export const getApiIngredients: AppThunk = () => (dispatch: AppDispatch) => {
   getIngredientsAPI()
     .then((res) => {
+     
       dispatch(getIngredients(res.data));
       dispatch(getIngredientsSucceess());
     })
