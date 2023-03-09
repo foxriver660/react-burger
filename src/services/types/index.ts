@@ -51,3 +51,17 @@ export type TIngredientsCategory = {
 export type TIngredientCard = {
   data: TIngredient;
 };
+export type TCompoundItem ={
+  type: string;
+  quantity: number;
+}
+export type TFormOverlay = {
+  children: ReactNode;
+  type: string;
+}
+export type TForm = {
+  children: ReactNode;
+  formName: string;
+  onSubmit: () => void;
+  mainForm: boolean;
+}

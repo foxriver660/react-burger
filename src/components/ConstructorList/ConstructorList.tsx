@@ -9,13 +9,15 @@ import {
   deleteIngredient,
   calcIngredients,
 } from "../../services/actions/ingredientActions";
-import React from "react";
+import React, { FC } from "react";
 import { Reorder } from "framer-motion";
-import itemPropTypes from "../utils/prop-types";
-const ConstructorList = React.memo(({ value }) => {
-  const dispatch = useDispatch();
+import { TIngredient, TIngredientNanoId } from "../../services/types/data";
 
-  const handleDeleteIngredient = (value) => {
+// TODO РАЗОБРАТСЯ any
+const ConstructorList: FC<any> = React.memo(({ value }) => {
+  const dispatch = useDispatch();
+console.log(value)
+  const handleDeleteIngredient = (value: TIngredientNanoId) => {
         dispatch(deleteIngredient(value));
     dispatch(calcIngredients());
   };
@@ -42,6 +44,4 @@ const ConstructorList = React.memo(({ value }) => {
 
 export default ConstructorList;
 
-ConstructorList.propTypes = {
-  value: itemPropTypes.isRequired,
-};
+

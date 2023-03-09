@@ -16,7 +16,8 @@ export type TIngredient = {
   readonly type: string;
   readonly __v: number;
   readonly _id: string;
- };
+  nanoid?: string;
+};
 export type TIngredientNanoId = TIngredient & { readonly nanoid: string };
 
 export type TUser = {
@@ -42,4 +43,4 @@ export type TAllOrders = {
 };
 export type TString = {
   [name: string]: number;
-}
+};

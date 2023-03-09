@@ -1,11 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./IngredientDetails.module.css";
 import { useSelector } from "react-redux/es/exports";
 import { useParams } from "react-router-dom";
 import { getData } from "../../selectors/selectors";
 import { findIngredient } from "../utils/calculationFunc";
 import CompoundItem from "./CompoundItem/CompoundItem";
-const IngredientDetails = React.memo(() => {
+
+const IngredientDetails: FC = React.memo(() => {
   const { id } = useParams();
   const availableIngredients = useSelector(getData);
   const data = findIngredient(availableIngredients, id);
@@ -27,10 +28,10 @@ const IngredientDetails = React.memo(() => {
           </p>
 
           <ul className={classes.compoundList}>
-            <CompoundItem type="Калории,ккал" data={data.calories} />
-            <CompoundItem type="Белки, г" data={data.proteins} />
-            <CompoundItem type="Жиры, г" data={data.fat} />
-            <CompoundItem type="Углеводы, г" data={data.carbohydrates} />
+            <CompoundItem type="Калории,ккал" quantity={data.calories} />
+            <CompoundItem type="Белки, г" quantity={data.proteins} />
+            <CompoundItem type="Жиры, г" quantity={data.fat} />
+            <CompoundItem type="Углеводы, г" quantity={data.carbohydrates} />
           </ul>
         </div>
       )}{" "}
