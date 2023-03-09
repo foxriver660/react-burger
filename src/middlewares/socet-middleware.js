@@ -55,8 +55,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           const parsedData = JSON.parse(data);
           /* console.log("socket.onmessage:", parsedData);  */
           const { success, ...restParsedData } = parsedData;
-          console.log(restParsedData);
-          success && dispatch(wsGetMessage(restParsedData));
+                   success && dispatch(wsGetMessage(restParsedData));
           if (restParsedData.message === INVALID_TOKEN) {
             dispatch(wsConnectionFailed());
             dispatch(refreshToken(getCookie("refreshToken")));

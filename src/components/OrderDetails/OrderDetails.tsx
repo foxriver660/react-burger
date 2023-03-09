@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./OrderDetails.module.css";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -15,7 +15,8 @@ import {
   findIngredient,
 } from "../utils/calculationFunc";
 import { getData, getOrders } from "../../selectors/selectors";
-const OrderDetails = React.memo(() => {
+import { TIngredient } from "../../services/types/data";
+const OrderDetails: FC = React.memo(() => {
   const { id } = useParams();
   // ВСЕ ЗАКАЗЫ ЗАГРУЖЕННЫЕ ПО WS
   const { orders } = useSelector(getOrders);
@@ -27,6 +28,7 @@ const OrderDetails = React.memo(() => {
     () => filterAvailableIngredients(availableIngredients, order),
     [availableIngredients, order]
   );
+  
   const totalPrice = React.useMemo(
     () => calcTotalPrice(filteredIngredients),
     [filteredIngredients]
@@ -61,7 +63,7 @@ const OrderDetails = React.memo(() => {
             Состав:
           </h3>
           <ul className={`${classes.scrollWrapper} pr-6 pb-10`}>
-            {filteredIngredients.map((ingredient, index) => (
+            {filteredIngredients.map((ingredient: TIngredient, index: number) => (
               <IngredientItem
                 key={index}
                 ingredient={ingredient}
@@ -82,12 +84,12 @@ const OrderDetails = React.memo(() => {
               >
                 {totalPrice}
               </p>{" "}
-              <CurrencyIcon />
+              <CurrencyIcon type={"secondary"} />
             </div>
           </div>
         </>
       ) : (
-        <Loader />
+        <Loader classname={undefined} />
       )}
     </div>
   );

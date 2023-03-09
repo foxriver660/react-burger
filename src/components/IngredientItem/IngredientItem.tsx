@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./IngredientItem.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ImageCicle from "../ImageCicle/ImageCicle";
 import { BUN } from "../utils/constant";
-import PropTypes from "prop-types";
-const IngredientItem = React.memo(({ ingredient, quantityIngredients }) => {
+import { TIngredientItem } from "../../services/types";
+const IngredientItem: FC<TIngredientItem> = React.memo(({ ingredient, quantityIngredients }) => {
   return (
     <li className={classes.item}>
       <ImageCicle src={ingredient?.image_mobile} />
@@ -18,13 +18,10 @@ const IngredientItem = React.memo(({ ingredient, quantityIngredients }) => {
             : quantityIngredients[`${ingredient._id}`]}{" "}
           x {ingredient?.price}
         </p>{" "}
-        <CurrencyIcon />
+        <CurrencyIcon type={"secondary"} />
       </div>
     </li>
   );
 });
-IngredientItem.propTypes = {
-  ingredient: PropTypes.object.isRequired,
-  quantityIngredients: PropTypes.object.isRequired,
-};
+
 export default IngredientItem;

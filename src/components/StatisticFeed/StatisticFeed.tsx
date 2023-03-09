@@ -13,9 +13,7 @@ const StatisticFeed: FC = React.memo(() => {
   const { doneOrder, waitOrder } = React.useMemo(() => {
     return orders.orders.reduce(
       (acc: {doneOrder: number[], waitOrder: number[]}, order: TOrder) => {
-        console.log(acc)
-        console.log(order)
-        switch (order.status) {
+              switch (order.status) {
           case "done":
             acc.doneOrder.push(order.number);
             break;

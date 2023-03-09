@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./OrderСompletedModal.module.css";
 import { useSelector } from "react-redux";
 import { Loader } from "../Loader/Loader";
-import { status, statusColor } from "../../components/utils/determineStatus";
+import { status, statusColor } from "../utils/determineStatus";
 import { getOrders } from "../../selectors/selectors";
-const OrderСompletedModal = React.memo(() => {
+const OrderСompletedModal: FC = React.memo(() => {
   const { orders } = useSelector(getOrders);
   // ПОЛУЧАЕМ ПОСЛЕДНИЙ ЗАКАЗ ПО СОКЕТ СОЕДИНЕНИЮ
   const selected = [...orders].reverse()[0];
@@ -47,7 +47,7 @@ const OrderСompletedModal = React.memo(() => {
           </p>
         </>
       ) : (
-        <Loader />
+        <Loader classname={undefined} />
       )}
     </div>
   );
