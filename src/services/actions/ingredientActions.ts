@@ -112,10 +112,9 @@ export const resetConstructor = (): IReserConstructorAfterOrderAction => ({
 });
 
 // THUNK, LOADING INGREDIENTS FROM SERVER
-export const getApiIngredients: AppThunk = () => (dispatch: AppDispatch) => {
+export const getApiIngredients= () => (dispatch: AppDispatch) => {
   getIngredientsAPI()
     .then((res) => {
-     
       dispatch(getIngredients(res.data));
       dispatch(getIngredientsSucceess());
     })

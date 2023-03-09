@@ -33,7 +33,7 @@ export const getOrderFailed = (): IGetOrderFailedAction => ({
   type: GET_ORDER_FAILED,
 });
 // ГЕНЕРАТОР THUNK
-export const getApiOrder: AppThunk =
+export const getApiOrder =
   (ingredients: string[], token: string) => (dispatch: AppDispatch) => {
     getOrderAPI(ingredients, token)
       .then((res) => {

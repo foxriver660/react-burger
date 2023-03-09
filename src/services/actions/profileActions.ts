@@ -122,7 +122,7 @@ export const updateUserSuccessAction = (
   payload,
 });
 // ГЕНЕРАТОР THUNK
-export const updatePassRequest: AppThunk =
+export const updatePassRequest =
   (email: string) => (dispatch: AppDispatch) => {
     updatePassRequestAPI(email)
       .then((res) => {
@@ -134,7 +134,7 @@ export const updatePassRequest: AppThunk =
       });
   };
 
-export const resetPass: AppThunk =
+export const resetPass =
   (newPassword: string, emailCode: string) => (dispatch: AppDispatch) => {
     resetPassAPI(newPassword, emailCode)
       .then((res) => {
@@ -146,7 +146,7 @@ export const resetPass: AppThunk =
       });
   };
 
-export const logout: AppThunk =
+export const logout =
   (refreshToken: string) => (dispatch: AppDispatch) => {
     return logoutAPI(refreshToken)
       .then((res) => {
@@ -160,7 +160,7 @@ export const logout: AppThunk =
       });
   };
 
-export const registerUser: AppThunk =
+export const registerUser =
   (user: TUserInfo) => (dispatch: AppDispatch) => {
     return registerUserAPI(user)
       .then((res) => {
@@ -178,7 +178,7 @@ export const registerUser: AppThunk =
       });
   };
 
-export const login: AppThunk = (user: TUserLogin) => (dispatch: AppDispatch) => {
+export const login = (user: TUserLogin) => (dispatch: AppDispatch) => {
   return loginAPI(user)
     .then((res) => {
       setCookie("token", parsForCookie(res.accessToken));
@@ -194,7 +194,7 @@ export const login: AppThunk = (user: TUserLogin) => (dispatch: AppDispatch) => 
     });
 };
 
-export const checkUserAccess: AppThunk =
+export const checkUserAccess =
   (accessToken: string) => (dispatch: AppDispatch) => {
     checkUserAccessAPI(accessToken)
       .then((res) => {
@@ -211,7 +211,7 @@ export const checkUserAccess: AppThunk =
       });
   };
 
-export const refreshToken: AppThunk =
+export const refreshToken =
   (refreshToken: string) => (dispatch: AppDispatch) => {
     return refreshTokenAPI(refreshToken)
       .then((res) => {
@@ -225,7 +225,7 @@ export const refreshToken: AppThunk =
       });
   };
 
-export const updateUserProfile: AppThunk =
+export const updateUserProfile =
   (accessToken: string, { name, email, password }: TUserInfo) =>
   (dispatch: AppDispatch) => {
     updateUserProfileAPI(accessToken, { name, email, password })

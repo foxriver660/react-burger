@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, MutableRefObject } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
@@ -7,21 +7,23 @@ import { SAUCE, BUN, MAIN } from "../utils/constant";
 import { Waypoint } from "react-waypoint";
 import { useSelector } from "react-redux/es/exports";
 import { getData } from "../../selectors/selectors";
+import { TIngredient } from "../../services/types/data";
 
-const BurgerIngredients = React.memo(() => {
+const BurgerIngredients: FC = React.memo(() => {
   const [current, setCurrent] = React.useState(BUN);
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const data = useSelector(getData);
 
   // РЕАЛИЗАЦИЯ СКРОЛЛА
-  const mainRef = React.useRef(null);
+  const mainRef  = React.useRef(null);
   const sauceRef = React.useRef(null);
   const bunRef = React.useRef(null);
 
-  const scrollTo = (ref) => {
-    ref.current.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (ref: MutableRefObject<HTMLHeadingElement | null>) => {
+    console.log(ref);
+    ref.current?.scrollIntoView({ behavior: "smooth" });
   };
-  const handleClickTab = (tab) => {
+  const handleClickTab = (tab: string) => {
     setCurrent(tab);
     switch (tab) {
       case BUN:
@@ -39,7 +41,14 @@ const BurgerIngredients = React.memo(() => {
   // ФИЛЬТРАЦИЯ ОБЪЕКТОВ ВХОДНОГО МАССИВА ПО ТИПУ
   const { buns, mains, sauces } = React.useMemo(() => {
     return data.reduce(
-      (acc, ingredient) => {
+      (
+        acc: {
+          buns: TIngredient[];
+          mains: TIngredient[];
+          sauces: TIngredient[];
+        },
+        ingredient: TIngredient
+      ) => {
         switch (ingredient.type) {
           case BUN:
             acc.buns.push(ingredient);

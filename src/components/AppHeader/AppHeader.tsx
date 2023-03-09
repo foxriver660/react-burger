@@ -10,8 +10,8 @@ import classes from "./AppHeader.module.css";
 const AppHeader = React.memo(() => {
   const location = useLocation();
 
-  const setActive = ({ isActive }) =>
-    isActive ? classes.linkActive : classes.link;
+  const setActive = ({isActive }: {isActive: boolean}) =>
+   isActive ? classes.linkActive : classes.link;
 
   return (
     <header className={`p-4 ${classes.header}`}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
   InfoIcon,
@@ -11,7 +11,6 @@ import OrderСompletedModal from "../OrderСompletedModal/OrderСompletedModal";
 import Modal from "../Modal/Modal";
 import { useDrop } from "react-dnd";
 import { BUN } from "../utils/constant";
-import { useSelector, useDispatch } from "react-redux/es/exports";
 import {
   addIngredient,
   addBun,
@@ -38,25 +37,30 @@ import {
   getAuthUser,
   getWsConnectedFailed,
 } from "../../selectors/selectors";
+import { TIngredient } from "../../services/types/data";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
 
-const BurgerConstructor = React.memo(() => {
-  const dispatch = useDispatch();
+const BurgerConstructor: FC = React.memo(() => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
-  const totalCost = useSelector(getTotalCost);
-  const ingredients = useSelector(getIngredients);
-  const bun = useSelector(getBun);
-  const authUser = useSelector(getAuthUser);
-  const successTokenUpdate = useSelector(getSuccessTokenUpdate);
-  const orderRequestFailed = useSelector(getOrderRequestFailed);
-  const wsConnectedFailed = useSelector(getWsConnectedFailed);
+  const totalCost = useAppSelector(getTotalCost);
+  const ingredients = useAppSelector(getIngredients);
+  const bun = useAppSelector(getBun);
+  const authUser = useAppSelector(getAuthUser);
+  const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
+  const orderRequestFailed = useAppSelector(getOrderRequestFailed);
+  const wsConnectedFailed = useAppSelector(getWsConnectedFailed);
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
-    const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
+    const ingredientsId = [
+      ...ingredients.map((item: TIngredient) => item._id),
+      bun._id,
+    ];
     if (authUser) {
       dispatch(wsResetMessage());
-      dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie("token")}`));
+      dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie("token")}`));  
       dispatch(wsConnectionStartHistory());
       setOpen(true);
     } else {
@@ -65,18 +69,21 @@ const BurgerConstructor = React.memo(() => {
   };
   // ПРЕДОХРАНИТЕЛЬ НА СЛУЧАЙ ИСТЕЧЕНИЯ СРОКА ***accessToken***
   React.useEffect(() => {
-    const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
+    const ingredientsId = [
+      ...ingredients.map((item: TIngredient) => item._id),
+      bun._id,
+    ];
     if (successTokenUpdate && (orderRequestFailed || wsConnectedFailed)) {
       dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie("token")}`));
       wsConnectedFailed && dispatch(wsConnectionStartHistory());
     }
-  }, [successTokenUpdate, orderRequestFailed,  wsConnectedFailed]); // eslint-disable-line
+  }, [successTokenUpdate, orderRequestFailed, wsConnectedFailed]); // eslint-disable-line
 
   // !DRAG AND DROP
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     accept: "items",
-    drop: (item) => {
-      
+    drop: (item: {id: string; type: string}) => {
+      console.log(item)
       item.type === BUN
         ? dispatch(addBun(item))
         : dispatch(addIngredient(item));
@@ -99,7 +106,7 @@ const BurgerConstructor = React.memo(() => {
   // ИНСТРУМЕНТЫ ДЛЯ УСЛОВНОГО РЕНДЕРИНГА
   const checkIngredient = ingredients.length > 0;
   const checkBun = !!bun.type;
-  const errorMessage = (message) => {
+  const errorMessage = (message: string) => {
     return (
       <span
         className={`${classes.defaultMessage} text text_type_main-default pt-1`}
@@ -130,12 +137,11 @@ const BurgerConstructor = React.memo(() => {
           {checkIngredient ? (
             <div className={classes.scrollWrapper}>
               <Reorder.Group
-                axys="y"
                 values={ingredients}
                 onReorder={(newOrder) => dispatch(sortIngredient(newOrder))}
                 className={`${classes.ingredientList} `}
               >
-                {ingredients.map((item) => (
+                {ingredients.map((item: TIngredient) => (
                   <ConstructorList value={item} key={item.nanoid} />
                 ))}
               </Reorder.Group>
@@ -159,7 +165,7 @@ const BurgerConstructor = React.memo(() => {
             <p className="text text_type_digits-medium">{totalCost}</p>
             <img
               className="pl-2 pr-10"
-              src={bigCurrencyIcon}
+              src={bigCurrencyIcon} 
               alt="иконка валюты"
             />
             <Button

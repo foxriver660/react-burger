@@ -15,4 +15,4 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-export { useSelector } from './services/hooks';
+export { useAppSelector, useAppDispatch } from './services/hooks';
