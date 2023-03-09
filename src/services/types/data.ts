@@ -40,3 +40,6 @@ export type TAllOrders = {
   total: number;
   totalToday: number;
 };
+export type TString = {
+  [name: string]: number;
+}

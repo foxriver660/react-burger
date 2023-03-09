@@ -6,7 +6,7 @@ import { TOrderActions } from "../actions/orderActions";
 import { TProfileActions } from "../actions/profileActions";
 import { TWSActions } from "../actions/wsActions";
 import { ReactFragment, ReactNode } from "react";
-import { TIngredient } from "./data";
+import { TIngredient, TString } from "./data";
 
 type TApplicationActions =
   | TIngredientsActions
@@ -22,14 +22,32 @@ export type AppThunk<ReturnType = void> = ActionCreator<
 // ТИПИЗАЦИЯ КОМПОНЕНТОВ
 export type TOrderBox = {
   doneOrder: number[];
-}
+};
+
 export type TIngredientItem = {
   ingredient: TIngredient;
-  quantityIngredients: any
-}
-export type TImageCicle ={
+  quantityIngredients: TString;
+};
+export type TImageCicle = {
   src: string;
   index?: number;
   rest?: number;
-}
-
+};
+export type TModalOverlay = {
+  onClose: () => void;
+  children: ReactNode;
+};
+export type TModal = {
+  children: ReactNode;
+  onClose: () => void;
+  type?: string;
+};
+export type TLoader = {
+  classname: string | undefined;
+};
+export type TIngredientsCategory = {
+  filteredArr: TIngredient[];
+};
+export type TIngredientCard = {
+  data: TIngredient;
+};

@@ -5,6 +5,7 @@ import ImageCicle from "../ImageCicle/ImageCicle";
 import { BUN } from "../utils/constant";
 import { TIngredientItem } from "../../services/types";
 const IngredientItem: FC<TIngredientItem> = React.memo(({ ingredient, quantityIngredients }) => {
+  
   return (
     <li className={classes.item}>
       <ImageCicle src={ingredient?.image_mobile} />

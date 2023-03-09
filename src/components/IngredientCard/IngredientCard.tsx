@@ -1,13 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
 import classes from "./IngredientCard.module.css";
-import itemPropTypes from "../utils/prop-types";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux/es/exports";
 import { getIngredients, getBun } from "../../selectors/selectors";
+import { TIngredientCard } from "../../services/types";
+import { TIngredient } from "../../services/types/data";
 
-const IngredientCard = React.memo(({ data }) => {
+const IngredientCard: FC<TIngredientCard> = React.memo(({ data }) => {
   //  ID и тип карточки записываются в состояние
   const [id] = React.useState(data._id);
   const [type] = React.useState(data.type);
@@ -24,11 +25,11 @@ const IngredientCard = React.memo(({ data }) => {
   // СЧЕТЧИК КОЛ_ВА ИНГРЕДИЕНТОВ
   let ingredientCounter = 0;
   const ingredients = useSelector(getIngredients);
-  ingredients.forEach((ingredient) =>
+  ingredients.forEach((ingredient: TIngredient) =>
     ingredient._id === id ? (ingredientCounter += 1) : ingredientCounter
   );
   const bun = useSelector(getBun);
-  [bun].forEach((bun) =>
+  [bun].forEach((bun: TIngredient) =>
     bun._id === id ? (ingredientCounter += 2) : ingredientCounter
   );
 
@@ -39,7 +40,7 @@ const IngredientCard = React.memo(({ data }) => {
         <span className={`pr-2 text text_type_digits-default`}>
           {data.price}
         </span>
-        <CurrencyIcon />
+        <CurrencyIcon type={"secondary"} />
       </div>
       <p className={`${classes.ingredientName} text text_type_main-default`}>
         {data.name}
@@ -50,7 +51,3 @@ const IngredientCard = React.memo(({ data }) => {
 });
 
 export default IngredientCard;
-
-IngredientCard.propTypes = {
-  data: itemPropTypes.isRequired,
-};

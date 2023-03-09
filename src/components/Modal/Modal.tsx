@@ -1,20 +1,23 @@
-import React from "react";
+import React, { FC, useEffect } from "react";
 import { createPortal } from "react-dom";
 import classes from "./Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-const modalRootElement = document.querySelector("#modal");
 
-const Modal = React.memo(({ children, ...props }) => {
-  const { onClose, type } = props;
+import { useNavigate } from "react-router-dom";
+import { TModal } from "../../services/types";
+
+const modalRootElement = document.querySelector("#modal") as HTMLElement;
+
+const Modal: FC<TModal> = React.memo(({ children, onClose, type }) => {
+  const navigate = useNavigate();
+  
   const close = () => {
     type === "modalOutRoute" ? onClose() : navigate(-1);
   };
-  const navigate = useNavigate();
-  React.useEffect(() => {
-    const escClose = (e) => {
+
+  useEffect(() => {
+    const escClose = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         type === "modalOutRoute" ? onClose() : navigate(-1);
       }
@@ -44,7 +47,3 @@ const Modal = React.memo(({ children, ...props }) => {
 });
 
 export default Modal;
-
-Modal.propTypes = {
-  children: PropTypes.node.isRequired,
-};
