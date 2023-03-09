@@ -1,8 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./FeedPage.module.css";
 import OrderFeed from "../../components/OrderFeed/OrderFeed";
 import StatisticFeed from "../../components/StatisticFeed/StatisticFeed";
-import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import {
   wsDisconnect,
@@ -10,10 +9,14 @@ import {
 } from "../../services/actions/wsActions";
 import { Loader } from "../../components/Loader/Loader";
 import { getOrders } from "../../selectors/selectors";
-const FeedPage = React.memo(() => {
-  const dispatch = useDispatch();
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { TOrder } from "../../services/types/data";
+
+
+const FeedPage: FC = React.memo(() => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
-  const orders = useSelector(getOrders);
+  const orders = useAppSelector(getOrders);
 
   React.useEffect(() => {
     dispatch(wsConnectionStartFeed());
@@ -32,7 +35,7 @@ const FeedPage = React.memo(() => {
           </h2>
           <div className={classes.subContainer}>
             <ul className={classes.scrollWrapper}>
-              {orders?.orders?.map((order, index) => (
+              {orders?.orders?.map((order: TOrder, index: number) => (
                 <Link
                   className={classes.link}
                   to={`/feed/${order._id}`}
@@ -47,7 +50,7 @@ const FeedPage = React.memo(() => {
           </div>
         </div>
       ) : (
-        <Loader />
+        <Loader classname={undefined} />
       )}
     </section>
   );

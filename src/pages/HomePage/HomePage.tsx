@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import classes from "./HomePage.module.css";
@@ -7,10 +7,11 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector } from "react-redux/es/exports";
 import { getData, getServerResponse } from "../../selectors/selectors";
 import { Loader } from "../../components/Loader/Loader";
+import { useAppSelector } from "../../services/hooks";
 
-const HomePage = React.memo(() => {
-  const { isLoading, hasError } = useSelector(getServerResponse);
-  const data = useSelector(getData);
+const HomePage: FC = React.memo(() => {
+  const { isLoading, hasError } = useAppSelector(getServerResponse);
+  const data = useAppSelector(getData);
 
   return (
     <div className={`${classes.container} p-4`}>

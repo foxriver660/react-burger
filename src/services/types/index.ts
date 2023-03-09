@@ -6,7 +6,7 @@ import { TOrderActions } from "../actions/orderActions";
 import { TProfileActions } from "../actions/profileActions";
 import { TWSActions } from "../actions/wsActions";
 import { ReactFragment, ReactNode } from "react";
-import { TIngredient, TString } from "./data";
+import { TIngredient, TOrder, TString } from "./data";
 
 export type TApplicationActions=
   | TIngredientsActions
@@ -40,8 +40,8 @@ export type TModalOverlay = {
 };
 export type TModal = {
   children: ReactNode;
-  onClose: () => void;
-  type?: string;
+  onClose?: () => void;
+  type: string;
 };
 export type TLoader = {
   classname: string | undefined;
@@ -66,3 +66,12 @@ export type TForm = {
   onSubmit: () => void;
   mainForm: boolean;
 }
+export type TOrderFeed = {
+  order: TOrder;
+  type: string;
+}
+// ТИПИЗАЦИЯ СТРАНИЦ
+export type TOrderDetailPage ={
+  source: string;
+}
+

@@ -9,41 +9,43 @@ import { TModal } from "../../services/types";
 
 const modalRootElement = document.querySelector("#modal") as HTMLElement;
 
-const Modal: FC<TModal> = React.memo(({ children, onClose, type }) => {
-  const navigate = useNavigate();
-  
-  const close = () => {
-    type === "modalOutRoute" ? onClose() : navigate(-1);
-  };
+const Modal: FC<TModal> = React.memo(
+  ({ children, onClose = () => {}, type }) => {
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    const escClose = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        type === "modalOutRoute" ? onClose() : navigate(-1);
-      }
+    const close = () => {
+      type === "modalOutRoute" ? onClose() : navigate(-1);
     };
-    window.addEventListener("keydown", escClose);
 
-    return () => window.removeEventListener("keydown", escClose);
-  }, [navigate]); // eslint-disable-line
+    useEffect(() => {
+      const escClose = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          type === "modalOutRoute" ? onClose() : navigate(-1);
+        }
+      };
+      window.addEventListener("keydown", escClose);
 
-  return createPortal(
-    <ModalOverlay onClose={close}>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        className={classes.container}
-      >
-        <button onClick={close} className={classes.closeBtn}>
-          <CloseIcon type="primary" />
-        </button>
-        {children}
-      </div>
-    </ModalOverlay>,
+      return () => window.removeEventListener("keydown", escClose);
+    }, [navigate]); // eslint-disable-line
 
-    modalRootElement
-  );
-});
+    return createPortal(
+      <ModalOverlay onClose={close}>
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          className={classes.container}
+        >
+          <button onClick={close} className={classes.closeBtn}>
+            <CloseIcon type="primary" />
+          </button>
+          {children}
+        </div>
+      </ModalOverlay>,
+
+      modalRootElement
+    );
+  }
+);
 
 export default Modal;

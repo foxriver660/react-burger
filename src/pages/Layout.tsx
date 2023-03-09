@@ -1,7 +1,8 @@
-import React from "react";
+import React, { FC } from "react";
 import { Outlet } from "react-router-dom";
 import AppHeader from "../components/AppHeader/AppHeader";
-const Layout = React.memo(() => {
+
+const Layout: FC = React.memo(() => {
   return (
     <div className={`p-10`}>
       <AppHeader />

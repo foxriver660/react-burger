@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./IngredientPage.module.css";
 import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useParams } from "react-router-dom";
@@ -7,14 +7,17 @@ import { getData } from "../../selectors/selectors";
 import { findIngredient } from "../../components/utils/calculationFunc";
 import CompoundItem from "../../components/IngredientDetails/CompoundItem/CompoundItem";
 import { Loader } from "../../components/Loader/Loader";
-const IngredientPage = React.memo(() => {
-  const dispatch = useDispatch();
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+
+
+const IngredientPage: FC = React.memo(() => {
+  const dispatch = useAppDispatch();
   const { id } = useParams();
   React.useEffect(() => {
     dispatch(getApiIngredients());
   }, [dispatch]);
 
-  const availableIngredients = useSelector(getData);
+  const availableIngredients = useAppSelector(getData);
 
   const data = findIngredient(availableIngredients, id);
 
@@ -35,14 +38,14 @@ const IngredientPage = React.memo(() => {
           </p>
 
           <ul className={classes.compoundList}>
-            <CompoundItem type="Калории,ккал" data={data.calories} />
-            <CompoundItem type="Белки, г" data={data.proteins} />
-            <CompoundItem type="Жиры, г" data={data.fat} />
-            <CompoundItem type="Углеводы, г" data={data.carbohydrates} />
+            <CompoundItem type="Калории,ккал" quantity={data.calories} />
+            <CompoundItem type="Белки, г" quantity={data.proteins} />
+            <CompoundItem type="Жиры, г" quantity={data.fat} />
+            <CompoundItem type="Углеводы, г" quantity={data.carbohydrates} />
           </ul>
         </div>
       ) : (
-        <Loader />
+        <Loader classname={undefined} />
       )}
     </>
   );

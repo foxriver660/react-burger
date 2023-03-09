@@ -1,7 +1,6 @@
-import React from "react";
+import React, { FC, useEffect } from "react";
 import classes from "./OrderPage.module.css";
 import OrderFeed from "../../components/OrderFeed/OrderFeed";
-import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import {
   wsDisconnect,
@@ -12,15 +11,16 @@ import {
   getWsConnectedFailed,
   getSuccessTokenUpdate,
 } from "../../selectors/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
 
-const OrderPage = React.memo(() => {
-  const dispatch = useDispatch();
+const OrderPage: FC = React.memo(() => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
-  const { orders } = useSelector(getOrders);
-  const wsConnectedFailed = useSelector(getWsConnectedFailed);
-  const successTokenUpdate = useSelector(getSuccessTokenUpdate);
+  const { orders } = useAppSelector(getOrders);
+  const wsConnectedFailed = useAppSelector(getWsConnectedFailed);
+  const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(wsConnectionStartHistory());
     if (successTokenUpdate && wsConnectedFailed) {
       dispatch(wsConnectionStartHistory());

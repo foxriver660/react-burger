@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { Logo } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
@@ -7,7 +7,7 @@ import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./AppHeader.module.css";
 
-const AppHeader = React.memo(() => {
+const AppHeader: FC = React.memo(() => {
   const location = useLocation();
 
   const setActive = ({isActive }: {isActive: boolean}) =>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "../pages/HomePage/HomePage";
 import Layout from "../pages/Layout";
@@ -10,7 +10,6 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import { ProtectedRouteElement } from "../components/ProtectedRouteElement/ProtectedRouteElement";
 import { OnlyUnAuthRoute } from "../components/ProtectedRouteElement/OnlyUnAuthRoute";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
-import { useDispatch } from "react-redux/es/exports";
 import { checkUserAccess } from "../services/actions/profileActions";
 import { getCookie } from "../components/utils/cookie";
 import Modal from "../components/Modal/Modal";
@@ -20,26 +19,21 @@ import IngredientPage from "../pages/IngredientPage/IngredientPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import FeedPage from "../pages/FeedPage/FeedPage";
 import OrderDetailPage from "../pages/OrderDetailPage/OrderDetailPage";
-import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getApiIngredients } from "../services/actions/ingredientActions";
 import { getSuccessTokenUpdate } from "../selectors/selectors";
+import { useAppDispatch, useAppSelector } from "../services/hooks";
 
-const App = React.memo(() => {
-  const dispatch = useDispatch();
+const App: FC = React.memo(() => {
+  const dispatch = useAppDispatch();
   const accessToken = getCookie("token");
   const location = useLocation();
-  const successTokenUpdate = useSelector(getSuccessTokenUpdate);
-
-
-
-
+  const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
 
   /* eslint-disable */
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(checkUserAccess(accessToken));
   }, [successTokenUpdate]);
-
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getApiIngredients());
   }, []);
   /* eslint-enable */
@@ -94,7 +88,7 @@ const App = React.memo(() => {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal type='modalInRoute'>
+              <Modal type="modalInRoute">
                 <IngredientDetails />
               </Modal>
             }
@@ -106,7 +100,7 @@ const App = React.memo(() => {
           <Route
             path="/feed/:id"
             element={
-              <Modal type='modalInRoute'>
+              <Modal type="modalInRoute">
                 <OrderDetails />
               </Modal>
             }
@@ -118,7 +112,7 @@ const App = React.memo(() => {
           <Route
             path="/profile/orders/:id"
             element={
-              <Modal type='modalInRoute'>
+              <Modal type="modalInRoute">
                 <OrderDetails />
               </Modal>
             }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, useEffect } from "react";
 import classes from "./OrderDetailPage.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientItem from "../../components/IngredientItem/IngredientItem";
@@ -21,15 +21,18 @@ import {
 } from "../../services/actions/wsActions";
 import { status, statusColor } from "../../components/utils/determineStatus";
 import { getAuthUser, getData, getOrders } from "../../selectors/selectors";
+import { TOrderDetailPage } from "../../services/types";
+import { useAppDispatch } from "../../services/hooks";
+import { TIngredient } from "../../services/types/data";
 
-const OrderDetailPage = React.memo(({ source }) => {
-  const dispatch = useDispatch();
+const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
+  const dispatch = useAppDispatch();
   const { id } = useParams();
   const { orders } = useSelector(getOrders);
   const availableIngredients = useSelector(getData);
   const authUser = useSelector(getAuthUser);
   // ДИСПАТИМ АПИ НА ДОСТУПНЫЕ ИНГРЕДИЕНТЫ
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getApiIngredients());
   }, []); // eslint-disable-line
   // ДИСПАТИМ WS НА ИНГРЕДИЕНТЫ
@@ -82,7 +85,7 @@ const OrderDetailPage = React.memo(({ source }) => {
             Состав:
           </h3>
           <ul className={`${classes.scrollWrapper} pr-6 pb-10`}>
-            {filteredIngredients.map((ingredient, index) => (
+            {filteredIngredients.map((ingredient: TIngredient, index: number) => (
               <IngredientItem
                 key={index}
                 ingredient={ingredient}
@@ -103,12 +106,12 @@ const OrderDetailPage = React.memo(({ source }) => {
               >
                 {totalPrice}
               </p>{" "}
-              <CurrencyIcon />
+              <CurrencyIcon type={"secondary"} />
             </div>
           </div>
         </div>
       ) : (
-        <Loader />
+        <Loader classname={undefined} />
       )}
     </section>
   );

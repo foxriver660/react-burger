@@ -195,7 +195,7 @@ export const login = (user: TUserLogin) => (dispatch: AppDispatch) => {
 };
 
 export const checkUserAccess =
-  (accessToken: string) => (dispatch: AppDispatch) => {
+  (accessToken: string | undefined | null) => (dispatch: AppDispatch) => {
     checkUserAccessAPI(accessToken)
       .then((res) => {
         /* console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res); */

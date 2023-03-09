@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import classes from "./OrderFeed.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ImageCicle from "../ImageCicle/ImageCicle";
@@ -12,11 +12,14 @@ import {
 } from "../utils/calculationFunc";
 import { gmt } from "../utils/determineGMT";
 import { getData } from "../../selectors/selectors";
-const OrderFeed = React.memo(({ order, type }) => {
+import { TOrderFeed } from "../../services/types";
+import { TIngredient } from "../../services/types/data";
+import { useAppSelector } from "../../services/hooks";
+const OrderFeed: FC<TOrderFeed> = React.memo(({ order, type }) => {
   // ОТКУДА РЕНДЕРИМ
   const selector = type === "orderHistory";
   // ИНГРЕДИЕНТЫ ИЗ СТОРА
-  const availableIngredients = useSelector(getData);
+  const availableIngredients = useAppSelector(getData);
   // !ВЫЧИСЛЕНИЯ
   const filteredIngredients = React.useMemo(
     () => filterAvailableIngredients(availableIngredients, order),
@@ -48,7 +51,7 @@ const OrderFeed = React.memo(({ order, type }) => {
         )}
       </div>
       <div className={classes.orderImgs}>
-        {filteredIngredients.slice(0, 6).map((item, index) => (
+        {filteredIngredients.slice(0, 6).map((item: TIngredient, index: number) => (
           <ImageCicle
             key={index}
             src={item.image_mobile}
@@ -61,7 +64,7 @@ const OrderFeed = React.memo(({ order, type }) => {
         <p className={`${classes.orderSum} text text_type_digits-default`}>
           {totalPrice}
         </p>{" "}
-        <CurrencyIcon />
+        <CurrencyIcon type={"secondary"} />
       </div>
     </li>
   );
