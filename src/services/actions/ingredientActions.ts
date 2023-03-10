@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { AppDispatch, AppThunk } from "../types";
+import { AppDispatch } from "../types";
 import { getIngredientsAPI } from "../../utils/burger-api";
 import {
   TIngredient,

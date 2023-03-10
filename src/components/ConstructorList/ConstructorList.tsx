@@ -1,5 +1,4 @@
 import classes from "./ConstructorList.module.css";
-import { useDispatch } from "react-redux";
 import {
   DragIcon,
   ConstructorElement,

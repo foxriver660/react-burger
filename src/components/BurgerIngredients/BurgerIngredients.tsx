@@ -2,10 +2,8 @@ import React, { FC, MutableRefObject } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
-
 import { SAUCE, BUN, MAIN } from "../../utils/constant";
 import { Waypoint } from "react-waypoint";
-import { useSelector } from "react-redux/es/exports";
 import { getData } from "../../selectors/selectors";
 import { TIngredient } from "../../services/types/data";
 import { useAppSelector } from "../../services/hooks";

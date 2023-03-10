@@ -1,11 +1,11 @@
 
 import { getData } from "../selectors/selectors";
 import { useAppSelector } from "../services/hooks";
-import { TAllOrders, TIngredient, TOrder } from "../services/types/data";
+import { TIngredient } from "../services/types/data";
 import { BUN } from "../utils/constant";
 
 const useIngredientsOperations = (a: any, b: string | undefined) => {
-  console.log(a)
+  
   const availableIngredients = useAppSelector(getData);
   
   const calcTotalPrice = (arr: TIngredient[]) =>

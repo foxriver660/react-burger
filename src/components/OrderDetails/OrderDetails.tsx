@@ -8,13 +8,7 @@ import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-component
 import { Loader } from "../Loader/Loader";
 import { gmt } from "../../utils/determineGMT";
 import { status, statusColor } from "../../utils/determineStatus";
-import {
-  calcTotalPrice,
-  filterAvailableIngredients,
-  countingOccurrences,
-  findIngredient,
-} from "../../utils/calculationFunc";
-import { getData, getOrders } from "../../selectors/selectors";
+import { getOrders } from "../../selectors/selectors";
 import { TIngredient } from "../../services/types/data";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 const OrderDetails: FC = React.memo(() => {

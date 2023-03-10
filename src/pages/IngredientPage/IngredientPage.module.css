@@ -19,4 +19,6 @@
   display: flex;
   gap: 20px;
 }
-
+.loader{
+  margin: 5% auto;
+}

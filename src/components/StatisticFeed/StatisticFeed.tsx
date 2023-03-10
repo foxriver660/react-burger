@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import classes from "./StatisticFeed.module.css";
-import { useSelector } from "react-redux/es/exports";
 import OrderBox from "./OrderBox/OrderBox";
 import { getOrders } from "../../selectors/selectors";
 import { Loader } from "../Loader/Loader";

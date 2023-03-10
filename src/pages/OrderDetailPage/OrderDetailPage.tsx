@@ -2,16 +2,9 @@ import React, { FC, useEffect } from "react";
 import classes from "./OrderDetailPage.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientItem from "../../components/IngredientItem/IngredientItem";
-import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useParams } from "react-router-dom";
 import { getApiIngredients } from "../../services/actions/ingredientActions";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
-import {
-  calcTotalPrice,
-  filterAvailableIngredients,
-  countingOccurrences,
-  findIngredient,
-} from "../../utils/calculationFunc";
 import { Loader } from "../../components/Loader/Loader";
 import { gmt } from "../../utils/determineGMT";
 import {
@@ -20,7 +13,7 @@ import {
   wsConnectionStartHistory,
 } from "../../services/actions/wsActions";
 import { status, statusColor } from "../../utils/determineStatus";
-import { getAuthUser, getData, getOrders } from "../../selectors/selectors";
+import { getAuthUser, getOrders } from "../../selectors/selectors";
 import { TOrderDetailPage } from "../../services/types";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { TIngredient } from "../../services/types/data";

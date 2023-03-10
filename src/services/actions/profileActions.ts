@@ -16,8 +16,8 @@ import {
   refreshTokenAPI,
 } from "../../utils/burger-api";
 import { JWT_MALFORMED, JWT_EXPIRED } from "../../utils/constant";
-import { AppDispatch, AppThunk } from "../types";
-import { TToken, TUser, TUserInfo, TUserLogin } from "../types/data";
+import { AppDispatch } from "../types";
+import { TUser, TUserInfo, TUserLogin } from "../types/data";
 // !ACTIONS
 export const UPDATE_PASS: "UPDATE_PASS" = "UPDATE_PASS";
 export const RESET_PASS: "RESET_PASS" = "RESET_PASS";
