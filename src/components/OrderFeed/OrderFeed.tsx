@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import classes from "./OrderFeed.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import ImageCicle from "../ImageCicle/ImageCicle";
+import {ImageCicle} from "../index";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
 import { status, statusColor } from "../../utils/determineStatus";
 import { gmt } from "../../utils/determineGMT";

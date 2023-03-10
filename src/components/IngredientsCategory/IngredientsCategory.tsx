@@ -1,7 +1,6 @@
 import React, { FC } from "react";
-import IngredientCard from "../IngredientCard/IngredientCard";
+import {IngredientCard} from "../index";
 import classes from "./IngredientsCategory.module.css";
-
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { TIngredientsCategory } from "../../services/types";

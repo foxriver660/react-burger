@@ -1,9 +1,7 @@
-import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import React, { FC, FormEvent } from "react";
 import { Link, Navigate } from "react-router-dom";
 import classes from "./ResetPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import Form from "../../components/Form/Form";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import { resetPass } from "../../services/actions/profileActions";
 import {
@@ -11,6 +9,7 @@ import {
   getResetPassRequest,
 } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { Form, FormOverlay } from "../../components";
 const ResetPassPage: FC = React.memo(() => {
   // ХУКИ
   const dispatch = useAppDispatch();

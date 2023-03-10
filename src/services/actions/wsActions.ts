@@ -1,9 +1,8 @@
 import {TAllOrders} from '../types/data'
 // !ACTIONS
-export const WS_CONNECTION_START_FEED: "WS_CONNECTION_START_FEED" =
-  "WS_CONNECTION_START_FEED";
-export const WS_CONNECTION_START_HISTORY: "WS_CONNECTION_START_HISTORY" =
-  "WS_CONNECTION_START_HISTORY";
+export const WS_CONNECTION_START: "WS_CONNECTION_START" =
+  "WS_CONNECTION_START";
+
 export const WS_CONNECTION_SUCCESS: "WS_CONNECTION_SUCCESS" =
   "WS_CONNECTION_SUCCESS";
 export const WS_DISCONNECT: "WS_DISCONNECT" = "WS_DISCONNECT";
@@ -18,12 +17,11 @@ export const WS_CONNECTION_FAILED: "WS_CONNECTION_FAILED" =
   "WS_CONNECTION_FAILED";
 
 // !ACTIONS TYPES
-export interface IWSConnectionStartFeedAction {
-  readonly type: typeof WS_CONNECTION_START_FEED;
+export interface IWSConnectionStartAction {
+  readonly type: typeof WS_CONNECTION_START;
+  readonly payload: string;
 }
-export interface IWSConnectionStartHistoryAction {
-  readonly type: typeof WS_CONNECTION_START_HISTORY;
-}
+
 export interface IWSConnectionSuccessAction {
   readonly type: typeof WS_CONNECTION_SUCCESS;
 }
@@ -49,9 +47,8 @@ export interface IWSConnectionFailedAction {
 }
 // !UNION ALL
 export type TWsActions =
-  | IWSConnectionStartFeedAction
-  | IWSConnectionStartHistoryAction
-  | IWSConnectionSuccessAction
+  | IWSConnectionStartAction
+    | IWSConnectionSuccessAction
   | IWSDisconnectAction
   | IWSResetMessageAction
   | IWSConnectionErrorAction
@@ -59,14 +56,10 @@ export type TWsActions =
   | IWSGetMessageAction
   | IWSConnectionFailedAction;
 // ACTIONS GENERATE
-export const wsConnectionStartFeed = (): IWSConnectionStartFeedAction => {
+export const wsConnectionStart = (url: string): IWSConnectionStartAction => {
   return {
-    type: WS_CONNECTION_START_FEED,
-  };
-};
-export const wsConnectionStartHistory = (): IWSConnectionStartHistoryAction => {
-  return {
-    type: WS_CONNECTION_START_HISTORY,
+    type: WS_CONNECTION_START,
+    payload: url
   };
 };
 export const wsConnectionSuccess = (): IWSConnectionSuccessAction => {

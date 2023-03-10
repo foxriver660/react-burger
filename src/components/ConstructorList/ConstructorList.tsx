@@ -3,7 +3,6 @@ import {
   DragIcon,
   ConstructorElement,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
 import {
   deleteIngredient,
   calcIngredients,

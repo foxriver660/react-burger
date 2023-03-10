@@ -1,12 +1,11 @@
-import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import React, { FC, FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./RegisterPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
-import Form from "../../components/Form/Form";
 import { registerUser } from "../../services/actions/profileActions";
 import { useAppDispatch } from "../../services/hooks";
+import { Form, FormOverlay } from "../../components";
 
 const RegisterPage: FC = React.memo(() => {
   const dispatch = useAppDispatch();

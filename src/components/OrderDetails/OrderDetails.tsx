@@ -1,19 +1,20 @@
 import React, { FC } from "react";
 import classes from "./OrderDetails.module.css";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import IngredientItem from "../IngredientItem/IngredientItem";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
-import { Loader } from "../Loader/Loader";
+import { Loader } from "../index";
 import { gmt } from "../../utils/determineGMT";
 import { status, statusColor } from "../../utils/determineStatus";
 import { getOrders } from "../../selectors/selectors";
 import { TIngredient } from "../../services/types/data";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
+import { useAppSelector } from "../../services/hooks";
+
 const OrderDetails: FC = React.memo(() => {
   const { id } = useParams();
-  const { orders } = useSelector(getOrders);
+  const { orders } = useAppSelector(getOrders);
   const { order, filteredIngredients, totalPrice, quantityIngredients } =
     useIngredientsOperations(orders, id);
 

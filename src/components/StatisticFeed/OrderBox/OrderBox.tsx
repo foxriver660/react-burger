@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { TOrderBox } from "../../../services/types";
 import classes from "./OrderBox.module.css";
+
 const OrderBox: FC<TOrderBox> = React.memo(({ doneOrder }) => {
-  
   return (
     <>
       <div className={`${classes.div3} text text_type_digits-default`}>

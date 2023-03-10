@@ -10,14 +10,13 @@ import {
   wsConnectionClosed,
   wsConnectionSuccess,
   wsConnectionFailed,
-  wsConnectionStartFeed,
-  wsConnectionStartHistory
+  wsConnectionStart,
+  
 } from "./actions/wsActions";
 
-const wsUrl = "wss://norma.nomoreparties.space/orders";
+
 const wsActions = {
-  wsConnectionStartFeed,
-  wsConnectionStartHistory,
+  wsConnectionStart,
   wsConnectionFailed,
   wsDisconnect,
   wsConnectionSuccess,
@@ -33,7 +32,7 @@ declare global {
 export const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk, socketMiddleware(wsUrl, wsActions))
+  applyMiddleware(thunk, socketMiddleware(wsActions))
 );
 
 export const store = createStore(rootReducer, enhancer);

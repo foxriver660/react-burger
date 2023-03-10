@@ -1,10 +1,9 @@
 import React, { FC, useEffect } from "react";
 import classes from "./OrderPage.module.css";
-import OrderFeed from "../../components/OrderFeed/OrderFeed";
 import { Link, useLocation } from "react-router-dom";
 import {
   wsDisconnect,
-  wsConnectionStartHistory,
+  wsConnectionStart,
 } from "../../services/actions/wsActions";
 import {
   getOrders,
@@ -12,7 +11,9 @@ import {
   getSuccessTokenUpdate,
 } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
-
+import { refreshToken } from "../../services/actions/profileActions";
+import {WS_URL_HISTORY} from '../../utils/constant'
+import { OrderFeed } from "../../components";
 const OrderPage: FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -21,10 +22,10 @@ const OrderPage: FC = React.memo(() => {
   const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
 
   useEffect(() => {
-    dispatch(wsConnectionStartHistory());
-    if (successTokenUpdate && wsConnectedFailed) {
-      dispatch(wsConnectionStartHistory());
-    }
+    dispatch(wsConnectionStart(WS_URL_HISTORY));
+    if (wsConnectedFailed) {
+      dispatch(refreshToken())
+         }
     return () => {
       dispatch(wsDisconnect());
     };

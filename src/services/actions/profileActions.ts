@@ -211,7 +211,7 @@ export const refreshToken = () => (dispatch: AppDispatch) => {
   return refreshTokenAPI()
     .then((res) => {
       console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);
-      setCookie("token", parsForCookie(res.accessToken));
+      setCookie("token", parsForCookie(res.accessToken), {expires: 10});
       setCookie("refreshToken", res.refreshToken);
       dispatch(updateTokenAction(res.success));
     })

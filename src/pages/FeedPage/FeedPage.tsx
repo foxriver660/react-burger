@@ -1,17 +1,15 @@
 import React, { FC } from "react";
 import classes from "./FeedPage.module.css";
-import OrderFeed from "../../components/OrderFeed/OrderFeed";
-import StatisticFeed from "../../components/StatisticFeed/StatisticFeed";
 import { Link, useLocation } from "react-router-dom";
 import {
   wsDisconnect,
-  wsConnectionStartFeed,
+  wsConnectionStart,
 } from "../../services/actions/wsActions";
-import { Loader } from "../../components/Loader/Loader";
 import { getOrders } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { TOrder } from "../../services/types/data";
-
+import { WS_URL } from "../../utils/constant";
+import { Loader, OrderFeed, StatisticFeed } from "../../components";
 
 const FeedPage: FC = React.memo(() => {
   const dispatch = useAppDispatch();
@@ -19,7 +17,7 @@ const FeedPage: FC = React.memo(() => {
   const orders = useAppSelector(getOrders);
 
   React.useEffect(() => {
-    dispatch(wsConnectionStartFeed());
+    dispatch(wsConnectionStart(WS_URL));
 
     return () => {
       dispatch(wsDisconnect());

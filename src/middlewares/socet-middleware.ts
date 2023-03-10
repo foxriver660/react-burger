@@ -1,24 +1,20 @@
 import { getCookie } from "../utils/cookie";
-import { INVALID_TOKEN } from "../utils/constant";
-import { refreshToken } from "../services/actions/profileActions";
+import { INVALID_TOKEN, JWT_EXPIRED } from "../utils/constant";
 import { Middleware } from "redux";
 import { TActions } from "../services/types/data";
 
-
-export const socketMiddleware = (wsUrl: string, wsActions: TActions): Middleware => {
+export const socketMiddleware = (wsActions: TActions): Middleware => {
   return (store) => {
     let socket: WebSocket | null = null;
-    let isConnectedAuthUser = false;
     let isConnected = false;
     let reconnectTimer = 0;
     let timeout = 5000;
     return (next) => (action) => {
       const { dispatch, getState } = store;
-     
-      const { type } = action;
+
+      const { type, payload } = action;
       const {
-        wsConnectionStartFeed,
-        wsConnectionStartHistory,
+        wsConnectionStart,
         wsDisconnect,
         wsConnectionSuccess,
         wsConnectionClosed,
@@ -26,49 +22,40 @@ export const socketMiddleware = (wsUrl: string, wsActions: TActions): Middleware
         wsGetMessage,
         wsConnectionFailed,
       } = wsActions;
-      const { authUser } = getState().profileReducer;
-      const accessToken = getCookie("token");
-      if (type === wsConnectionStartHistory().type && authUser) {
-        isConnectedAuthUser = true;
-        socket = new WebSocket(`${wsUrl}?token=${accessToken}`);
-        /*  console.log("***create WebSocket History***"); */
+
+      if (type === wsConnectionStart(payload).type) {
+        console.log(payload);
+        socket = new WebSocket(payload);
+        console.log("***create WebSocket***", socket);
       }
-      if (type === wsConnectionStartFeed().type) {
-        
-        socket = new WebSocket(`${wsUrl}/all`);
-        isConnected = true;
-        /*  console.log("***create WebSocket Feed***"); */
-      }
-      if (type === wsDisconnect) {
+
+      if (type === wsDisconnect().type) {
         clearTimeout(reconnectTimer);
         isConnected = false;
-        isConnectedAuthUser = false;
         reconnectTimer = 0;
         socket?.close(1000, "User disconnected");
         socket = null;
-        /* console.log("***DISCONNECT***"); */
+        console.log("***DISCONNECT***");
       }
       /* СОЕДИНЕНИЕ С СЕРВЕРОМ */
       if (socket) {
         socket.onopen = (event) => {
           dispatch(wsConnectionSuccess());
-          /* console.log("socket.onopen:", event); */
+          console.log("socket.onopen:", event);
         };
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          /* console.log("socket.onmessage:", parsedData);  */
+          console.log("socket.onmessage:", parsedData);
           const { success, ...restParsedData } = parsedData;
-                   success && dispatch(wsGetMessage(restParsedData));
-          if (restParsedData.message === INVALID_TOKEN) {
+          success && dispatch(wsGetMessage(restParsedData));
+          if (restParsedData.message === INVALID_TOKEN || JWT_EXPIRED) {
             dispatch(wsConnectionFailed());
-            // TODO убрать в компонент
-           /*  dispatch(refreshToken(getCookie("refreshToken"))); */
           }
         };
         socket.onerror = (event) => {
           dispatch(wsConnectionError());
-          /* console.log("socket.onerror:", event); */
+          /* console.log("socket.onerror:", event);  */
         };
         socket.onclose = (event) => {
           /* console.log("socket.onclose:", event); */
@@ -76,14 +63,9 @@ export const socketMiddleware = (wsUrl: string, wsActions: TActions): Middleware
             dispatch(wsConnectionError());
           }
           dispatch(wsConnectionClosed());
-          if (isConnectedAuthUser) {
-            reconnectTimer = window.setTimeout(() => {
-              dispatch(wsConnectionStartHistory());
-            }, timeout);
-          }
           if (isConnected) {
             reconnectTimer = window.setTimeout(() => {
-              dispatch(wsConnectionStartFeed());
+              dispatch(wsConnectionStart(""));
             }, timeout);
           }
         };

@@ -1,6 +1,4 @@
 import React, { FormEvent } from "react";
-import FormOverlay from "../../components/FormOverlay/FormOverlay";
-import Form from "../../components/Form/Form";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import classes from "./ForgotPassPage.module.css";
@@ -8,6 +6,8 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/
 import { updatePassRequest } from "../../services/actions/profileActions";
 import { getUpdatePassRequest } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { Form, FormOverlay } from "../../components";
+
 const ForgotPassPage = React.memo(() => {
   // ХУКИ
   const dispatch = useAppDispatch();

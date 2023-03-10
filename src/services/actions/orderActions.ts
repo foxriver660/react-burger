@@ -42,8 +42,7 @@ export const getApiOrder =
       })
       .catch((err) => {
         console.log(err);
-        // TODO РАЗОБРАТЬСЯ
-        /* dispatch(refreshToken(getCookie("refreshToken"))); */
+        dispatch(refreshToken());
         dispatch(getOrderFailed());
       });
   };

@@ -1,31 +1,14 @@
 import React, { FC, useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import HomePage from "../pages/HomePage/HomePage";
-import Layout from "../pages/Layout";
-import RegisterPage from "../pages/RegisterPage/RegisterPage";
-import LoginPage from "../pages/LoginPage/LoginPage";
-import ForgotPassPage from "../pages/ForgotPassPage/ForgotPassPage";
-import ResetPassPage from "../pages/ResetPassPage/ResetPassPage";
-import ProfilePage from "../pages/ProfilePage/ProfilePage";
-import { ProtectedRouteElement } from "../components/ProtectedRouteElement/ProtectedRouteElement";
-import { OnlyUnAuthRoute } from "../components/ProtectedRouteElement/OnlyUnAuthRoute";
-import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import { checkUserAccess } from "../services/actions/profileActions";
-import { getCookie } from "../utils/cookie";
-import Modal from "../components/Modal/Modal";
-import IngredientDetails from "../components/IngredientDetails/IngredientDetails";
-import OrderDetails from "../components/OrderDetails/OrderDetails";
-import IngredientPage from "../pages/IngredientPage/IngredientPage";
-import OrderPage from "../pages/OrderPage/OrderPage";
-import FeedPage from "../pages/FeedPage/FeedPage";
-import OrderDetailPage from "../pages/OrderDetailPage/OrderDetailPage";
 import { getApiIngredients } from "../services/actions/ingredientActions";
 import { getSuccessTokenUpdate } from "../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../services/hooks";
+import { FeedPage, ForgotPassPage, HomePage, IngredientPage, Layout, LoginPage, NotFoundPage, OrderDetailPage, OrderPage, ProfilePage, RegisterPage, ResetPassPage } from "../pages";
+import { IngredientDetails, Modal, OnlyUnAuthRoute, OrderDetails, ProtectedRouteElement } from "../components";
 
 const App: FC = React.memo(() => {
   const dispatch = useAppDispatch();
-  const accessToken = getCookie("token");
   const location = useLocation();
   const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
 

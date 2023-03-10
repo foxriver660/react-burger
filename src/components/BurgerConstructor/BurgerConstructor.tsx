@@ -7,8 +7,7 @@ import {
 import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import OrderСompletedModal from "../OrderСompletedModal/OrderСompletedModal";
-import Modal from "../Modal/Modal";
+import {OrderСompletedModal, Modal, ConstructorList} from "../index";
 import { useDrop } from "react-dnd";
 import { BUN } from "../../utils/constant";
 import {
@@ -19,13 +18,11 @@ import {
   resetConstructor,
 } from "../../services/actions/ingredientActions";
 import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
-import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "../../utils/cookie";
 import {
   wsDisconnect,
-  wsConnectionStartHistory,
+  wsConnectionStart,
   wsResetMessage,
 } from "../../services/actions/wsActions";
 import {
@@ -60,9 +57,8 @@ const BurgerConstructor: FC = React.memo(() => {
     ];
     if (authUser) {
       dispatch(wsResetMessage());
-      dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie("token")}`));  
-      dispatch(wsConnectionStartHistory());
-      setOpen(true);
+      dispatch(getApiOrder(ingredientsId));  
+            setOpen(true);
     } else {
       navigate("/login");
     }
@@ -74,8 +70,8 @@ const BurgerConstructor: FC = React.memo(() => {
       bun._id,
     ];
     if (successTokenUpdate && (orderRequestFailed || wsConnectedFailed)) {
-      dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie("token")}`));
-      wsConnectedFailed && dispatch(wsConnectionStartHistory());
+      dispatch(getApiOrder(ingredientsId));
+      
     }
   }, [successTokenUpdate, orderRequestFailed, wsConnectedFailed]); // eslint-disable-line
 

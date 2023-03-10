@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
 import classes from "./IngredientCard.module.css";
@@ -10,8 +10,8 @@ import { TIngredient } from "../../services/types/data";
 
 const IngredientCard: FC<TIngredientCard> = React.memo(({ data }) => {
   //  ID и тип карточки записываются в состояние
-  const [id] = React.useState(data._id);
-  const [type] = React.useState(data.type);
+  const [id] = useState(data._id);
+  const [type] = useState(data.type);
 
   // DRAGGABLE
   const [{ opacity }, dragRef] = useDrag({

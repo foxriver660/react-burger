@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { TCompoundItem } from "../../../services/types";
+import { TCompoundItem } from "../../services/types";
 import classes from "./CompoundItem.module.css";
 
 const CompoundItem: FC<TCompoundItem> = React.memo(({ type, quantity }) => {

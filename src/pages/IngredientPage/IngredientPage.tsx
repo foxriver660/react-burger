@@ -3,10 +3,9 @@ import classes from "./IngredientPage.module.css";
 import { useParams } from "react-router-dom";
 import { getApiIngredients } from "../../services/actions/ingredientActions";
 import { getData } from "../../selectors/selectors";
-import CompoundItem from "../../components/IngredientDetails/CompoundItem/CompoundItem";
-import { Loader } from "../../components/Loader/Loader";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
+import { CompoundItem, Loader } from "../../components";
 
 
 const IngredientPage: FC = React.memo(() => {

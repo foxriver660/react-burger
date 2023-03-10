@@ -1,7 +1,7 @@
 import React, { FC, MutableRefObject } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
-import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
+import {IngredientsCategory} from "../index";
 import { SAUCE, BUN, MAIN } from "../../utils/constant";
 import { Waypoint } from "react-waypoint";
 import { getData } from "../../selectors/selectors";

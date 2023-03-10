@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import classes from "./OrderСompletedModal.module.css";
-import { Loader } from "../Loader/Loader";
+import { Loader } from "../index";
 import { status, statusColor } from "../../utils/determineStatus";
 import { getOrders } from "../../selectors/selectors";
 import { useAppSelector } from "../../services/hooks";

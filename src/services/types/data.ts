@@ -49,12 +49,11 @@ export type TToken = {
 }
 
 export type TActions = {
-  wsConnectionStartFeed: ()=> {type: string};
-  wsConnectionStartHistory: ()=> {type: string};
+  wsConnectionStart: (payload: string)=> {type: string; payload: string};
   wsDisconnect: ()=> {type: string};
   wsConnectionSuccess: ()=> {type: string};
   wsConnectionClosed: ()=> {type: String};
   wsConnectionError: ()=> {type: string};
-  wsGetMessage: (payload: TAllOrders)=> {type: string, payload: TAllOrders};
+  wsGetMessage: (payload: TAllOrders)=> {type: string; payload: TAllOrders};
   wsConnectionFailed: ()=> {type: string};
 }

@@ -2,9 +2,10 @@ import React, { FC } from "react";
 import classes from "./StatisticFeed.module.css";
 import OrderBox from "./OrderBox/OrderBox";
 import { getOrders } from "../../selectors/selectors";
-import { Loader } from "../Loader/Loader";
 import { TOrder } from "../../services/types/data";
 import { useAppSelector } from "../../services/hooks";
+import {Loader} from "../index";
+
 const StatisticFeed: FC = React.memo(() => {
   // ПОЛУЧЕНИЕ ИЗ СТОРА ВСЕГО СТЕКА
   const orders = useAppSelector(getOrders);

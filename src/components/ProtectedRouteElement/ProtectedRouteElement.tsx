@@ -1,12 +1,12 @@
 import { useLocation, Navigate, RouteProps } from "react-router-dom";
 import { FC } from "react";
-import { useSelector } from "react-redux/es/exports";
 import { getAuthUser } from "../../selectors/selectors";
+import { useAppSelector } from "../../services/hooks";
 
 
-export const ProtectedRouteElement: FC<RouteProps> = ({ element }) => {
+const ProtectedRouteElement: FC<RouteProps> = ({ element }) => {
   const location = useLocation();
-  const authUser = useSelector(getAuthUser);
+  const authUser = useAppSelector(getAuthUser);
 
   if (!authUser) {
     return <Navigate to="/login" replace state={{ from: location }} />;
@@ -14,3 +14,4 @@ export const ProtectedRouteElement: FC<RouteProps> = ({ element }) => {
   return <>{element}</>;
 };
 
+export default ProtectedRouteElement;

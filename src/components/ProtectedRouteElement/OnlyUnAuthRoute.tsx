@@ -1,11 +1,11 @@
 import { useLocation, Navigate, RouteProps } from "react-router-dom";
 import { FC } from "react";
-import { useSelector } from "react-redux/es/exports";
 import { getAuthUser } from "../../selectors/selectors";
+import { useAppSelector } from "../../services/hooks";
 
-export const OnlyUnAuthRoute: FC<RouteProps> = ({ element }) => {
+const OnlyUnAuthRoute: FC<RouteProps> = ({ element }) => {
   const location = useLocation();
-  const authUser = useSelector(getAuthUser);
+  const authUser = useAppSelector(getAuthUser);
 
   const fromPage = location.state?.from?.pathname || "/";
   if (authUser) {
@@ -14,3 +14,4 @@ export const OnlyUnAuthRoute: FC<RouteProps> = ({ element }) => {
   return <>{element}</>;
 };
 
+export default OnlyUnAuthRoute

@@ -1,10 +1,7 @@
 import React, { FormEvent, useEffect } from "react";
-import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import classes from "./ProfilePage.module.css";
-import Form from "../../components/Form/Form";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-
 import {
   logout,
   updateUserProfile,
@@ -19,6 +16,7 @@ import {
 } from "../../selectors/selectors";
 import { wsResetMessage } from "../../services/actions/wsActions";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { Form, FormOverlay } from "../../components";
 const ProfilePage = React.memo(() => {
   const dispatch = useAppDispatch();
   const location = useLocation();

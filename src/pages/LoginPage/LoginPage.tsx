@@ -1,13 +1,11 @@
 import React, { FC, FormEvent } from "react";
-import { Link } from "react-router-dom";
-import FormOverlay from "../../components/FormOverlay/FormOverlay";
-import Form from "../../components/Form/Form";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import classes from "./LoginPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { login } from "../../services/actions/profileActions";
-import { useNavigate, useLocation } from "react-router-dom";
 import { useAppDispatch } from "../../services/hooks";
+import { Form, FormOverlay } from "../../components";
 
 const LoginPage: FC = React.memo(() => {
   // ХУКИ

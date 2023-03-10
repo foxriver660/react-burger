@@ -1,23 +1,22 @@
 import React, { FC, useEffect } from "react";
 import classes from "./OrderDetailPage.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientItem from "../../components/IngredientItem/IngredientItem";
 import { useParams } from "react-router-dom";
 import { getApiIngredients } from "../../services/actions/ingredientActions";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
-import { Loader } from "../../components/Loader/Loader";
 import { gmt } from "../../utils/determineGMT";
 import {
   wsDisconnect,
-  wsConnectionStartFeed,
-  wsConnectionStartHistory,
-} from "../../services/actions/wsActions";
+  wsConnectionStart,
+  } from "../../services/actions/wsActions";
 import { status, statusColor } from "../../utils/determineStatus";
 import { getAuthUser, getOrders } from "../../selectors/selectors";
 import { TOrderDetailPage } from "../../services/types";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { TIngredient } from "../../services/types/data";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
+import { WS_URL, WS_URL_HISTORY } from "../../utils/constant";
+import { IngredientItem, Loader } from "../../components";
 
 const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
   const dispatch = useAppDispatch();
@@ -33,8 +32,8 @@ const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
   // ДИСПАТИМ WS НА ИНГРЕДИЕНТЫ
   useEffect(() => {
     source === "feed"
-      ? dispatch(wsConnectionStartFeed())
-      : dispatch(wsConnectionStartHistory());
+      ? dispatch(wsConnectionStart(WS_URL))
+      : dispatch(wsConnectionStart(WS_URL_HISTORY))
     return () => {
       dispatch(wsDisconnect());
     };
