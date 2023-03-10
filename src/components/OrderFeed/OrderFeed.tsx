@@ -2,33 +2,16 @@ import React, { FC } from "react";
 import classes from "./OrderFeed.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ImageCicle from "../ImageCicle/ImageCicle";
-import { useSelector } from "react-redux/es/hooks/useSelector";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
 import { status, statusColor } from "../../utils/determineStatus";
-
-import {
-  calcTotalPrice,
-  filterAvailableIngredients,
-} from "../../utils/calculationFunc";
 import { gmt } from "../../utils/determineGMT";
-import { getData } from "../../selectors/selectors";
 import { TOrderFeed } from "../../services/types";
 import { TIngredient } from "../../services/types/data";
-import { useAppSelector } from "../../services/hooks";
+import useIngredientsOperations from "../../hooks/useIngredientsOperations";
+
 const OrderFeed: FC<TOrderFeed> = React.memo(({ order, type }) => {
-  // ОТКУДА РЕНДЕРИМ
   const selector = type === "orderHistory";
-  // ИНГРЕДИЕНТЫ ИЗ СТОРА
-  const availableIngredients = useAppSelector(getData);
-  // !ВЫЧИСЛЕНИЯ
-  const filteredIngredients = React.useMemo(
-    () => filterAvailableIngredients(availableIngredients, order),
-    [availableIngredients, order]
-  );
-  const totalPrice = React.useMemo(
-    () => calcTotalPrice(filteredIngredients),
-    [filteredIngredients]
-  );
+  const { filteredIngredients, totalPrice } = useIngredientsOperations(order, undefined);
 
   return (
     <li className={`${classes.orderWrapper} p-6`}>
@@ -51,14 +34,16 @@ const OrderFeed: FC<TOrderFeed> = React.memo(({ order, type }) => {
         )}
       </div>
       <div className={classes.orderImgs}>
-        {filteredIngredients.slice(0, 6).map((item: TIngredient, index: number) => (
-          <ImageCicle
-            key={index}
-            src={item.image_mobile}
-            index={index}
-            rest={filteredIngredients.length - 6}
-          />
-        ))}
+        {filteredIngredients
+          .slice(0, 6)
+          .map((item: TIngredient, index: number) => (
+            <ImageCicle
+              key={index}
+              src={item.image_mobile}
+              index={index}
+              rest={filteredIngredients.length - 6}
+            />
+          ))}
       </div>
       <div className={classes.orderPrice}>
         <p className={`${classes.orderSum} text text_type_digits-default`}>

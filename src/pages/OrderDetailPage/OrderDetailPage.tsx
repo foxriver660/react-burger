@@ -22,21 +22,23 @@ import {
 import { status, statusColor } from "../../utils/determineStatus";
 import { getAuthUser, getData, getOrders } from "../../selectors/selectors";
 import { TOrderDetailPage } from "../../services/types";
-import { useAppDispatch } from "../../services/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { TIngredient } from "../../services/types/data";
+import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 
 const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const { orders } = useSelector(getOrders);
-  const availableIngredients = useSelector(getData);
-  const authUser = useSelector(getAuthUser);
+  const { orders } = useAppSelector(getOrders);
+  const { order, filteredIngredients, totalPrice, quantityIngredients } =
+    useIngredientsOperations(orders, id);
+  const authUser = useAppSelector(getAuthUser);
   // ДИСПАТИМ АПИ НА ДОСТУПНЫЕ ИНГРЕДИЕНТЫ
   useEffect(() => {
     dispatch(getApiIngredients());
   }, []); // eslint-disable-line
   // ДИСПАТИМ WS НА ИНГРЕДИЕНТЫ
-  React.useEffect(() => {
+  useEffect(() => {
     source === "feed"
       ? dispatch(wsConnectionStartFeed())
       : dispatch(wsConnectionStartHistory());
@@ -45,20 +47,6 @@ const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
     };
   }, [authUser]); // eslint-disable-line
 
-  //  !ВЫЧИСЛЕНИЯ
-  const order = React.useMemo(() => findIngredient(orders, id), [orders, id]);
-  const filteredIngredients = React.useMemo(
-    () => filterAvailableIngredients(availableIngredients, order),
-    [availableIngredients, order]
-  );
-  const totalPrice = React.useMemo(
-    () => calcTotalPrice(filteredIngredients),
-    [filteredIngredients]
-  );
-  const quantityIngredients = React.useMemo(
-    () => countingOccurrences(order),
-    [order]
-  );
   return (
     <section className={classes.container}>
       {order ? (
@@ -85,13 +73,15 @@ const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
             Состав:
           </h3>
           <ul className={`${classes.scrollWrapper} pr-6 pb-10`}>
-            {filteredIngredients.map((ingredient: TIngredient, index: number) => (
-              <IngredientItem
-                key={index}
-                ingredient={ingredient}
-                quantityIngredients={quantityIngredients}
-              />
-            ))}
+            {filteredIngredients.map(
+              (ingredient: TIngredient, index: number) => (
+                <IngredientItem
+                  key={index}
+                  ingredient={ingredient}
+                  quantityIngredients={quantityIngredients}
+                />
+              )
+            )}
           </ul>
           <div className={`${classes.orderFooter} pt-6`}>
             <p

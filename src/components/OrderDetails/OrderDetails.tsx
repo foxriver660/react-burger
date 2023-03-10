@@ -16,27 +16,13 @@ import {
 } from "../../utils/calculationFunc";
 import { getData, getOrders } from "../../selectors/selectors";
 import { TIngredient } from "../../services/types/data";
+import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 const OrderDetails: FC = React.memo(() => {
   const { id } = useParams();
-  // ВСЕ ЗАКАЗЫ ЗАГРУЖЕННЫЕ ПО WS
   const { orders } = useSelector(getOrders);
-  // ВСЕ ДОСТУПНЫЕ ИНГРЕДИЕНТЫ ИЗ СТОРА
-  const availableIngredients = useSelector(getData);
-  //  !ВЫЧИСЛЕНИЯ
-  const order = React.useMemo(() => findIngredient(orders, id), [orders, id]);
-  const filteredIngredients = React.useMemo(
-    () => filterAvailableIngredients(availableIngredients, order),
-    [availableIngredients, order]
-  );
-  
-  const totalPrice = React.useMemo(
-    () => calcTotalPrice(filteredIngredients),
-    [filteredIngredients]
-  );
-  const quantityIngredients = React.useMemo(
-    () => countingOccurrences(order),
-    [order]
-  );
+  const { order, filteredIngredients, totalPrice, quantityIngredients } =
+    useIngredientsOperations(orders, id);
+
   return (
     <div className={classes.wrapper}>
       {order ? (
@@ -63,13 +49,15 @@ const OrderDetails: FC = React.memo(() => {
             Состав:
           </h3>
           <ul className={`${classes.scrollWrapper} pr-6 pb-10`}>
-            {filteredIngredients.map((ingredient: TIngredient, index: number) => (
-              <IngredientItem
-                key={index}
-                ingredient={ingredient}
-                quantityIngredients={quantityIngredients}
-              />
-            ))}
+            {filteredIngredients.map(
+              (ingredient: TIngredient, index: number) => (
+                <IngredientItem
+                  key={index}
+                  ingredient={ingredient}
+                  quantityIngredients={quantityIngredients}
+                />
+              )
+            )}
           </ul>
           <div className={`${classes.orderFooter} pt-6`}>
             <p
@@ -89,7 +77,7 @@ const OrderDetails: FC = React.memo(() => {
           </div>
         </>
       ) : (
-        <Loader classname={undefined} />
+        <Loader classname={classes.loader} />
       )}
     </div>
   );

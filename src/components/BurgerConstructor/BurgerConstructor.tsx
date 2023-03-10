@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
   InfoIcon,
@@ -68,7 +68,7 @@ const BurgerConstructor: FC = React.memo(() => {
     }
   };
   // ПРЕДОХРАНИТЕЛЬ НА СЛУЧАЙ ИСТЕЧЕНИЯ СРОКА ***accessToken***
-  React.useEffect(() => {
+  useEffect(() => {
     const ingredientsId = [
       ...ingredients.map((item: TIngredient) => item._id),
       bun._id,

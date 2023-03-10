@@ -8,11 +8,12 @@ import { Waypoint } from "react-waypoint";
 import { useSelector } from "react-redux/es/exports";
 import { getData } from "../../selectors/selectors";
 import { TIngredient } from "../../services/types/data";
+import { useAppSelector } from "../../services/hooks";
 
 const BurgerIngredients: FC = React.memo(() => {
   const [current, setCurrent] = React.useState(BUN);
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
-  const data = useSelector(getData);
+  const data = useAppSelector(getData);
 
   // РЕАЛИЗАЦИЯ СКРОЛЛА
   const mainRef  = React.useRef(null);

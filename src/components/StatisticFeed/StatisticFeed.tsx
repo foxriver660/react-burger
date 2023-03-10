@@ -5,9 +5,10 @@ import OrderBox from "./OrderBox/OrderBox";
 import { getOrders } from "../../selectors/selectors";
 import { Loader } from "../Loader/Loader";
 import { TOrder } from "../../services/types/data";
+import { useAppSelector } from "../../services/hooks";
 const StatisticFeed: FC = React.memo(() => {
   // ПОЛУЧЕНИЕ ИЗ СТОРА ВСЕГО СТЕКА
-  const orders = useSelector(getOrders);
+  const orders = useAppSelector(getOrders);
 
   // РАЗДЕЛЯЕМ ПО ГОТОВНОСТИ
   const { doneOrder, waitOrder } = React.useMemo(() => {

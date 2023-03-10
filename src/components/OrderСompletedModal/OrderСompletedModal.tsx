@@ -1,11 +1,12 @@
 import React, { FC } from "react";
 import classes from "./OrderСompletedModal.module.css";
-import { useSelector } from "react-redux";
 import { Loader } from "../Loader/Loader";
 import { status, statusColor } from "../../utils/determineStatus";
 import { getOrders } from "../../selectors/selectors";
+import { useAppSelector } from "../../services/hooks";
+
 const OrderСompletedModal: FC = React.memo(() => {
-  const { orders } = useSelector(getOrders);
+  const { orders } = useAppSelector(getOrders);
   // ПОЛУЧАЕМ ПОСЛЕДНИЙ ЗАКАЗ ПО СОКЕТ СОЕДИНЕНИЮ
   const selected = [...orders].reverse()[0];
 
