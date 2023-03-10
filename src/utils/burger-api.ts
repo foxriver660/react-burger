@@ -1,5 +1,6 @@
 import { TToken, TUserInfo, TUserLogin } from "../services/types/data";
 import { BURGER_API_URL, BURGER_API_AUTH_URL } from "./constant";
+import { getCookie } from "./cookie";
 
 /* ПРОВЕРКА ОТВЕТА СЕРВЕРА */
 const checkResponse = (res: Response) => {
@@ -10,10 +11,10 @@ const checkResponse = (res: Response) => {
 const getIngredientsAPI = () =>
   fetch(`${BURGER_API_URL}/ingredients`).then(checkResponse);
 
-const getOrderAPI = (ingredients: string[], token: string | undefined) =>
+const getOrderAPI = (ingredients: string[]) =>
   fetch(`${BURGER_API_URL}/orders`, {
     method: "POST",
-    headers: { "authorization": `${token}`, "Content-Type": "application/json" },
+    headers: { "authorization": `Bearer ${getCookie("token")}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       ingredients,
     }),
@@ -44,14 +45,14 @@ const resetPassAPI = (newPassword: string, emailCode: string) =>
   }).then(checkResponse);
 
 //  !ЗАПРОС НА ВЫХОД ПОЛЬЗОВАТЕЛЯ
-const logoutAPI = (refreshToken: string | undefined) => {
+const logoutAPI = () => {
   return fetch(`${BURGER_API_AUTH_URL}/logout`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      token: refreshToken,
+      token: getCookie("refreshToken"),
     }),
   }).then(checkResponse);
 };
@@ -84,22 +85,22 @@ const loginAPI = ({ email, password }: TUserLogin) =>
   }).then(checkResponse);
 
 // ! ЗАПРОС ДАННЫХ ПОЛЬЗОВАТЕЛЯ
-const checkUserAccessAPI = (accessToken: string | undefined) =>
+const checkUserAccessAPI = () =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${accessToken}`,
+      authorization: `Bearer ${getCookie("token")}`,
     },
   }).then(checkResponse);
 
 //  !ЗАПРОС НА РЕДАКТИРОВАНИЕ ПРОФИЛЯ
-const updateUserProfileAPI = (accessToken: string | undefined, { name, email, password }: TUserInfo) =>
+const updateUserProfileAPI = ({ name, email, password }: TUserInfo) =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${accessToken}`,
+      authorization: `Bearer ${getCookie("token")}`,
     },
     body: JSON.stringify({
       email,
@@ -109,14 +110,14 @@ const updateUserProfileAPI = (accessToken: string | undefined, { name, email, pa
   }).then(checkResponse);
 
 // !ЗАПРОС НА РЕФРЕШ ТОКЕНА
-const refreshTokenAPI = (refreshToken: string | undefined) => {
+const refreshTokenAPI = () => {
   return fetch(`${BURGER_API_AUTH_URL}/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      token: refreshToken,
+      token: getCookie("refreshToken"),
     }),
   }).then(checkResponse);
 };

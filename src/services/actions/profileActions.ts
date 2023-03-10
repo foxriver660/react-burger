@@ -122,68 +122,65 @@ export const updateUserSuccessAction = (
   payload,
 });
 // ГЕНЕРАТОР THUNK
-export const updatePassRequest =
-  (email: string) => (dispatch: AppDispatch) => {
-    updatePassRequestAPI(email)
-      .then((res) => {
-        dispatch(updatePassAction(res.success));
-        /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res); */
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+export const updatePassRequest = (email: string) => (dispatch: AppDispatch) => {
+  updatePassRequestAPI(email)
+    .then((res) => {
+      dispatch(updatePassAction(res.success));
+      console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 export const resetPass =
   (newPassword: string, emailCode: string) => (dispatch: AppDispatch) => {
     resetPassAPI(newPassword, emailCode)
       .then((res) => {
         dispatch(resetPassAction(res.success));
-        /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res); */
+        console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-export const logout =
-  (refreshToken: string | undefined) => (dispatch: AppDispatch) => {
-    return logoutAPI(refreshToken)
-      .then((res) => {
-        dispatch(logoutAction(res.success));
-        deleteCookie("token");
-        deleteCookie("refreshToken");
-        /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res); */
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+export const logout = () => (dispatch: AppDispatch) => {
+  return logoutAPI()
+    .then((res) => {
+      dispatch(logoutAction(res.success));
+      deleteCookie("token");
+      deleteCookie("refreshToken");
+      console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
-export const registerUser =
-  (user: TUserInfo) => (dispatch: AppDispatch) => {
-    return registerUserAPI(user)
-      .then((res) => {
-        setCookie("token", parsForCookie(res.accessToken));
-        setCookie("refreshToken", res.refreshToken);
-        /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res); */
-        if (res.success) {
-          dispatch(registerUserAction(res.success));
-          dispatch(setUserAction(res.user));
-          console.log(res.user)
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+export const registerUser = (user: TUserInfo) => (dispatch: AppDispatch) => {
+  return registerUserAPI(user)
+    .then((res) => {
+      setCookie("token", parsForCookie(res.accessToken));
+      setCookie("refreshToken", res.refreshToken);
+      console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res);
+      if (res.success) {
+        dispatch(registerUserAction(res.success));
+        dispatch(setUserAction(res.user));
+        console.log(res.user);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 export const login = (user: TUserLogin) => (dispatch: AppDispatch) => {
   return loginAPI(user)
     .then((res) => {
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
-      console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res); 
+      console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res);
       if (res.success) {
         dispatch(loginAction(res.success));
         dispatch(setUserAction(res.user));
@@ -194,43 +191,49 @@ export const login = (user: TUserLogin) => (dispatch: AppDispatch) => {
     });
 };
 
-export const checkUserAccess =
-  (accessToken: string | undefined) => (dispatch: AppDispatch) => {
-    checkUserAccessAPI(accessToken)
-      .then((res) => {
-        /* console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res); */
-        dispatch(setUserAction(res.user));
-        dispatch(updateTokenAction(null));
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.message === JWT_MALFORMED || JWT_EXPIRED) {
-          // TODO РАЗОБРАТСЯ
-          dispatch(refreshToken(getCookie("refreshToken")));
-        }
-      });
-  };
+export const checkUserAccess = () => (dispatch: AppDispatch) => {
+  checkUserAccessAPI()
+    .then((res) => {
+      console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res);
+      dispatch(setUserAction(res.user));
+      dispatch(updateTokenAction(null));
+    })
+    .catch((err) => {
+      console.log(err);
+      if (err.message === JWT_MALFORMED || JWT_EXPIRED) {
+        // TODO РАЗОБРАТСЯ
+        dispatch(refreshToken());
+      }
+    });
+};
 
-export const refreshToken =
-  (refreshToken: string | undefined) => (dispatch: AppDispatch) => {
-    return refreshTokenAPI(refreshToken)
-      .then((res) => {
-        /* console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);  */
-        setCookie("token", parsForCookie(res.accessToken));
-        setCookie("refreshToken", res.refreshToken);
-        dispatch(updateTokenAction(res.success));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+export const refreshToken = () => (dispatch: AppDispatch) => {
+  return refreshTokenAPI()
+    .then((res) => {
+      console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);
+      setCookie("token", parsForCookie(res.accessToken));
+      setCookie("refreshToken", res.refreshToken);
+      dispatch(updateTokenAction(res.success));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 export const updateUserProfile =
-  (accessToken: string | undefined, { name, email, password }: {name?: string, email?: string, password: string}) =>
+  ({
+    name,
+    email,
+    password,
+  }: {
+    name?: string;
+    email?: string;
+    password: string;
+  }) =>
   (dispatch: AppDispatch) => {
-    updateUserProfileAPI(accessToken, { name, email, password })
+    updateUserProfileAPI({ name, email, password })
       .then((res) => {
-        /* console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res); */
+        console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);
         dispatch(setUserAction(res.user));
         dispatch(updateUserSuccessAction(res.success));
       })
@@ -238,7 +241,7 @@ export const updateUserProfile =
         console.log(err);
         if (err.message === JWT_MALFORMED || JWT_EXPIRED) {
           // TODO РАЗОБРАТСЯ
-           dispatch(refreshToken(getCookie("refreshToken"))); 
+          dispatch(refreshToken());
           dispatch(updateUserFailedAction(!err.success));
         }
       });

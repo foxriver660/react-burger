@@ -31,7 +31,7 @@ const App: FC = React.memo(() => {
 
   /* eslint-disable */
   useEffect(() => {
-    dispatch(checkUserAccess(accessToken));
+    dispatch(checkUserAccess());
   }, [successTokenUpdate]);
   useEffect(() => {
     dispatch(getApiIngredients());

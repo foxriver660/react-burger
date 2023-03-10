@@ -34,8 +34,8 @@ export const getOrderFailed = (): IGetOrderFailedAction => ({
 });
 // ГЕНЕРАТОР THUNK
 export const getApiOrder =
-  (ingredients: string[], token: string) => (dispatch: AppDispatch) => {
-    getOrderAPI(ingredients, token)
+  (ingredients: string[]) => (dispatch: AppDispatch) => {
+    getOrderAPI(ingredients)
       .then((res) => {
          dispatch(getOrder(res.order.number));
         /* console.log("ДАННЫЕ НАПРАВЛЕНЫ getApiOrder:", res); */

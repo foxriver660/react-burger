@@ -26,7 +26,6 @@ const ProfilePage = React.memo(() => {
   const [isLoading, setIsLoading] = React.useState(false);
   // ПОЛУЧАЕМ ТОКЕНЫ
   const accessToken = getCookie("token");
-  const refreshToken = getCookie("refreshToken");
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const authUser = useAppSelector(getAuthUser);
   const updateRequestFailed = useAppSelector(getUpdateUserProfileFailed);
@@ -58,7 +57,7 @@ const ProfilePage = React.memo(() => {
   const handleSubmit = React.useCallback(
     (e: FormEvent) => {
       e.preventDefault();
-      dispatch(updateUserProfile(accessToken, updateUser));
+      dispatch(updateUserProfile(updateUser));
       setIsLoading(true);
     },
     [dispatch, accessToken, updateUser]
@@ -67,7 +66,7 @@ const ProfilePage = React.memo(() => {
   useEffect(() => {
     dispatch(wsResetMessage());
     if (updateRequestFailed) {
-      dispatch(updateUserProfile(accessToken, updateUser));
+      dispatch(updateUserProfile(updateUser));
     }
     return () => {
       dispatch(wsResetMessage());
@@ -77,7 +76,7 @@ const ProfilePage = React.memo(() => {
 
   // ВЫХОД
   const handleClick = () => {
-    dispatch(logout(refreshToken)).then(() => navigate("/", { replace: true }));
+    dispatch(logout()).then(() => navigate("/", { replace: true }));
   };
   // СБРОС ЛОКАЛЬНОГО СТЕЙТА
   const handleReset = () => {
