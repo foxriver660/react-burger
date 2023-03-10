@@ -6,9 +6,10 @@ import { TActions } from "../services/types/data";
 export const socketMiddleware = (wsActions: TActions): Middleware => {
   return (store) => {
     let socket: WebSocket | null = null;
-    let isConnected = false;
     let reconnectTimer = 0;
     let timeout = 5000;
+    let url = "";
+
     return (next) => (action) => {
       const { dispatch, getState } = store;
 
@@ -25,13 +26,14 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
 
       if (type === wsConnectionStart(payload).type) {
         console.log(payload);
-        socket = new WebSocket(payload);
+        url = payload;
+        socket = new WebSocket(url);
         console.log("***create WebSocket***", socket);
       }
 
       if (type === wsDisconnect().type) {
         clearTimeout(reconnectTimer);
-        isConnected = false;
+
         reconnectTimer = 0;
         socket?.close(1000, "User disconnected");
         socket = null;
@@ -55,19 +57,17 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
         };
         socket.onerror = (event) => {
           dispatch(wsConnectionError());
-          /* console.log("socket.onerror:", event);  */
+          console.log("socket.onerror:", event);
         };
         socket.onclose = (event) => {
-          /* console.log("socket.onclose:", event); */
+          console.log("socket.onclose:", event);
           if (event.code !== 1000) {
             dispatch(wsConnectionError());
-          }
-          dispatch(wsConnectionClosed());
-          if (isConnected) {
             reconnectTimer = window.setTimeout(() => {
-              dispatch(wsConnectionStart(""));
+              dispatch(wsConnectionStart(url));
             }, timeout);
           }
+          dispatch(wsConnectionClosed());
         };
       }
 

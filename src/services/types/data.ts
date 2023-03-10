@@ -19,7 +19,6 @@ export type TIngredient = {
   readonly nanoid?: string;
 };
 
-
 export type TUser = {
   readonly email: string | undefined;
   readonly name: string | undefined;

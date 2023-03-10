@@ -8,7 +8,7 @@ import {
 import { getOrders } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { TOrder } from "../../services/types/data";
-import { WS_URL } from "../../utils/constant";
+import { WS_URL_FEED } from "../../utils/constant";
 import { Loader, OrderFeed, StatisticFeed } from "../../components";
 
 const FeedPage: FC = React.memo(() => {
@@ -17,11 +17,11 @@ const FeedPage: FC = React.memo(() => {
   const orders = useAppSelector(getOrders);
 
   React.useEffect(() => {
-    dispatch(wsConnectionStart(WS_URL));
+    dispatch(wsConnectionStart(WS_URL_FEED));
 
-    return () => {
+     return () => {
       dispatch(wsDisconnect());
-    };
+    }; 
   }, []); // eslint-disable-line
 
   return (
