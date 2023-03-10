@@ -3,7 +3,7 @@ import {
   deleteCookie,
   getCookie,
   parsForCookie,
-} from "../../components/utils/cookie";
+} from "../../utils/cookie";
 
 import {
   updatePassRequestAPI,
@@ -14,10 +14,10 @@ import {
   resetPassAPI,
   updateUserProfileAPI,
   refreshTokenAPI,
-} from "../../components/utils/burger-api";
-import { JWT_MALFORMED, JWT_EXPIRED } from "../../components/utils/constant";
+} from "../../utils/burger-api";
+import { JWT_MALFORMED, JWT_EXPIRED } from "../../utils/constant";
 import { AppDispatch, AppThunk } from "../types";
-import { TUser, TUserInfo, TUserLogin } from "../types/data";
+import { TToken, TUser, TUserInfo, TUserLogin } from "../types/data";
 // !ACTIONS
 export const UPDATE_PASS: "UPDATE_PASS" = "UPDATE_PASS";
 export const RESET_PASS: "RESET_PASS" = "RESET_PASS";
@@ -147,7 +147,7 @@ export const resetPass =
   };
 
 export const logout =
-  (refreshToken: string) => (dispatch: AppDispatch) => {
+  (refreshToken: string | undefined) => (dispatch: AppDispatch) => {
     return logoutAPI(refreshToken)
       .then((res) => {
         dispatch(logoutAction(res.success));
@@ -195,7 +195,7 @@ export const login = (user: TUserLogin) => (dispatch: AppDispatch) => {
 };
 
 export const checkUserAccess =
-  (accessToken: string | undefined | null) => (dispatch: AppDispatch) => {
+  (accessToken: string | undefined) => (dispatch: AppDispatch) => {
     checkUserAccessAPI(accessToken)
       .then((res) => {
         /* console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res); */
@@ -206,13 +206,13 @@ export const checkUserAccess =
         console.log(err);
         if (err.message === JWT_MALFORMED || JWT_EXPIRED) {
           // TODO РАЗОБРАТСЯ
-          /* dispatch(refreshToken(getCookie("refreshToken"))); */
+          dispatch(refreshToken(getCookie("refreshToken")));
         }
       });
   };
 
 export const refreshToken =
-  (refreshToken: string) => (dispatch: AppDispatch) => {
+  (refreshToken: string | undefined) => (dispatch: AppDispatch) => {
     return refreshTokenAPI(refreshToken)
       .then((res) => {
         /* console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);  */
@@ -226,7 +226,7 @@ export const refreshToken =
   };
 
 export const updateUserProfile =
-  (accessToken: string, { name, email, password }: TUserInfo) =>
+  (accessToken: string | undefined, { name, email, password }: {name?: string, email?: string, password: string}) =>
   (dispatch: AppDispatch) => {
     updateUserProfileAPI(accessToken, { name, email, password })
       .then((res) => {
@@ -238,7 +238,7 @@ export const updateUserProfile =
         console.log(err);
         if (err.message === JWT_MALFORMED || JWT_EXPIRED) {
           // TODO РАЗОБРАТСЯ
-          /* dispatch(refreshToken(getCookie("refreshToken"))); */
+           dispatch(refreshToken(getCookie("refreshToken"))); 
           dispatch(updateUserFailedAction(!err.success));
         }
       });

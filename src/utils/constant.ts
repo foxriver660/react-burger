@@ -1,5 +1,5 @@
 const BURGER_API_URL = "https://norma.nomoreparties.space/api";
-const BURGER_API_AUTH_URL = "https://norma.nomoreparties.space/api/auth";
+const BURGER_API_AUTH_URL = `${BURGER_API_URL}/auth`;
 // ТИП ИНГРЕДИЕНТОВ
 const SAUCE = "sauce";
 const BUN = "bun";

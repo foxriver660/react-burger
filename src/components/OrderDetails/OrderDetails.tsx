@@ -6,14 +6,14 @@ import IngredientItem from "../IngredientItem/IngredientItem";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
 import { Loader } from "../Loader/Loader";
-import { gmt } from "../utils/determineGMT";
-import { status, statusColor } from "../utils/determineStatus";
+import { gmt } from "../../utils/determineGMT";
+import { status, statusColor } from "../../utils/determineStatus";
 import {
   calcTotalPrice,
   filterAvailableIngredients,
   countingOccurrences,
   findIngredient,
-} from "../utils/calculationFunc";
+} from "../../utils/calculationFunc";
 import { getData, getOrders } from "../../selectors/selectors";
 import { TIngredient } from "../../services/types/data";
 const OrderDetails: FC = React.memo(() => {

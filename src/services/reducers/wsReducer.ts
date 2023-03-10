@@ -6,21 +6,22 @@ import {
   WS_RESET_MESSAGE,
   WS_CONNECTION_FAILED
 } from "../actions/wsActions";
-import { TWSActions } from "../actions/wsActions";
+import { TWsActions } from "../actions/wsActions";
+import { TAllOrders } from "../types/data";
 
-export type TWSState = {
+export type TWsState = {
   wsConnected: boolean,
   wsConnectedFailed: boolean,
-  orders: { orders: boolean },
+  orders: TAllOrders,
 };
 
-const initialState = {
+const defaultState: TWsState  = {
   wsConnected: false,
   wsConnectedFailed: false,
   orders: { orders: [] },
 };
 
-export const wsReducer = (state = initialState, action: TWSActions) => {
+export const wsReducer = (state = defaultState, action: TWsActions) => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {

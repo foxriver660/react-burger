@@ -1,10 +1,13 @@
-import { getCookie } from "../components/utils/cookie";
-import { INVALID_TOKEN } from "../components/utils/constant";
+import { getCookie } from "../utils/cookie";
+import { INVALID_TOKEN } from "../utils/constant";
 import { refreshToken } from "../services/actions/profileActions";
+import { Middleware } from "redux";
+import { TActions } from "../services/types/data";
 
-export const socketMiddleware = (wsUrl, wsActions) => {
+
+export const socketMiddleware = (wsUrl: string, wsActions: TActions): Middleware => {
   return (store) => {
-    let socket = null;
+    let socket: WebSocket | null = null;
     let isConnectedAuthUser = false;
     let isConnected = false;
     let reconnectTimer = 0;
@@ -31,6 +34,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         /*  console.log("***create WebSocket History***"); */
       }
       if (type === wsConnectionStartFeed().type) {
+        
         socket = new WebSocket(`${wsUrl}/all`);
         isConnected = true;
         /*  console.log("***create WebSocket Feed***"); */
@@ -58,7 +62,8 @@ export const socketMiddleware = (wsUrl, wsActions) => {
                    success && dispatch(wsGetMessage(restParsedData));
           if (restParsedData.message === INVALID_TOKEN) {
             dispatch(wsConnectionFailed());
-            dispatch(refreshToken(getCookie("refreshToken")));
+            // TODO убрать в компонент
+           /*  dispatch(refreshToken(getCookie("refreshToken"))); */
           }
         };
         socket.onerror = (event) => {

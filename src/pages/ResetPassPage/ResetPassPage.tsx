@@ -1,5 +1,5 @@
 import FormOverlay from "../../components/FormOverlay/FormOverlay";
-import React from "react";
+import React, { ChangeEvent, FC, FormEvent, MutableRefObject } from "react";
 import { Link, Navigate } from "react-router-dom";
 import classes from "./ResetPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
@@ -11,27 +11,28 @@ import {
   getUpdatePassRequest,
   getResetPassRequest,
 } from "../../selectors/selectors";
-const ResetPassPage = React.memo(() => {
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+const ResetPassPage: FC = React.memo(() => {
   // ХУКИ
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ ПАРОЛЬ
   const [newPassword, setNewPassword] = React.useState("");
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ КОДА ИЗ ПОЧТЫ
   const [code, setCode] = React.useState("");
   // ПОЛУЧАЕМ РЕКВЕСТЫ ИЗ СТОРА
-  const resetPassRequest = useSelector(getResetPassRequest);
-  const updatePassRequest = useSelector(getUpdatePassRequest);
+  const resetPassRequest = useAppSelector(getResetPassRequest);
+  const updatePassRequest = useAppSelector(getUpdatePassRequest);
   // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const [isValidCode, setIsValidCode] = React.useState(true);
   const [showPassword, setShowPassword] = React.useState(false);
-  const passwordRef = React.useRef(null);
+  const passwordRef = React.useRef<HTMLInputElement>(null);
   const handlePasswordClick = () => {
-    passwordRef.current.focus();
+    passwordRef.current?.focus();
     setShowPassword(!showPassword);
   };
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(resetPass(newPassword, code));
   };
@@ -44,24 +45,7 @@ const ResetPassPage = React.memo(() => {
     return <Navigate to={"/forgot-password"} />;
   }
 
-  // КОНФИГУРАЦИЯ ИНПУТОВ
-  const passwordInputConfig = {
-    required: true,
-    name: "password",
-    placeholder: "Введите новый пароль",
-    maxLength: 12,
-    minLength: 2,
-    errorText: "Ошибка",
-    autoComplete: "off",
-  };
 
-  const codeInputConfig = {
-    required: true,
-    type: "text",
-    name: "code",
-    placeholder: "Введите код из письма",
-    errorText: "Ошибка",
-  };
   return (
     <FormOverlay type="form">
       <Form
@@ -70,7 +54,13 @@ const ResetPassPage = React.memo(() => {
         mainForm={true}
       >
         <Input
-          {...passwordInputConfig}
+          required={true}
+          name="password"
+          placeholder="Введите новый пароль"
+          maxLength={12}
+          minLength={2}
+          errorText="Ошибка"
+          autoComplete="off"
           value={newPassword}
           ref={passwordRef}
           type={showPassword ? "text" : "password"}
@@ -84,8 +74,12 @@ const ResetPassPage = React.memo(() => {
           }}
         />
         <Input
-          {...codeInputConfig}
+          required={true}
+          name="code"
+          placeholder="Введите код из письма"
+          errorText="Ошибка"
           value={code}
+          type="text"
           onChange={(e) => setCode(e.target.value)}
           error={isValidCode ? false : true}
           onInvalid={(e) => setIsValidCode(false)}

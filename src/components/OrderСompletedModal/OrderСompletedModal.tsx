@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import classes from "./OrderСompletedModal.module.css";
 import { useSelector } from "react-redux";
 import { Loader } from "../Loader/Loader";
-import { status, statusColor } from "../utils/determineStatus";
+import { status, statusColor } from "../../utils/determineStatus";
 import { getOrders } from "../../selectors/selectors";
 const OrderСompletedModal: FC = React.memo(() => {
   const { orders } = useSelector(getOrders);

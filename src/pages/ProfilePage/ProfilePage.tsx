@@ -1,16 +1,16 @@
-import React from "react";
+import React, { FormEvent, useEffect } from "react";
 import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import classes from "./ProfilePage.module.css";
 import Form from "../../components/Form/Form";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux/es/exports";
+
 import {
   logout,
   updateUserProfile,
 } from "../../services/actions/profileActions";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import { getCookie } from "../../components/utils/cookie";
+import { getCookie } from "../../utils/cookie";
 import {
   getSuccessTokenUpdate,
   getAuthUser,
@@ -18,8 +18,9 @@ import {
   getUpdateUserProfileSuccess,
 } from "../../selectors/selectors";
 import { wsResetMessage } from "../../services/actions/wsActions";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
 const ProfilePage = React.memo(() => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
@@ -27,22 +28,21 @@ const ProfilePage = React.memo(() => {
   const accessToken = getCookie("token");
   const refreshToken = getCookie("refreshToken");
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
-  const authUser = useSelector(getAuthUser);
-  const updateRequestFailed = useSelector(getUpdateUserProfileFailed);
-  const updateRequestSuccess = useSelector(getUpdateUserProfileSuccess);
-  const successTokenUpdate = useSelector(getSuccessTokenUpdate);
+  const authUser = useAppSelector(getAuthUser);
+  const updateRequestFailed = useAppSelector(getUpdateUserProfileFailed);
+  const updateRequestSuccess = useAppSelector(getUpdateUserProfileSuccess);
+  const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
 
-  // КЛИКИ ИНПУТОВ
-  const nameRef = React.useRef(null);
-  const emailRef = React.useRef(null);
-  const passwordRef = React.useRef(null);
-  const handleNameClick = () => nameRef.current.focus();
-  const handleEmailClick = () => emailRef.current.focus();
-  const handlePasswordClick = () => passwordRef.current.focus();
   // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const [isValidEmail, setIsValidEmail] = React.useState(true);
   const [isValidName, setIsValidName] = React.useState(true);
+  const [showPassword, setShowPassword] = React.useState(false);
+  const passwordRef = React.useRef<HTMLInputElement>(null);
+  const handlePasswordClick = () => {
+    passwordRef.current?.focus();
+    setShowPassword(!showPassword);
+  };
   // ЗАПИСЫВАЕМ В ЛОКАЛЬНЫЙ СТЕЙТ VALUE
   const [updateUser, setUpdateUser] = React.useState({
     ...authUser,
@@ -50,13 +50,13 @@ const ProfilePage = React.memo(() => {
   });
 
   // УСТАНОВКА КЛАССА АКТИНОЙ ССЫЛКЕ
-  const setActive = ({ isActive }) =>
+  const setActive = ({ isActive }: { isActive: boolean }) =>
     `${
       isActive ? classes.linkActive : classes.link
     } text text_type_main-medium text_color_inactive`;
   //  ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   const handleSubmit = React.useCallback(
-    (e) => {
+    (e: FormEvent) => {
       e.preventDefault();
       dispatch(updateUserProfile(accessToken, updateUser));
       setIsLoading(true);
@@ -64,12 +64,14 @@ const ProfilePage = React.memo(() => {
     [dispatch, accessToken, updateUser]
   );
   /* eslint-disable */
-  React.useEffect(() => {
-    dispatch(wsResetMessage())
+  useEffect(() => {
+    dispatch(wsResetMessage());
     if (updateRequestFailed) {
       dispatch(updateUserProfile(accessToken, updateUser));
     }
-    return ()=>{dispatch(wsResetMessage());}
+    return () => {
+      dispatch(wsResetMessage());
+    };
   }, [successTokenUpdate]);
   /* eslint-enable */
 
@@ -79,40 +81,13 @@ const ProfilePage = React.memo(() => {
   };
   // СБРОС ЛОКАЛЬНОГО СТЕЙТА
   const handleReset = () => {
-    setUpdateUser({ name: authUser.name, email: authUser.email, password: "" });
-  };
-  // КОНФИГУРАЦИЯ ИНПУТОВ
-  const passwordInputConfig = {
-    required: true,
-    name: "password",
-    type: "password",
-    placeholder: "Пароль",
-    maxLength: 12,
-    minLength: 2,
-    errorText: "Ошибка",
-    size: "default",
-    autoComplete: "off",
-    icon: "EditIcon",
+    setUpdateUser({
+      name: updateUser.name,
+      email: updateUser.email,
+      password: "",
+    });
   };
 
-  const emailInputConfig = {
-    required: true,
-    type: "email",
-    name: "email",
-    placeholder: "Логин",
-    errorText: "Ошибка",
-    icon: "EditIcon",
-    size: "default",
-  };
-  const nameInputConfig = {
-    required: true,
-    type: "text",
-    name: "name",
-    placeholder: "Имя",
-    errorText: "Ошибка",
-    icon: "EditIcon",
-    size: "default",
-  };
   const orderLocation = location.pathname === "/profile/orders";
   return (
     <FormOverlay type="profile">
@@ -153,43 +128,57 @@ const ProfilePage = React.memo(() => {
         ) : (
           <Form formName="Профиль" onSubmit={handleSubmit} mainForm={false}>
             <Input
-              {...nameInputConfig}
-              value={updateUser.name}
+              required={true}
+              name="name"
+              placeholder="Имя"
+              errorText="Ошибка"
+              value={(updateUser.name = "")}
+              type="text"
+              icon="EditIcon"
               onChange={(e) => {
                 setUpdateUser({ ...updateUser, name: e.target.value });
                 setIsLoading(false);
                 setIsValidName(true);
               }}
-              ref={nameRef}
-              onIconClick={handleNameClick}
               error={isValidName ? false : true}
-              onInvalid={(e) => setIsValidName(false)}
+              onInvalid={() => setIsValidName(false)}
             />
             <Input
-              {...emailInputConfig}
-              value={updateUser.email}
+              required={true}
+              name="email"
+              placeholder="Логин"
+              errorText="Ошибка"
+              value={(updateUser.email = "")}
+              icon="EditIcon"
+              type="email"
               onChange={(e) => {
                 setUpdateUser({ ...updateUser, email: e.target.value });
                 setIsLoading(false);
                 setIsValidEmail(true);
               }}
-              ref={emailRef}
-              onIconClick={handleEmailClick}
               error={isValidEmail ? false : true}
-              onInvalid={(e) => setIsValidEmail(false)}
+              onInvalid={() => setIsValidEmail(false)}
             />
             <Input
-              {...passwordInputConfig}
+              required={true}
+              name="password"
+              placeholder="Пароль"
+              maxLength={12}
+              minLength={2}
+              errorText="Ошибка"
+              autoComplete="off"
               value={updateUser.password}
+              ref={passwordRef}
               onChange={(e) => {
                 setUpdateUser({ ...updateUser, password: e.target.value });
                 setIsLoading(false);
                 setIsValidPassword(true);
               }}
-              ref={passwordRef}
+              type={showPassword ? "text" : "password"}
+              icon={showPassword ? "HideIcon" : "ShowIcon"}
               onIconClick={handlePasswordClick}
               error={isValidPassword ? false : true}
-              onInvalid={(e) => setIsValidPassword(false)}
+              onInvalid={() => setIsValidPassword(false)}
             />
             <div>
               {updateRequestSuccess && isLoading && (

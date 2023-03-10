@@ -4,13 +4,13 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import ImageCicle from "../ImageCicle/ImageCicle";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
-import { status, statusColor } from "../utils/determineStatus";
+import { status, statusColor } from "../../utils/determineStatus";
 
 import {
   calcTotalPrice,
   filterAvailableIngredients,
-} from "../utils/calculationFunc";
-import { gmt } from "../utils/determineGMT";
+} from "../../utils/calculationFunc";
+import { gmt } from "../../utils/determineGMT";
 import { getData } from "../../selectors/selectors";
 import { TOrderFeed } from "../../services/types";
 import { TIngredient } from "../../services/types/data";

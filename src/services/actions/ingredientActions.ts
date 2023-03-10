@@ -1,9 +1,8 @@
 import { nanoid } from "nanoid";
 import { AppDispatch, AppThunk } from "../types";
-import { getIngredientsAPI } from "../../components/utils/burger-api";
+import { getIngredientsAPI } from "../../utils/burger-api";
 import {
   TIngredient,
-  TIngredientNanoId,
   TIngredientShortInfo,
 } from "../types/data";
 // !ACTIONS
@@ -50,11 +49,11 @@ export interface ICalcIngredintsInConstructorAction {
 }
 export interface IDeleteIngredientFromConstructorAction {
   readonly type: typeof DELETE_INGREDIENT_FROM_CONSTRUCTOR;
-  readonly payload: TIngredientNanoId;
+  readonly payload: TIngredient;
 }
 export interface ISortInsideConstructorAction {
   readonly type: typeof SORT_INSIDE_CONSTRUCTOR;
-  readonly payload: ReadonlyArray<TIngredientNanoId>;
+  readonly payload: ReadonlyArray<TIngredient>;
 }
 export interface IReserConstructorAfterOrderAction {
   readonly type: typeof RESET_CONSTRUCTOR_AFTER_ORDER;
@@ -85,7 +84,7 @@ export const getIngredients = (
   payload,
 });
 export const deleteIngredient = (
-  payload: TIngredientNanoId
+  payload: TIngredient
 ): IDeleteIngredientFromConstructorAction => ({
   type: DELETE_INGREDIENT_FROM_CONSTRUCTOR,
   payload,
@@ -93,7 +92,7 @@ export const deleteIngredient = (
 export const calcIngredients = (): ICalcIngredintsInConstructorAction => ({
   type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
 });
-export const sortIngredient = (payload: ReadonlyArray<TIngredientNanoId>) => ({
+export const sortIngredient = (payload: ReadonlyArray<TIngredient>) => ({
   type: SORT_INSIDE_CONSTRUCTOR,
   payload,
 });

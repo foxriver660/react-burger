@@ -3,7 +3,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
 import IngredientsCategory from "../IngredientsCategory/IngredientsCategory";
 
-import { SAUCE, BUN, MAIN } from "../utils/constant";
+import { SAUCE, BUN, MAIN } from "../../utils/constant";
 import { Waypoint } from "react-waypoint";
 import { useSelector } from "react-redux/es/exports";
 import { getData } from "../../selectors/selectors";
@@ -20,8 +20,7 @@ const BurgerIngredients: FC = React.memo(() => {
   const bunRef = React.useRef(null);
 
   const scrollTo = (ref: MutableRefObject<HTMLHeadingElement | null>) => {
-    console.log(ref);
-    ref.current?.scrollIntoView({ behavior: "smooth" });
+     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
   const handleClickTab = (tab: string) => {
     setCurrent(tab);

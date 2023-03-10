@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux/es/exports";
 import { useParams } from "react-router-dom";
 import { getApiIngredients } from "../../services/actions/ingredientActions";
 import { getData } from "../../selectors/selectors";
-import { findIngredient } from "../../components/utils/calculationFunc";
+import { findIngredient } from "../../utils/calculationFunc";
 import CompoundItem from "../../components/IngredientDetails/CompoundItem/CompoundItem";
 import { Loader } from "../../components/Loader/Loader";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";

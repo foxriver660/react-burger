@@ -48,7 +48,7 @@ export interface IWSConnectionFailedAction {
   readonly type: typeof WS_CONNECTION_FAILED;
 }
 // !UNION ALL
-export type TWSActions =
+export type TWsActions =
   | IWSConnectionStartFeedAction
   | IWSConnectionStartHistoryAction
   | IWSConnectionSuccessAction
@@ -107,3 +107,4 @@ export const wsConnectionFailed = (): IWSConnectionFailedAction => {
     type: WS_CONNECTION_FAILED,
   };
 };
+

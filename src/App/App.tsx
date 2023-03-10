@@ -11,7 +11,7 @@ import { ProtectedRouteElement } from "../components/ProtectedRouteElement/Prote
 import { OnlyUnAuthRoute } from "../components/ProtectedRouteElement/OnlyUnAuthRoute";
 import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import { checkUserAccess } from "../services/actions/profileActions";
-import { getCookie } from "../components/utils/cookie";
+import { getCookie } from "../utils/cookie";
 import Modal from "../components/Modal/Modal";
 import IngredientDetails from "../components/IngredientDetails/IngredientDetails";
 import OrderDetails from "../components/OrderDetails/OrderDetails";

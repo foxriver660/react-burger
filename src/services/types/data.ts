@@ -16,13 +16,13 @@ export type TIngredient = {
   readonly type: string;
   readonly __v: number;
   readonly _id: string;
-  nanoid?: string;
+  readonly nanoid?: string;
 };
-export type TIngredientNanoId = TIngredient & { readonly nanoid: string };
+
 
 export type TUser = {
-  readonly email: string;
-  readonly name: string;
+  readonly email: string | undefined;
+  readonly name: string | undefined;
 };
 export type TUserInfo = TUser & { readonly password: string };
 export type TUserLogin = Omit<TUser, "name"> & { readonly password: string };
@@ -38,9 +38,23 @@ export type TOrder = {
 };
 export type TAllOrders = {
   orders: ReadonlyArray<TOrder>;
-  total: number;
-  totalToday: number;
+  total?: number;
+  totalToday?: number;
 };
 export type TString = {
-  [name: string]: number;
+  [key: string]: number;
 };
+export type TToken = {
+  [key: string]: string | undefined;
+}
+
+export type TActions = {
+  wsConnectionStartFeed: ()=> {type: string};
+  wsConnectionStartHistory: ()=> {type: string};
+  wsDisconnect: ()=> {type: string};
+  wsConnectionSuccess: ()=> {type: string};
+  wsConnectionClosed: ()=> {type: String};
+  wsConnectionError: ()=> {type: string};
+  wsGetMessage: (payload: TAllOrders)=> {type: string, payload: TAllOrders};
+  wsConnectionFailed: ()=> {type: string};
+}

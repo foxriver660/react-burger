@@ -1,36 +1,33 @@
-const getSuccessTokenUpdate = (state: any) =>
+import { RootState } from "../services/types";
+
+// PROFILE STATE
+export const getSuccessTokenUpdate = (state: RootState) =>
   state.profileReducer.successTokenUpdate;
-const getUpdatePassRequest = (state: any) => state.profileReducer.updatePassRequest;
-const getResetPassRequest = (state: any) => state.profileReducer.resetPassRequest;
-const getTotalCost = (state: any) => state.ingredientReducer.totalCost;
-const getOrder = (state: any) => state.orderReducer.currentOrder;
-const getIngredients = (state: any) =>
-  state.ingredientReducer.constructorIngredients;
-const getBun = (state: any) => state.ingredientReducer.constructorBun;
-const getOrderRequestFailed = (state: any) => state.orderReducer.orderRequestFailed;
-const getAuthUser = (state: any) => state.profileReducer.authUser;
-const getData = (state: any) => state.ingredientReducer.availableIngredients;
-const getOrders = (state: any) => state.wsReducer.orders;
-const getWsConnectedFailed = (state: any) => state.wsReducer.wsConnectedFailed;
-const getServerResponse = (state: any) => state.ingredientReducer.serverResponse;
-const getUpdateUserProfileFailed = (state: any) =>
+export const getUpdatePassRequest = (state: RootState) =>
+  state.profileReducer.updatePassRequest;
+export const getResetPassRequest = (state: RootState) =>
+  state.profileReducer.resetPassRequest;
+export const getUpdateUserProfileFailed = (state: RootState) =>
   state.profileReducer.updateUserProfileFailed;
-const getUpdateUserProfileSuccess = (state: any) =>
+export const getUpdateUserProfileSuccess = (state: RootState) =>
   state.profileReducer.updateUserProfileSuccess;
-export {
-  getSuccessTokenUpdate,
-  getTotalCost,
-  getOrder,
-  getIngredients,
-  getBun,
-  getOrderRequestFailed,
-  getAuthUser,
-  getData,
-  getOrders,
-  getUpdatePassRequest,
-  getServerResponse,
-  getUpdateUserProfileFailed,
-  getUpdateUserProfileSuccess,
-  getResetPassRequest,
-  getWsConnectedFailed,
-};
+export const getAuthUser = (state: RootState) => state.profileReducer.authUser;
+// INGREDIENT REDUCER
+export const getTotalCost = (state: RootState) =>
+  state.ingredientReducer.totalCost;
+export const getIngredients = (state: RootState) =>
+  state.ingredientReducer.constructorIngredients;
+export const getBun = (state: RootState) =>
+  state.ingredientReducer.constructorBun;
+export const getData = (state: RootState) =>
+  state.ingredientReducer.availableIngredients;
+export const getServerResponse = (state: RootState) =>
+  state.ingredientReducer.serverResponse;
+// ORDER REDUCER
+export const getOrderRequestFailed = (state: RootState) =>
+  state.orderReducer.orderRequestFailed;
+export const getOrders = (state: RootState) => state.wsReducer.orders;
+export const getOrder = (state: RootState) => state.orderReducer.currentOrder;
+// WS REDUCER
+export const getWsConnectedFailed = (state: RootState) =>
+  state.wsReducer.wsConnectedFailed;

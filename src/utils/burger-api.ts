@@ -1,7 +1,8 @@
+import { TToken, TUserInfo, TUserLogin } from "../services/types/data";
 import { BURGER_API_URL, BURGER_API_AUTH_URL } from "./constant";
 
 /* ПРОВЕРКА ОТВЕТА СЕРВЕРА */
-const checkResponse = (res) => {
+const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
@@ -9,17 +10,17 @@ const checkResponse = (res) => {
 const getIngredientsAPI = () =>
   fetch(`${BURGER_API_URL}/ingredients`).then(checkResponse);
 
-const getOrderAPI = (ingredients, token) =>
+const getOrderAPI = (ingredients: string[], token: string | undefined) =>
   fetch(`${BURGER_API_URL}/orders`, {
     method: "POST",
-    headers: { "authorization": token, "Content-Type": "application/json" },
+    headers: { "authorization": `${token}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       ingredients,
     }),
   }).then(checkResponse);
 
 //  !ЗАПРОС НА ВОССТАНОВЛЕНИЕ ПАРОЛЯ
-const updatePassRequestAPI = (email) =>
+const updatePassRequestAPI = (email: string) =>
   fetch(`${BURGER_API_URL}/password-reset`, {
     method: "POST",
     headers: {
@@ -30,7 +31,7 @@ const updatePassRequestAPI = (email) =>
     }),
   }).then(checkResponse);
 //  !ЗАПРОС НА ИЗМЕНЕНИЕ ПАРОЛЯ
-const resetPassAPI = (newPassword, emailCode) =>
+const resetPassAPI = (newPassword: string, emailCode: string) =>
   fetch(`${BURGER_API_URL}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -43,7 +44,7 @@ const resetPassAPI = (newPassword, emailCode) =>
   }).then(checkResponse);
 
 //  !ЗАПРОС НА ВЫХОД ПОЛЬЗОВАТЕЛЯ
-const logoutAPI = (refreshToken) => {
+const logoutAPI = (refreshToken: string | undefined) => {
   return fetch(`${BURGER_API_AUTH_URL}/logout`, {
     method: "POST",
     headers: {
@@ -56,7 +57,7 @@ const logoutAPI = (refreshToken) => {
 };
 
 // !ЗАПРОС НА РЕГИСТРАЦИЮ ПОЛЬЗОВАТЕЛЯ
-const registerUserAPI = ({ email, password, name }) =>
+const registerUserAPI = ({ email, password, name }: TUserInfo) =>
   fetch(`${BURGER_API_AUTH_URL}/register`, {
     method: "POST",
     headers: {
@@ -70,7 +71,7 @@ const registerUserAPI = ({ email, password, name }) =>
   }).then(checkResponse);
 
 //  !ЗАПРОС НА ВХОД ПОЛЬЗОВАТЕЛЯ
-const loginAPI = ({ email, password }) =>
+const loginAPI = ({ email, password }: TUserLogin) =>
   fetch(`${BURGER_API_AUTH_URL}/login`, {
     method: "POST",
     headers: {
@@ -83,7 +84,7 @@ const loginAPI = ({ email, password }) =>
   }).then(checkResponse);
 
 // ! ЗАПРОС ДАННЫХ ПОЛЬЗОВАТЕЛЯ
-const checkUserAccessAPI = (accessToken) =>
+const checkUserAccessAPI = (accessToken: string | undefined) =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "GET",
     headers: {
@@ -93,7 +94,7 @@ const checkUserAccessAPI = (accessToken) =>
   }).then(checkResponse);
 
 //  !ЗАПРОС НА РЕДАКТИРОВАНИЕ ПРОФИЛЯ
-const updateUserProfileAPI = (accessToken, { name, email, password }) =>
+const updateUserProfileAPI = (accessToken: string | undefined, { name, email, password }: TUserInfo) =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "PATCH",
     headers: {
@@ -108,7 +109,7 @@ const updateUserProfileAPI = (accessToken, { name, email, password }) =>
   }).then(checkResponse);
 
 // !ЗАПРОС НА РЕФРЕШ ТОКЕНА
-const refreshTokenAPI = (refreshToken) => {
+const refreshTokenAPI = (refreshToken: string | undefined) => {
   return fetch(`${BURGER_API_AUTH_URL}/token`, {
     method: "POST",
     headers: {

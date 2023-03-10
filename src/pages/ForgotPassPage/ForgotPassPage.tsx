@@ -1,26 +1,26 @@
-import React from "react";
+import React, { FormEvent } from "react";
 import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import Form from "../../components/Form/Form";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import classes from "./ForgotPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import { useSelector, useDispatch } from "react-redux/es/exports";
 import { updatePassRequest } from "../../services/actions/profileActions";
 import { getUpdatePassRequest } from "../../selectors/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
 const ForgotPassPage = React.memo(() => {
   // ХУКИ
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ ИНПУТА
   const [value, setValue] = React.useState("");
-  // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
+  // ЛОКАЛЬНЫЙ СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
   const [isValidEmail, setIsValidEmail] = React.useState(true);
   // ПОЛУЧАЕМ РЕКВЕСТ ОБ ОТПРАВКЕ ПОЧТЫ ИЗ СТОРА
-  const isUpdatePass = useSelector(getUpdatePassRequest);
+  const isUpdatePass = useAppSelector(getUpdatePassRequest);
 
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(updatePassRequest(value));
   };
@@ -29,14 +29,6 @@ const ForgotPassPage = React.memo(() => {
     return <Navigate to={"/reset-password"} state={{ from: location }} />;
   }
 
-  // КОНФИГУРАЦИЯ ИНПУТОВ
-  const emailInputConfig = {
-    required: true,
-    type: "email",
-    name: "email",
-    placeholder: "Укажите e-mail",
-    errorText: "Ошибка",
-  };
   return (
     <FormOverlay type="form">
       <Form
@@ -45,7 +37,11 @@ const ForgotPassPage = React.memo(() => {
         mainForm={true}
       >
         <Input
-          {...emailInputConfig}
+          required={true}
+          type="email"
+          name="email"
+          placeholder="Укажите e-mail"
+          errorText="Ошибка"
           value={value}
           error={isValidEmail ? false : true}
           onInvalid={(e) => setIsValidEmail(false)}

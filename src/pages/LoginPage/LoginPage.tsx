@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import FormOverlay from "../../components/FormOverlay/FormOverlay";
 import Form from "../../components/Form/Form";
@@ -6,12 +6,12 @@ import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/u
 import classes from "./LoginPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { login } from "../../services/actions/profileActions";
-import { useDispatch } from "react-redux/es/exports";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAppDispatch } from "../../services/hooks";
 
-const LoginPage = React.memo(() => {
+const LoginPage: FC = React.memo(() => {
   // ХУКИ
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   // ЛОКАЛЬНЫЕ СТЕЙТЫ
@@ -21,9 +21,9 @@ const LoginPage = React.memo(() => {
   const [isValidPassword, setIsValidPassword] = React.useState(true);
   const [isValidEmail, setIsValidEmail] = React.useState(true);
   const [showPassword, setShowPassword] = React.useState(false);
-  const passwordRef = React.useRef(null);
+  const passwordRef = React.useRef<HTMLInputElement>(null);
   const handlePasswordClick = () => {
-    passwordRef.current.focus();
+    passwordRef.current?.focus();
     setShowPassword(!showPassword);
   };
   // ОПРЕДЛЕЯЕМ С КАКОЙ СТРАНИЦЫ ПРИШЛИ
@@ -32,37 +32,23 @@ const LoginPage = React.memo(() => {
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   /* eslint-disable */
   const handleSubmit = React.useCallback(
-    (e) => {
+    (e: FormEvent) => {
       e.preventDefault();
       dispatch(login(user)).then(() => navigate(fromPage, { replace: true }));
     },
     [user]
   );
   /* eslint-enable */
-  // КОНФИГУРАЦИЯ ИНПУТОВ
-  const passwordInputConfig = {
-    required: true,
-    name: "password",
-    placeholder: "Пароль",
-    maxLength: 12,
-    minLength: 2,
-    errorText: "Ошибка",
-    autoComplete: "off",
-  };
-
-  const emailInputConfig = {
-    required: true,
-    type: "email",
-    name: "email",
-    placeholder: "E-mail",
-    errorText: "Ошибка",
-  };
 
   return (
     <FormOverlay type="form">
       <Form onSubmit={handleSubmit} formName="Вход" mainForm={true}>
         <Input
-          {...emailInputConfig}
+          required={true}
+          type="email"
+          name="email"
+          placeholder="E-mail"
+          errorText="Ошибка"
           value={user.email}
           error={isValidEmail ? false : true}
           onInvalid={(e) => setIsValidEmail(false)}
@@ -72,7 +58,13 @@ const LoginPage = React.memo(() => {
           }}
         />
         <Input
-          {...passwordInputConfig}
+          required={true}
+          name="password"
+          placeholder="Пароль"
+          maxLength={12}
+          minLength={2}
+          errorText="Ошибка"
+          autoComplete="off"
           value={user.password}
           ref={passwordRef}
           type={showPassword ? "text" : "password"}

@@ -1,4 +1,4 @@
-import { TOrder } from "../../services/types/data";
+import { TOrder } from "../services/types/data";
 
 export const status = (order: TOrder) => {
   return order?.status === "done"

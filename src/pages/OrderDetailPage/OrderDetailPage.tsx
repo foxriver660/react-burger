@@ -11,15 +11,15 @@ import {
   filterAvailableIngredients,
   countingOccurrences,
   findIngredient,
-} from "../../components/utils/calculationFunc";
+} from "../../utils/calculationFunc";
 import { Loader } from "../../components/Loader/Loader";
-import { gmt } from "../../components/utils/determineGMT";
+import { gmt } from "../../utils/determineGMT";
 import {
   wsDisconnect,
   wsConnectionStartFeed,
   wsConnectionStartHistory,
 } from "../../services/actions/wsActions";
-import { status, statusColor } from "../../components/utils/determineStatus";
+import { status, statusColor } from "../../utils/determineStatus";
 import { getAuthUser, getData, getOrders } from "../../selectors/selectors";
 import { TOrderDetailPage } from "../../services/types";
 import { useAppDispatch } from "../../services/hooks";

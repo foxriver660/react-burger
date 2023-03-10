@@ -3,7 +3,7 @@ import classes from "./IngredientDetails.module.css";
 import { useSelector } from "react-redux/es/exports";
 import { useParams } from "react-router-dom";
 import { getData } from "../../selectors/selectors";
-import { findIngredient } from "../utils/calculationFunc";
+import { findIngredient } from "../../utils/calculationFunc";
 import CompoundItem from "./CompoundItem/CompoundItem";
 
 const IngredientDetails: FC = React.memo(() => {

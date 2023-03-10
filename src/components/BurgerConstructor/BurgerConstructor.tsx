@@ -10,7 +10,7 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/
 import OrderСompletedModal from "../OrderСompletedModal/OrderСompletedModal";
 import Modal from "../Modal/Modal";
 import { useDrop } from "react-dnd";
-import { BUN } from "../utils/constant";
+import { BUN } from "../../utils/constant";
 import {
   addIngredient,
   addBun,
@@ -22,7 +22,7 @@ import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { getCookie } from "../utils/cookie";
+import { getCookie } from "../../utils/cookie";
 import {
   wsDisconnect,
   wsConnectionStartHistory,

@@ -1,6 +1,6 @@
-import { getOrderAPI } from "../../components/utils/burger-api";
+import { getOrderAPI } from "../../utils/burger-api";
 import { refreshToken } from "./profileActions";
-import { getCookie } from "../../components/utils/cookie";
+import { getCookie } from "../../utils/cookie";
 import { AppDispatch, AppThunk } from "../types";
 // !ACTIONS
 export const GET_ORDER: "GET_ORDER" = "GET_ORDER";

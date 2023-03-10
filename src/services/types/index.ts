@@ -4,15 +4,15 @@ import { store } from "../store";
 import { TIngredientsActions } from "../actions/ingredientActions";
 import { TOrderActions } from "../actions/orderActions";
 import { TProfileActions } from "../actions/profileActions";
-import { TWSActions } from "../actions/wsActions";
-import { ReactFragment, ReactNode } from "react";
+import { TWsActions } from "../actions/wsActions";
+import { FormEvent, ReactFragment, ReactNode } from "react";
 import { TIngredient, TOrder, TString } from "./data";
 
 export type TApplicationActions=
   | TIngredientsActions
   | TOrderActions
   | TProfileActions
-  | TWSActions;
+  | TWsActions;
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = ThunkDispatch<RootState, never, TApplicationActions>;
@@ -63,7 +63,7 @@ export type TFormOverlay = {
 export type TForm = {
   children: ReactNode;
   formName: string;
-  onSubmit: () => void;
+  onSubmit: (e: FormEvent) => void;
   mainForm: boolean;
 }
 export type TOrderFeed = {

@@ -10,7 +10,7 @@ import {
   RESET_CONSTRUCTOR_AFTER_ORDER,
 } from "../actions/ingredientActions";
 import { TIngredientsActions } from "../actions/ingredientActions";
-import { TIngredient, TIngredientNanoId } from "../types/data";
+import { TIngredient } from "../types/data";
 
 export type TIngredientsState = {
   serverResponse: { isLoading: boolean, hasError: boolean },
