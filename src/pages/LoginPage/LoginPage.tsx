@@ -5,6 +5,7 @@ import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/
 import { login } from "../../services/actions/profileActions";
 import { useAppDispatch } from "../../services/hooks";
 import { Form, FormOverlay, InputEmail, InputPassword } from "../../components";
+import { PATH } from "../../utils/constant";
 
 const LoginPage: FC = React.memo(() => {
   const dispatch = useAppDispatch();
@@ -13,11 +14,11 @@ const LoginPage: FC = React.memo(() => {
 
   const [form, setForm] = React.useState({ email: "", password: "" });
 
-  const fromPage = location.state?.from?.pathname || "/";
+  const fromPage = location.state?.from?.pathname || PATH.HOME;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setForm({ ...form, [e.target.name]: e.target.value });
-   /* eslint-disable */
+  /* eslint-disable */
   const handleSubmit = React.useCallback(
     (e: FormEvent) => {
       e.preventDefault();
@@ -48,7 +49,7 @@ const LoginPage: FC = React.memo(() => {
       <p
         className={`${classes.clarification} text text_type_main-default text_color_inactive`}
       >
-        Вы — новый пользователь?{" "}
+        Вы — новый пользователь?
         <Link className={classes.link} to="/register">
           Зарегистрироваться
         </Link>
@@ -56,7 +57,7 @@ const LoginPage: FC = React.memo(() => {
       <p
         className={`${classes.clarification} text text_type_main-default text_color_inactive`}
       >
-        Забыли пароль?{" "}
+        Забыли пароль?
         <Link className={classes.link} to="/forgot-password">
           Восстановить пароль
         </Link>

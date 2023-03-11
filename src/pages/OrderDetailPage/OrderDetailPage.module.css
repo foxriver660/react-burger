@@ -21,7 +21,7 @@
 }
 .orderStatus {
   margin: 0;
-  color: #00cccc;
+  color: var(--color-done);
 }
 .orderComposition {
   margin: 0;

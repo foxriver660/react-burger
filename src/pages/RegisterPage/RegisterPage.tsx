@@ -11,6 +11,7 @@ import {
   InputName,
   InputPassword,
 } from "../../components";
+import { PATH } from "../../utils/constant";
 
 const RegisterPage: FC = React.memo(() => {
   const dispatch = useAppDispatch();
@@ -21,7 +22,7 @@ const RegisterPage: FC = React.memo(() => {
     setForm({ ...form, [e.target.name]: e.target.value });
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(registerUser(form)).then(() => navigate("/", { replace: true }));
+    dispatch(registerUser(form)).then(() => navigate(PATH.HOME, { replace: true }));
   };
 
   return (
@@ -50,7 +51,7 @@ const RegisterPage: FC = React.memo(() => {
       <p
         className={`${classes.clarification} text text_type_main-default text_color_inactive`}
       >
-        Уже зарегистрированы?{" "}
+        Уже зарегистрированы?
         <Link className={classes.link} to="/login">
           Войти
         </Link>

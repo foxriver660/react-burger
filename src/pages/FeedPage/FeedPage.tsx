@@ -33,7 +33,7 @@ const FeedPage: FC = React.memo(() => {
           </h2>
           <div className={classes.subContainer}>
             <ul className={classes.scrollWrapper}>
-              {orders?.orders?.map((order: TOrder, index: number) => (
+              {orders.orders.map((order: TOrder, index: number) => (
                 <Link
                   className={classes.link}
                   to={`/feed/${order._id}`}
@@ -55,3 +55,4 @@ const FeedPage: FC = React.memo(() => {
 });
 
 export default FeedPage;
+// TODO: this

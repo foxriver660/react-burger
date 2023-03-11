@@ -25,11 +25,11 @@ const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
   const { order, filteredIngredients, totalPrice, quantityIngredients } =
     useIngredientsOperations(orders, id);
   const authUser = useAppSelector(getAuthUser);
-  // ДИСПАТИМ АПИ НА ДОСТУПНЫЕ ИНГРЕДИЕНТЫ
+  
   useEffect(() => {
     dispatch(getApiIngredients());
   }, []); // eslint-disable-line
-  // ДИСПАТИМ WS НА ИНГРЕДИЕНТЫ
+  
   useEffect(() => {
     source === "feed"
       ? dispatch(wsConnectionStart(WS_URL_FEED))
@@ -100,3 +100,4 @@ const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
 });
 
 export default OrderDetailPage;
+// TODO: this

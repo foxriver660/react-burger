@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent, FC, FormEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import classes from "./ForgotPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
@@ -6,22 +6,19 @@ import { updatePassRequest } from "../../services/actions/profileActions";
 import { useAppDispatch } from "../../services/hooks";
 import { Form, FormOverlay, InputEmail } from "../../components";
 
-const ForgotPassPage = React.memo(() => {
+const ForgotPassPage: FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const [form, setForm] = React.useState("");
-  /* const isUpdatePass = useAppSelector(getUpdatePassRequest);
-  if (isUpdatePass) {
-    return <Navigate to={"/reset-password"} state={{ from: location }} />;
-  } */
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setForm(e.target.value);
-  // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(updatePassRequest(form)).then(() =>
-      navigate("/reset-password", { replace: true, state: { from: location }})
+      navigate("/reset-password", { replace: true, state: { from: location } })
     );
   };
   return (
@@ -55,3 +52,4 @@ const ForgotPassPage = React.memo(() => {
 });
 
 export default ForgotPassPage;
+// TODO: this

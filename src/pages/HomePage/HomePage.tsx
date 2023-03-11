@@ -8,7 +8,7 @@ import { BurgerConstructor, BurgerIngredients, Loader } from "../../components";
 
 const HomePage: FC = React.memo(() => {
   const { isLoading, hasError } = useAppSelector(getServerResponse);
-  const data = useAppSelector(getData);
+ /*  const data = useAppSelector(getData); */
 
   return (
     <div className={`${classes.container} p-4`}>
@@ -18,7 +18,7 @@ const HomePage: FC = React.memo(() => {
           Что-то пошло не так :(
         </div>
       )}
-      {!isLoading && !hasError && !!data.length && (
+      {!isLoading && (
         <DndProvider backend={HTML5Backend}>
           <BurgerIngredients />
           <BurgerConstructor />
@@ -29,3 +29,4 @@ const HomePage: FC = React.memo(() => {
 });
 
 export default HomePage;
+// TODO: this

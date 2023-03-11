@@ -33,15 +33,15 @@
 }
 .scrollWrapper::-webkit-scrollbar-track {
   margin-bottom: 90px;
-  background-color: #2f2f37;
+  background-color: var(--color-background-track);
 }
 .scrollWrapper::-webkit-scrollbar-thumb {
-  background-color: #8585ad;
+  background-color: var(--color-default);
   height: 638px;
   width: 100%;
 }
 .link {
   text-decoration: none;
-  color: white;
+  color: var(--color-white);
   cursor: pointer;
 }

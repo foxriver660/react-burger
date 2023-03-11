@@ -20,6 +20,7 @@ import {
   InputName,
   InputPassword,
 } from "../../components";
+import { PATH } from "../../utils/constant";
 const ProfilePage = React.memo(() => {
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -53,7 +54,7 @@ const ProfilePage = React.memo(() => {
     setForm({ ...form, [e.target.name]: e.target.value });
   // ВЫХОД
   const handleClick = () => {
-    dispatch(logout()).then(() => navigate("/", { replace: true }));
+    dispatch(logout()).then(() => navigate(PATH.HOME, { replace: true }));
   };
   // СБРОС ЛОКАЛЬНОГО СТЕЙТА
   const handleReset = () => {
@@ -63,7 +64,7 @@ const ProfilePage = React.memo(() => {
     });
   };
 
-  const orderLocation = location.pathname === "/profile/orders";
+  const orderLocation = location.pathname === PATH.USER_ORDERS;
   // УСТАНОВКА КЛАССА АКТИНОЙ ССЫЛКЕ
   const setActive = ({ isActive }: { isActive: boolean }) =>
     `${
@@ -75,13 +76,13 @@ const ProfilePage = React.memo(() => {
         <div className={classes.subcontainer}>
           <ul className={`${classes.list} pb-20`}>
             <li>
-              <NavLink to="/profile" className={setActive} end>
+              <NavLink to={PATH.PROFILE} className={setActive} end>
                 Профиль
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/profile/orders"
+                to={PATH.USER_ORDERS}
                 className={setActive}
                 state={{ order: true }}
                 end

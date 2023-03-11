@@ -8,6 +8,7 @@ import {
  } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { Form, FormOverlay, InputCode, InputPassword } from "../../components";
+import { PATH } from "../../utils/constant";
 const ResetPassPage: FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate()
@@ -22,15 +23,11 @@ const ResetPassPage: FC = React.memo(() => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(resetPass(form)).then(() =>
-    navigate("/", { replace: true}));
+    navigate(PATH.HOME, { replace: true}));
   };
-  /* // !РЕДИРЕКТ ЕСЛИ ПРОШЕЛ ЗАПРОС
-  if (resetPassRequest) {
-    return <Navigate to={"/"} />;
-  } */
-  // !РЕДИРЕКТ ЕСЛИ ПРИШЕЛ НЕ С /forgot-password
+   // !РЕДИРЕКТ ЕСЛИ ПРИШЕЛ НЕ С /forgot-password
   if (!updatePassRequest) {
-    return <Navigate to={"/forgot-password"} />;
+    return <Navigate to={PATH.FORGOT_PASSWORD} />;
   }
 
   return (
@@ -49,7 +46,7 @@ const ResetPassPage: FC = React.memo(() => {
 
       <p className={`${classes.clarification} text text_type_main-default`}>
         Вспомнили пароль?
-        <Link className={classes.link} to="/login">
+        <Link className={classes.link} to={PATH.LOGIN}>
           Войти
         </Link>
       </p>
