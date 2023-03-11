@@ -9,11 +9,11 @@ const useIngredientsOperations = (a?: any, b?: string) => {
   const availableIngredients = useAppSelector(getData);
   
   const calcTotalPrice = (arr: TIngredient[]) =>
-  arr.reduce(
+ {console.log(arr); return arr.reduce(
     (acc, item) =>
       item.type === BUN ? acc + item.price * 2 : acc + item.price,
     0
-  );
+  );}
 const filterAvailableIngredients = (arr: TIngredient[] , wsArr: any) =>
   arr.filter((item) => {
     return wsArr?.ingredients?.some((item2: any) => item2 === item._id);

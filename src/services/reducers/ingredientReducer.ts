@@ -22,7 +22,7 @@ const defaultState: TIngredientsState = {
   serverResponse: { isLoading: true, hasError: false },
   availableIngredients: [],
   constructorIngredients: [],
-  constructorBun: null,
+  constructorBun: {},
 };
 export const ingredientReducer = (
   state = defaultState,
@@ -83,7 +83,7 @@ export const ingredientReducer = (
       return {
         ...state,
         constructorIngredients: [],
-        constructorBun: null,
+        constructorBun: {},
       };
     default:
       return state;

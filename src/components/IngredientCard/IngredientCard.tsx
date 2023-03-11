@@ -29,7 +29,7 @@ const IngredientCard: FC<TIngredientCard> = React.memo(({ data }) => {
   );
   const bun = useSelector(getBun);
   [bun].forEach((bun: TIngredient) =>
-    bun._id === id ? (ingredientCounter += 2) : ingredientCounter
+    bun?._id === id ? (ingredientCounter += 2) : ingredientCounter
   );
 
   return (

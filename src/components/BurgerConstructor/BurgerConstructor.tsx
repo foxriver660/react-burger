@@ -14,7 +14,7 @@ import {
   addIngredient,
   addBun,
   sortIngredient,
-   resetConstructor,
+  resetConstructor,
 } from "../../services/actions/ingredientActions";
 import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import { Reorder } from "framer-motion";
@@ -26,7 +26,6 @@ import {
 } from "../../services/actions/wsActions";
 import {
   getSuccessTokenUpdate,
- 
   getIngredients,
   getBun,
   getOrderRequestFailed,
@@ -41,16 +40,19 @@ const BurgerConstructor: FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const {calcTotalPrice} = useIngredientsOperations()
-  
+  const { calcTotalPrice } = useIngredientsOperations();
+
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
-   const ingredients = useAppSelector(getIngredients);
+  const ingredients = useAppSelector(getIngredients);
   const bun = useAppSelector(getBun);
   const authUser = useAppSelector(getAuthUser);
   const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
   const orderRequestFailed = useAppSelector(getOrderRequestFailed);
   const wsConnectedFailed = useAppSelector(getWsConnectedFailed);
-  const totalCost = calcTotalPrice([bun, ...ingredients])
+
+let totalCost =calcTotalPrice([bun, ...ingredients]); 
+
+
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [
@@ -69,7 +71,7 @@ const BurgerConstructor: FC = React.memo(() => {
   useEffect(() => {
     const ingredientsId = [
       ...ingredients.map((item: TIngredient) => item._id),
-      bun._id,
+      bun?._id,
     ];
     if (successTokenUpdate && (orderRequestFailed || wsConnectedFailed)) {
       dispatch(getApiOrder(ingredientsId));
@@ -102,7 +104,7 @@ const BurgerConstructor: FC = React.memo(() => {
 
   // ИНСТРУМЕНТЫ ДЛЯ УСЛОВНОГО РЕНДЕРИНГА
   const checkIngredient = ingredients.length > 0;
-  const checkBun = !!bun.type;
+  const checkBun = !!bun?.type;
   const errorMessage = (message: string) => {
     return (
       <span
