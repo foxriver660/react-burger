@@ -14,8 +14,7 @@ import {
   addIngredient,
   addBun,
   sortIngredient,
-  calcIngredients,
-  resetConstructor,
+   resetConstructor,
 } from "../../services/actions/ingredientActions";
 import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import { Reorder } from "framer-motion";
@@ -27,7 +26,7 @@ import {
 } from "../../services/actions/wsActions";
 import {
   getSuccessTokenUpdate,
-  getTotalCost,
+ 
   getIngredients,
   getBun,
   getOrderRequestFailed,
@@ -36,19 +35,22 @@ import {
 } from "../../selectors/selectors";
 import { TIngredient } from "../../services/types/data";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 
 const BurgerConstructor: FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const {calcTotalPrice} = useIngredientsOperations()
+  
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
-  const totalCost = useAppSelector(getTotalCost);
-  const ingredients = useAppSelector(getIngredients);
+   const ingredients = useAppSelector(getIngredients);
   const bun = useAppSelector(getBun);
   const authUser = useAppSelector(getAuthUser);
   const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
   const orderRequestFailed = useAppSelector(getOrderRequestFailed);
   const wsConnectedFailed = useAppSelector(getWsConnectedFailed);
+  const totalCost = calcTotalPrice([bun, ...ingredients])
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [
@@ -78,10 +80,11 @@ const BurgerConstructor: FC = React.memo(() => {
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     accept: "items",
     drop: (item: { id: string; type: string }) => {
+      console.log(item);
       item.type === BUN
         ? dispatch(addBun(item))
         : dispatch(addIngredient(item));
-      dispatch(calcIngredients());
+      /* dispatch(calcIngredients()); */
     },
 
     collect: (monitor) => ({

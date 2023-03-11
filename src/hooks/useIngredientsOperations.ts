@@ -4,7 +4,7 @@ import { useAppSelector } from "../services/hooks";
 import { TIngredient } from "../services/types/data";
 import { BUN } from "../utils/constant";
 
-const useIngredientsOperations = (a: any, b?: string) => {
+const useIngredientsOperations = (a?: any, b?: string) => {
   
   const availableIngredients = useAppSelector(getData);
   
@@ -35,7 +35,7 @@ const filteredIngredients = filterAvailableIngredients(availableIngredients, ord
 const totalPrice = calcTotalPrice(filteredIngredients);
 const quantityIngredients = countingOccurrences(order);
 
-  return { order, filteredIngredients, totalPrice, quantityIngredients };
+  return { order, filteredIngredients, totalPrice, quantityIngredients, calcTotalPrice };
 };
 
 export default useIngredientsOperations;

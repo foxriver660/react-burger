@@ -5,7 +5,6 @@ import {
   ADD_INGREDIENT_TO_CONSTRUCTOR,
   ADD_BUN_TO_CONSTRUCTOR,
   SORT_INSIDE_CONSTRUCTOR,
-  CALC_INGREDIENTS_IN_CONSTRUCTOR,
   DELETE_INGREDIENT_FROM_CONSTRUCTOR,
   RESET_CONSTRUCTOR_AFTER_ORDER,
 } from "../actions/ingredientActions";
@@ -13,22 +12,22 @@ import { TIngredientsActions } from "../actions/ingredientActions";
 import { TIngredient } from "../types/data";
 
 export type TIngredientsState = {
-  serverResponse: { isLoading: boolean, hasError: boolean },
-  availableIngredients: TIngredient[],
-  // TODO подумать над этими двумя
-  constructorIngredients: any,
-  constructorBun: any,
-  totalCost: null | number,
+  serverResponse: { isLoading: boolean; hasError: boolean };
+  availableIngredients: Array<TIngredient>;
+  constructorIngredients: any;
+  constructorBun: any;
 };
 
 const defaultState: TIngredientsState = {
   serverResponse: { isLoading: true, hasError: false },
   availableIngredients: [],
   constructorIngredients: [],
-  constructorBun: { price: null },
-  totalCost: null,
+  constructorBun: null,
 };
-export const ingredientReducer = (state = defaultState, action: TIngredientsActions): TIngredientsState => {
+export const ingredientReducer = (
+  state = defaultState,
+  action: TIngredientsActions
+): TIngredientsState => {
   switch (action.type) {
     case GET_API_INGREDIENTS_ERROR:
       return {
@@ -71,30 +70,20 @@ export const ingredientReducer = (state = defaultState, action: TIngredientsActi
         constructorIngredients: action.payload,
       };
     }
-    case CALC_INGREDIENTS_IN_CONSTRUCTOR:
-      return {
-        ...state,
-        totalCost:
-          state.constructorIngredients.reduce(
-            (acc: number, curr: { price: number; }) => acc + curr.price,
-            0
-          ) +
-          state.constructorBun.price * 2,
-      };
     case DELETE_INGREDIENT_FROM_CONSTRUCTOR:
       return {
         ...state,
         constructorIngredients: [
           ...state.constructorIngredients.filter(
-            (item: { nanoid: string; }) => item.nanoid !== action.payload.nanoid
+            (item: { nanoid: string }) => item.nanoid !== action.payload.nanoid
           ),
         ],
       };
-      case RESET_CONSTRUCTOR_AFTER_ORDER:
+    case RESET_CONSTRUCTOR_AFTER_ORDER:
       return {
         ...state,
         constructorIngredients: [],
-        constructorBun: { price: null },
+        constructorBun: null,
       };
     default:
       return state;

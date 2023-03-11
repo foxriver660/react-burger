@@ -1,10 +1,7 @@
 import { nanoid } from "nanoid";
 import { AppDispatch } from "../types";
 import { getIngredientsAPI } from "../../utils/burger-api";
-import {
-  TIngredient,
-  TIngredientShortInfo,
-} from "../types/data";
+import { TIngredient, TIngredientShortInfo } from "../types/data";
 // !ACTIONS
 export const GET_API_INGREDIENTS_ERROR: "GET_API_INGREDIENTS_ERROR" =
   "GET_API_INGREDIENTS_ERROR";
@@ -15,8 +12,6 @@ export const ADD_INGREDIENT_TO_CONSTRUCTOR: "ADD_INGREDIENT_TO_CONSTRUCTOR" =
   "ADD_INGREDIENT_TO_CONSTRUCTOR";
 export const ADD_BUN_TO_CONSTRUCTOR: "ADD_BUN_TO_CONSTRUCTOR" =
   "ADD_BUN_TO_CONSTRUCTOR";
-export const CALC_INGREDIENTS_IN_CONSTRUCTOR: "CALC_INGREDIENTS_IN_CONSTRUCTOR" =
-  "CALC_INGREDIENTS_IN_CONSTRUCTOR";
 export const DELETE_INGREDIENT_FROM_CONSTRUCTOR: "DELETE_INGREDIENT_FROM_CONSTRUCTOR" =
   "DELETE_INGREDIENT_FROM_CONSTRUCTOR";
 export const SORT_INSIDE_CONSTRUCTOR: "SORT_INSIDE_CONSTRUCTOR" =
@@ -44,9 +39,6 @@ export interface IAddBunToConstructorAction {
   readonly type: typeof ADD_BUN_TO_CONSTRUCTOR;
   readonly payload: TIngredientShortInfo;
 }
-export interface ICalcIngredintsInConstructorAction {
-  readonly type: typeof CALC_INGREDIENTS_IN_CONSTRUCTOR;
-}
 export interface IDeleteIngredientFromConstructorAction {
   readonly type: typeof DELETE_INGREDIENT_FROM_CONSTRUCTOR;
   readonly payload: TIngredient;
@@ -62,7 +54,6 @@ export interface IReserConstructorAfterOrderAction {
 export type TIngredientsActions =
   | IAddIngredientToConstructorAction
   | IAddBunToConstructorAction
-  | ICalcIngredintsInConstructorAction
   | IReserConstructorAfterOrderAction
   | IDeleteIngredientFromConstructorAction
   | ISortInsideConstructorAction
@@ -74,7 +65,7 @@ export type TIngredientsActions =
 export const getIngredientsError = (): IGetApiIngredientErrorAction => ({
   type: GET_API_INGREDIENTS_ERROR,
 });
-export const getIngredientsSucceess = (): IGetApiIngredientSuccessAction => ({
+export const getIngredientsSuccess = (): IGetApiIngredientSuccessAction => ({
   type: GET_API_INGREDIENTS_SUCCESS,
 });
 export const getIngredients = (
@@ -89,9 +80,7 @@ export const deleteIngredient = (
   type: DELETE_INGREDIENT_FROM_CONSTRUCTOR,
   payload,
 });
-export const calcIngredients = (): ICalcIngredintsInConstructorAction => ({
-  type: CALC_INGREDIENTS_IN_CONSTRUCTOR,
-});
+
 export const sortIngredient = (payload: ReadonlyArray<TIngredient>) => ({
   type: SORT_INSIDE_CONSTRUCTOR,
   payload,
@@ -110,16 +99,15 @@ export const resetConstructor = (): IReserConstructorAfterOrderAction => ({
   type: RESET_CONSTRUCTOR_AFTER_ORDER,
 });
 
-// THUNK, LOADING INGREDIENTS FROM SERVER
-export const getApiIngredients= () => (dispatch: AppDispatch) => {
+export const getApiIngredients = () => (dispatch: AppDispatch) => {
   getIngredientsAPI()
     .then((res) => {
       dispatch(getIngredients(res.data));
-      dispatch(getIngredientsSucceess());
+      dispatch(getIngredientsSuccess());
     })
     .catch((err) => {
       console.log("Ingredient load false:", err);
       dispatch(getIngredientsError());
-    })
-    .finally(() => dispatch(getIngredientsSucceess()));
+    });
+  /* .finally(() => dispatch(getIngredientsSuccess())); */
 };

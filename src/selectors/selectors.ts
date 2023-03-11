@@ -13,8 +13,8 @@ export const getUpdateUserProfileSuccess = (state: RootState) =>
   state.profileReducer.updateUserProfileSuccess;
 export const getAuthUser = (state: RootState) => state.profileReducer.authUser;
 // INGREDIENT REDUCER
-export const getTotalCost = (state: RootState) =>
-  state.ingredientReducer.totalCost;
+/* export const getTotalCost = (state: RootState) =>
+  state.ingredientReducer.totalCost; */
 export const getIngredients = (state: RootState) =>
   state.ingredientReducer.constructorIngredients;
 export const getBun = (state: RootState) =>

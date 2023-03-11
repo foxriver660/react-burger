@@ -5,8 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
   deleteIngredient,
-  calcIngredients,
-} from "../../services/actions/ingredientActions";
+  } from "../../services/actions/ingredientActions";
 import React, { FC } from "react";
 import { Reorder } from "framer-motion";
 import { TConstructorList, TIngredient } from "../../services/types/data";
@@ -17,8 +16,7 @@ const ConstructorList: FC<TConstructorList> = React.memo(({ value }) => {
   const dispatch = useAppDispatch();
   const handleDeleteIngredient = (value: TIngredient) => {
     dispatch(deleteIngredient(value));
-    dispatch(calcIngredients());
-  };
+     };
 
   return (
     <Reorder.Item
