@@ -1,4 +1,3 @@
-import { getCookie } from "../utils/cookie";
 import { INVALID_TOKEN, JWT_EXPIRED } from "../utils/constant";
 import { Middleware } from "redux";
 import { TActions } from "../services/types/data";
@@ -11,7 +10,7 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
     let url = "";
 
     return (next) => (action) => {
-      const { dispatch, getState } = store;
+      const { dispatch } = store;
 
       const { type, payload } = action;
       const {

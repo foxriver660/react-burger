@@ -1,7 +1,6 @@
 import {
   setCookie,
   deleteCookie,
-  getCookie,
   parsForCookie,
 } from "../../utils/cookie";
 

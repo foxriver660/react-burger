@@ -41,7 +41,7 @@ const ProfilePage = React.memo(() => {
     if (updateRequestFailed) {
       dispatch(updateUserProfile(form));
     }
-  }, [successTokenUpdate]);
+  }, [successTokenUpdate]); // eslint-disable-line
 
   //  ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   const handleSubmit = (e: FormEvent) => {

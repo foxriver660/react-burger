@@ -35,7 +35,7 @@ const OrderPage: FC = React.memo(() => {
     if (wsConnectedFailed) {
       dispatch(checkUserAccess());
     }
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <section className={`${classes.container} mt-10`}>

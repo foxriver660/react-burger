@@ -2,12 +2,10 @@ import React, { ChangeEvent, FC, FormEvent } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import classes from "./ResetPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
 import { resetPass } from "../../services/actions/profileActions";
 import {
   getUpdatePassRequest,
-  getResetPassRequest,
-} from "../../selectors/selectors";
+ } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { Form, FormOverlay, InputCode, InputPassword } from "../../components";
 const ResetPassPage: FC = React.memo(() => {

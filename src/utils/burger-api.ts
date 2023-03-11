@@ -1,4 +1,4 @@
-import { TToken, TUserInfo, TUserLogin } from "../services/types/data";
+import { TUserInfo, TUserLogin } from "../services/types/data";
 import { BURGER_API_URL, BURGER_API_AUTH_URL } from "./constant";
 import { getCookie } from "./cookie";
 

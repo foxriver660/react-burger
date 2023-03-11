@@ -1,10 +1,9 @@
 import React, { ChangeEvent, FormEvent } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import classes from "./ForgotPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { updatePassRequest } from "../../services/actions/profileActions";
-import { getUpdatePassRequest } from "../../selectors/selectors";
-import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { useAppDispatch } from "../../services/hooks";
 import { Form, FormOverlay, InputEmail } from "../../components";
 
 const ForgotPassPage = React.memo(() => {
