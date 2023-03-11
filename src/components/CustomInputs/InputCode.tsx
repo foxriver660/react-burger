@@ -1,6 +1,7 @@
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import React, { FC } from 'react'
-import { TInputCode } from '../../services/types';
+import { TInputCode } from '../../services/types/data';
+
 
 const InputCode: FC<TInputCode> = ({value, onChange}) => {
   const [isValidCode, setIsValidCode] = React.useState(true);

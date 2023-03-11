@@ -5,8 +5,7 @@ import { TIngredientsActions } from "../actions/ingredientActions";
 import { TOrderActions } from "../actions/orderActions";
 import { TProfileActions } from "../actions/profileActions";
 import { TWsActions } from "../actions/wsActions";
-import { ChangeEvent, FormEvent, ReactNode } from "react";
-import { TIngredient, TOrder, TString } from "./data";
+
 
 export type TApplicationActions=
   | TIngredientsActions
@@ -20,70 +19,5 @@ export type AppThunk<ReturnType = void> = ActionCreator<
   ThunkAction<ReturnType, Action, RootState, TApplicationActions>
 >;
 
-// ТИПИЗАЦИЯ КОМПОНЕНТОВ
-export type TOrderBox = {
-  doneOrder: number[];
-};
 
-export type TIngredientItem = {
-  ingredient: TIngredient;
-  quantityIngredients: TString;
-};
-export type TImageCicle = {
-  src: string;
-  index?: number;
-  rest?: number;
-};
-export type TModalOverlay = {
-  onClose: () => void;
-  children: ReactNode;
-};
-export type TModal = {
-  children: ReactNode;
-  onClose?: () => void;
-  type: string;
-};
-export type TLoader = {
-  classname: string | undefined;
-};
-export type TIngredientsCategory = {
-  filteredArr: TIngredient[];
-};
-export type TIngredientCard = {
-  data: TIngredient;
-};
-export type TCompoundItem ={
-  type: string;
-  quantity: number;
-}
-export type TFormOverlay = {
-  children: ReactNode;
-  type: string;
-}
-export type TForm = {
-  children: ReactNode;
-  formName: string;
-  onSubmit: (e: FormEvent) => void;
-  mainForm: boolean;
-}
-export type TOrderFeed = {
-  order: TOrder;
-  type: string;
-}
-export type TInputCode = {
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}
-export type TInput = {
-  value: any;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  placeholder: string;
-}
-export type TConstructorList={
-  value: TIngredient
-}
-// ТИПИЗАЦИЯ СТРАНИЦ
-export type TOrderDetailPage ={
-  source: string;
-}
 

@@ -5,8 +5,8 @@ import { ImageCicle } from "../index";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
 import { status, statusColor } from "../../utils/determineStatus";
 import { gmt } from "../../utils/determineGMT";
-import { TOrderFeed } from "../../services/types";
-import { TIngredient } from "../../services/types/data";
+
+import { TIngredient, TOrderFeed } from "../../services/types/data";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 
 const OrderFeed: FC<TOrderFeed> = React.memo(({ order, type }) => {

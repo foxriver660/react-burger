@@ -11,11 +11,10 @@ import {
   } from "../../services/actions/wsActions";
 import { status, statusColor } from "../../utils/determineStatus";
 import { getAuthUser, getOrders } from "../../selectors/selectors";
-import { TOrderDetailPage } from "../../services/types";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
-import { TIngredient } from "../../services/types/data";
+import { TIngredient, TOrderDetailPage } from "../../services/types/data";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
-import { WS_URL, WS_URL_FEED, WS_URL_HISTORY } from "../../utils/constant";
+import { WS_URL_FEED, WS_URL_HISTORY } from "../../utils/constant";
 import { IngredientItem, Loader } from "../../components";
 
 const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {

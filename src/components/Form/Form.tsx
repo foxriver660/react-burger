@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { TForm } from "../../services/types";
+import { TForm } from "../../services/types/data";
+
 import classes from "./Form.module.css";
 
 const Form: FC<TForm> = React.memo(

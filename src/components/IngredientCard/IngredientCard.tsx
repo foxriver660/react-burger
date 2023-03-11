@@ -5,8 +5,8 @@ import classes from "./IngredientCard.module.css";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux/es/exports";
 import { getIngredients, getBun } from "../../selectors/selectors";
-import { TIngredientCard } from "../../services/types";
-import { TIngredient } from "../../services/types/data";
+
+import { TIngredient, TIngredientCard } from "../../services/types/data";
 
 const IngredientCard: FC<TIngredientCard> = React.memo(({ data }) => {
   const [id] = useState(data._id);

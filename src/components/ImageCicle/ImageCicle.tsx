@@ -1,6 +1,7 @@
 import React, { FC } from "react";
+import { TImageCicle } from "../../services/types/data";
 import classes from "./ImageCicle.module.css";
-import { TImageCicle } from "../../services/types";
+
 
 const ImageCicle: FC<TImageCicle> = React.memo(({ src, ...props }) => {
   const { index, rest } = props;

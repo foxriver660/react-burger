@@ -4,7 +4,8 @@ import classes from "./Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ModalOverlay } from "../index";
 import { useNavigate } from "react-router-dom";
-import { TModal } from "../../services/types";
+import { TModal } from "../../services/types/data";
+
 
 const modalRootElement = document.querySelector("#modal") as HTMLElement;
 

@@ -9,9 +9,9 @@ import {
 } from "../../services/actions/ingredientActions";
 import React, { FC } from "react";
 import { Reorder } from "framer-motion";
-import { TIngredient } from "../../services/types/data";
+import { TConstructorList, TIngredient } from "../../services/types/data";
 import { useAppDispatch } from "../../services/hooks";
-import { TConstructorList } from "../../services/types";
+
 
 const ConstructorList: FC<TConstructorList> = React.memo(({ value }) => {
   const dispatch = useAppDispatch();

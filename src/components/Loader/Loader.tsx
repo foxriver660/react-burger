@@ -1,5 +1,6 @@
 import { FC } from "react";
-import { TLoader } from "../../services/types";
+import { TLoader } from "../../services/types/data";
+
 import classes from "./Loader.module.css";
 
 const Loader: FC<TLoader> = ({ classname }) => {

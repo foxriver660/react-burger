@@ -1,6 +1,7 @@
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { FC, useRef, useState } from "react";
-import { TInput } from "../../services/types";
+import { TInput } from "../../services/types/data";
+
 
 const InputPassword: FC<TInput> = ({value, onChange, placeholder}) => {
   const [isValidPassword, setIsValidPassword] = useState(true);

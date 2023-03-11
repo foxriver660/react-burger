@@ -3,7 +3,8 @@ import classes from "./IngredientItem.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import {ImageCicle} from "../index";
 import { BUN } from "../../utils/constant";
-import { TIngredientItem } from "../../services/types";
+import { TIngredientItem } from "../../services/types/data";
+
 
 const IngredientItem: FC<TIngredientItem> = React.memo(({ ingredient, quantityIngredients }) => {
   

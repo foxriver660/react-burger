@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { TOrderBox } from "../../../services/types";
+import { TOrderBox } from "../../../services/types/data";
 import classes from "./OrderBox.module.css";
 
 const OrderBox: FC<TOrderBox> = React.memo(({ doneOrder }) => {

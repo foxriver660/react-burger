@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { TModalOverlay } from "../../services/types";
+import { TModalOverlay } from "../../services/types/data";
 import classes from "./ModalOverlay.module.css";
 
 const ModalOverlay: FC<TModalOverlay> = React.memo(({ onClose, children }) => {

@@ -3,7 +3,8 @@ import { IngredientCard } from "../index";
 import classes from "./IngredientsCategory.module.css";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { TIngredientsCategory } from "../../services/types";
+import { TIngredientsCategory } from "../../services/types/data";
+
 
 const IngredientsCategory: FC<TIngredientsCategory> = React.memo(
   ({ filteredArr }) => {
