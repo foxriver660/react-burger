@@ -9,7 +9,6 @@ import { TIngredientCard } from "../../services/types";
 import { TIngredient } from "../../services/types/data";
 
 const IngredientCard: FC<TIngredientCard> = React.memo(({ data }) => {
-  //  ID и тип карточки записываются в состояние
   const [id] = useState(data._id);
   const [type] = useState(data.type);
 
@@ -51,3 +50,4 @@ const IngredientCard: FC<TIngredientCard> = React.memo(({ data }) => {
 });
 
 export default IngredientCard;
+// TODO: this

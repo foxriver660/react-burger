@@ -11,11 +11,10 @@ import React, { FC } from "react";
 import { Reorder } from "framer-motion";
 import { TIngredient } from "../../services/types/data";
 import { useAppDispatch } from "../../services/hooks";
+import { TConstructorList } from "../../services/types";
 
-// TODO РАЗОБРАТСЯ any
-const ConstructorList: FC<any> = React.memo(({ value }) => {
+const ConstructorList: FC<TConstructorList> = React.memo(({ value }) => {
   const dispatch = useAppDispatch();
-
   const handleDeleteIngredient = (value: TIngredient) => {
     dispatch(deleteIngredient(value));
     dispatch(calcIngredients());
@@ -42,3 +41,4 @@ const ConstructorList: FC<any> = React.memo(({ value }) => {
 });
 
 export default ConstructorList;
+// TODO: this

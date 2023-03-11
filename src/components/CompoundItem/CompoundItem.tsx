@@ -16,3 +16,4 @@ const CompoundItem: FC<TCompoundItem> = React.memo(({ type, quantity }) => {
 });
 
 export default CompoundItem;
+// TODO: this

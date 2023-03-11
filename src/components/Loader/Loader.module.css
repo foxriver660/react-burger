@@ -1,10 +1,9 @@
 .loader {
-  /* margin: auto; */
   width: 75px;
   height: 75px;
-  border: 12px solid rgba(0, 204, 204, 0.2);
+  border: 12px solid var(--color-loader-border);
   border-radius: 50%;
-  border-left-color: #00cccc;
+  border-left-color: var(--color-done);
   animation: loader 0.3s linear infinite;
 }
  @keyframes loader {

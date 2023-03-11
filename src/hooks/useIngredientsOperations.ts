@@ -4,7 +4,7 @@ import { useAppSelector } from "../services/hooks";
 import { TIngredient } from "../services/types/data";
 import { BUN } from "../utils/constant";
 
-const useIngredientsOperations = (a: any, b: string | undefined) => {
+const useIngredientsOperations = (a: any, b?: string) => {
   
   const availableIngredients = useAppSelector(getData);
   

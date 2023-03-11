@@ -4,10 +4,11 @@ import { Loader } from "../index";
 import { status, statusColor } from "../../utils/determineStatus";
 import { getOrders } from "../../selectors/selectors";
 import { useAppSelector } from "../../services/hooks";
+import { DONE } from "../../utils/constant";
 
 const OrderСompletedModal: FC = React.memo(() => {
   const { orders } = useAppSelector(getOrders);
-  // ПОЛУЧАЕМ ПОСЛЕДНИЙ ЗАКАЗ ПО СОКЕТ СОЕДИНЕНИЮ
+  // ПОСЛЕДНИЙ ЗАКАЗ ПО СОКЕТ СОЕДИНЕНИЮ
   const selected = [...orders].reverse()[0];
 
   return (
@@ -22,7 +23,7 @@ const OrderСompletedModal: FC = React.memo(() => {
           <p className={`text text_type_main-medium pb-15`}>
             идентификатор заказа
           </p>
-          {selected.status === "done" ? (
+          {selected.status === DONE ? (
             <div className={`${classes.statusImageDone} mb-15`}></div>
           ) : (
             <div className={`${classes.statusImagePending} mb-15`}></div>
@@ -31,7 +32,7 @@ const OrderСompletedModal: FC = React.memo(() => {
           <p
             className={`${classes.orderStatusText} text text_type_main-default pb-2`}
           >
-            Статус заказа:{" "}
+            Статус заказа:
             <span
               style={statusColor(selected)}
               className={`${classes.orderStatusText} text text_type_main-default pb-2 pl-2`}
@@ -42,7 +43,7 @@ const OrderСompletedModal: FC = React.memo(() => {
           <p
             className={`${classes.orderInstruction} text text_type_main-default`}
           >
-            {selected.status === "done"
+            {selected.status === DONE
               ? "Заберите Ваш заказ"
               : "Дождитесь готовности на орбитальной станции"}
           </p>
@@ -55,3 +56,4 @@ const OrderСompletedModal: FC = React.memo(() => {
 });
 
 export default OrderСompletedModal;
+// TODO: this

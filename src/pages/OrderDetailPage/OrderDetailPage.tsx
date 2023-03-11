@@ -15,7 +15,7 @@ import { TOrderDetailPage } from "../../services/types";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { TIngredient } from "../../services/types/data";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
-import { WS_URL, WS_URL_HISTORY } from "../../utils/constant";
+import { WS_URL, WS_URL_FEED, WS_URL_HISTORY } from "../../utils/constant";
 import { IngredientItem, Loader } from "../../components";
 
 const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
@@ -32,7 +32,7 @@ const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
   // ДИСПАТИМ WS НА ИНГРЕДИЕНТЫ
   useEffect(() => {
     source === "feed"
-      ? dispatch(wsConnectionStart(WS_URL))
+      ? dispatch(wsConnectionStart(WS_URL_FEED))
       : dispatch(wsConnectionStart(WS_URL_HISTORY))
     return () => {
       dispatch(wsDisconnect());

@@ -5,6 +5,7 @@ import { getOrders } from "../../selectors/selectors";
 import { TOrder } from "../../services/types/data";
 import { useAppSelector } from "../../services/hooks";
 import {Loader} from "../index";
+import { DONE } from "../../utils/constant";
 
 const StatisticFeed: FC = React.memo(() => {
   // ПОЛУЧЕНИЕ ИЗ СТОРА ВСЕГО СТЕКА
@@ -13,9 +14,9 @@ const StatisticFeed: FC = React.memo(() => {
   // РАЗДЕЛЯЕМ ПО ГОТОВНОСТИ
   const { doneOrder, waitOrder } = React.useMemo(() => {
     return orders.orders.reduce(
-      (acc: {doneOrder: number[], waitOrder: number[]}, order: TOrder) => {
+      (acc: {doneOrder: Array<number>, waitOrder: Array<number>}, order: TOrder) => {
               switch (order.status) {
-          case "done":
+          case DONE:
             acc.doneOrder.push(order.number);
             break;
           default:
@@ -35,12 +36,12 @@ const StatisticFeed: FC = React.memo(() => {
           <h2
             className={`${classes.subTitleDone} text text_type_main-medium pb-6`}
           >
-            Готовы:{" "}
+            Готовы:
           </h2>
           <h2
             className={`${classes.subTitleWait} text text_type_main-medium pb-6`}
           >
-            В работе:{" "}
+            В работе:
           </h2>
           <div className={classes.doneOrderWrapper}>
             {doneOrder.length ? (
@@ -67,16 +68,16 @@ const StatisticFeed: FC = React.memo(() => {
             )}
           </div>
           <p className={`${classes.totalNumberTitle} text text_type_main-medium pt-15`}>
-            Выполнено за все время:{" "}
+            Выполнено за все время:
           </p>
           <div className={`${classes.totalNumberWrapper} text text_type_digits-large`}>
-            {orders.total}{" "}
+            {orders.total}
           </div>
           <p className={`${classes.todayNumberTitle} text text_type_main-medium pt-15`}>
-            Выполнено за сегодня:{" "}
+            Выполнено за сегодня:
           </p>
           <div className={`${classes.todayNumberWrapper} text text_type_digits-large`}>
-            {orders.totalToday}{" "}
+            {orders.totalToday}
           </div>
         </>
       ) : (
@@ -87,3 +88,4 @@ const StatisticFeed: FC = React.memo(() => {
 });
 
 export default StatisticFeed;
+// TODO: this

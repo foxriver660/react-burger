@@ -1,0 +1,14 @@
+:root{
+  --color-done: #00cccc;
+  --color-white: #fff;
+  --color-red: #FF0000;
+  --color-default: #8585ad;
+  --color-background: #1c1c21;
+  --color-background-track: #2f2f37;
+  --color-background-overlay: rgba(0, 0, 0, 0.6)
+  --color-text-shadow: rgba(51, 51, 255, 0.25);
+  --color-box-shadow: rgba(0, 0, 0, 0.04);
+  --color-modal-outline: #4c4cff;
+  --color-loader-border: rgba(0, 204, 204, 0.2);
+  --color-image-cicle-border: #801ab2;
+}

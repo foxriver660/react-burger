@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import classes from "./IngredientDetails.module.css";
 import { useParams } from "react-router-dom";
 import { getData } from "../../selectors/selectors";
-import {CompoundItem} from "../index";
+import { CompoundItem } from "../index";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 import { useAppSelector } from "../../services/hooks";
 
@@ -39,3 +39,4 @@ const IngredientDetails: FC = React.memo(() => {
 });
 
 export default IngredientDetails;
+// TODO: this

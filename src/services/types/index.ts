@@ -79,7 +79,9 @@ export type TInput = {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
 }
-
+export type TConstructorList={
+  value: TIngredient
+}
 // ТИПИЗАЦИЯ СТРАНИЦ
 export type TOrderDetailPage ={
   source: string;

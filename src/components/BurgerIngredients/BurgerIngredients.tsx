@@ -1,4 +1,4 @@
-import React, { FC, MutableRefObject } from "react";
+import React, { FC, MutableRefObject, useRef } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./BurgerIngredients.module.css";
 import {IngredientsCategory} from "../index";
@@ -10,14 +10,12 @@ import { useAppSelector } from "../../services/hooks";
 
 const BurgerIngredients: FC = React.memo(() => {
   const [current, setCurrent] = React.useState(BUN);
-  // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
-  const data = useAppSelector(getData);
+   const data = useAppSelector(getData);
 
-  // РЕАЛИЗАЦИЯ СКРОЛЛА
-  const mainRef  = React.useRef(null);
-  const sauceRef = React.useRef(null);
-  const bunRef = React.useRef(null);
-
+  // СКРОЛЛ
+  const mainRef  = useRef(null);
+  const sauceRef = useRef(null);
+  const bunRef = useRef(null);
   const scrollTo = (ref: MutableRefObject<HTMLHeadingElement | null>) => {
      ref.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -135,3 +133,4 @@ const BurgerIngredients: FC = React.memo(() => {
 });
 
 export default BurgerIngredients;
+// TODO: this

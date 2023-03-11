@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import classes from "./OrderFeed.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import {ImageCicle} from "../index";
+import { ImageCicle } from "../index";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
 import { status, statusColor } from "../../utils/determineStatus";
 import { gmt } from "../../utils/determineGMT";
@@ -11,7 +11,9 @@ import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 
 const OrderFeed: FC<TOrderFeed> = React.memo(({ order, type }) => {
   const selector = type === "orderHistory";
-  const { filteredIngredients, totalPrice } = useIngredientsOperations(order, undefined);
+  const { filteredIngredients, totalPrice } = useIngredientsOperations(
+    order
+  );
 
   return (
     <li className={`${classes.orderWrapper} p-6`}>
@@ -48,7 +50,7 @@ const OrderFeed: FC<TOrderFeed> = React.memo(({ order, type }) => {
       <div className={classes.orderPrice}>
         <p className={`${classes.orderSum} text text_type_digits-default`}>
           {totalPrice}
-        </p>{" "}
+        </p>
         <CurrencyIcon type={"secondary"} />
       </div>
     </li>
@@ -56,3 +58,4 @@ const OrderFeed: FC<TOrderFeed> = React.memo(({ order, type }) => {
 });
 
 export default OrderFeed;
+// TODO: this

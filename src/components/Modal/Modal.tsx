@@ -2,7 +2,7 @@ import React, { FC, useEffect } from "react";
 import { createPortal } from "react-dom";
 import classes from "./Modal.module.css";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import {ModalOverlay} from "../index";
+import { ModalOverlay } from "../index";
 import { useNavigate } from "react-router-dom";
 import { TModal } from "../../services/types";
 
@@ -48,3 +48,4 @@ const Modal: FC<TModal> = React.memo(
 );
 
 export default Modal;
+// TODO: this

@@ -7,7 +7,7 @@ import {
 import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import {OrderСompletedModal, Modal, ConstructorList} from "../index";
+import { OrderСompletedModal, Modal, ConstructorList } from "../index";
 import { useDrop } from "react-dnd";
 import { BUN } from "../../utils/constant";
 import {
@@ -57,8 +57,8 @@ const BurgerConstructor: FC = React.memo(() => {
     ];
     if (authUser) {
       dispatch(wsResetMessage());
-      dispatch(getApiOrder(ingredientsId));  
-            setOpen(true);
+      dispatch(getApiOrder(ingredientsId));
+      setOpen(true);
     } else {
       navigate("/login");
     }
@@ -71,15 +71,13 @@ const BurgerConstructor: FC = React.memo(() => {
     ];
     if (successTokenUpdate && (orderRequestFailed || wsConnectedFailed)) {
       dispatch(getApiOrder(ingredientsId));
-      
     }
   }, [successTokenUpdate, orderRequestFailed, wsConnectedFailed]); // eslint-disable-line
 
   // !DRAG AND DROP
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     accept: "items",
-    drop: (item: {id: string; type: string}) => {
-      console.log(item)
+    drop: (item: { id: string; type: string }) => {
       item.type === BUN
         ? dispatch(addBun(item))
         : dispatch(addIngredient(item));
@@ -94,9 +92,9 @@ const BurgerConstructor: FC = React.memo(() => {
   const isActive = canDrop && isOver;
   let outline = "none";
   if (isActive) {
-    outline = "3px solid #00cccc";
+    outline = "3px solid var(--color-done)";
   } else if (canDrop) {
-    outline = "1px solid red";
+    outline = "1px solid var(--color-red)";
   }
 
   // ИНСТРУМЕНТЫ ДЛЯ УСЛОВНОГО РЕНДЕРИНГА
@@ -161,7 +159,7 @@ const BurgerConstructor: FC = React.memo(() => {
             <p className="text text_type_digits-medium">{totalCost}</p>
             <img
               className="pl-2 pr-10"
-              src={bigCurrencyIcon} 
+              src={bigCurrencyIcon}
               alt="иконка валюты"
             />
             <Button
@@ -205,3 +203,4 @@ const BurgerConstructor: FC = React.memo(() => {
 });
 
 export default BurgerConstructor;
+// TODO: this

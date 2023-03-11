@@ -1,15 +1,14 @@
-.div3 {
+.wrapper {
   display: flex;
   flex-direction: column;
-  height: 153px;
+  max-height: 55vh;
   flex-wrap: wrap;
   gap: 8px;
 }
-
 .digits {
   margin: 0;
   display: flex;
 }
 .digitsReady {
-  color: #00cccc;
+  color: var(--color-done);
 }

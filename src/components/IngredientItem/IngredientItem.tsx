@@ -17,9 +17,9 @@ const IngredientItem: FC<TIngredientItem> = React.memo(({ ingredient, quantityIn
         <p className={`${classes.orderSum} text text_type_digits-default`}>
           {ingredient?.type === BUN
             ? 2
-            : quantityIngredients[`${ingredient._id}`]}{" "}
+            : quantityIngredients[`${ingredient._id}`]}
           x {ingredient?.price}
-        </p>{" "}
+        </p>
         <CurrencyIcon type={"secondary"} />
       </div>
     </li>
@@ -27,3 +27,4 @@ const IngredientItem: FC<TIngredientItem> = React.memo(({ ingredient, quantityIn
 });
 
 export default IngredientItem;
+// TODO: this

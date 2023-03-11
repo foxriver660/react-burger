@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import {IngredientCard} from "../index";
+import { IngredientCard } from "../index";
 import classes from "./IngredientsCategory.module.css";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -28,3 +28,4 @@ const IngredientsCategory: FC<TIngredientsCategory> = React.memo(
 );
 
 export default IngredientsCategory;
+// TODO: this

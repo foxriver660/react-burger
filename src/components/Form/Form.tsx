@@ -9,7 +9,7 @@ const Form: FC<TForm> = React.memo(
         onSubmit={onSubmit}
         className={mainForm ? classes.form : classes.profile}
       >
-        <fieldset className={`${classes.fieldset} `}>
+        <fieldset className={classes.fieldset}>
           {formName && (
             <legend
               className={`${classes.title} pb-6 text text_type_main-medium`}
@@ -26,3 +26,4 @@ const Form: FC<TForm> = React.memo(
 );
 
 export default Form;
+// TODO: this

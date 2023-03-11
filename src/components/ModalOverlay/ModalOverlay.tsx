@@ -11,5 +11,4 @@ const ModalOverlay: FC<TModalOverlay> = React.memo(({ onClose, children }) => {
 });
 
 export default ModalOverlay;
-
-
+// TODO: this

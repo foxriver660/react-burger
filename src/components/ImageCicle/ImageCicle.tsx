@@ -4,7 +4,7 @@ import { TImageCicle } from "../../services/types";
 
 const ImageCicle: FC<TImageCicle> = React.memo(({ src, ...props }) => {
   const { index, rest } = props;
-  
+
   const zIndex =
     index === 0
       ? 5
@@ -32,3 +32,4 @@ const ImageCicle: FC<TImageCicle> = React.memo(({ src, ...props }) => {
 });
 
 export default ImageCicle;
+// TODO: this

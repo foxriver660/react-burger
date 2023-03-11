@@ -3,5 +3,5 @@
 }
 .link {
   text-decoration: none;
-  color: white;
+  color: var(--color-white);
 }

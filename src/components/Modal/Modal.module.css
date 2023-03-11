@@ -1,6 +1,6 @@
 .container {
-  outline: 1px solid #4c4cff;
-  background-color: #1c1c21;
+  outline: 1px solid var(--color-modal-outline);
+  background-color: var(--color-background);
   border-radius: 35px;
   width: 720px;
   z-index: 100;

@@ -1,14 +1,14 @@
 .imgContainer {
   width: 64px;
   height: 64px;
-  border: 2px solid #801ab2;
+  border: 2px solid var(--color-image-cicle-border);
   box-sizing: border-box;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #131316;
+  background: var(--color-background);
   padding: 15px;
   position: relative;
 }
@@ -22,7 +22,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  color: #fff;
+  color: var(--color-white);
   background: rgba(28, 28, 33, 0.6);
   display: flex;
   justify-content: center;

@@ -4,19 +4,19 @@ export type TIngredientShortInfo = {
 };
 
 export type TIngredient = {
-  readonly calories: number | undefined;
-  readonly carbohydrates: number;
-  readonly fat: number;
-  readonly image: string;
-  readonly image_large: string;
-  readonly image_mobile: string;
-  readonly name: string;
-  readonly price: number;
-  readonly proteins: number;
-  readonly type: string;
-  readonly __v: number;
-  readonly _id: string;
-  readonly nanoid?: string;
+  calories: number | undefined;
+  carbohydrates: number;
+  fat: number;
+  image: string;
+  image_large: string;
+  image_mobile: string;
+  name: string;
+  price: number;
+  proteins: number;
+  type: string;
+  __v: number;
+  _id: string;
+ nanoid?: string;
 };
 
 export type TUser = {

@@ -34,7 +34,7 @@
 
 .ingredientElement {
   max-height: 80px;
-  background-color: #1c1c21;
+  background-color: var(--color-background);
   cursor: pointer;
 }
 
@@ -53,10 +53,10 @@
   width: 8px;
 }
 .scrollWrapper::-webkit-scrollbar-track {
-  background-color: #2f2f37;
+  background-color: var(--color-background-track);
 }
 .scrollWrapper::-webkit-scrollbar-thumb {
-  background-color: #8585ad;
+  background-color: var(--color-default);
   height: 288px;
   width: 100%;
 }

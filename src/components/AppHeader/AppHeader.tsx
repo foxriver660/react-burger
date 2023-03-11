@@ -6,12 +6,12 @@ import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dis
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./AppHeader.module.css";
+import { PATH } from "../../utils/constant";
 
 const AppHeader: FC = React.memo(() => {
   const location = useLocation();
-
-  const setActive = ({isActive }: {isActive: boolean}) =>
-   isActive ? classes.linkActive : classes.link;
+  const setActive = ({ isActive }: { isActive: boolean }) =>
+    isActive ? classes.linkActive : classes.link;
 
   return (
     <header className={`p-4 ${classes.header}`}>
@@ -25,12 +25,12 @@ const AppHeader: FC = React.memo(() => {
                 type="secondary"
                 size="medium"
               >
-                <NavLink className={setActive} to="/" state={"constructor"}>
+                <NavLink className={setActive} to="/">
                   <BurgerIcon
                     type={
-                      location.state === "constructor" ? "primary" : "secondary"
+                      location.pathname === PATH.HOME ? "primary" : "secondary"
                     }
-                  />{" "}
+                  />
                   Конструктор
                 </NavLink>
               </Button>
@@ -42,15 +42,12 @@ const AppHeader: FC = React.memo(() => {
                 type="secondary"
                 size="medium"
               >
-                <NavLink
-                  className={setActive}
-                  to="feed"
-                  state={{ feed: true }}
-                  end
-                >
+                <NavLink className={setActive} to="feed" end>
                   <ListIcon
-                    type={location.state?.feed ? "primary" : "secondary"}
-                  />{" "}
+                    type={
+                      location.pathname === PATH.FEED ? "primary" : "secondary"
+                    }
+                  />
                   Лента заказов
                 </NavLink>
               </Button>
@@ -65,10 +62,12 @@ const AppHeader: FC = React.memo(() => {
           type="secondary"
           size="medium"
         >
-          <NavLink className={setActive} to="/profile" state={"profile"}>
+          <NavLink className={setActive} to="/profile">
             <ProfileIcon
-              type={location.state === "profile" ? "primary" : "secondary"}
-            />{" "}
+              type={
+                location.pathname === PATH.PROFILE ? "primary" : "secondary"
+              }
+            />
             Личный кабинет
           </NavLink>
         </Button>
@@ -77,3 +76,4 @@ const AppHeader: FC = React.memo(() => {
   );
 });
 export default AppHeader;
+// TODO: this
