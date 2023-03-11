@@ -1,7 +1,8 @@
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react'
+import React, { FC } from 'react'
+import { TInput } from '../../services/types';
 
-const InputEmail = ({value, onChange, placeholder}) => {
+const InputEmail: FC<TInput> = ({value, onChange, placeholder}) => {
   const [isValidEmail, setIsValidEmail] = React.useState(true);
   return (
     <>

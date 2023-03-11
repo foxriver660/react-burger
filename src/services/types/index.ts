@@ -5,7 +5,7 @@ import { TIngredientsActions } from "../actions/ingredientActions";
 import { TOrderActions } from "../actions/orderActions";
 import { TProfileActions } from "../actions/profileActions";
 import { TWsActions } from "../actions/wsActions";
-import { FormEvent, ReactNode } from "react";
+import { ChangeEvent, FormEvent, ReactNode } from "react";
 import { TIngredient, TOrder, TString } from "./data";
 
 export type TApplicationActions=
@@ -70,6 +70,16 @@ export type TOrderFeed = {
   order: TOrder;
   type: string;
 }
+export type TInputCode = {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+export type TInput = {
+  value: any;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
+}
+
 // ТИПИЗАЦИЯ СТРАНИЦ
 export type TOrderDetailPage ={
   source: string;

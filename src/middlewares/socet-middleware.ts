@@ -26,7 +26,7 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
       if (type === wsConnectionStart(payload).type) {
         url = payload;
         socket = new WebSocket(url);
-        console.log("***create WebSocket***", socket);
+        console.log("***create WebSocket***");
       }
 
       if (type === wsDisconnect().type) {
@@ -55,13 +55,12 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
 
         socket.onerror = (event) => {
           dispatch(wsConnectionError());
-          console.log("socket.onerror:", event);
+          /* console.log("socket.onerror:", event); */
         };
 
         socket.onclose = (event) => {
           /* console.log("socket.onclose:", event); */
           if (event.code !== 1000) {
-            console.log('ОТРАБОТАЛ РЕКОНЕКТ:', timeout)
             dispatch(wsConnectionError());
             reconnectTimer = window.setTimeout(() => {
               dispatch(wsConnectionStart(url));

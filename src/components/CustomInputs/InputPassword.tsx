@@ -1,13 +1,14 @@
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { useRef, useState } from "react";
+import React, { FC, useRef, useState } from "react";
+import { TInput } from "../../services/types";
 
-const InputPassword = ({value, onChange, placeholder}) => {
+const InputPassword: FC<TInput> = ({value, onChange, placeholder}) => {
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [showPassword, setShowPassword] = React.useState(false);
-  const passwordRef = useRef(null);
-
+  
+  const ref = useRef<HTMLInputElement | null>(null);
   const handlePasswordClick = () => {
-    passwordRef.current?.focus();
+    ref.current?.focus();
     setShowPassword(!showPassword);
   };
   return (
@@ -21,7 +22,7 @@ const InputPassword = ({value, onChange, placeholder}) => {
         errorText="Ошибка"
         autoComplete="off"
         value={value}
-        ref={passwordRef}
+        ref={ref}
         type={showPassword ? "text" : "password"}
         icon={showPassword ? "HideIcon" : "ShowIcon"}
         error={isValidPassword ? false : true}
