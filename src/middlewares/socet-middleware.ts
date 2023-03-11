@@ -25,7 +25,6 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
       } = wsActions;
 
       if (type === wsConnectionStart(payload).type) {
-        console.log(payload);
         url = payload;
         socket = new WebSocket(url);
         console.log("***create WebSocket***", socket);
@@ -33,7 +32,6 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
 
       if (type === wsDisconnect().type) {
         clearTimeout(reconnectTimer);
-
         reconnectTimer = 0;
         socket?.close(1000, "User disconnected");
         socket = null;
@@ -43,25 +41,28 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
       if (socket) {
         socket.onopen = (event) => {
           dispatch(wsConnectionSuccess());
-          console.log("socket.onopen:", event);
+          /* console.log("socket.onopen:", event); */
         };
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          console.log("socket.onmessage:", parsedData);
+          /* console.log("socket.onmessage:", parsedData); */
           const { success, ...restParsedData } = parsedData;
           success && dispatch(wsGetMessage(restParsedData));
           if (restParsedData.message === INVALID_TOKEN || JWT_EXPIRED) {
             dispatch(wsConnectionFailed());
           }
         };
+
         socket.onerror = (event) => {
           dispatch(wsConnectionError());
           console.log("socket.onerror:", event);
         };
+
         socket.onclose = (event) => {
-          console.log("socket.onclose:", event);
+          /* console.log("socket.onclose:", event); */
           if (event.code !== 1000) {
+            console.log('ОТРАБОТАЛ РЕКОНЕКТ:', timeout)
             dispatch(wsConnectionError());
             reconnectTimer = window.setTimeout(() => {
               dispatch(wsConnectionStart(url));

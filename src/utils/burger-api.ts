@@ -32,15 +32,15 @@ const updatePassRequestAPI = (email: string) =>
     }),
   }).then(checkResponse);
 //  !ЗАПРОС НА ИЗМЕНЕНИЕ ПАРОЛЯ
-const resetPassAPI = (newPassword: string, emailCode: string) =>
+const resetPassAPI = ({password, token}: {password: string, token: string}) =>
   fetch(`${BURGER_API_URL}/password-reset/reset`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      password: newPassword,
-      token: emailCode,
+      password,
+      token,
     }),
   }).then(checkResponse);
 

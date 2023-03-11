@@ -1,5 +1,5 @@
-import React, { FC, FormEvent } from "react";
-import { Link, Navigate } from "react-router-dom";
+import React, { ChangeEvent, FC, FormEvent } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import classes from "./ResetPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
@@ -9,40 +9,31 @@ import {
   getResetPassRequest,
 } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
-import { Form, FormOverlay } from "../../components";
+import { Form, FormOverlay, InputCode, InputPassword } from "../../components";
 const ResetPassPage: FC = React.memo(() => {
-  // ХУКИ
   const dispatch = useAppDispatch();
-  // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ ПАРОЛЬ
-  const [newPassword, setNewPassword] = React.useState("");
-  // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ КОДА ИЗ ПОЧТЫ
-  const [code, setCode] = React.useState("");
-  // ПОЛУЧАЕМ РЕКВЕСТЫ ИЗ СТОРА
-  const resetPassRequest = useAppSelector(getResetPassRequest);
+  const navigate = useNavigate()
+  const [form, setForm] = React.useState({ password: "", token: "" });
+
+  /* const resetPassRequest = useAppSelector(getResetPassRequest); */
   const updatePassRequest = useAppSelector(getUpdatePassRequest);
-  // СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
-  const [isValidPassword, setIsValidPassword] = React.useState(true);
-  const [isValidCode, setIsValidCode] = React.useState(true);
-  const [showPassword, setShowPassword] = React.useState(false);
-  const passwordRef = React.useRef<HTMLInputElement>(null);
-  const handlePasswordClick = () => {
-    passwordRef.current?.focus();
-    setShowPassword(!showPassword);
-  };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(resetPass(newPassword, code));
+    dispatch(resetPass(form)).then(() =>
+    navigate("/", { replace: true}));
   };
-  // !РЕДИРЕКТ ЕСЛИ ПРОШЕЛ ЗАПРОС
+  /* // !РЕДИРЕКТ ЕСЛИ ПРОШЕЛ ЗАПРОС
   if (resetPassRequest) {
     return <Navigate to={"/"} />;
-  }
+  } */
   // !РЕДИРЕКТ ЕСЛИ ПРИШЕЛ НЕ С /forgot-password
   if (!updatePassRequest) {
     return <Navigate to={"/forgot-password"} />;
   }
-
 
   return (
     <FormOverlay type="form">
@@ -51,44 +42,15 @@ const ResetPassPage: FC = React.memo(() => {
         formName="Восстановление пароля"
         mainForm={true}
       >
-        <Input
-          required={true}
-          name="password"
-          placeholder="Введите новый пароль"
-          maxLength={12}
-          minLength={2}
-          errorText="Ошибка"
-          autoComplete="off"
-          value={newPassword}
-          ref={passwordRef}
-          type={showPassword ? "text" : "password"}
-          icon={showPassword ? "HideIcon" : "ShowIcon"}
-          error={isValidPassword ? false : true}
-          onInvalid={(e) => setIsValidPassword(false)}
-          onIconClick={handlePasswordClick}
-          onChange={(e) => {
-            setNewPassword(e.target.value);
-            setIsValidPassword(true);
-          }}
-        />
-        <Input
-          required={true}
-          name="code"
-          placeholder="Введите код из письма"
-          errorText="Ошибка"
-          value={code}
-          type="text"
-          onChange={(e) => setCode(e.target.value)}
-          error={isValidCode ? false : true}
-          onInvalid={(e) => setIsValidCode(false)}
-        />
-        <Button htmlType="submit" type="primary" size="medium" extraClass="">
+        <InputPassword value={form.password} onChange={handleChange} placeholder='Введите новый пароль' />
+        <InputCode value={form.token} onChange={handleChange} />
+        <Button htmlType="submit" type="primary" size="medium">
           Восстановить
         </Button>
       </Form>
 
       <p className={`${classes.clarification} text text_type_main-default`}>
-        Вспомнили пароль?{" "}
+        Вспомнили пароль?
         <Link className={classes.link} to="/login">
           Войти
         </Link>

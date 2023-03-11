@@ -1,34 +1,30 @@
-import React, { FormEvent } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/input";
+import React, { ChangeEvent, FormEvent } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import classes from "./ForgotPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { updatePassRequest } from "../../services/actions/profileActions";
 import { getUpdatePassRequest } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
-import { Form, FormOverlay } from "../../components";
+import { Form, FormOverlay, InputEmail } from "../../components";
 
 const ForgotPassPage = React.memo(() => {
-  // ХУКИ
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
-  // ЛОКАЛЬНЫЙ СТЕЙТ ДЛЯ ИНПУТА
-  const [value, setValue] = React.useState("");
-  // ЛОКАЛЬНЫЙ СТЕЙТЫ ДЛЯ ВАЛИДАЦИИ И ПОКАЗ ПАРОЛЯ
-  const [isValidEmail, setIsValidEmail] = React.useState(true);
-  // ПОЛУЧАЕМ РЕКВЕСТ ОБ ОТПРАВКЕ ПОЧТЫ ИЗ СТОРА
-  const isUpdatePass = useAppSelector(getUpdatePassRequest);
-
+  const [form, setForm] = React.useState("");
+  /* const isUpdatePass = useAppSelector(getUpdatePassRequest);
+  if (isUpdatePass) {
+    return <Navigate to={"/reset-password"} state={{ from: location }} />;
+  } */
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setForm(e.target.value);
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(updatePassRequest(value));
+    dispatch(updatePassRequest(form)).then(() =>
+      navigate("/reset-password", { replace: true, state: { from: location }})
+    );
   };
-  // !РЕДИРЕКТ на /reset-password ЕСЛИ res(true)
-  if (isUpdatePass) {
-    return <Navigate to={"/reset-password"} state={{ from: location }} />;
-  }
-
   return (
     <FormOverlay type="form">
       <Form
@@ -36,20 +32,12 @@ const ForgotPassPage = React.memo(() => {
         formName="Восстановление пароля"
         mainForm={true}
       >
-        <Input
-          required={true}
-          type="email"
-          name="email"
+        <InputEmail
+          value={form}
+          onChange={handleChange}
           placeholder="Укажите e-mail"
-          errorText="Ошибка"
-          value={value}
-          error={isValidEmail ? false : true}
-          onInvalid={(e) => setIsValidEmail(false)}
-          onChange={(e) => {
-            setValue(e.target.value);
-            setIsValidEmail(true);
-          }}
         />
+
         <Button htmlType="submit" type="primary" size="medium" extraClass="">
           Восстановить
         </Button>

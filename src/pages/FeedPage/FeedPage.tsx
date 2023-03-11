@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import classes from "./FeedPage.module.css";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -16,7 +16,7 @@ const FeedPage: FC = React.memo(() => {
   const location = useLocation();
   const orders = useAppSelector(getOrders);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(wsConnectionStart(WS_URL_FEED));
 
      return () => {

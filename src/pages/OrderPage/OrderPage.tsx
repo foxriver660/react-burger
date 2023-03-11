@@ -11,25 +11,31 @@ import {
   getSuccessTokenUpdate,
 } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
-import { refreshToken } from "../../services/actions/profileActions";
-import {WS_URL_HISTORY} from '../../utils/constant'
+import {
+  checkUserAccess,
+  } from "../../services/actions/profileActions";
+import { WS_URL_HISTORY } from "../../utils/constant";
 import { OrderFeed } from "../../components";
+
 const OrderPage: FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { orders } = useAppSelector(getOrders);
   const wsConnectedFailed = useAppSelector(getWsConnectedFailed);
   const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
-
+ 
   useEffect(() => {
     dispatch(wsConnectionStart(WS_URL_HISTORY));
-    if (wsConnectedFailed) {
-      dispatch(refreshToken())
-         }
     return () => {
       dispatch(wsDisconnect());
     };
-  }, [dispatch, successTokenUpdate, wsConnectedFailed]);
+  }, [dispatch, successTokenUpdate]);
+
+  useEffect(() => {
+    if (wsConnectedFailed) {
+      dispatch(checkUserAccess());
+    }
+  }, []);
 
   return (
     <section className={`${classes.container} mt-10`}>

@@ -19,3 +19,8 @@ export {default as OrderFeed} from './OrderFeed/OrderFeed';
 export {default as ProtectedRouteElement} from './ProtectedRouteElement/ProtectedRouteElement';
 export {default as OnlyUnAuthRoute} from './ProtectedRouteElement/OnlyUnAuthRoute';
 export {default as StatisticFeed} from './StatisticFeed/StatisticFeed';
+export {default as InputPassword} from './CustomInputs/InputPassword';
+export {default as InputCode} from './CustomInputs/InputCode'
+export {default as InputEmail} from './CustomInputs/InputEmail';
+export {default as InputName} from './CustomInputs/InputName';
+

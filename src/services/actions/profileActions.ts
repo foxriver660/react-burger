@@ -123,7 +123,7 @@ export const updateUserSuccessAction = (
 });
 // ГЕНЕРАТОР THUNK
 export const updatePassRequest = (email: string) => (dispatch: AppDispatch) => {
-  updatePassRequestAPI(email)
+  return updatePassRequestAPI(email)
     .then((res) => {
       dispatch(updatePassAction(res.success));
       console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res);
@@ -134,8 +134,8 @@ export const updatePassRequest = (email: string) => (dispatch: AppDispatch) => {
 };
 
 export const resetPass =
-  (newPassword: string, emailCode: string) => (dispatch: AppDispatch) => {
-    resetPassAPI(newPassword, emailCode)
+  (newPassword: {password: string, token: string}) => (dispatch: AppDispatch) => {
+    return resetPassAPI(newPassword)
       .then((res) => {
         dispatch(resetPassAction(res.success));
         console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res);
@@ -192,7 +192,7 @@ export const login = (user: TUserLogin) => (dispatch: AppDispatch) => {
 };
 
 export const checkUserAccess = () => (dispatch: AppDispatch) => {
-  checkUserAccessAPI()
+  return checkUserAccessAPI()
     .then((res) => {
       console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res);
       dispatch(setUserAction(res.user));
@@ -201,8 +201,7 @@ export const checkUserAccess = () => (dispatch: AppDispatch) => {
     .catch((err) => {
       console.log(err);
       if (err.message === JWT_MALFORMED || JWT_EXPIRED) {
-        // TODO РАЗОБРАТСЯ
-        dispatch(refreshToken());
+          dispatch(refreshToken());
       }
     });
 };
@@ -211,7 +210,7 @@ export const refreshToken = () => (dispatch: AppDispatch) => {
   return refreshTokenAPI()
     .then((res) => {
       console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);
-      setCookie("token", parsForCookie(res.accessToken), {expires: 10});
+      setCookie("token", parsForCookie(res.accessToken) /* , {expires: 10} */);
       setCookie("refreshToken", res.refreshToken);
       dispatch(updateTokenAction(res.success));
     })
@@ -231,7 +230,7 @@ export const updateUserProfile =
     password: string;
   }) =>
   (dispatch: AppDispatch) => {
-    updateUserProfileAPI({ name, email, password })
+    return updateUserProfileAPI({ name, email, password })
       .then((res) => {
         console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);
         dispatch(setUserAction(res.user));
@@ -240,7 +239,6 @@ export const updateUserProfile =
       .catch((err) => {
         console.log(err);
         if (err.message === JWT_MALFORMED || JWT_EXPIRED) {
-          // TODO РАЗОБРАТСЯ
           dispatch(refreshToken());
           dispatch(updateUserFailedAction(!err.success));
         }

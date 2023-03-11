@@ -1,0 +1,25 @@
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import React from 'react'
+
+const InputEmail = ({value, onChange, placeholder}) => {
+  const [isValidEmail, setIsValidEmail] = React.useState(true);
+  return (
+    <>
+    <Input
+          required={true}
+          name="email"
+          placeholder={placeholder}
+          errorText="Ошибка"
+          value={value}
+          type="email"
+          error={isValidEmail ? false : true}
+          onInvalid={() => setIsValidEmail(false)}
+          onChange={(e) => {
+            onChange(e);
+            setIsValidEmail(true);
+          }}
+        />
+    </>
+  )
+}
+export default InputEmail
