@@ -4,14 +4,33 @@ import { checkUserAccess } from "../services/actions/profileActions";
 import { getApiIngredients } from "../services/actions/ingredientActions";
 import { getSuccessTokenUpdate } from "../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../services/hooks";
-import { FeedPage, ForgotPassPage, HomePage, IngredientPage, Layout, LoginPage, NotFoundPage, OrderDetailPage, OrderPage, ProfilePage, RegisterPage, ResetPassPage } from "../pages";
-import { IngredientDetails, Modal, OnlyUnAuthRoute, OrderDetails, ProtectedRouteElement } from "../components";
+import {
+  FeedPage,
+  ForgotPassPage,
+  HomePage,
+  IngredientPage,
+  Layout,
+  LoginPage,
+  NotFoundPage,
+  OrderDetailPage,
+  OrderPage,
+  ProfilePage,
+  RegisterPage,
+  ResetPassPage,
+} from "../pages";
+import {
+  IngredientDetails,
+  Modal,
+  OnlyUnAuthRoute,
+  OrderDetails,
+  ProtectedRouteElement,
+} from "../components";
 
 const App: FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
-  
+
   /* eslint-disable */
   useEffect(() => {
     dispatch(checkUserAccess());
@@ -32,11 +51,11 @@ const App: FC = React.memo(() => {
           <Route index element={<HomePage />} />
           <Route
             path="register"
-            element={<OnlyUnAuthRoute element={<RegisterPage />}  />}
+            element={<OnlyUnAuthRoute element={<RegisterPage />} />}
           />
           <Route
             path="login"
-            element={<OnlyUnAuthRoute element={<LoginPage />}  />}
+            element={<OnlyUnAuthRoute element={<LoginPage />} />}
           />
           <Route path="feed" element={<FeedPage />} />
           <Route
@@ -50,7 +69,7 @@ const App: FC = React.memo(() => {
           <Route path="reset-password" element={<ResetPassPage />} />
           <Route
             path="profile/"
-            element={<ProtectedRouteElement element={<ProfilePage />}  />}
+            element={<ProtectedRouteElement element={<ProfilePage />} />}
           >
             <Route path="orders" element={<OrderPage />} />
           </Route>
@@ -58,7 +77,7 @@ const App: FC = React.memo(() => {
             path="profile/orders/:id"
             element={
               <ProtectedRouteElement
-                element={<OrderDetailPage source={"history"}  />} 
+                element={<OrderDetailPage source={"history"} />}
               />
             }
           />
