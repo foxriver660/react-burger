@@ -2,7 +2,6 @@ import React, { FC, useEffect } from "react";
 import classes from "./OrderDetailPage.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useParams } from "react-router-dom";
-import { getApiIngredients } from "../../services/actions/ingredientActions";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
 import { gmt } from "../../utils/determineGMT";
 import {
@@ -26,11 +25,7 @@ const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
   const { order, filteredIngredients, totalPrice, quantityIngredients } =
     useIngredientsOperations(orders, id);
   const authUser = useAppSelector(getAuthUser);
-  
-  useEffect(() => {
-    dispatch(getApiIngredients());
-  }, []); // eslint-disable-line
-  
+    
   useEffect(() => {
     source === "feed"
       ? dispatch(wsConnectionStart(WS_URL_FEED))

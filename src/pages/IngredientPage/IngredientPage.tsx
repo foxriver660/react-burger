@@ -1,22 +1,14 @@
 import React, { FC } from "react";
 import classes from "./IngredientPage.module.css";
 import { useParams } from "react-router-dom";
-import { getApiIngredients } from "../../services/actions/ingredientActions";
 import { getData } from "../../selectors/selectors";
-import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { useAppSelector } from "../../services/hooks";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 import { CompoundItem, Loader } from "../../components";
 
-
 const IngredientPage: FC = React.memo(() => {
-  const dispatch = useAppDispatch();
   const { id } = useParams();
-  React.useEffect(() => {
-    dispatch(getApiIngredients());
-  }, [dispatch]);
-
   const availableIngredients = useAppSelector(getData);
-
   const { order } = useIngredientsOperations(availableIngredients, id);
 
   return (

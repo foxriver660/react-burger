@@ -3,10 +3,9 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/counter";
 import classes from "./IngredientCard.module.css";
 import { useDrag } from "react-dnd";
-import { useSelector } from "react-redux/es/exports";
 import { getIngredients, getBun } from "../../selectors/selectors";
-
 import { TIngredient, TIngredientCard } from "../../services/types/data";
+import { useAppSelector } from "../../services/hooks";
 
 const IngredientCard: FC<TIngredientCard> = React.memo(({ data }) => {
   const [id] = useState(data._id);
@@ -23,11 +22,11 @@ const IngredientCard: FC<TIngredientCard> = React.memo(({ data }) => {
 
   // СЧЕТЧИК КОЛ_ВА ИНГРЕДИЕНТОВ
   let ingredientCounter = 0;
-  const ingredients = useSelector(getIngredients);
+  const ingredients = useAppSelector(getIngredients);
   ingredients.forEach((ingredient: TIngredient) =>
     ingredient._id === id ? (ingredientCounter += 1) : ingredientCounter
   );
-  const bun = useSelector(getBun);
+  const bun = useAppSelector(getBun);
   [bun].forEach((bun: TIngredient | undefined) =>
     bun?._id === id ? (ingredientCounter += 2) : ingredientCounter
   );

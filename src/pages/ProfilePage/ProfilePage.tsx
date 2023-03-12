@@ -1,9 +1,10 @@
-import React, { ChangeEvent, FormEvent, useEffect } from "react";
+import React, { useEffect } from "react";
 import classes from "./ProfilePage.module.css";
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   logout,
   updateUserProfile,
+  updateUserSuccessAction,
 } from "../../services/actions/profileActions";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import {
@@ -22,49 +23,29 @@ import {
 } from "../../components";
 import { PATH } from "../../utils/constant";
 import { wsResetMessage } from "../../services/actions/wsActions";
+import useForm from "../../hooks/useForm";
 const ProfilePage = React.memo(() => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  const navigate = useNavigate();
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const authUser = useAppSelector(getAuthUser);
-  const updateRequestFailed = useAppSelector(getUpdateUserProfileFailed);
-  const updateRequestSuccess = useAppSelector(getUpdateUserProfileSuccess);
-  const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
-
-  const [form, setForm] = React.useState({
+  const { form, handleChange, handleSubmit, handleReset } = useForm({
     ...authUser,
     password: "",
   });
+  // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
+  const updateRequestFailed = useAppSelector(getUpdateUserProfileFailed);
+  const updateRequestSuccess = useAppSelector(getUpdateUserProfileSuccess);
+  const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
 
   useEffect(() => {
     if (updateRequestFailed) {
       dispatch(updateUserProfile(form));
     }
-    return ()=> {dispatch(wsResetMessage())}
+    return () => {
+      dispatch(wsResetMessage());
+      dispatch(updateUserSuccessAction(false))
+    };
   }, [successTokenUpdate]); // eslint-disable-line
-
-  //  ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    dispatch(updateUserProfile(form)).then(() => setIsLoading(true));
-  };
-  /* eslint-enable */
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-  // ВЫХОД
-  const handleClick = () => {
-    dispatch(logout()).then(() => navigate(PATH.HOME, { replace: true }));
-  };
-  // СБРОС ЛОКАЛЬНОГО СТЕЙТА
-  const handleReset = () => {
-    setForm({
-      ...authUser,
-      password: "",
-    });
-  };
 
   const orderLocation = location.pathname === PATH.PROFILE_ORDERS;
   // УСТАНОВКА КЛАССА АКТИНОЙ ССЫЛКЕ
@@ -94,7 +75,7 @@ const ProfilePage = React.memo(() => {
             </li>
             <li>
               <button
-                onClick={handleClick}
+                onClick={(e) => handleSubmit(e, logout, PATH.HOME)}
                 className={`${classes.link}
                 } text text_type_main-medium text_color_inactive`}
               >
@@ -109,7 +90,11 @@ const ProfilePage = React.memo(() => {
         {location.state?.order || orderLocation ? (
           <Outlet />
         ) : (
-          <Form formName="Профиль" onSubmit={handleSubmit} mainForm={false}>
+          <Form
+            formName="Профиль"
+            onSubmit={(e) => handleSubmit(e, updateUserProfile)}
+            mainForm={false}
+          >
             <InputName
               value={form.name}
               onChange={handleChange}
@@ -131,23 +116,21 @@ const ProfilePage = React.memo(() => {
             />
 
             <div>
-              {updateRequestSuccess && isLoading && (
+              {updateRequestSuccess && (
                 <p className="text text_type_main-small text_color_inactive">
                   Данные успешно обновлены
                 </p>
               )}
             </div>
             <div className={classes.btnContainer}>
-              {!isLoading && (
-                <Button
-                  htmlType="button"
-                  type="secondary"
-                  size="medium"
-                  onClick={handleReset}
-                >
-                  Отменить изменения
-                </Button>
-              )}
+              <Button
+                htmlType="button"
+                type="secondary"
+                size="medium"
+                onClick={handleReset}
+              >
+                Отменить изменения
+              </Button>
               <Button htmlType="submit" type="primary" size="medium">
                 Сохранить
               </Button>

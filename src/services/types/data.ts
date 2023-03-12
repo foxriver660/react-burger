@@ -22,8 +22,8 @@ export type TIngredient = {
 };
 
 export type TUser = {
-  readonly email?: string;
-  readonly name?: string;
+  readonly email: string;
+  readonly name: string;
 };
 export type TUserInfo = TUser & { readonly password: string };
 export type TUserLogin = Omit<TUser, "name"> & { readonly password: string };
@@ -42,8 +42,11 @@ export type TAllOrders = {
   total?: number;
   totalToday?: number;
 };
-export type TString = {
+export type TObjectNumber = {
   [key: string]: number;
+};
+export type TObjectString = {
+  [key: string]: string;
 };
 export type TToken = {
   [key: string]: string | undefined;
@@ -69,7 +72,7 @@ export type TOrderBox = {
 
 export type TIngredientItem = {
   ingredient: TIngredient;
-  quantityIngredients: TString;
+  quantityIngredients: TObjectNumber;
 };
 export type TImageCicle = {
   src: string;

@@ -5,8 +5,7 @@ import { ImageCicle } from "../index";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
 import { status, statusColor } from "../../utils/determineStatus";
 import { gmt } from "../../utils/determineGMT";
-
-import { TIngredient, TOrderFeed } from "../../services/types/data";
+import { TOrderFeed } from "../../services/types/data";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 
 const OrderFeed: FC<TOrderFeed> = React.memo(({ order, type }) => {
@@ -38,7 +37,7 @@ const OrderFeed: FC<TOrderFeed> = React.memo(({ order, type }) => {
       <div className={classes.orderImgs}>
         {filteredIngredients
           .slice(0, 6)
-          .map((item: TIngredient, index: number) => (
+          .map((item, index) => (
             <ImageCicle
               key={index}
               src={item.image_mobile}

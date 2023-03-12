@@ -1,5 +1,4 @@
 import {
-  EditIcon,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { FC } from "react";

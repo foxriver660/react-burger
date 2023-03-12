@@ -16,7 +16,7 @@ import {
 } from "../../utils/burger-api";
 import { JWT_MALFORMED, JWT_EXPIRED } from "../../utils/constant";
 import { AppDispatch } from "../types";
-import { TUser, TUserInfo, TUserLogin } from "../types/data";
+import { TObjectString, TUser, TUserInfo, TUserLogin } from "../types/data";
 // !ACTIONS
 export const UPDATE_PASS: "UPDATE_PASS" = "UPDATE_PASS";
 export const RESET_PASS: "RESET_PASS" = "RESET_PASS";
@@ -121,7 +121,7 @@ export const updateUserSuccessAction = (
   payload,
 });
 // ГЕНЕРАТОР THUNK
-export const updatePassRequest = (email: string) => (dispatch: AppDispatch) => {
+export const updatePassRequest = ({email}: {email: string}) => (dispatch: AppDispatch) => {
   return updatePassRequestAPI(email)
     .then((res) => {
       dispatch(updatePassAction(res.success));
@@ -223,15 +223,11 @@ export const updateUserProfile =
     name,
     email,
     password,
-  }: {
-    name?: string;
-    email?: string;
-    password: string;
-  }) =>
+  }: TObjectString) =>
   (dispatch: AppDispatch) => {
     return updateUserProfileAPI({ name, email, password })
       .then((res) => {
-        /* console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res); */
+         console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res); 
         dispatch(setUserAction(res.user));
         dispatch(updateUserSuccessAction(res.success));
       })

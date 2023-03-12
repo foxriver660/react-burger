@@ -1,30 +1,19 @@
-import React, { ChangeEvent, FC, FormEvent } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import React, { FC } from "react";
+import { Link, Navigate } from "react-router-dom";
 import classes from "./ResetPassPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { resetPass } from "../../services/actions/profileActions";
-import {
-  getUpdatePassRequest,
- } from "../../selectors/selectors";
-import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { getUpdatePassRequest } from "../../selectors/selectors";
+import { useAppSelector } from "../../services/hooks";
 import { Form, FormOverlay, InputCode, InputPassword } from "../../components";
 import { PATH } from "../../utils/constant";
+import useForm from "../../hooks/useForm";
+
 const ResetPassPage: FC = React.memo(() => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate()
-  const [form, setForm] = React.useState({ password: "", token: "" });
+  const { form, handleChange, handleSubmit } = useForm({ password: "", token: "" });
 
-  /* const resetPassRequest = useAppSelector(getResetPassRequest); */
   const updatePassRequest = useAppSelector(getUpdatePassRequest);
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
 
-  // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    dispatch(resetPass(form)).then(() =>
-    navigate(PATH.HOME, { replace: true}));
-  };
    // !РЕДИРЕКТ ЕСЛИ ПРИШЕЛ НЕ С /forgot-password
   if (!updatePassRequest) {
     return <Navigate to={PATH.FORGOT_PASSWORD} />;
@@ -33,11 +22,15 @@ const ResetPassPage: FC = React.memo(() => {
   return (
     <FormOverlay type="form">
       <Form
-        onSubmit={handleSubmit}
+        onSubmit={(e) => handleSubmit(e, resetPass, PATH.HOME)}
         formName="Восстановление пароля"
         mainForm={true}
       >
-        <InputPassword value={form.password} onChange={handleChange} placeholder='Введите новый пароль' />
+        <InputPassword
+          value={form.password}
+          onChange={handleChange}
+          placeholder="Введите новый пароль"
+        />
         <InputCode value={form.token} onChange={handleChange} />
         <Button htmlType="submit" type="primary" size="medium">
           Восстановить

@@ -1,36 +1,27 @@
-import React, { ChangeEvent, FC, FormEvent } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import React, { FC } from "react";
+import { Link, useLocation } from "react-router-dom";
 import classes from "./LoginPage.module.css";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { login } from "../../services/actions/profileActions";
-import { useAppDispatch } from "../../services/hooks";
 import { Form, FormOverlay, InputEmail, InputPassword } from "../../components";
 import { PATH } from "../../utils/constant";
+import useForm from "../../hooks/useForm";
 
 const LoginPage: FC = React.memo(() => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const location = useLocation();
-
-  const [form, setForm] = React.useState({ email: "", password: "" });
-
+  const { form, handleChange, handleSubmit } = useForm({
+    email: "",
+    password: "",
+  });
   const fromPage = location.state?.from?.pathname || PATH.HOME;
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-  /* eslint-disable */
-  const handleSubmit = React.useCallback(
-    (e: FormEvent) => {
-      e.preventDefault();
-      dispatch(login(form)).then(() => navigate(fromPage, { replace: true }));
-    },
-    [form]
-  );
-  /* eslint-enable */
 
   return (
     <FormOverlay type="form">
-      <Form onSubmit={handleSubmit} formName="Вход" mainForm={true}>
+      <Form
+        onSubmit={(e) => handleSubmit(e, login, fromPage)}
+        formName="Вход"
+        mainForm={true}
+      >
         <InputEmail
           value={form.email}
           onChange={handleChange}

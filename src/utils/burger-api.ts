@@ -1,4 +1,4 @@
-import { TUserInfo, TUserLogin } from "../services/types/data";
+import { TObjectString, TUserInfo, TUserLogin } from "../services/types/data";
 import { BURGER_API_URL, BURGER_API_AUTH_URL } from "./constant";
 import { getCookie } from "./cookie";
 
@@ -103,7 +103,7 @@ export const checkUserAccessAPI = () =>
   }).then(checkResponse);
 
 //  !ЗАПРОС НА РЕДАКТИРОВАНИЕ ПРОФИЛЯ
-export const updateUserProfileAPI = ({ name, email, password }: TUserInfo) =>
+export const updateUserProfileAPI = ({ name, email, password }: TObjectString) =>
   fetch(`${BURGER_API_AUTH_URL}/user`, {
     method: "PATCH",
     headers: {
