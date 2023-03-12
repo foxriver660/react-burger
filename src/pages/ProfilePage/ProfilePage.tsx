@@ -21,6 +21,7 @@ import {
   InputPassword,
 } from "../../components";
 import { PATH } from "../../utils/constant";
+import { wsResetMessage } from "../../services/actions/wsActions";
 const ProfilePage = React.memo(() => {
   const dispatch = useAppDispatch();
   const location = useLocation();
@@ -42,6 +43,7 @@ const ProfilePage = React.memo(() => {
     if (updateRequestFailed) {
       dispatch(updateUserProfile(form));
     }
+    return ()=> {dispatch(wsResetMessage())}
   }, [successTokenUpdate]); // eslint-disable-line
 
   //  ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
@@ -112,18 +114,20 @@ const ProfilePage = React.memo(() => {
               value={form.name}
               onChange={handleChange}
               placeholder="Имя"
+              profile={true}
             />
 
             <InputEmail
               value={form.email}
               onChange={handleChange}
               placeholder="Логин"
+              profile={true}
             />
 
             <InputPassword
               value={form.password}
               onChange={handleChange}
-              placeholder="Пароль"
+              placeholder="Новый пароль"
             />
 
             <div>

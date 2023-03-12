@@ -1,8 +1,6 @@
 .wrapper {
-  display: flex;
-  flex-direction: column;
-  max-height: 55vh;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
 .digits {

@@ -50,4 +50,3 @@ const IngredientCard: FC<TIngredientCard> = React.memo(({ data }) => {
 });
 
 export default IngredientCard;
-// TODO: this

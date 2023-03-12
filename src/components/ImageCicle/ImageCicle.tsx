@@ -33,4 +33,4 @@ const ImageCicle: FC<TImageCicle> = React.memo(({ src, ...props }) => {
 });
 
 export default ImageCicle;
-// TODO: this
+

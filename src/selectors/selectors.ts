@@ -31,3 +31,5 @@ export const getOrder = (state: RootState) => state.orderReducer.currentOrder;
 // WS REDUCER
 export const getWsConnectedFailed = (state: RootState) =>
   state.wsReducer.wsConnectedFailed;
+  export const getWsConnected = (state: RootState) =>
+  state.wsReducer.wsConnected;

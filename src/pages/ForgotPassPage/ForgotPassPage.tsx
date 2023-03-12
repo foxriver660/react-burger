@@ -52,4 +52,4 @@ const ForgotPassPage: FC = React.memo(() => {
 });
 
 export default ForgotPassPage;
-// TODO: this
+

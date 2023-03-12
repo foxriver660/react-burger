@@ -88,4 +88,3 @@ const StatisticFeed: FC = React.memo(() => {
 });
 
 export default StatisticFeed;
-// TODO: this

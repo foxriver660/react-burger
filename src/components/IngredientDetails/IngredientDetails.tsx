@@ -39,4 +39,4 @@ const IngredientDetails: FC = React.memo(() => {
 });
 
 export default IngredientDetails;
-// TODO: this
+

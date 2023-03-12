@@ -133,4 +133,3 @@ const BurgerIngredients: FC = React.memo(() => {
 });
 
 export default BurgerIngredients;
-// TODO: this

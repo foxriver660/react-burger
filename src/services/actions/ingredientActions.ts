@@ -109,5 +109,5 @@ export const getApiIngredients = () => (dispatch: AppDispatch) => {
       console.log("Ingredient load false:", err);
       dispatch(getIngredientsError());
     });
-  /* .finally(() => dispatch(getIngredientsSuccess())); */
+  
 };

@@ -79,4 +79,3 @@ const OrderDetails: FC = React.memo(() => {
 });
 
 export default OrderDetails;
-// TODO: this

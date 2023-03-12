@@ -1,13 +1,17 @@
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  EditIcon,
+  Input,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { FC } from "react";
+
 import { TInput } from "../../services/types/data";
 
-
-const InputName: FC<TInput> = ({ value, onChange, placeholder }) => {
+const InputName: FC<TInput> = ({ value, onChange, placeholder, profile=false }) => {
   const [isValidName, setIsValidName] = React.useState(true);
   return (
     <>
       <Input
+        icon={profile ? "EditIcon" : undefined}
         required={true}
         name="name"
         placeholder={placeholder}

@@ -9,7 +9,7 @@ import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
 import { OrderСompletedModal, Modal, ConstructorList } from "../index";
 import { useDrop } from "react-dnd";
-import { BUN } from "../../utils/constant";
+import { BUN, PATH, WS_URL } from "../../utils/constant";
 import {
   addIngredient,
   addBun,
@@ -35,13 +35,14 @@ import {
 import { TIngredient } from "../../services/types/data";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
+import { getCookie } from "../../utils/cookie";
 
 const BurgerConstructor: FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { calcTotalPrice } = useIngredientsOperations();
-
+  const WS_URL_HISTORY = `${WS_URL}?token=${getCookie("token")}`;
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const ingredients = useAppSelector(getIngredients);
   const bun = useAppSelector(getBun);
@@ -50,8 +51,7 @@ const BurgerConstructor: FC = React.memo(() => {
   const orderRequestFailed = useAppSelector(getOrderRequestFailed);
   const wsConnectedFailed = useAppSelector(getWsConnectedFailed);
 
-let totalCost =calcTotalPrice([bun, ...ingredients]); 
-
+  let totalCost = calcTotalPrice([bun, ...ingredients]);
 
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
@@ -62,9 +62,10 @@ let totalCost =calcTotalPrice([bun, ...ingredients]);
     if (authUser) {
       dispatch(wsResetMessage());
       dispatch(getApiOrder(ingredientsId));
+      dispatch(wsConnectionStart(WS_URL_HISTORY));
       setOpen(true);
     } else {
-      navigate("/login");
+      navigate(PATH.LOGIN);
     }
   };
   // ПРЕДОХРАНИТЕЛЬ НА СЛУЧАЙ ИСТЕЧЕНИЯ СРОКА ***accessToken***
@@ -82,7 +83,6 @@ let totalCost =calcTotalPrice([bun, ...ingredients]);
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
     accept: "items",
     drop: (item: { id: string; type: string }) => {
-      console.log(item);
       item.type === BUN
         ? dispatch(addBun(item))
         : dispatch(addIngredient(item));
@@ -186,6 +186,8 @@ let totalCost =calcTotalPrice([bun, ...ingredients]);
                 dispatch(resetOrder());
                 dispatch(resetConstructor());
                 dispatch(wsDisconnect());
+                dispatch(wsResetMessage());
+                setOpen(false);
               }}
               type="modalOutRoute"
             >
@@ -208,4 +210,3 @@ let totalCost =calcTotalPrice([bun, ...ingredients]);
 });
 
 export default BurgerConstructor;
-// TODO: this

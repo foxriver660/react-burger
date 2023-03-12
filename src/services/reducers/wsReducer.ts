@@ -4,7 +4,8 @@ import {
   WS_CONNECTION_CLOSED,
   WS_CONNECTION_ERROR,
   WS_RESET_MESSAGE,
-  WS_CONNECTION_FAILED
+  WS_CONNECTION_FAILED,
+  WS_DISCONNECT
 } from "../actions/wsActions";
 import { TWsActions } from "../actions/wsActions";
 import { TAllOrders } from "../types/data";
@@ -39,6 +40,12 @@ export const wsReducer = (state = defaultState, action: TWsActions) => {
       return {
         ...state,
         wsConnected: false,
+      };
+      case WS_DISCONNECT:
+      return {
+        ...state,
+        wsConnected: false,
+        wsConnectedFailed: false,
       };
     case WS_CONNECTION_ERROR:
       return {

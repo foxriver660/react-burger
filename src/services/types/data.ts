@@ -59,6 +59,10 @@ export type TActions = {
   wsConnectionFailed: ()=> {type: string};
 }
 // ТИПИЗАЦИЯ КОМПОНЕНТОВ
+export type TProtectedRoute = {
+  element: ReactNode;
+   authUser?: TUser | null;
+}
 export type TOrderBox = {
   doneOrder: number[];
 };
@@ -116,6 +120,7 @@ export type TInput = {
   value: any;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
+  profile?: boolean
 }
 export type TConstructorList={
   value: TIngredient

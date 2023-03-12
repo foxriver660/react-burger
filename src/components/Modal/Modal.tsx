@@ -49,4 +49,4 @@ const Modal: FC<TModal> = React.memo(
 );
 
 export default Modal;
-// TODO: this
+

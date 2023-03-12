@@ -13,29 +13,32 @@ import {
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import {
   checkUserAccess,
-  } from "../../services/actions/profileActions";
-import { WS_URL_HISTORY } from "../../utils/constant";
+  
+} from "../../services/actions/profileActions";
+import { WS_URL } from "../../utils/constant";
 import { OrderFeed } from "../../components";
+import { getCookie } from "../../utils/cookie";
 
 const OrderPage: FC = React.memo(() => {
+  const WS_URL_HISTORY = `${WS_URL}?token=${getCookie("token")}`;
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { orders } = useAppSelector(getOrders);
   const wsConnectedFailed = useAppSelector(getWsConnectedFailed);
   const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
- 
+
   useEffect(() => {
     dispatch(wsConnectionStart(WS_URL_HISTORY));
     return () => {
       dispatch(wsDisconnect());
     };
-  }, [dispatch, successTokenUpdate]);
+  }, [dispatch, successTokenUpdate]); // eslint-disable-line
 
   useEffect(() => {
     if (wsConnectedFailed) {
       dispatch(checkUserAccess());
     }
-  }, []); // eslint-disable-line
+  }, [wsConnectedFailed]); // eslint-disable-line
 
   return (
     <section className={`${classes.container} mt-10`}>

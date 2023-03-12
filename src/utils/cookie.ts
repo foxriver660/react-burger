@@ -34,8 +34,8 @@ export function setCookie(
   if (exp && (exp as Date).toUTCString) {
     props.expires = (exp as Date).toUTCString();
   }
-  value = encodeURIComponent(value);
-  let updatedCookie = name + "=" + value;
+  let updatedCookie =
+  encodeURIComponent(name) + "=" + encodeURIComponent(value);
   for (const propName in props) {
     updatedCookie += "; " + propName;
     const propValue = props[propName];
@@ -49,4 +49,3 @@ export function setCookie(
 export function deleteCookie(name: string) {
   setCookie(name, "", { expires: -1 });
 }
-// TODO: this

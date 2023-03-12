@@ -14,7 +14,7 @@ export const statusColor = (order: TOrder) => {
   return order?.status === DONE
     ? { color: "var(--color-done)" }
     : order?.status === CANCEL
-    ? { color: "var(--color-white)" }
-    : { color: "var(--color-red)" };
+    ? { color: "var(--color-red)" }
+    : { color: "var(--color-modal-outline)" };
 };
-// TODO: this
+

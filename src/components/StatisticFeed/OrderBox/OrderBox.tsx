@@ -26,4 +26,3 @@ const OrderBox: FC<TOrderBox> = React.memo(({ doneOrder }) => {
 });
 
 export default OrderBox;
-// TODO: this

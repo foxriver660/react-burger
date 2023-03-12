@@ -9,9 +9,9 @@ const useIngredientsOperations = (a?: any, b?: string) => {
   const availableIngredients = useAppSelector(getData);
   
   const calcTotalPrice = (arr: TIngredient[]) =>
- {console.log(arr); return arr.reduce(
+ {/* console.log(arr); */ return arr.reduce(
     (acc, item) =>
-      item.type === BUN ? acc + item.price * 2 : acc + item.price,
+      {return item.type === undefined ? acc + 0 :  item.type === BUN ? acc + item.price * 2 : acc + item.price},
     0
   );}
 const filterAvailableIngredients = (arr: TIngredient[] , wsArr: any) =>

@@ -14,11 +14,13 @@ import { getAuthUser, getOrders } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { TIngredient, TOrderDetailPage } from "../../services/types/data";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
-import { WS_URL_FEED, WS_URL_HISTORY } from "../../utils/constant";
+import { WS_URL, WS_URL_FEED } from "../../utils/constant";
 import { IngredientItem, Loader } from "../../components";
+import { getCookie } from "../../utils/cookie";
 
 const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
   const dispatch = useAppDispatch();
+  const WS_URL_HISTORY = `${WS_URL}?token=${getCookie("token")}`
   const { id } = useParams();
   const { orders } = useAppSelector(getOrders);
   const { order, filteredIngredients, totalPrice, quantityIngredients } =
@@ -99,4 +101,3 @@ const OrderDetailPage: FC<TOrderDetailPage> = React.memo(({ source }) => {
 });
 
 export default OrderDetailPage;
-// TODO: this

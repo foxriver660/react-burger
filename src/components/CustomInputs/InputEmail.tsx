@@ -3,11 +3,12 @@ import React, { FC } from 'react'
 import { TInput } from '../../services/types/data';
 
 
-const InputEmail: FC<TInput> = ({value, onChange, placeholder}) => {
+const InputEmail: FC<TInput> = ({value, onChange, placeholder, profile=false}) => {
   const [isValidEmail, setIsValidEmail] = React.useState(true);
   return (
     <>
     <Input
+     icon={profile ? "EditIcon" : undefined}
           required={true}
           name="email"
           placeholder={placeholder}

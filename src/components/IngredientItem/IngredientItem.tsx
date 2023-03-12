@@ -28,4 +28,3 @@ const IngredientItem: FC<TIngredientItem> = React.memo(({ ingredient, quantityIn
 });
 
 export default IngredientItem;
-// TODO: this

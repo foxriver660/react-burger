@@ -56,4 +56,3 @@ const OrderСompletedModal: FC = React.memo(() => {
 });
 
 export default OrderСompletedModal;
-// TODO: this

@@ -55,4 +55,3 @@ const FeedPage: FC = React.memo(() => {
 });
 
 export default FeedPage;
-// TODO: this

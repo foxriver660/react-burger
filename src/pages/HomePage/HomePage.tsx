@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import classes from "./HomePage.module.css";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { getData, getServerResponse } from "../../selectors/selectors";
+import { getServerResponse } from "../../selectors/selectors";
 import { useAppSelector } from "../../services/hooks";
 import { BurgerConstructor, BurgerIngredients, Loader } from "../../components";
 
@@ -29,4 +29,3 @@ const HomePage: FC = React.memo(() => {
 });
 
 export default HomePage;
-// TODO: this

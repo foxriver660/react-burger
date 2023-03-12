@@ -1,18 +1,24 @@
 import { useLocation, Navigate, RouteProps } from "react-router-dom";
 import { FC } from "react";
-import { getAuthUser } from "../../selectors/selectors";
+import { PATH } from "../../utils/constant";
 import { useAppSelector } from "../../services/hooks";
+import { getAuthUser } from "../../selectors/selectors";
 
 const OnlyUnAuthRoute: FC<RouteProps> = ({ element }) => {
   const location = useLocation();
   const authUser = useAppSelector(getAuthUser);
+  const fromPage = location.state?.from?.pathname || PATH.HOME;
 
-  const fromPage = location.state?.from?.pathname || "/";
-  if (authUser) {
-    return <Navigate to={fromPage} replace state={{ from: location }} />;
-  }
-  return <>{element}</>;
+  return (
+    <>
+      {authUser ? (
+        <Navigate to={fromPage} replace state={{ from: location }} />
+      ) : (
+        element
+      )}
+    </>
+  );
 };
 
-export default OnlyUnAuthRoute
-// TODO: this
+export default OnlyUnAuthRoute;
+

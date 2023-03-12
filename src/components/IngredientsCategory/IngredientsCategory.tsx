@@ -29,4 +29,4 @@ const IngredientsCategory: FC<TIngredientsCategory> = React.memo(
 );
 
 export default IngredientsCategory;
-// TODO: this
+

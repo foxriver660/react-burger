@@ -39,4 +39,3 @@ const ConstructorList: FC<TConstructorList> = React.memo(({ value }) => {
 });
 
 export default ConstructorList;
-// TODO: this

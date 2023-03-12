@@ -5,8 +5,9 @@ import { TActions } from "../services/types/data";
 export const socketMiddleware = (wsActions: TActions): Middleware => {
   return (store) => {
     let socket: WebSocket | null = null;
+    let isConnected = false;
     let reconnectTimer = 0;
-    let timeout = 5000;
+    let timeout = 8000;
     let url = "";
 
     return (next) => (action) => {
@@ -26,15 +27,18 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
       if (type === wsConnectionStart(payload).type) {
         url = payload;
         socket = new WebSocket(url);
-        console.log("***create WebSocket***");
+        isConnected = true;
+        /* console.log("create WebSocket"); */
       }
 
       if (type === wsDisconnect().type) {
         clearTimeout(reconnectTimer);
+        isConnected = false;
         reconnectTimer = 0;
         socket?.close(1000, "User disconnected");
         socket = null;
-        console.log("***DISCONNECT***");
+        url = "";
+        /* console.log("warning: WebSocket"); */
       }
       /* СОЕДИНЕНИЕ С СЕРВЕРОМ */
       if (socket) {
@@ -48,7 +52,7 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
           /* console.log("socket.onmessage:", parsedData); */
           const { success, ...restParsedData } = parsedData;
           success && dispatch(wsGetMessage(restParsedData));
-          if (restParsedData.message === INVALID_TOKEN || JWT_EXPIRED) {
+          if (restParsedData.message === (INVALID_TOKEN || JWT_EXPIRED)) {
             dispatch(wsConnectionFailed());
           }
         };
@@ -59,14 +63,16 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
         };
 
         socket.onclose = (event) => {
-          /* console.log("socket.onclose:", event); */
           if (event.code !== 1000) {
             dispatch(wsConnectionError());
+          }
+          dispatch(wsConnectionClosed());
+          if (isConnected) {
+            /*  console.log("++++++ОТРАБОТАЛ РЕКОНЕКТ++++++"); */
             reconnectTimer = window.setTimeout(() => {
               dispatch(wsConnectionStart(url));
             }, timeout);
           }
-          dispatch(wsConnectionClosed());
         };
       }
 

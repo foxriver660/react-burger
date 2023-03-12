@@ -130,4 +130,3 @@ export const refreshTokenAPI = () => {
   }).then(checkResponse);
 };
 
-// TODO: this
