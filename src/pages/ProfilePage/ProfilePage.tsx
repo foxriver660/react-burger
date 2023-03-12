@@ -66,7 +66,7 @@ const ProfilePage = React.memo(() => {
     });
   };
 
-  const orderLocation = location.pathname === PATH.USER_ORDERS;
+  const orderLocation = location.pathname === PATH.PROFILE_ORDERS;
   // УСТАНОВКА КЛАССА АКТИНОЙ ССЫЛКЕ
   const setActive = ({ isActive }: { isActive: boolean }) =>
     `${
@@ -84,7 +84,7 @@ const ProfilePage = React.memo(() => {
             </li>
             <li>
               <NavLink
-                to={PATH.USER_ORDERS}
+                to={PATH.PROFILE_ORDERS}
                 className={setActive}
                 state={{ order: true }}
                 end

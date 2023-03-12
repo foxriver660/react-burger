@@ -150,7 +150,7 @@ export const logout = () => (dispatch: AppDispatch) => {
       dispatch(logoutAction(res.success));
       deleteCookie("token");
       deleteCookie("refreshToken");
-     /*  console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res); */
+      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res);  */
     })
     .catch((err) => {
       console.log(err);

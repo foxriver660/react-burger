@@ -65,7 +65,7 @@ const AppHeader: FC = React.memo(() => {
           <NavLink className={setActive} to="/profile">
             <ProfileIcon
               type={
-                location.pathname === PATH.PROFILE ? "primary" : "secondary"
+                (location.pathname === PATH.PROFILE || location.pathname === PATH.PROFILE_ORDERS) ? "primary" : "secondary"
               }
             />
             Личный кабинет

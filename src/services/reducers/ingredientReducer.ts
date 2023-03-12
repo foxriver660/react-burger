@@ -15,14 +15,14 @@ export type TIngredientsState = {
   serverResponse: { isLoading: boolean; hasError: boolean };
   availableIngredients: Array<TIngredient>;
   constructorIngredients: any;
-  constructorBun: any;
+  constructorBun: TIngredient | undefined;
 };
 
 const defaultState: TIngredientsState = {
   serverResponse: { isLoading: true, hasError: false },
   availableIngredients: [],
   constructorIngredients: [],
-  constructorBun: {},
+  constructorBun: {} as TIngredient,
 };
 export const ingredientReducer = (
   state = defaultState,
@@ -83,7 +83,7 @@ export const ingredientReducer = (
       return {
         ...state,
         constructorIngredients: [],
-        constructorBun: {},
+        constructorBun: {} as TIngredient,
       };
     default:
       return state;

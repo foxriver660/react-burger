@@ -8,6 +8,7 @@ import { PATH } from "../../utils/constant";
 const ProtectedRouteElement: FC<RouteProps> = ({ element}) => {
   const location = useLocation();
   const authUser = useAppSelector(getAuthUser);
+  
   return (
     <>
       {!authUser ? (

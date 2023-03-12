@@ -52,7 +52,10 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
           /* console.log("socket.onmessage:", parsedData); */
           const { success, ...restParsedData } = parsedData;
           success && dispatch(wsGetMessage(restParsedData));
-          if (restParsedData.message === (INVALID_TOKEN || JWT_EXPIRED)) {
+          if (
+            restParsedData.message === INVALID_TOKEN ||
+            restParsedData.message === JWT_EXPIRED
+          ) {
             dispatch(wsConnectionFailed());
           }
         };

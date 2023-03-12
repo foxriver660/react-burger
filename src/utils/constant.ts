@@ -27,5 +27,5 @@ export const PATH = {
   RESET_PASSWORD: "/reset-password",
   ORDERS: "/orders",
   INGREDIENTS: "/ingredients",
-  USER_ORDERS: "/profile/orders",
+  PROFILE_ORDERS: "/profile/orders",
 };

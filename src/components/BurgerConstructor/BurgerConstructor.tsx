@@ -57,7 +57,7 @@ const BurgerConstructor: FC = React.memo(() => {
   const handleClickOrder = () => {
     const ingredientsId = [
       ...ingredients.map((item: TIngredient) => item._id),
-      bun._id,
+      bun?._id,
     ];
     if (authUser) {
       dispatch(wsResetMessage());
