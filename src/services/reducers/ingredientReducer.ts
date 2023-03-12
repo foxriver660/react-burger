@@ -23,7 +23,7 @@ const defaultState: TIngredientsState = {
   availableIngredients: [],
   constructorIngredients: [],
   constructorBun: {} as TIngredient,
-};
+}; 
 export const ingredientReducer = (
   state = defaultState,
   action: TIngredientsActions
