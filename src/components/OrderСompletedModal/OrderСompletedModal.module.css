@@ -1,0 +1,54 @@
+.wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.orderNumber {
+  box-sizing: border-box;
+  height: 150px;
+}
+.statusImageDone {
+  width: 120px;
+  height: 120px;
+  background: url(../../images/graphics.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: scale 0.5s ease-out infinite;
+  animation-iteration-count: 1;
+}
+.statusImagePending {
+  width: 120px;
+  height: 120px;
+  background: url(../../images/waiting.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  animation: loader 4s linear infinite;
+}
+.orderStatusText {
+  margin-top: 0;
+  display: flex;
+}
+.orderInstruction {
+  margin-bottom: 0;
+  composes: orderStatusText;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes loader {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+ 

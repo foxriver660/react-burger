@@ -15,20 +15,20 @@ import { checkUserAccess } from "../services/actions/profileActions";
 import { getCookie } from "../components/utils/cookie";
 import Modal from "../components/Modal/Modal";
 import IngredientDetails from "../components/IngredientDetails/IngredientDetails";
-import { closeIngredientModal } from "../services/actions/modalActions";
+import OrderDetails from "../components/OrderDetails/OrderDetails";
 import IngredientPage from "../pages/IngredientPage/IngredientPage";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import FeedPage from "../pages/FeedPage/FeedPage";
-import FeedInfoPage from "../pages/SingleFeedPage/FeedInfoPage";
+import OrderDetailPage from "../pages/OrderDetailPage/OrderDetailPage";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { getApiIngredients } from "../services/actions/ingredientActions";
+import { getSuccessTokenUpdate } from "../selectors/selectors";
 const App = React.memo(() => {
   const dispatch = useDispatch();
   const accessToken = getCookie("token");
   const location = useLocation();
-  const successTokenUpdate = useSelector(
-    (state) => state.profileReducer.successTokenUpdate
-  );
+  const successTokenUpdate = useSelector(getSuccessTokenUpdate);
+
   /* eslint-disable */
   React.useEffect(() => {
     dispatch(checkUserAccess(accessToken));
@@ -38,9 +38,14 @@ const App = React.memo(() => {
     dispatch(getApiIngredients());
   }, []);
   /* eslint-enable */
+  const locationBackground =
+    location.state?.backgroundLocation ||
+    location.state?.backgroundLocationFeed ||
+    location.state?.backgroundLocationHistory ||
+    location;
   return (
     <>
-      <Routes location={location.state?.backgroundLocation || location}>
+      <Routes location={locationBackground}>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route
@@ -52,7 +57,10 @@ const App = React.memo(() => {
             element={<OnlyUnAuthRoute element={<LoginPage />} />}
           />
           <Route path="feed" element={<FeedPage />} />
-          <Route path="feed/:id" element={<FeedInfoPage />} />
+          <Route
+            path="feed/:id"
+            element={<OrderDetailPage source={"feed"} />}
+          />
           <Route
             path="forgot-password"
             element={<OnlyUnAuthRoute element={<ForgotPassPage />} />}
@@ -64,6 +72,14 @@ const App = React.memo(() => {
           >
             <Route path="orders" element={<OrderPage />} />
           </Route>
+          <Route
+            path="profile/orders/:id"
+            element={
+              <ProtectedRouteElement
+                element={<OrderDetailPage source={"history"} />}
+              />
+            }
+          />
           <Route path="ingredients/:id" element={<IngredientPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
@@ -73,8 +89,32 @@ const App = React.memo(() => {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal onClose={() => dispatch(closeIngredientModal())}>
+              <Modal type='modalInRoute'>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+      {location.state?.backgroundLocationFeed && (
+        <Routes>
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal type='modalInRoute'>
+                <OrderDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+      {location.state?.backgroundLocationHistory && (
+        <Routes>
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal type='modalInRoute'>
+                <OrderDetails />
               </Modal>
             }
           />

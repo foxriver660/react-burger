@@ -31,9 +31,9 @@
   color: #8585ad;
   text-decoration: none;
 }
-.linkActive{
-composes: link;
-color: white;
+.linkActive {
+  composes: link;
+  color: white;
 }
 .navItemActive {
   color: #fff;

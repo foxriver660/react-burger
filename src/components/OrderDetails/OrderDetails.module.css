@@ -1,38 +1,67 @@
 .wrapper {
+  max-width: 640px;
   width: 100%;
-  box-sizing: border-box;
+  height: 620px;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin: 40px 40px 60px 40px;
 }
-.orderNumber {
-  box-sizing: border-box;
-  height: 150px;
+.orderID {
+  margin: 0;
+
+  text-align: center;
 }
-.orderStatusImage {
-  width: 120px;
-  height: 120px;
-  background: url(../../images/graphics.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  animation: scale 0.5s ease-out infinite;
-  animation-iteration-count: 1;
+.orderTitle {
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
-.orderStatusText {
-  margin-top: 0;
+.orderStatus {
+  margin: 0;
 }
-.orderInstruction {
-  margin-bottom: 0;
-  composes: orderStatusText;
+.orderComposition {
+  margin: 0;
+}
+.scrollWrapper {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-grow: 1;
+  overflow-y: scroll;
+  max-height: 312px;
 }
 
-@keyframes scale {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+.scrollWrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollWrapper::-webkit-scrollbar-track {
+  background-color: #2f2f37;
+}
+.scrollWrapper::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+  height: 138px;
+  width: 100%;
+}
+
+.orderFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.orderPrice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: end;
+}
+.orderSum {
+  margin: 0;
+}
+.orderTime {
+  margin: 0;
 }

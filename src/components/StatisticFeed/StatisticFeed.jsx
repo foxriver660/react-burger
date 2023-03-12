@@ -1,34 +1,87 @@
 import React from "react";
 import classes from "./StatisticFeed.module.css";
-const StatisticFeed = () => {
+import { useSelector } from "react-redux/es/exports";
+import OrderBox from "./OrderBox/OrderBox";
+import { getOrders } from "../../selectors/selectors";
+import { Loader } from "../Loader/Loader";
+const StatisticFeed = React.memo(() => {
+  // ПОЛУЧЕНИЕ ИЗ СТОРА ВСЕГО СТЕКА
+  const orders = useSelector(getOrders);
+
+  // РАЗДЕЛЯЕМ ПО ГОТОВНОСТИ
+  const { doneOrder, waitOrder } = React.useMemo(() => {
+    return orders.orders.reduce(
+      (acc, order) => {
+        switch (order.status) {
+          case "done":
+            acc.doneOrder.push(order.number);
+            break;
+          default:
+            acc.waitOrder.push(order.number);
+            break;
+        }
+        return acc;
+      },
+      { doneOrder: [], waitOrder: [] }
+    );
+  }, [orders]);
+
   return (
     <div className={classes.statisticsWrapper}>
-      <div class={`${classes.div1} text text_type_main-medium pb-6`}>
-        Готовы:{" "}
-      </div>
-      <div class={`${classes.div2} text text_type_main-medium pb-6`}>
-        В работе:{" "}
-      </div>
-      <div class={`${classes.div3} text text_type_digits-default`}>
-        <p className={`${classes.digits} ${classes.digitsReady}`}>345330</p>{" "}
-        <p className={`${classes.digits} ${classes.digitsReady}`}>345330</p>{" "}
-        <p className={`${classes.digits} ${classes.digitsReady}`}>345330</p>
-      </div>
-      <div class={`${classes.div4} text text_type_digits-default`}>
-        <p className={classes.digits}>345330</p>{" "}
-        <p className={classes.digits}>345330</p>{" "}
-        <p className={classes.digits}>345330</p>
-      </div>
-      <div class={`${classes.div5} text text_type_main-medium pt-15`}>
-        Выполнено за все время:{" "}
-      </div>
-      <div class={`${classes.div6} text text_type_digits-large`}>28 752 </div>
-      <div class={`${classes.div7} text text_type_main-medium pt-15`}>
-        Выполнено за сегодня:{" "}
-      </div>
-      <div class={`${classes.div8} text text_type_digits-large`}>138 </div>
+      {orders ? (
+        <>
+          <h2
+            className={`${classes.subTitleDone} text text_type_main-medium pb-6`}
+          >
+            Готовы:{" "}
+          </h2>
+          <h2
+            className={`${classes.subTitleWait} text text_type_main-medium pb-6`}
+          >
+            В работе:{" "}
+          </h2>
+          <div className={classes.doneOrderWrapper}>
+            {doneOrder.length ? (
+              <OrderBox doneOrder={doneOrder} />
+            ) : (
+              <p className="text text_type_main-default text_color_inactive">
+                Готовых заказов нет.
+              </p>
+            )}
+          </div>
+          <div
+            className={`${classes.waitOrderWrapper} text text_type_digits-default`}
+          >
+            {waitOrder.length ? (
+              waitOrder.map((item, index) => (
+                <p key={index} className={classes.digits}>
+                  {item}
+                </p>
+              ))
+            ) : (
+              <p className="text text_type_main-default text_color_inactive">
+                Все заказы выполнены
+              </p>
+            )}
+          </div>
+          <p className={`${classes.totalNumberTitle} text text_type_main-medium pt-15`}>
+            Выполнено за все время:{" "}
+          </p>
+          <div className={`${classes.totalNumberWrapper} text text_type_digits-large`}>
+            {orders.total}{" "}
+          </div>
+          <p className={`${classes.todayNumberTitle} text text_type_main-medium pt-15`}>
+            Выполнено за сегодня:{" "}
+          </p>
+          <div className={`${classes.todayNumberWrapper} text text_type_digits-large`}>
+            {orders.totalToday}{" "}
+          </div>
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   );
-};
+});
 
 export default StatisticFeed;

@@ -7,23 +7,22 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 const modalRootElement = document.querySelector("#modal");
 
-const Modal = React.memo(({ onClose, children }) => {
+const Modal = React.memo(({ children, ...props }) => {
+  const { onClose, type } = props;
   const close = () => {
-    navigate(-1);
-    onClose();
+    type === "modalOutRoute" ? onClose() : navigate(-1);
   };
   const navigate = useNavigate();
   React.useEffect(() => {
     const escClose = (e) => {
       if (e.key === "Escape") {
-        onClose();
-        navigate(-1);
+        type === "modalOutRoute" ? onClose() : navigate(-1);
       }
     };
     window.addEventListener("keydown", escClose);
 
     return () => window.removeEventListener("keydown", escClose);
-  }, [onClose, navigate]);
+  }, [navigate]); // eslint-disable-line
 
   return createPortal(
     <ModalOverlay onClose={close}>
@@ -47,6 +46,5 @@ const Modal = React.memo(({ onClose, children }) => {
 export default Modal;
 
 Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };

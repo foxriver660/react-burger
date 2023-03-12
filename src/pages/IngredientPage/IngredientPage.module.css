@@ -13,18 +13,10 @@
   margin: 0 auto;
 }
 .compoundList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
   display: flex;
   gap: 20px;
 }
-.compoundItem {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-.compoundName {
-  color: #8585ad;
-}
-.compoundValue {
-  text-align: center;
-  composes: compoundName;
-}
+

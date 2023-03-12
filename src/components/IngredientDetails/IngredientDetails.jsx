@@ -2,13 +2,13 @@ import React from "react";
 import classes from "./IngredientDetails.module.css";
 import { useSelector } from "react-redux/es/exports";
 import { useParams } from "react-router-dom";
-
-const getAvailableIngredients = (state) =>
-  state.ingredientReducer.availableIngredients;
+import { getData } from "../../selectors/selectors";
+import { findIngredient } from "../utils/calculationFunc";
+import CompoundItem from "./CompoundItem/CompoundItem";
 const IngredientDetails = React.memo(() => {
-  const availableIngredients = useSelector(getAvailableIngredients);
   const { id } = useParams();
-  const data = availableIngredients.find((item) => item._id === id);
+  const availableIngredients = useSelector(getData);
+  const data = findIngredient(availableIngredients, id);
 
   return (
     <>
@@ -26,56 +26,12 @@ const IngredientDetails = React.memo(() => {
             {data.name}
           </p>
 
-          <div className={classes.compoundList}>
-            <div className={classes.compoundItem}>
-              <p
-                className={`${classes.compoundName} text text_type_main-default`}
-              >
-                Калории,ккал
-              </p>
-              <p
-                className={`${classes.compoundValue} text text_type_digits-default`}
-              >
-                {data.calories}
-              </p>
-            </div>
-            <div className={classes.compoundItem}>
-              <p
-                className={`${classes.compoundName} text text_type_main-default`}
-              >
-                Белки, г
-              </p>
-              <p
-                className={`${classes.compoundValue} text text_type_digits-default`}
-              >
-                {data.proteins}
-              </p>
-            </div>
-            <div className={classes.compoundItem}>
-              <p
-                className={`${classes.compoundName} text text_type_main-default`}
-              >
-                Жиры, г
-              </p>
-              <p
-                className={`${classes.compoundValue} text text_type_digits-default`}
-              >
-                {data.fat}
-              </p>
-            </div>
-            <div className={classes.compoundItem}>
-              <p
-                className={`${classes.compoundName} text text_type_main-default`}
-              >
-                Углеводы, г
-              </p>
-              <p
-                className={`${classes.compoundValue} text text_type_digits-default`}
-              >
-                {data.carbohydrates}
-              </p>
-            </div>
-          </div>
+          <ul className={classes.compoundList}>
+            <CompoundItem type="Калории,ккал" data={data.calories} />
+            <CompoundItem type="Белки, г" data={data.proteins} />
+            <CompoundItem type="Жиры, г" data={data.fat} />
+            <CompoundItem type="Углеводы, г" data={data.carbohydrates} />
+          </ul>
         </div>
       )}{" "}
     </>

@@ -13,16 +13,6 @@
 .compoundList {
   display: flex;
   gap: 20px;
-}
-.compoundItem {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-.compoundName {
-  color: #8585ad;
-}
-.compoundValue {
-  text-align: center;
-  composes: compoundName;
+  list-style: none;
+  margin: 0;
 }

@@ -9,7 +9,7 @@ import { login } from "../../services/actions/profileActions";
 import { useDispatch } from "react-redux/es/exports";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const LoginPage = () => {
+const LoginPage = React.memo(() => {
   // ХУКИ
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,13 +28,13 @@ const LoginPage = () => {
   };
   // ОПРЕДЛЕЯЕМ С КАКОЙ СТРАНИЦЫ ПРИШЛИ
   const fromPage = location.state?.from?.pathname || "/";
-  
+
   // ОТПРАВКА ДАННЫХ ПОЛЬЗОВАТЕЛЯ
   /* eslint-disable */
   const handleSubmit = React.useCallback(
     (e) => {
       e.preventDefault();
-      dispatch(login(user, () => navigate(fromPage, { replace: true })));
+      dispatch(login(user)).then(() => navigate(fromPage, { replace: true }));
     },
     [user]
   );
@@ -108,6 +108,6 @@ const LoginPage = () => {
       </p>
     </FormOverlay>
   );
-};
+});
 
 export default LoginPage;

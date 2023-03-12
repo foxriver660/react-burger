@@ -5,6 +5,9 @@
 }
 .itemName {
   flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .orderPrice {
@@ -12,6 +15,7 @@
   align-items: center;
   gap: 8px;
   justify-self: end;
+  white-space: nowrap;
 }
 .orderSum {
   margin: 0;

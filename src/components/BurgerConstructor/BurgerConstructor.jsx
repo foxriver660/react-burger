@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
   InfoIcon,
@@ -7,7 +7,7 @@ import {
 import classes from "./BurgerConstructor.module.css";
 import bigCurrencyIcon from "../../images/bigCurrencyIcon.svg";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/button";
-import OrderDetails from "../OrderDetails/OrderDetails";
+import OrderСompletedModal from "../OrderСompletedModal/OrderСompletedModal";
 import Modal from "../Modal/Modal";
 import { useDrop } from "react-dnd";
 import { BUN } from "../utils/constant";
@@ -23,32 +23,54 @@ import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-
-const getTotalCost = (state) => state.ingredientReducer.totalCost;
-const getOrder = (state) => state.orderReducer.currentOrder;
-const getIngredients = (state) =>
-  state.ingredientReducer.constructorIngredients;
-const getBun = (state) => state.ingredientReducer.constructorBun;
+import { getCookie } from "../utils/cookie";
+import {
+  wsDisconnect,
+  wsConnectionStartHistory,
+  wsResetMessage,
+} from "../../services/actions/wsActions";
+import {
+  getSuccessTokenUpdate,
+  getTotalCost,
+  getIngredients,
+  getBun,
+  getOrderRequestFailed,
+  getAuthUser,
+  getWsConnectedFailed,
+} from "../../selectors/selectors";
 
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const totalCost = useSelector(getTotalCost);
-  const order = useSelector(getOrder);
   const ingredients = useSelector(getIngredients);
   const bun = useSelector(getBun);
-  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
-  const authUser = useSelector((state) => state.profileReducer.authUser);
+  const authUser = useSelector(getAuthUser);
+  const successTokenUpdate = useSelector(getSuccessTokenUpdate);
+  const orderRequestFailed = useSelector(getOrderRequestFailed);
+  const wsConnectedFailed = useSelector(getWsConnectedFailed);
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
     if (authUser) {
-      dispatch(getApiOrder(ingredientsId));
-        } else {
+      dispatch(wsResetMessage());
+      dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie("token")}`));
+      dispatch(wsConnectionStartHistory());
+      setOpen(true);
+    } else {
       navigate("/login");
     }
   };
+  // ПРЕДОХРАНИТЕЛЬ НА СЛУЧАЙ ИСТЕЧЕНИЯ СРОКА ***accessToken***
+  React.useEffect(() => {
+    const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
+    if (successTokenUpdate && (orderRequestFailed || wsConnectedFailed)) {
+      dispatch(getApiOrder(ingredientsId, `Bearer ${getCookie("token")}`));
+      wsConnectedFailed && dispatch(wsConnectionStartHistory());
+    }
+  }, [successTokenUpdate, orderRequestFailed,  wsConnectedFailed]); // eslint-disable-line
 
   // !DRAG AND DROP
   const [{ canDrop, isOver }, dropRef] = useDrop(() => ({
@@ -152,14 +174,16 @@ const BurgerConstructor = React.memo(() => {
             </Button>
           </div>
 
-          {order.order && (
+          {open && (
             <Modal
               onClose={() => {
                 dispatch(resetOrder());
                 dispatch(resetConstructor());
+                dispatch(wsDisconnect());
               }}
+              type="modalOutRoute"
             >
-              <OrderDetails order={order.order} />
+              <OrderСompletedModal />
             </Modal>
           )}
         </>
