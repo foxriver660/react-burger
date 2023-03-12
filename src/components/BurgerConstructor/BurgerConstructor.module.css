@@ -6,9 +6,9 @@
   align-items: flex-end;
   border-radius: 10px;
 }
-.defaultContainer{
+.defaultContainer {
   width: 100%;
- 
+
   text-align: center;
 }
 .ingredientList {
@@ -60,8 +60,7 @@
   height: 288px;
   width: 100%;
 }
-.defaultMessage{
-  
+.defaultMessage {
   display: flex;
   width: 100%;
   justify-content: center;

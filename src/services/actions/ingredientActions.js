@@ -10,20 +10,20 @@ export const CALC_INGREDIENTS_IN_CONSTRUCTOR =
 export const DELETE_INGREDIENT_FROM_CONSTRUCTOR =
   "DELETE_INGREDIENT_FROM_CONSTRUCTOR";
 export const SORT_INSIDE_CONSTRUCTOR = "SORT_INSIDE_CONSTRUCTOR";
-
+export const RESET_CONSTRUCTOR_AFTER_ORDER = "RESET_CONSTRUCTOR_AFTER_ORDER";
 // ГЕНЕРАТОР THUNK
 export const getApiIngredients = () => (dispatch) => {
-    getIngredientsAPI()
-      .then((res) => {
-        dispatch({ type: GET_API_INGREDIENTS, payload: res.data });
-        dispatch({ type: GET_API_INGREDIENTS_SUCCESS });
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch({ type: GET_API_INGREDIENTS_ERROR });
-      })
-      .finally(() => dispatch({ type: GET_API_INGREDIENTS_SUCCESS }));
-  };
+  getIngredientsAPI()
+    .then((res) => {
+      dispatch({ type: GET_API_INGREDIENTS, payload: res.data });
+      dispatch({ type: GET_API_INGREDIENTS_SUCCESS });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: GET_API_INGREDIENTS_ERROR });
+    })
+    .finally(() => dispatch({ type: GET_API_INGREDIENTS_SUCCESS }));
+};
 
 // ГЕНЕРАТОРЫ
 export const deleteIngredient = (payload) => ({
@@ -43,3 +43,4 @@ export const addIngredient = (payload) => ({
   payload,
   generateId: nanoid(),
 });
+export const resetConstructor = () => ({ type: RESET_CONSTRUCTOR_AFTER_ORDER });

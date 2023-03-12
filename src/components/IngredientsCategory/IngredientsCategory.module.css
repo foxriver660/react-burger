@@ -1,3 +1,7 @@
 .card {
   cursor: pointer;
 }
+.link{
+  text-decoration: none;
+  color: white;
+}

@@ -17,28 +17,37 @@ import {
   addBun,
   sortIngredient,
   calcIngredients,
+  resetConstructor,
 } from "../../services/actions/ingredientActions";
 import { resetOrder, getApiOrder } from "../../services/actions/orderActions";
 import ConstructorList from "../ConstructorList/ConstructorList";
 import { Reorder } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const getTotalCost = (state) => state.ingredientReducer.totalCost;
 const getOrder = (state) => state.orderReducer.currentOrder;
-const getIngredients = (state) => state.ingredientReducer.constructorIngredients;
+const getIngredients = (state) =>
+  state.ingredientReducer.constructorIngredients;
 const getBun = (state) => state.ingredientReducer.constructorBun;
 
 const BurgerConstructor = React.memo(() => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const totalCost = useSelector(getTotalCost);
   const order = useSelector(getOrder);
   const ingredients = useSelector(getIngredients);
   const bun = useSelector(getBun);
-
+  // ПОЛУЧАЕМ АТВОРИЗИРОВАННОГО ПОЛЬЗОВАТЕЛЯ ИЗ СТОРА
+  const authUser = useSelector((state) => state.profileReducer.authUser);
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {
     const ingredientsId = [...ingredients.map((item) => item._id), bun._id];
-    dispatch(getApiOrder(ingredientsId));
+    if (authUser) {
+      dispatch(getApiOrder(ingredientsId));
+        } else {
+      navigate("/login");
+    }
   };
 
   // !DRAG AND DROP
@@ -63,7 +72,6 @@ const BurgerConstructor = React.memo(() => {
   } else if (canDrop) {
     outline = "1px solid red";
   }
-  // !DRAG AND DROP
 
   // ИНСТРУМЕНТЫ ДЛЯ УСЛОВНОГО РЕНДЕРИНГА
   const checkIngredient = ingredients.length > 0;
@@ -145,7 +153,12 @@ const BurgerConstructor = React.memo(() => {
           </div>
 
           {order.order && (
-            <Modal onClose={() => dispatch(resetOrder())}>
+            <Modal
+              onClose={() => {
+                dispatch(resetOrder());
+                dispatch(resetConstructor());
+              }}
+            >
               <OrderDetails order={order.order} />
             </Modal>
           )}

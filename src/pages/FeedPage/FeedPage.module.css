@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+}
+.wrapper {
+  max-width: 1240px;
+  width: 100%;
+}
+.title {
+  margin: 0;
+}
+.subContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.orderWrapper {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 608px;
+  width: 100%;
+
+  padding-right: 8px;
+  gap: 16px;
+}

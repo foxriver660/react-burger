@@ -6,9 +6,9 @@ import itemPropTypes from "../utils/prop-types";
 import { useDrag } from "react-dnd";
 import { useSelector } from "react-redux/es/exports";
 
-const getIngredients = (state) => state.ingredientReducer.constructorIngredients;
+const getIngredients = (state) =>
+  state.ingredientReducer.constructorIngredients;
 const getBun = (state) => state.ingredientReducer.constructorBun;
-
 
 const IngredientCard = React.memo(({ data }) => {
   //  ID и тип карточки записываются в состояние

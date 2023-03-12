@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+}
+.wrapper {
+  max-width: 640px;
+  width: 100%;
+  height: 620px;
+
+  display: flex;
+  flex-direction: column;
+}
+.orderID {
+  margin: 0;
+
+  text-align: center;
+}
+.orderTitle {
+  margin: 0;
+}
+.orderStatus {
+  margin: 0;
+  color: #00cccc;
+}
+.orderComposition {
+  margin: 0;
+}
+.ingredientsList {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-grow: 1;
+}
+.orderFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.orderPrice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-self: end;
+}
+.orderSum {
+  margin: 0;
+}
+.orderTime {
+  margin: 0;
+}

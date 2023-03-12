@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  gap: 60px;
+}
+.subcontainer {
+  max-width: 320px;
+  padding-top: 120px;
+}
+.list {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+.link {
+  line-height: 64px;
+  cursor: pointer;
+  background: inherit;
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+.linkActive {
+  composes: link;
+  color: white;
+}
+.link:hover {
+  color: #fff;
+}
+.btnContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.btn {
+  background-color: inherit;
+  font-size: 30px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
