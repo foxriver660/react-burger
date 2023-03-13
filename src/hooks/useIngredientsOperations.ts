@@ -5,17 +5,19 @@ import { useAppSelector } from "../services/hooks";
 import { TIngredient, TOrder } from "../services/types/data";
 import { BUN } from "../utils/constant";
 
-function useIngredientsOperations(a?: TIngredient[] | TOrder[] | TOrder, b?: string) {
+
+function useIngredientsOperations(a?:  TIngredient[] | TOrder[] | TOrder , b?: string) {
+
   
   const availableIngredients = useAppSelector(getData);
   
-  const calcTotalPrice = (arr: TIngredient[]) =>
+  const calcTotalPrice = (arr:  TIngredient[] ) =>
  { return arr.reduce(
     (acc, item) =>
       {return item.type === undefined ? acc + 0 :  item.type === BUN ? acc + item.price * 2 : acc + item.price},
     0
   );}
-const filterAvailableIngredients = (arr: TIngredient[] , wsArr: TOrder) =>
+const filterAvailableIngredients = (arr:  TIngredient[] , wsArr: TOrder) =>
   arr.filter((item) => {
       return wsArr?.ingredients?.some((item2: any) => item2 === item._id);
   });

@@ -21,7 +21,7 @@ export type TIngredientsState = {
 const defaultState: TIngredientsState = {
   serverResponse: { isLoading: true, hasError: false },
   availableIngredients: [],
-  constructorIngredients: [],
+  constructorIngredients: [] ,
   constructorBun: {} as TIngredient,
 }; 
 export const ingredientReducer = (
