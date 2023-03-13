@@ -7,6 +7,7 @@ import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components/
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import classes from "./AppHeader.module.css";
 import { PATH } from "../../utils/constant";
+import { Link } from "react-router-dom";
 
 const AppHeader: FC = React.memo(() => {
   const location = useLocation();
@@ -55,7 +56,9 @@ const AppHeader: FC = React.memo(() => {
           </ul>
         </nav>
 
-        <Logo />
+        <Link to={PATH.HOME}>
+          <Logo />
+        </Link>
         <Button
           extraClass={`${classes.navItem} ${classes.logInBtn} pl-5 pr-5 pt-4 pb-4`}
           htmlType="button"
@@ -65,7 +68,10 @@ const AppHeader: FC = React.memo(() => {
           <NavLink className={setActive} to="/profile">
             <ProfileIcon
               type={
-                (location.pathname === PATH.PROFILE || location.pathname === PATH.PROFILE_ORDERS) ? "primary" : "secondary"
+                location.pathname === PATH.PROFILE ||
+                location.pathname === PATH.PROFILE_ORDERS
+                  ? "primary"
+                  : "secondary"
               }
             />
             Личный кабинет
@@ -76,4 +82,3 @@ const AppHeader: FC = React.memo(() => {
   );
 });
 export default AppHeader;
-

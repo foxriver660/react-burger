@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import classes from "./OrderDetails.module.css";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import IngredientItem from "../IngredientItem/IngredientItem";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components/dist/ui/formatted-date/formatted-date";
@@ -17,7 +17,8 @@ const OrderDetails: FC = React.memo(() => {
   const { orders } = useAppSelector(getOrders);
   const { order, filteredIngredients, totalPrice, quantityIngredients } =
     useIngredientsOperations(orders, id);
-
+const location = useLocation()
+console.log(location)
   return (
     <div className={classes.wrapper}>
       {order ? (
