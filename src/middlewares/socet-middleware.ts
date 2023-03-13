@@ -1,7 +1,7 @@
 import { INVALID_TOKEN, JWT_EXPIRED } from "../utils/constant";
-import { Middleware, MiddlewareAPI} from "redux";
+import { Middleware} from "redux";
 import { TActions } from "../services/types/data";
-import { AppDispatch, RootState } from "../services/types";
+
 
 export const socketMiddleware = (wsActions: TActions): Middleware => {
   return (store) => {

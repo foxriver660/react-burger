@@ -15,8 +15,7 @@ import { getCookie } from "../../utils/cookie";
 import { WS_URL, WS_URL_FEED } from "../../utils/constant";
 import {
   wsConnectionStart,
-  wsDisconnect,
-} from "../../services/actions/wsActions";
+  } from "../../services/actions/wsActions";
 
 const OrderDetails: FC<{ page?: boolean; source?: string }> = React.memo(
   ({ page = false, source }) => {
