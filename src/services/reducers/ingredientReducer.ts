@@ -13,8 +13,8 @@ import { TIngredient } from "../types/data";
 
 export type TIngredientsState = {
   serverResponse: { isLoading: boolean; hasError: boolean };
-  availableIngredients: Array<TIngredient>;
-  constructorIngredients: any;
+  availableIngredients: TIngredient[];
+  constructorIngredients: TIngredient[];
   constructorBun: TIngredient | undefined;
 };
 
@@ -53,7 +53,7 @@ export const ingredientReducer = (
             ),
             nanoid: action.generateId,
           },
-        ],
+        ] as TIngredient[],
       };
 
     case ADD_BUN_TO_CONSTRUCTOR:
@@ -75,7 +75,7 @@ export const ingredientReducer = (
         ...state,
         constructorIngredients: [
           ...state.constructorIngredients.filter(
-            (item: { nanoid: string }) => item.nanoid !== action.payload.nanoid
+            (item) => item.nanoid !== action.payload.nanoid
           ),
         ],
       };

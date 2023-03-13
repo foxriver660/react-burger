@@ -28,7 +28,7 @@ export interface IGetApiIngredientSuccessAction {
 }
 export interface IGetApiIngredientAction {
   readonly type: typeof GET_API_INGREDIENTS;
-  readonly payload: ReadonlyArray<TIngredient>;
+  readonly payload: TIngredient[];
 }
 export interface IAddIngredientToConstructorAction {
   readonly type: typeof ADD_INGREDIENT_TO_CONSTRUCTOR;
@@ -45,7 +45,7 @@ export interface IDeleteIngredientFromConstructorAction {
 }
 export interface ISortInsideConstructorAction {
   readonly type: typeof SORT_INSIDE_CONSTRUCTOR;
-  readonly payload: ReadonlyArray<TIngredient>;
+  readonly payload: TIngredient[];
 }
 export interface IReserConstructorAfterOrderAction {
   readonly type: typeof RESET_CONSTRUCTOR_AFTER_ORDER;
@@ -69,7 +69,7 @@ export const getIngredientsSuccess = (): IGetApiIngredientSuccessAction => ({
   type: GET_API_INGREDIENTS_SUCCESS,
 });
 export const getIngredients = (
-  payload: ReadonlyArray<TIngredient>
+  payload: TIngredient[]
 ): IGetApiIngredientAction => ({
   type: GET_API_INGREDIENTS,
   payload,
@@ -81,7 +81,7 @@ export const deleteIngredient = (
   payload,
 });
 
-export const sortIngredient = (payload: ReadonlyArray<TIngredient>) => ({
+export const sortIngredient = (payload: Array<TIngredient>) => ({
   type: SORT_INSIDE_CONSTRUCTOR,
   payload,
 });

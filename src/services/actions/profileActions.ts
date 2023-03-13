@@ -58,7 +58,7 @@ export interface ILoginAction {
 }
 export interface IUpdateTokenAction {
   readonly type: typeof UPDATE_TOKEN;
-  readonly payload: null | boolean;
+  readonly payload: boolean;
 }
 export interface IUpdateUserFailedAction {
   readonly type: typeof UPDATE_USER_FAILED;
@@ -113,7 +113,7 @@ export const loginAction = (payload: boolean): ILoginAction => ({
   payload,
 });
 export const updateTokenAction = (
-  payload: null | boolean
+  payload: boolean
 ): IUpdateTokenAction => ({
   type: UPDATE_TOKEN,
   payload,
@@ -208,7 +208,7 @@ export const checkUserAccess = () => (dispatch: AppDispatch) => {
     .then((res) => {
       /* console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res); */
       dispatch(setUserAction(res.user));
-      dispatch(updateTokenAction(null));
+      dispatch(updateTokenAction(false));
     })
     .catch((err) => {
       console.log(err);

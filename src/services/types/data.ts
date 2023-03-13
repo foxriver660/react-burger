@@ -15,19 +15,19 @@ export type TIngredientShortInfo = {
   readonly type: string;
 };
 export type TIngredient = {
-  readonly calories: number;
-  readonly carbohydrates: number;
-  readonly fat: number;
-  readonly image: string;
-  readonly image_large: string;
-  readonly image_mobile: string;
-  readonly name: string;
-  readonly price: number;
-  readonly proteins: number;
-  readonly type: string;
-  readonly __v: number;
-  readonly _id: string;
-  readonly nanoid?: string;
+  calories: number;
+  carbohydrates: number;
+  fat: number;
+  image: string;
+  image_large: string;
+  image_mobile: string;
+  name: string;
+   price: number;
+   proteins: number;
+   type: string;
+   __v: number;
+   _id: string;
+   nanoid?: string;
 };
 export type TIngredientConst = {
   readonly calories?: number;
@@ -46,14 +46,13 @@ export type TIngredientConst = {
 };
 export type TUser = {
   readonly email: string;
-  readonly name: string;
+  readonly name?: string;
+  readonly password?: string;
 };
-export type TUserInfo = TUser & { readonly password: string };
-export type TUserLogin = Omit<TUser, "name"> & { readonly password: string };
 
 export type TOrder = {
   createdAt: string;
-  ingredients: ReadonlyArray<string>;
+  ingredients: string[];
   name: string;
   number: number;
   status: string;
@@ -61,7 +60,7 @@ export type TOrder = {
   _id: string;
 };
 export type TAllOrders = {
-  orders: ReadonlyArray<TOrder>;
+  orders: TOrder[];
   total?: number;
   totalToday?: number;
 };
@@ -160,9 +159,9 @@ export type TLoginApi = {
   email: string;
   password: string;
 }
-export type TGetOrderAPI = Array<string>
+export type TGetOrderAPI = Array<string | undefined> 
 
-export type TUpdatePassRequestAPI = string
+export type TUpdatePassRequestAPI = string 
 
 export type TResetPassAPI = {
   password: string;

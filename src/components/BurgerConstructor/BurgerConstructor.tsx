@@ -50,7 +50,7 @@ const BurgerConstructor: FC = React.memo(() => {
   const orderRequestFailed = useAppSelector(getOrderRequestFailed);
   const wsConnectedFailed = useAppSelector(getWsConnectedFailed);
 
-  let totalCost = calcTotalPrice([bun, ...ingredients]);
+  let totalCost = calcTotalPrice([bun as TIngredient, ...ingredients]);
 
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
   const handleClickOrder = () => {

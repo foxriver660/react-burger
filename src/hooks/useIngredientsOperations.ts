@@ -5,7 +5,9 @@ import { useAppSelector } from "../services/hooks";
 import { TIngredient, TOrder } from "../services/types/data";
 import { BUN } from "../utils/constant";
 
-function useIngredientsOperations(a?:  TIngredient[] | ReadonlyArray<TOrder> | TOrder , b?: string) {
+
+function useIngredientsOperations(a?:  TIngredient[] | TOrder[] | TOrder , b?: string) {
+
   
   const availableIngredients = useAppSelector(getData);
   
