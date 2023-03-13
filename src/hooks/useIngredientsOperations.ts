@@ -34,7 +34,7 @@ if(b){
   order = findIngredient(a, b)   ;}
 const filteredIngredients = useMemo(()=> filterAvailableIngredients(availableIngredients, order), [availableIngredients, order]);
 const totalPrice = useMemo(()=> calcTotalPrice(filteredIngredients), [filteredIngredients]);
-const quantityIngredients = countingOccurrences(order);
+const quantityIngredients = countingOccurrences(order)
 
   return { order, filteredIngredients, totalPrice, quantityIngredients, calcTotalPrice };
 };

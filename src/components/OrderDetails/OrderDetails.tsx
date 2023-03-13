@@ -34,9 +34,7 @@ const OrderDetails: FC<{ page?: boolean; source?: string }> = React.memo(
           ? dispatch(wsConnectionStart(WS_URL_FEED))
           : dispatch(wsConnectionStart(WS_URL_HISTORY));
       }
-      return () => {
-        dispatch(wsDisconnect());
-      };
+  
     }, [authUser]); // eslint-disable-line
 
     return (

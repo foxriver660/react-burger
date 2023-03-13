@@ -38,10 +38,10 @@ export const getApiOrder =
     getOrderAPI(ingredients)
       .then((res) => {
          dispatch(getOrder(res.order.number));
-        /* console.log("ДАННЫЕ НАПРАВЛЕНЫ getApiOrder:", res); */
+        console.log("ДАННЫЕ НАПРАВЛЕНЫ getApiOrder:", res);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("ОШИБКА getApiOrder:", ingredients);
         dispatch(refreshToken());
         dispatch(getOrderFailed());
       });

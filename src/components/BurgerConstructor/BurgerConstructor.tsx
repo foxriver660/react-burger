@@ -42,8 +42,7 @@ const BurgerConstructor: FC = React.memo(() => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const { calcTotalPrice } = useIngredientsOperations();
-  const WS_URL_HISTORY = `${WS_URL}?token=${getCookie("token")}`;
-  // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
+    // ПОЛУЧАЕМ ДАННЫЕ ИЗ СТОРА
   const ingredients = useAppSelector(getIngredients);
   const bun = useAppSelector(getBun);
   const authUser = useAppSelector(getAuthUser);
@@ -60,6 +59,7 @@ const BurgerConstructor: FC = React.memo(() => {
       bun?._id,
     ];
     if (authUser) {
+      const WS_URL_HISTORY = `${WS_URL}?token=${getCookie("token")}`;
       dispatch(wsResetMessage());
       dispatch(getApiOrder(ingredientsId));
       dispatch(wsConnectionStart(WS_URL_HISTORY));
@@ -86,8 +86,7 @@ const BurgerConstructor: FC = React.memo(() => {
       item.type === BUN
         ? dispatch(addBun(item))
         : dispatch(addIngredient(item));
-      /* dispatch(calcIngredients()); */
-    },
+         },
 
     collect: (monitor) => ({
       isOver: monitor.isOver(),

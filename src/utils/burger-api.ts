@@ -39,17 +39,18 @@ export const loginAPI = ({ email, password }: TLoginApi) =>
     }),
   });
 
+
 export const getOrderAPI = (ingredients: TGetOrderAPI) =>
-  request(ENDPOINT.INGREDIENTS, {
+  request(ENDPOINT.ORDERS, {
     method: "POST",
     headers: {
-      authorization: `Bearer ${getCookie("token")}`,
+      'authorization': `Bearer ${getCookie("token")}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       ingredients,
     }),
-  });
+  }); 
 
 export const updatePassRequestAPI = (email: TUpdatePassRequestAPI) =>
   request(ENDPOINT.PASSWORD_RESET, {
@@ -101,7 +102,7 @@ export const checkUserAccessAPI = () =>
   request(ENDPOINT.USER, {
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${getCookie("token")}`,
+      'authorization': `Bearer ${getCookie("token")}`,
     },
   });
 
@@ -114,7 +115,7 @@ export const updateUserProfileAPI = ({
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${getCookie("token")}`,
+      'authorization': `Bearer ${getCookie("token")}`,
     },
     body: JSON.stringify({
       email,
