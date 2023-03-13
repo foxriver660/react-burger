@@ -1,17 +1,38 @@
 import { TObjectString, TUserInfo, TUserLogin } from "../services/types/data";
-import { BURGER_API_URL, BURGER_API_AUTH_URL } from "./constant";
+import { BURGER_API_URL, ENDPOINT } from "./constant";
 import { getCookie } from "./cookie";
 
 const checkResponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
+const checkSuccess = (res: any) => {
+  if (res && res.success) {
+    return res;
+  }
+  return Promise.reject(`Ответ не success: ${res}`);
+};
+const request = (endpoint: any, options?: any) => {
+  return fetch(`${BURGER_API_URL}${endpoint}`, options)
+    .then(checkResponse)
+    .then(checkSuccess);
+};
 
-// !ЗАПРОС НА СЕРВЕР НА ПОЛУЧЕНИЕ ДАННЫХ ИНГРЕДИЕНТОВ 
-export const getIngredientsAPI = () =>
-  fetch(`${BURGER_API_URL}/ingredients`).then(checkResponse);
+export const getIngredientsAPI = () => request(ENDPOINT.INGREDIENTS);
+
+export const loginAPI = ({ email, password }: TUserLogin) =>
+  request(ENDPOINT.LOGIN, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
 
 export const getOrderAPI = (ingredients: string[]) =>
-  fetch(`${BURGER_API_URL}/orders`, {
+  request(ENDPOINT.INGREDIENTS, {
     method: "POST",
     headers: {
       authorization: `Bearer ${getCookie("token")}`,
@@ -20,11 +41,10 @@ export const getOrderAPI = (ingredients: string[]) =>
     body: JSON.stringify({
       ingredients,
     }),
-  }).then(checkResponse);
+  });
 
-//  !ЗАПРОС НА ВОССТАНОВЛЕНИЕ ПАРОЛЯ
 export const updatePassRequestAPI = (email: string) =>
-  fetch(`${BURGER_API_URL}/password-reset`, {
+  request(ENDPOINT.PASSWORD_RESET, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,8 +52,8 @@ export const updatePassRequestAPI = (email: string) =>
     body: JSON.stringify({
       email,
     }),
-  }).then(checkResponse);
-//  !ЗАПРОС НА ИЗМЕНЕНИЕ ПАРОЛЯ
+  });
+
 export const resetPassAPI = ({
   password,
   token,
@@ -41,7 +61,7 @@ export const resetPassAPI = ({
   password: string;
   token: string;
 }) =>
-  fetch(`${BURGER_API_URL}/password-reset/reset`, {
+  request(ENDPOINT.PASSWORD_RESET_RESET, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -50,11 +70,10 @@ export const resetPassAPI = ({
       password,
       token,
     }),
-  }).then(checkResponse);
+  });
 
-//  !ЗАПРОС НА ВЫХОД ПОЛЬЗОВАТЕЛЯ
-export const logoutAPI = () => {
-  return fetch(`${BURGER_API_AUTH_URL}/logout`, {
+export const logoutAPI = () =>
+  request(ENDPOINT.LOGOUT, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -62,12 +81,9 @@ export const logoutAPI = () => {
     body: JSON.stringify({
       token: getCookie("refreshToken"),
     }),
-  }).then(checkResponse);
-};
-
-// !ЗАПРОС НА РЕГИСТРАЦИЮ ПОЛЬЗОВАТЕЛЯ
+  });
 export const registerUserAPI = ({ email, password, name }: TUserInfo) =>
-  fetch(`${BURGER_API_AUTH_URL}/register`, {
+  request(ENDPOINT.REGISTER, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -77,34 +93,22 @@ export const registerUserAPI = ({ email, password, name }: TUserInfo) =>
       password,
       name,
     }),
-  }).then(checkResponse);
+  });
 
-//  !ЗАПРОС НА ВХОД ПОЛЬЗОВАТЕЛЯ
-export const loginAPI = ({ email, password }: TUserLogin) =>
-  fetch(`${BURGER_API_AUTH_URL}/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  }).then(checkResponse);
-
-// ! ЗАПРОС ДАННЫХ ПОЛЬЗОВАТЕЛЯ
 export const checkUserAccessAPI = () =>
-  fetch(`${BURGER_API_AUTH_URL}/user`, {
-    method: "GET",
+  request(ENDPOINT.USER, {
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${getCookie("token")}`,
     },
-  }).then(checkResponse);
+  });
 
-//  !ЗАПРОС НА РЕДАКТИРОВАНИЕ ПРОФИЛЯ
-export const updateUserProfileAPI = ({ name, email, password }: TObjectString) =>
-  fetch(`${BURGER_API_AUTH_URL}/user`, {
+export const updateUserProfileAPI = ({
+  name,
+  email,
+  password,
+}: TObjectString) =>
+  request(ENDPOINT.USER, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -115,11 +119,10 @@ export const updateUserProfileAPI = ({ name, email, password }: TObjectString) =
       name,
       password,
     }),
-  }).then(checkResponse);
+  });
 
-// !ЗАПРОС НА РЕФРЕШ ТОКЕНА
-export const refreshTokenAPI = () => {
-  return fetch(`${BURGER_API_AUTH_URL}/token`, {
+export const refreshTokenAPI = () =>
+  request(ENDPOINT.REFRESH_TOKEN, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -127,6 +130,4 @@ export const refreshTokenAPI = () => {
     body: JSON.stringify({
       token: getCookie("refreshToken"),
     }),
-  }).then(checkResponse);
-};
-
+  });

@@ -1,5 +1,19 @@
 export const BURGER_API_URL = "https://norma.nomoreparties.space/api";
-export const BURGER_API_AUTH_URL = `${BURGER_API_URL}/auth`;
+export const ENDPOINT = {
+  AUTH: "/auth",
+  INGREDIENTS: "/ingredients",
+  ORDERS: "/orders",
+  PASSWORD_RESET: "/password-reset",
+  PASSWORD_RESET_RESET: "/password-reset/reset",
+  // USER
+  LOGOUT: "/auth/logout",
+  REGISTER: "/auth/register",
+  LOGIN: "/auth/login",
+  USER: "/auth/user",
+  // TOKEN
+  REFRESH_TOKEN: "/auth/token",
+};
+
 export const WS_URL = "wss://norma.nomoreparties.space/orders";
 export const WS_URL_FEED = `${WS_URL}/all`;
 
