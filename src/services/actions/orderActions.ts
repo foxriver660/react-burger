@@ -1,6 +1,7 @@
 import { getOrderAPI } from "../../utils/burger-api";
 import { refreshToken } from "./profileActions";
 import { AppDispatch } from "../types";
+import { TGetOrderAPI } from "../types/data";
 // !ACTIONS
 export const GET_ORDER: "GET_ORDER" = "GET_ORDER";
 export const RESET_ORDER: "RESET_ORDER" = "RESET_ORDER";
@@ -33,7 +34,7 @@ export const getOrderFailed = (): IGetOrderFailedAction => ({
 });
 // ГЕНЕРАТОР THUNK
 export const getApiOrder =
-  (ingredients: string[]) => (dispatch: AppDispatch) => {
+  (ingredients: TGetOrderAPI) => (dispatch: AppDispatch) => {
     getOrderAPI(ingredients)
       .then((res) => {
          dispatch(getOrder(res.order.number));

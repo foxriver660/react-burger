@@ -16,7 +16,7 @@ import {
 } from "../../utils/burger-api";
 import { JWT_MALFORMED, JWT_EXPIRED } from "../../utils/constant";
 import { AppDispatch } from "../types";
-import { TObjectString, TUser, TUserInfo, TUserLogin } from "../types/data";
+import { TLoginApi, TRegisterUserAPI, TResetPassAPI, TUser} from "../types/data";
 // !ACTIONS
 export const UPDATE_PASS: "UPDATE_PASS" = "UPDATE_PASS";
 export const RESET_PASS: "RESET_PASS" = "RESET_PASS";
@@ -133,7 +133,7 @@ export const updatePassRequest = ({email}: {email: string}) => (dispatch: AppDis
 };
 
 export const resetPass =
-  (newPassword: {password: string, token: string}) => (dispatch: AppDispatch) => {
+  (newPassword: TResetPassAPI) => (dispatch: AppDispatch) => {
     return resetPassAPI(newPassword)
       .then((res) => {
         dispatch(resetPassAction(res.success));
@@ -157,7 +157,7 @@ export const logout = () => (dispatch: AppDispatch) => {
     });
 };
 
-export const registerUser = (user: TUserInfo) => (dispatch: AppDispatch) => {
+export const registerUser = (user: TRegisterUserAPI) => (dispatch: AppDispatch) => {
   return registerUserAPI(user)
     .then((res) => {
       setCookie("token", parsForCookie(res.accessToken));
@@ -174,7 +174,7 @@ export const registerUser = (user: TUserInfo) => (dispatch: AppDispatch) => {
     });
 };
 
-export const login = (user: TUserLogin) => (dispatch: AppDispatch) => {
+export const login = (user: TLoginApi) => (dispatch: AppDispatch) => {
   return loginAPI(user)
     .then((res) => {
       setCookie("token", parsForCookie(res.accessToken));
@@ -223,7 +223,7 @@ export const updateUserProfile =
     name,
     email,
     password,
-  }: TObjectString) =>
+  }: TRegisterUserAPI) =>
   (dispatch: AppDispatch) => {
     return updateUserProfileAPI({ name, email, password })
       .then((res) => {

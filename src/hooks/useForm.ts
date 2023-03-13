@@ -1,9 +1,9 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useAppDispatch } from "../services/hooks";
 import { useNavigate } from "react-router-dom";
-import { TObjectString } from "../services/types/data";
 
-function useForm(inputValues: TObjectString) {
+
+function useForm(inputValues: any) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

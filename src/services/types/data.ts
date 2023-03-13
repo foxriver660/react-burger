@@ -1,6 +1,15 @@
 import { ChangeEvent, FormEvent, ReactNode } from "react";
 
 // ВСПОМОГАТЕЛЬНАЯ ТИПИЗАЦИЯ
+export type THeadersApi = {
+  method?: string;
+  headers: {[key: string]: string;}
+  body?: string
+}
+export type TResApi = {
+  success: boolean;
+  [key: string]: any
+}
 export type TIngredientShortInfo = {
   readonly id: string;
   readonly type: string;
@@ -131,4 +140,22 @@ export type TConstructorList={
 // ТИПИЗАЦИЯ СТРАНИЦ
 export type TOrderDetailPage ={
   source: string;
+}
+// ТИПИЗАЦИЯ API
+export type TLoginApi = {
+  email: string;
+  password: string;
+}
+export type TGetOrderAPI = Array<string>
+
+export type TUpdatePassRequestAPI = string
+
+export type TResetPassAPI = {
+  password: string;
+  token: string;
+}
+export type TRegisterUserAPI = {
+  name: string;
+  email: string;
+  password: string;
 }
