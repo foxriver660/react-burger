@@ -9,6 +9,7 @@
   line-height: 64px;
   vertical-align: center;
   align-self: flex-start;
+  margin: 0 auto;
 }
 .compoundList {
   display: flex;
@@ -16,4 +17,6 @@
   list-style: none;
   margin: 0;
 }
- 
+.loader{
+  margin: 5% auto;
+}

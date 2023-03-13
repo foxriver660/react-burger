@@ -12,6 +12,8 @@ export const getUpdateUserProfileFailed = (state: RootState) =>
 export const getUpdateUserProfileSuccess = (state: RootState) =>
   state.profileReducer.updateUserProfileSuccess;
 export const getAuthUser = (state: RootState) => state.profileReducer.authUser;
+export const getIsAuth = (state: RootState) => state.profileReducer.isAuth;
+export const getIsAuthCheck = (state: RootState) => state.profileReducer.isAuthCheck
 // INGREDIENT REDUCER
 /* export const getTotalCost = (state: RootState) =>
   state.ingredientReducer.totalCost; */

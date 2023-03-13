@@ -8,11 +8,9 @@ import {
   FeedPage,
   ForgotPassPage,
   HomePage,
-  IngredientPage,
   Layout,
   LoginPage,
   NotFoundPage,
-  OrderDetailPage,
   OrderPage,
   ProfilePage,
   RegisterPage,
@@ -21,9 +19,8 @@ import {
 import {
   IngredientDetails,
   Modal,
-  OnlyUnAuthRoute,
   OrderDetails,
-  ProtectedRouteElement,
+  ProtectedRoute,
 } from "../components";
 
 const App: FC = React.memo(() => {
@@ -51,37 +48,43 @@ const App: FC = React.memo(() => {
           <Route index element={<HomePage />} />
           <Route
             path="register"
-            element={<OnlyUnAuthRoute element={<RegisterPage />} />}
+            element={
+              <ProtectedRoute onlyUnAuth={true} element={<RegisterPage />} />
+            }
           />
           <Route
             path="login"
-            element={<OnlyUnAuthRoute element={<LoginPage />} />}
+            element={
+              <ProtectedRoute onlyUnAuth={true} element={<LoginPage />} />
+            }
           />
           <Route path="feed" element={<FeedPage />} />
           <Route
             path="feed/:id"
-            element={<OrderDetailPage source={"feed"} />}
+            element={<OrderDetails page={true} source={"feed"} />}
           />
           <Route
             path="forgot-password"
-            element={<OnlyUnAuthRoute element={<ForgotPassPage />} />}
+            element={
+              <ProtectedRoute onlyUnAuth={true} element={<ForgotPassPage />} />
+            }
           />
           <Route path="reset-password" element={<ResetPassPage />} />
           <Route
             path="profile/"
-            element={<ProtectedRouteElement element={<ProfilePage />} />}
+            element={<ProtectedRoute element={<ProfilePage />} />}
           >
             <Route path="orders" element={<OrderPage />} />
           </Route>
           <Route
             path="profile/orders/:id"
             element={
-              <ProtectedRouteElement
-                element={<OrderDetailPage source={"history"} />}
+              <ProtectedRoute
+                element={<OrderDetails page={true} source={"history"} />}
               />
             }
           />
-          <Route path="ingredients/:id" element={<IngredientPage />} />
+          <Route path="ingredients/:id" element={<IngredientDetails />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

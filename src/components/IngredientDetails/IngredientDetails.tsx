@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import classes from "./IngredientDetails.module.css";
 import { useParams } from "react-router-dom";
 import { getData } from "../../selectors/selectors";
-import { CompoundItem } from "../index";
+import { CompoundItem, Loader } from "../index";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 import { useAppSelector } from "../../services/hooks";
 
@@ -12,7 +12,7 @@ const IngredientDetails: FC = React.memo(() => {
   const { order } = useIngredientsOperations(availableIngredients, id);
   return (
     <>
-      {order && (
+      {order ? (
         <div className={`${classes.wrapper} pt-10 pr-10 pl-10 pb-15`}>
           <p
             className={`${classes.ingredientHeader} text text_type_main-large`}
@@ -33,7 +33,9 @@ const IngredientDetails: FC = React.memo(() => {
             <CompoundItem type="Углеводы, г" quantity={order.carbohydrates} />
           </ul>
         </div>
-      )}{" "}
+      ): (
+        <Loader classname={classes.loader} />
+      )}
     </>
   );
 });

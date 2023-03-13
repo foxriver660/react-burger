@@ -73,7 +73,7 @@ export type TActions = {
 // ТИПИЗАЦИЯ КОМПОНЕНТОВ
 export type TProtectedRoute = {
   element: ReactNode;
-   authUser?: TUser | null;
+  onlyUnAuth?: boolean;
 }
 export type TOrderBox = {
   doneOrder: number[];

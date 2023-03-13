@@ -12,4 +12,7 @@
   --color-loader-border: rgba(0, 204, 204, 0.2);
   --color-image-cicle-border: #801ab2;
 }
+.--loader-router{
+  margin: 10% auto;
+}
 

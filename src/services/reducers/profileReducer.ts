@@ -8,12 +8,15 @@ import {
   UPDATE_USER_FAILED,
   UPDATE_USER_SUCCESS,
   UPDATE_TOKEN,
+  CHECK_USER,
 } from "../actions/profileActions";
 import { TProfileActions } from "../actions/profileActions";
 import { TUser } from "../types/data";
 
 export type TProfileState = {
   authUser: null | TUser;
+  isAuth: boolean;
+  isAuthCheck: boolean;
   updatePassRequest: null | boolean;
   resetPassRequest: null | boolean;
   logoutRequest: null | boolean;
@@ -25,6 +28,8 @@ export type TProfileState = {
 };
 const defaultState: TProfileState = {
   authUser: null,
+  isAuth: false,
+  isAuthCheck: false,
   updatePassRequest: null,
   resetPassRequest: null,
   logoutRequest: null,
@@ -54,11 +59,13 @@ export const profileReducer = (
         ...state,
         logoutRequest: action.payload,
         authUser: null,
+        isAuth: false,
       };
     case LOGIN:
       return {
         ...state,
         loginRequest: action.payload,
+        isAuth: true,
       };
     case REGISTER_USER:
       return {
@@ -89,6 +96,12 @@ export const profileReducer = (
           name: action.payload.name,
           email: action.payload.email,
         },
+        isAuth: true,
+      };
+    case CHECK_USER:
+      return {
+        ...state,
+        isAuthCheck: true,
       };
     default:
       return state;

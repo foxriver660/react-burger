@@ -6,15 +6,18 @@
   align-items: center;
   gap: 8px;
   position: relative;
+  transition:  scale 1s;
 }
 .container:hover {
-  outline: 1px solid var(--color-done);
+   outline: 1px solid var(--color-done); 
   border-radius: 16px;
+  transform: scale(1.05);
 }
 .image {
   width: 240px;
   height: 120px;
 }
+
 .currencyContainer {
   display: flex;
   align-items: center;
@@ -24,3 +27,4 @@
   margin: 0;
   text-align: center;
 }
+

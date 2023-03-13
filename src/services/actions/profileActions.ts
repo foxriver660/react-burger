@@ -1,8 +1,4 @@
-import {
-  setCookie,
-  deleteCookie,
-  parsForCookie,
-} from "../../utils/cookie";
+import { setCookie, deleteCookie, parsForCookie } from "../../utils/cookie";
 
 import {
   updatePassRequestAPI,
@@ -16,7 +12,12 @@ import {
 } from "../../utils/burger-api";
 import { JWT_MALFORMED, JWT_EXPIRED } from "../../utils/constant";
 import { AppDispatch } from "../types";
-import { TLoginApi, TRegisterUserAPI, TResetPassAPI, TUser} from "../types/data";
+import {
+  TLoginApi,
+  TRegisterUserAPI,
+  TResetPassAPI,
+  TUser,
+} from "../types/data";
 // !ACTIONS
 export const UPDATE_PASS: "UPDATE_PASS" = "UPDATE_PASS";
 export const RESET_PASS: "RESET_PASS" = "RESET_PASS";
@@ -29,6 +30,7 @@ export const LOGIN: "LOGIN" = "LOGIN";
 export const UPDATE_USER_FAILED: "UPDATE_USER_FAILED" = "UPDATE_USER_FAILED";
 export const UPDATE_USER_SUCCESS: "UPDATE_USER_SUCCESS" = "UPDATE_USER_SUCCESS";
 export const UPDATE_TOKEN: "UPDATE_TOKEN" = "UPDATE_TOKEN";
+export const CHECK_USER: "CHECK_USER" = "CHECK_USER";
 // !ACTIONS TYPES
 export interface IUpdatePassAction {
   readonly type: typeof UPDATE_PASS;
@@ -66,6 +68,9 @@ export interface IUpdateUserSuccessAction {
   readonly type: typeof UPDATE_USER_SUCCESS;
   readonly payload: boolean;
 }
+export interface ICheckUserAction {
+  readonly type: typeof CHECK_USER;
+}
 // !UNION ALL
 export type TProfileActions =
   | IUpdatePassAction
@@ -76,8 +81,12 @@ export type TProfileActions =
   | IUpdateTokenAction
   | IUpdateUserFailedAction
   | IUpdateUserSuccessAction
-  | ISetUserAction;
+  | ISetUserAction
+  | ICheckUserAction;
 // ACTIONS GENERATE
+export const checkUserAction = (): ICheckUserAction => ({
+  type: CHECK_USER,
+});
 export const updatePassAction = (payload: boolean): IUpdatePassAction => ({
   type: UPDATE_PASS,
   payload,
@@ -98,6 +107,7 @@ export const setUserAction = (payload: TUser): ISetUserAction => ({
   type: SET_USER,
   payload,
 });
+
 export const loginAction = (payload: boolean): ILoginAction => ({
   type: LOGIN,
   payload,
@@ -121,16 +131,18 @@ export const updateUserSuccessAction = (
   payload,
 });
 // ГЕНЕРАТОР THUNK
-export const updatePassRequest = ({email}: {email: string}) => (dispatch: AppDispatch) => {
-  return updatePassRequestAPI(email)
-    .then((res) => {
-      dispatch(updatePassAction(res.success));
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res); */
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+export const updatePassRequest =
+  ({ email }: { email: string }) =>
+  (dispatch: AppDispatch) => {
+    return updatePassRequestAPI(email)
+      .then((res) => {
+        dispatch(updatePassAction(res.success));
+        /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res); */
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
 export const resetPass =
   (newPassword: TResetPassAPI) => (dispatch: AppDispatch) => {
@@ -157,22 +169,23 @@ export const logout = () => (dispatch: AppDispatch) => {
     });
 };
 
-export const registerUser = (user: TRegisterUserAPI) => (dispatch: AppDispatch) => {
-  return registerUserAPI(user)
-    .then((res) => {
-      setCookie("token", parsForCookie(res.accessToken));
-      setCookie("refreshToken", res.refreshToken);
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res); */
-      if (res.success) {
-        dispatch(registerUserAction(res.success));
-        dispatch(setUserAction(res.user));
-        console.log(res.user);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+export const registerUser =
+  (user: TRegisterUserAPI) => (dispatch: AppDispatch) => {
+    return registerUserAPI(user)
+      .then((res) => {
+        setCookie("token", parsForCookie(res.accessToken));
+        setCookie("refreshToken", res.refreshToken);
+        /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res); */
+        if (res.success) {
+          dispatch(registerUserAction(res.success));
+          dispatch(setUserAction(res.user));
+          console.log(res.user);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
 export const login = (user: TLoginApi) => (dispatch: AppDispatch) => {
   return loginAPI(user)
@@ -199,16 +212,17 @@ export const checkUserAccess = () => (dispatch: AppDispatch) => {
     })
     .catch((err) => {
       console.log(err);
-      if (err.message === JWT_MALFORMED || JWT_EXPIRED) {
-          dispatch(refreshToken());
+      if (err.message === JWT_MALFORMED || err.message === JWT_EXPIRED) {
+        dispatch(refreshToken());
       }
-    });
+    })
+    .finally(() => {dispatch(checkUserAction())});
 };
 
 export const refreshToken = () => (dispatch: AppDispatch) => {
   return refreshTokenAPI()
     .then((res) => {
-     /*  console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res); */
+      /*  console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res); */
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
       dispatch(updateTokenAction(res.success));
@@ -219,15 +233,11 @@ export const refreshToken = () => (dispatch: AppDispatch) => {
 };
 
 export const updateUserProfile =
-  ({
-    name,
-    email,
-    password,
-  }: TRegisterUserAPI) =>
+  ({ name, email, password }: TRegisterUserAPI) =>
   (dispatch: AppDispatch) => {
     return updateUserProfileAPI({ name, email, password })
       .then((res) => {
-         console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res); 
+        console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);
         dispatch(setUserAction(res.user));
         dispatch(updateUserSuccessAction(res.success));
       })
