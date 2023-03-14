@@ -49,7 +49,7 @@ const BurgerConstructor: FC = React.memo(() => {
   const successTokenUpdate = useAppSelector(getSuccessTokenUpdate);
   const orderRequestFailed = useAppSelector(getOrderRequestFailed);
   const wsConnectedFailed = useAppSelector(getWsConnectedFailed);
-
+  const WS_URL_HISTORY = `${WS_URL}?token=${getCookie("token")}`;
   let totalCost = calcTotalPrice([bun as TIngredient, ...ingredients]);
 
   // НАПРАВЛЯЕМ ID НА СЕРВЕР ДЛЯ ПОЛУЧЕНИЯ ORDER
@@ -59,7 +59,7 @@ const BurgerConstructor: FC = React.memo(() => {
       bun?._id,
     ];
     if (authUser) {
-      const WS_URL_HISTORY = `${WS_URL}?token=${getCookie("token")}`;
+      
       dispatch(wsResetMessage());
       dispatch(getApiOrder(ingredientsId));
       dispatch(wsConnectionStart(WS_URL_HISTORY));
@@ -76,6 +76,7 @@ const BurgerConstructor: FC = React.memo(() => {
     ];
     if (successTokenUpdate && (orderRequestFailed || wsConnectedFailed)) {
       dispatch(getApiOrder(ingredientsId));
+      dispatch(wsConnectionStart(WS_URL_HISTORY));
     }
   }, [successTokenUpdate, orderRequestFailed, wsConnectedFailed]); // eslint-disable-line
 

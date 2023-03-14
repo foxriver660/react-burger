@@ -17,6 +17,7 @@ import {
   wsConnectionStart,
 
  } from "../../services/actions/wsActions";
+import useDetermineEntity from "../../hooks/useDetermineEntity";
 
 
 const OrderDetails: FC<{ page?: boolean; source?: string }> = React.memo(
@@ -25,9 +26,10 @@ const OrderDetails: FC<{ page?: boolean; source?: string }> = React.memo(
     const { id } = useParams();
     const { orders } = useAppSelector(getOrders);
     const authUser = useAppSelector(getAuthUser);
-    const { order, filteredIngredients, totalPrice, quantityIngredients } =
-      useIngredientsOperations(orders, id);
-
+    const {order} = useDetermineEntity(orders, id)
+    const { filteredIngredients, totalPrice, quantityIngredients } =
+      useIngredientsOperations(order);
+      
     useEffect(() => {
       if (page) {
         const WS_URL_HISTORY = `${WS_URL}?token=${getCookie("token")}`;

@@ -8,10 +8,8 @@ import {Loader} from "../index";
 import { DONE } from "../../utils/constant";
 
 const StatisticFeed: FC = React.memo(() => {
-  // ПОЛУЧЕНИЕ ИЗ СТОРА ВСЕГО СТЕКА
   const orders = useAppSelector(getOrders);
 
-  // РАЗДЕЛЯЕМ ПО ГОТОВНОСТИ
   const { doneOrder, waitOrder } = React.useMemo(() => {
     return orders.orders.reduce(
       (acc: {doneOrder: Array<number>, waitOrder: Array<number>}, order: TOrder) => {

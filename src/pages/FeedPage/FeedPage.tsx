@@ -15,7 +15,7 @@ const FeedPage: FC = React.memo(() => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const orders = useAppSelector(getOrders);
-
+console.log(orders)
   useEffect(() => {
     dispatch(wsConnectionStart(WS_URL_FEED));
 

@@ -18,7 +18,6 @@ function useForm(inputValues: any) {
   const handleSubmit = (e: FormEvent, action: any, path?: string) => {
     e.preventDefault();
     dispatch(action(form)).then(() => {
-      console.log("ОТРАБОТАЛ");
       return path ? navigate(path, { replace: true }) : null;
     });
   };

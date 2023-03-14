@@ -3,13 +3,13 @@ import classes from "./IngredientDetails.module.css";
 import { useParams } from "react-router-dom";
 import { getData } from "../../selectors/selectors";
 import { CompoundItem, Loader } from "../index";
-import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 import { useAppSelector } from "../../services/hooks";
+import useDetermineEntity from "../../hooks/useDetermineEntity";
 
 const IngredientDetails: FC<{page?: boolean}> = React.memo(({page=false}) => {
   const { id } = useParams();
   const availableIngredients = useAppSelector(getData);
-  const { order } = useIngredientsOperations(availableIngredients, id);
+  const { order } = useDetermineEntity(availableIngredients, id);
   return (
     <>
       {order ? (
