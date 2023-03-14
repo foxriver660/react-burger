@@ -8,7 +8,6 @@ import { PATH } from "../../utils/constant";
 import useForm from "../../hooks/useForm";
 import { useAppSelector } from "../../services/hooks";
 import { getLoginRequest } from "../../selectors/selectors";
-import ErrorUserFetch from "../../components/ErrorUserFetch/ErrorUserFetch";
 
 const LoginPage: FC = React.memo(() => {
   const location = useLocation();
@@ -40,9 +39,7 @@ const LoginPage: FC = React.memo(() => {
           Войти
         </Button>
       </Form>
-      {loginRequest === false && (
-                <ErrorUserFetch/>
-              )}
+      
       <p
         className={`${classes.clarification} text text_type_main-default text_color_inactive`}
       >

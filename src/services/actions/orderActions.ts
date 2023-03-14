@@ -37,11 +37,11 @@ export const getApiOrder =
   (ingredients: TGetOrderAPI) => (dispatch: AppDispatch) => {
     getOrderAPI(ingredients)
       .then((res) => {
-         dispatch(getOrder(res.order.number));
-        console.log("ДАННЫЕ НАПРАВЛЕНЫ getApiOrder:", res);
+        dispatch(getOrder(res.order.number));
+        /*  console.log("ДАННЫЕ НАПРАВЛЕНЫ getApiOrder:", res); */
       })
       .catch((err) => {
-        console.log("ОШИБКА getApiOrder:", ingredients);
+        /* console.log("ОШИБКА getApiOrder:", ingredients); */
         dispatch(refreshToken());
         dispatch(getOrderFailed());
       });

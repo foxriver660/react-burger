@@ -40,6 +40,7 @@ export const wsReducer = (state = defaultState, action: TWsActions) => {
       return {
         ...state,
         wsConnected: false,
+        wsConnectedFailed: true,
       };
       case WS_DISCONNECT:
       return {
@@ -51,6 +52,7 @@ export const wsReducer = (state = defaultState, action: TWsActions) => {
       return {
         ...state,
         wsConnected: false,
+        wsConnectedFailed: true,
       };
     case WS_GET_MESSAGE:
       return {

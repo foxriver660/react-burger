@@ -20,29 +20,30 @@ export function getCookie(name: string) {
 export function setCookie(
   name: string,
   value: string,
-  props: { [key: string]: string | number | boolean } & {
-    expires?: number | Date | string;
+  options: { [key: string]: string | number | boolean } & {
+    expires?: any;
   } = {}
 ) {
-  props = props || {};
-  let exp = props.expires;
-  if (typeof exp == "number" && exp) {
-    const d = new Date();
-    d.setTime(d.getTime() + exp * 1000);
-    exp = props.expires = d;
+  options = {
+    path: "/",
+    ...options,
+  };
+
+  if (options.expires instanceof Date) {
+    options.expires = options.expires.toUTCString();
   }
-  if (exp && (exp as Date).toUTCString) {
-    props.expires = (exp as Date).toUTCString();
-  }
+
   let updatedCookie =
-  encodeURIComponent(name) + "=" + encodeURIComponent(value);
-  for (const propName in props) {
-    updatedCookie += "; " + propName;
-    const propValue = props[propName];
-    if (propValue !== true) {
-      updatedCookie += "=" + propValue;
+    encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+  for (let optionKey in options) {
+    updatedCookie += "; " + optionKey;
+    let optionValue = options[optionKey];
+    if (optionValue !== true) {
+      updatedCookie += "=" + optionValue;
     }
   }
+
   document.cookie = updatedCookie;
 }
 
