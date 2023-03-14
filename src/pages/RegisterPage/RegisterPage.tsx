@@ -14,6 +14,7 @@ import { PATH } from "../../utils/constant";
 import useForm from "../../hooks/useForm";
 
 const RegisterPage: FC = React.memo(() => {
+  
   const { form, handleChange, handleSubmit } = useForm({
     name: "",
     email: "",

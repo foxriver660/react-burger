@@ -8,7 +8,7 @@ import {
 import { getOrders } from "../../selectors/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { TOrder } from "../../services/types/data";
-import { WS_URL_FEED } from "../../utils/constant";
+import { PATH, WS_URL_FEED } from "../../utils/constant";
 import { Loader, OrderFeed, StatisticFeed } from "../../components";
 
 const FeedPage: FC = React.memo(() => {
@@ -36,7 +36,7 @@ const FeedPage: FC = React.memo(() => {
               {orders.orders.map((order: TOrder, index: number) => (
                 <Link
                   className={classes.link}
-                  to={`/feed/${order._id}`}
+                  to={`${PATH.FEED}/${order._id}`}
                   state={{ backgroundLocationFeed: location }}
                   key={index}
                 >

@@ -2,7 +2,6 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useAppDispatch } from "../services/hooks";
 import { useNavigate } from "react-router-dom";
 
-
 function useForm(inputValues: any) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -18,9 +17,10 @@ function useForm(inputValues: any) {
   };
   const handleSubmit = (e: FormEvent, action: any, path?: string) => {
     e.preventDefault();
-    dispatch(action(form)).then(() =>
-      path ? navigate(path, { replace: true }) : null
-    );
+    dispatch(action(form)).then(() => {
+      console.log("ОТРАБОТАЛ");
+      return path ? navigate(path, { replace: true }) : null;
+    });
   };
   return { form, handleChange, handleReset, handleSubmit, setForm };
 }

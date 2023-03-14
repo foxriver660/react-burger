@@ -6,14 +6,14 @@ import { CompoundItem, Loader } from "../index";
 import useIngredientsOperations from "../../hooks/useIngredientsOperations";
 import { useAppSelector } from "../../services/hooks";
 
-const IngredientDetails: FC = React.memo(() => {
+const IngredientDetails: FC<{page?: boolean}> = React.memo(({page=false}) => {
   const { id } = useParams();
   const availableIngredients = useAppSelector(getData);
   const { order } = useIngredientsOperations(availableIngredients, id);
   return (
     <>
       {order ? (
-        <div className={`${classes.wrapper} pt-10 pr-10 pl-10 pb-15`}>
+        <div className={`${page ? classes.wrapperPage :classes.wrapper} pt-10 pr-10 pl-10 pb-15`}>
           <p
             className={`${classes.ingredientHeader} text text_type_main-large`}
           >

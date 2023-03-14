@@ -6,14 +6,18 @@ import { login } from "../../services/actions/profileActions";
 import { Form, FormOverlay, InputEmail, InputPassword } from "../../components";
 import { PATH } from "../../utils/constant";
 import useForm from "../../hooks/useForm";
+import { useAppSelector } from "../../services/hooks";
+import { getLoginRequest } from "../../selectors/selectors";
+import ErrorUserFetch from "../../components/ErrorUserFetch/ErrorUserFetch";
 
 const LoginPage: FC = React.memo(() => {
   const location = useLocation();
+  const loginRequest = useAppSelector(getLoginRequest)
   const { form, handleChange, handleSubmit } = useForm({
     email: "",
     password: "",
   });
-  const fromPage = location.state?.from?.pathname || PATH.HOME;
+  const fromPage = loginRequest ? (location.state?.from?.pathname || PATH.HOME) : null;
 
   return (
     <FormOverlay type="form">
@@ -36,7 +40,9 @@ const LoginPage: FC = React.memo(() => {
           Войти
         </Button>
       </Form>
-
+      {loginRequest === false && (
+                <ErrorUserFetch/>
+              )}
       <p
         className={`${classes.clarification} text text_type_main-default text_color_inactive`}
       >

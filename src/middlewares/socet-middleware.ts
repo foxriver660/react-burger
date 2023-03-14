@@ -1,7 +1,6 @@
 import { INVALID_TOKEN, JWT_EXPIRED } from "../utils/constant";
-import { Middleware} from "redux";
+import { Middleware } from "redux";
 import { TActions } from "../services/types/data";
-
 
 export const socketMiddleware = (wsActions: TActions): Middleware => {
   return (store) => {
@@ -29,7 +28,7 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
         url = payload;
         socket = new WebSocket(url);
         isConnected = true;
-         console.log("create WebSocket", socket); 
+       /*  console.log("create WebSocket", socket); */
       }
 
       if (type === wsDisconnect().type) {
@@ -39,7 +38,7 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
         socket?.close(1000, "User disconnected");
         socket = null;
         url = "";
-        console.log("warning: DISCONNECT WebSocket"); 
+        /* console.log("warning: DISCONNECT WebSocket"); */
       }
       /* СОЕДИНЕНИЕ С СЕРВЕРОМ */
       if (socket) {
@@ -50,7 +49,7 @@ export const socketMiddleware = (wsActions: TActions): Middleware => {
         socket.onmessage = (event) => {
           const { data } = event;
           const parsedData = JSON.parse(data);
-          console.log("socket.onmessage:", parsedData); 
+         /*  console.log("socket.onmessage:", parsedData); */
           const { success, ...restParsedData } = parsedData;
           success && dispatch(wsGetMessage(restParsedData));
           if (

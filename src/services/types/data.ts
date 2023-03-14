@@ -162,7 +162,7 @@ export type TLoginApi = {
 export type TGetOrderAPI = Array<string | undefined> 
 
 export type TUpdatePassRequestAPI = string 
-
+export type TUpdatePassRequestFormAPI = { email: string }
 export type TResetPassAPI = {
   password: string;
   token: string;

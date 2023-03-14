@@ -19,7 +19,7 @@ const ForgotPassPage: FC = React.memo(() => {
         mainForm={true}
       >
         <InputEmail
-          value={form}
+          value={form.email}
           onChange={handleChange}
           placeholder="Укажите e-mail"
         />

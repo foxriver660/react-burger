@@ -16,6 +16,7 @@ import {
   TLoginApi,
   TRegisterUserAPI,
   TResetPassAPI,
+  TUpdatePassRequestFormAPI,
   TUser,
 } from "../types/data";
 // !ACTIONS
@@ -54,7 +55,7 @@ export interface ISetUserAction {
 }
 export interface ILoginAction {
   readonly type: typeof LOGIN;
-  readonly payload: boolean;
+  readonly payload: boolean | null;
 }
 export interface IUpdateTokenAction {
   readonly type: typeof UPDATE_TOKEN;
@@ -108,13 +109,11 @@ export const setUserAction = (payload: TUser): ISetUserAction => ({
   payload,
 });
 
-export const loginAction = (payload: boolean): ILoginAction => ({
+export const loginAction = (payload: boolean | null): ILoginAction => ({
   type: LOGIN,
   payload,
 });
-export const updateTokenAction = (
-  payload: boolean
-): IUpdateTokenAction => ({
+export const updateTokenAction = (payload: boolean): IUpdateTokenAction => ({
   type: UPDATE_TOKEN,
   payload,
 });
@@ -132,12 +131,12 @@ export const updateUserSuccessAction = (
 });
 // ГЕНЕРАТОР THUNK
 export const updatePassRequest =
-  ({ email }: { email: string }) =>
+  ({ email }: TUpdatePassRequestFormAPI) =>
   (dispatch: AppDispatch) => {
     return updatePassRequestAPI(email)
       .then((res) => {
         dispatch(updatePassAction(res.success));
-        /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res); */
+        console.log("РЕЗУЛЬАТАТ ЗАПРОСА updatePassRequest:", res);
       })
       .catch((err) => {
         console.log(err);
@@ -148,8 +147,8 @@ export const resetPass =
   (newPassword: TResetPassAPI) => (dispatch: AppDispatch) => {
     return resetPassAPI(newPassword)
       .then((res) => {
+        console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res);
         dispatch(resetPassAction(res.success));
-        /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА resetPass:", res); */
       })
       .catch((err) => {
         console.log(err);
@@ -159,10 +158,10 @@ export const resetPass =
 export const logout = () => (dispatch: AppDispatch) => {
   return logoutAPI()
     .then((res) => {
+      console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res);
       dispatch(logoutAction(res.success));
       deleteCookie("token");
       deleteCookie("refreshToken");
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА logout:", res);  */
     })
     .catch((err) => {
       console.log(err);
@@ -173,13 +172,13 @@ export const registerUser =
   (user: TRegisterUserAPI) => (dispatch: AppDispatch) => {
     return registerUserAPI(user)
       .then((res) => {
-        setCookie("token", parsForCookie(res.accessToken));
-        setCookie("refreshToken", res.refreshToken);
-        /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res); */
+        console.log("РЕЗУЛЬАТАТ ЗАПРОСА registerUser:", res);
+        dispatch(registerUserAction(res.success));
         if (res.success) {
-          dispatch(registerUserAction(res.success));
+          setCookie("token", parsForCookie(res.accessToken));
+          setCookie("refreshToken", res.refreshToken);
           dispatch(setUserAction(res.user));
-          console.log(res.user);
+          dispatch(registerUserAction(false));
         }
       })
       .catch((err) => {
@@ -190,13 +189,14 @@ export const registerUser =
 export const login = (user: TLoginApi) => (dispatch: AppDispatch) => {
   return loginAPI(user)
     .then((res) => {
-      setCookie("token", parsForCookie(res.accessToken));
-      setCookie("refreshToken", res.refreshToken);
-      /* console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res); */
+      console.log("РЕЗУЛЬАТАТ ЗАПРОСА login:", res);
+      dispatch(loginAction(res.success));
       if (res.success) {
-        dispatch(loginAction(res.success));
+        setCookie("token", parsForCookie(res.accessToken));
+        setCookie("refreshToken", res.refreshToken);
         dispatch(setUserAction(res.user));
-      }
+        dispatch(loginAction(false));
+        }
     })
     .catch((err) => {
       console.log(err);
@@ -206,7 +206,7 @@ export const login = (user: TLoginApi) => (dispatch: AppDispatch) => {
 export const checkUserAccess = () => (dispatch: AppDispatch) => {
   return checkUserAccessAPI()
     .then((res) => {
-      /* console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res); */
+      console.log("ДАННЫЕ ПОЛУЧЕНЫ checkUserAccess:", res);
       dispatch(setUserAction(res.user));
       dispatch(updateTokenAction(false));
     })
@@ -216,13 +216,15 @@ export const checkUserAccess = () => (dispatch: AppDispatch) => {
         dispatch(refreshToken());
       }
     })
-    .finally(() => {dispatch(checkUserAction())});
+    .finally(() => {
+      dispatch(checkUserAction());
+    });
 };
 
 export const refreshToken = () => (dispatch: AppDispatch) => {
   return refreshTokenAPI()
     .then((res) => {
-      /*  console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res); */
+      console.log("ДАННЫЕ ПОЛУЧЕНЫ refreshToken:", res);
       setCookie("token", parsForCookie(res.accessToken));
       setCookie("refreshToken", res.refreshToken);
       dispatch(updateTokenAction(res.success));
@@ -240,6 +242,7 @@ export const updateUserProfile =
         console.log("ДАННЫЕ ПОЛУЧЕНЫ updateUserProfile:", res);
         dispatch(setUserAction(res.user));
         dispatch(updateUserSuccessAction(res.success));
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);

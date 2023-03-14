@@ -5,6 +5,10 @@
   flex-direction: column;
   align-items: center;
 }
+.wrapperPage{
+  composes: wrapper;
+  padding-top: 120px;
+}
 .ingredientHeader {
   line-height: 64px;
   vertical-align: center;

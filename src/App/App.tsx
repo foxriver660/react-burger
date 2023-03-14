@@ -84,7 +84,7 @@ const App: FC = React.memo(() => {
               />
             }
           />
-          <Route path="ingredients/:id" element={<IngredientDetails />} />
+          <Route path="ingredients/:id" element={<IngredientDetails page={true}/>} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

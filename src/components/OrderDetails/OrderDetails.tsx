@@ -39,7 +39,7 @@ const OrderDetails: FC<{ page?: boolean; source?: string }> = React.memo(
     }, [authUser]); // eslint-disable-line
 
     return (
-      <div className={classes.wrapper}>
+      <div className={page ? classes.wrapperPage : classes.wrapper}>
         {order ? (
           <>
             <h3

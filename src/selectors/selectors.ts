@@ -3,6 +3,8 @@ import { RootState } from "../services/types";
 // PROFILE STATE
 export const getSuccessTokenUpdate = (state: RootState) =>
   state.profileReducer.successTokenUpdate;
+  export const getLoginRequest =  (state: RootState) =>
+  state.profileReducer.loginRequest;
 export const getUpdatePassRequest = (state: RootState) =>
   state.profileReducer.updatePassRequest;
 export const getResetPassRequest = (state: RootState) =>
