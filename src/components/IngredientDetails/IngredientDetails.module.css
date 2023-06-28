@@ -5,14 +5,22 @@
   flex-direction: column;
   align-items: center;
 }
+.wrapperPage{
+  composes: wrapper;
+  padding-top: 120px;
+}
 .ingredientHeader {
   line-height: 64px;
   vertical-align: center;
   align-self: flex-start;
+  margin: 0 auto;
 }
 .compoundList {
   display: flex;
   gap: 20px;
   list-style: none;
   margin: 0;
+}
+.loader{
+  margin: 5% auto;
 }

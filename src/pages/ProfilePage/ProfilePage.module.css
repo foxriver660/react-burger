@@ -21,10 +21,10 @@
 }
 .linkActive {
   composes: link;
-  color: white;
+  color: var(--color-white);
 }
 .link:hover {
-  color: #fff;
+  color: var(--color-white);
 }
 .btnContainer {
   display: flex;
@@ -34,7 +34,7 @@
 .btn {
   background-color: inherit;
   font-size: 30px;
-  color: #fff;
+  color: var(--color-white);
   border: none;
   cursor: pointer;
 }

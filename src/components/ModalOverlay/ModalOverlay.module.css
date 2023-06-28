@@ -5,7 +5,10 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+  background: linear-gradient(
+    var(--color-background-overlay),
+    var(--color-background-overlay)
+  );
   display: flex;
   flex-direction: row;
   justify-content: center;

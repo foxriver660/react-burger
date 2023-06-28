@@ -1,15 +1,12 @@
-.div3 {
-  display: flex;
-  flex-direction: column;
-  height: 153px;
-  flex-wrap: wrap;
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
-
 .digits {
   margin: 0;
   display: flex;
 }
 .digitsReady {
-  color: #00cccc;
+  color: var(--color-done);
 }

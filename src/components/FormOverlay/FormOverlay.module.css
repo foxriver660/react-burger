@@ -8,6 +8,8 @@
 .profile {
   composes: login;
   padding-top: 0;
-  padding-left: 17.5%;
+  margin: 0 auto;
+  max-width: 1280px;
   align-items: flex-start;
 }
+ 

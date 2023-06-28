@@ -5,6 +5,6 @@
   width: 572px;
 }
 .ingredientElement {
-  background-color: #1c1c21;
+  background-color: var(--color-background);
   cursor: pointer;
 }

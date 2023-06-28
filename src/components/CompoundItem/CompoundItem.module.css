@@ -1,0 +1,12 @@
+.compoundItem {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.compoundName {
+  color: var(--color-default);
+}
+.compoundValue {
+  text-align: center;
+  composes: compoundName;
+}

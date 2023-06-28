@@ -1,0 +1,10 @@
+export {default as FeedPage} from './FeedPage/FeedPage'
+export {default as ForgotPassPage} from './ForgotPassPage/ForgotPassPage';
+export {default as HomePage} from './HomePage/HomePage';
+export {default as Layout} from './Layout/Layout'
+export {default as LoginPage} from './LoginPage/LoginPage';
+export {default as NotFoundPage} from './NotFoundPage/NotFoundPage';
+export {default as OrderPage} from './OrderPage/OrderPage';
+export {default as ProfilePage} from './ProfilePage/ProfilePage';
+export {default as RegisterPage} from './RegisterPage/RegisterPage';
+export {default as ResetPassPage} from './ResetPassPage/ResetPassPage';
