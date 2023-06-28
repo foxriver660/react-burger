@@ -6,7 +6,6 @@ import { useDrag } from "react-dnd";
 import { getIngredients, getBun } from "../../selectors/selectors";
 import { TIngredient, TIngredientCard } from "../../services/types/data";
 import { useAppSelector } from "../../services/hooks";
-import { useSelector } from "react-redux";
 
 const IngredientCard: FC<TIngredientCard> = React.memo(({ data }) => {
   const [id] = useState(data._id);
