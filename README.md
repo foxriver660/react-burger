@@ -1,4 +1,4 @@
-# Welcome to **[Mesto project](https://foxriver660.github.io/mesto-project/)**!
+# Welcome to **[React burger](https://foxriver660.github.io/react-burger/)**!
 
 - All data is loaded and stored on the server.
 - Added functionality: the ability to change profile data by the user, add new places with the name of the place and a link to the image, default loading of 6 basic cards using JS, a set of functionality is available for each card: delete and like.
