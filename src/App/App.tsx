@@ -16,12 +16,7 @@ import {
   RegisterPage,
   ResetPassPage,
 } from "../pages";
-import {
-  IngredientDetails,
-  Modal,
-  OrderDetails,
-  ProtectedRoute,
-} from "../components";
+import { IngredientDetails, Modal, OrderDetails, ProtectedRoute } from "../components";
 
 const App: FC = React.memo(() => {
   const dispatch = useAppDispatch();
@@ -44,47 +39,22 @@ const App: FC = React.memo(() => {
   return (
     <>
       <Routes location={locationBackground}>
-        <Route path="/" element={<Layout />}>
+        <Route path="/react-burger/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route
-            path="register"
-            element={
-              <ProtectedRoute onlyUnAuth={true} element={<RegisterPage />} />
-            }
-          />
-          <Route
-            path="login"
-            element={
-              <ProtectedRoute onlyUnAuth={true} element={<LoginPage />} />
-            }
-          />
+          <Route path="register" element={<ProtectedRoute onlyUnAuth={true} element={<RegisterPage />} />} />
+          <Route path="login" element={<ProtectedRoute onlyUnAuth={true} element={<LoginPage />} />} />
           <Route path="feed" element={<FeedPage />} />
-          <Route
-            path="feed/:id"
-            element={<OrderDetails page={true} source={"feed"} />}
-          />
-          <Route
-            path="forgot-password"
-            element={
-              <ProtectedRoute onlyUnAuth={true} element={<ForgotPassPage />} />
-            }
-          />
+          <Route path="feed/:id" element={<OrderDetails page={true} source={"feed"} />} />
+          <Route path="forgot-password" element={<ProtectedRoute onlyUnAuth={true} element={<ForgotPassPage />} />} />
           <Route path="reset-password" element={<ResetPassPage />} />
-          <Route
-            path="profile/"
-            element={<ProtectedRoute element={<ProfilePage />} />}
-          >
+          <Route path="profile/" element={<ProtectedRoute element={<ProfilePage />} />}>
             <Route path="orders" element={<OrderPage />} />
           </Route>
           <Route
             path="profile/orders/:id"
-            element={
-              <ProtectedRoute
-                element={<OrderDetails page={true} source={"history"} />}
-              />
-            }
+            element={<ProtectedRoute element={<OrderDetails page={true} source={"history"} />} />}
           />
-          <Route path="ingredients/:id" element={<IngredientDetails page={true}/>} />
+          <Route path="ingredients/:id" element={<IngredientDetails page={true} />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
