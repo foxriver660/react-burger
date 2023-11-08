@@ -11,48 +11,32 @@ import { getLoginRequest } from "../../selectors/selectors";
 
 const LoginPage: FC = React.memo(() => {
   const location = useLocation();
-  const loginRequest = useAppSelector(getLoginRequest)
+  const loginRequest = useAppSelector(getLoginRequest);
   const { form, handleChange, handleSubmit } = useForm({
     email: "",
     password: "",
   });
-  const fromPage = loginRequest ? (location.state?.from?.pathname || PATH.HOME) : null;
+  const fromPage = loginRequest ? location.state?.from?.pathname || PATH.HOME : null;
 
   return (
     <FormOverlay type="form">
-      <Form
-        onSubmit={(e) => handleSubmit(e, login, fromPage)}
-        formName="Вход"
-        mainForm={true}
-      >
-        <InputEmail
-          value={form.email}
-          onChange={handleChange}
-          placeholder="E-mail"
-        />
-        <InputPassword
-          value={form.password}
-          onChange={handleChange}
-          placeholder="Пароль"
-        />
+      <Form onSubmit={(e) => handleSubmit(e, login, fromPage)} formName="Вход" mainForm={true}>
+        <InputEmail value={form.email} onChange={handleChange} placeholder="E-mail" />
+        <InputPassword value={form.password} onChange={handleChange} placeholder="Пароль" />
         <Button htmlType="submit" type="primary" size="medium" extraClass="">
           Войти
         </Button>
       </Form>
-      
-      <p
-        className={`${classes.clarification} text text_type_main-default text_color_inactive`}
-      >
+
+      <p className={`${classes.clarification} text text_type_main-default text_color_inactive`}>
         Вы — новый пользователь?
-        <Link className={classes.link} to="/register">
+        <Link className={classes.link} to="/react-burger/register">
           Зарегистрироваться
         </Link>
       </p>
-      <p
-        className={`${classes.clarification} text text_type_main-default text_color_inactive`}
-      >
+      <p className={`${classes.clarification} text text_type_main-default text_color_inactive`}>
         Забыли пароль?
-        <Link className={classes.link} to="/forgot-password">
+        <Link className={classes.link} to="/react-burger/forgot-password">
           Восстановить пароль
         </Link>
       </p>

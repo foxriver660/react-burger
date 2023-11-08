@@ -11,8 +11,7 @@ import { Link } from "react-router-dom";
 
 const AppHeader: FC = React.memo(() => {
   const location = useLocation();
-  const setActive = ({ isActive }: { isActive: boolean }) =>
-    isActive ? classes.linkActive : classes.link;
+  const setActive = ({ isActive }: { isActive: boolean }) => (isActive ? classes.linkActive : classes.link);
 
   return (
     <header className={`p-4 ${classes.header}`}>
@@ -20,18 +19,9 @@ const AppHeader: FC = React.memo(() => {
         <nav className={classes.navContainer}>
           <ul className={classes.navList}>
             <li>
-              <Button
-                extraClass={`pl-5 pr-5 pt-4 pb-4`}
-                htmlType="button"
-                type="secondary"
-                size="medium"
-              >
-                <NavLink className={setActive} to="/">
-                  <BurgerIcon
-                    type={
-                      location.pathname === PATH.HOME ? "primary" : "secondary"
-                    }
-                  />
+              <Button extraClass={`pl-5 pr-5 pt-4 pb-4`} htmlType="button" type="secondary" size="medium">
+                <NavLink className={setActive} to={PATH.HOME}>
+                  <BurgerIcon type={location.pathname === PATH.HOME ? "primary" : "secondary"} />
                   Конструктор
                 </NavLink>
               </Button>
@@ -44,11 +34,7 @@ const AppHeader: FC = React.memo(() => {
                 size="medium"
               >
                 <NavLink className={setActive} to="feed" end>
-                  <ListIcon
-                    type={
-                      location.pathname === PATH.FEED ? "primary" : "secondary"
-                    }
-                  />
+                  <ListIcon type={location.pathname === PATH.FEED ? "primary" : "secondary"} />
                   Лента заказов
                 </NavLink>
               </Button>
@@ -65,11 +51,10 @@ const AppHeader: FC = React.memo(() => {
           type="secondary"
           size="medium"
         >
-          <NavLink className={setActive} to="/profile">
+          <NavLink className={setActive} to="profile">
             <ProfileIcon
               type={
-                location.pathname === PATH.PROFILE ||
-                location.pathname === PATH.PROFILE_ORDERS
+                location.pathname === PATH.PROFILE || location.pathname === PATH.PROFILE_ORDERS
                   ? "primary"
                   : "secondary"
               }

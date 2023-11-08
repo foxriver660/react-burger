@@ -47,7 +47,7 @@ const App: FC = React.memo(() => {
           <Route path="feed/:id" element={<OrderDetails page={true} source={"feed"} />} />
           <Route path="forgot-password" element={<ProtectedRoute onlyUnAuth={true} element={<ForgotPassPage />} />} />
           <Route path="reset-password" element={<ResetPassPage />} />
-          <Route path="profile/" element={<ProtectedRoute element={<ProfilePage />} />}>
+          <Route path="profile" element={<ProtectedRoute element={<ProfilePage />} />}>
             <Route path="orders" element={<OrderPage />} />
           </Route>
           <Route

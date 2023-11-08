@@ -6,10 +6,7 @@ import { TProtectedRoute } from "../../services/types/data";
 import { PATH } from "../../utils/constant";
 import { Loader } from "../index";
 
-const ProtectedRoute: FC<TProtectedRoute> = ({
-  onlyUnAuth = false,
-  element,
-}) => {
+const ProtectedRoute: FC<TProtectedRoute> = ({ onlyUnAuth = false, element }) => {
   const location = useLocation();
   const isAuth = useAppSelector(getIsAuth);
   const isAuthCheck = useAppSelector(getIsAuthCheck);
@@ -19,12 +16,14 @@ const ProtectedRoute: FC<TProtectedRoute> = ({
   }
 
   if (onlyUnAuth && isAuth) {
+    console.log(location);
     const fromPage = location.state?.from?.pathname || PATH.HOME;
     return <Navigate to={fromPage} replace state={{ from: location }} />;
   }
 
   if (!onlyUnAuth && !isAuth) {
-    return <Navigate to={PATH.LOGIN} replace state={{ from: location }} />;
+    console.log(location);
+    return <Navigate to="/react-burger/login" replace state={{ from: location }} />;
   }
 
   return <>{element}</>;

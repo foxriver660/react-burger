@@ -32,7 +32,7 @@ export const PENDING = "pending";
 export const CANCEL = "cancel";
 
 export const PATH = {
-  HOME: "/",
+  HOME: "/react-burger/",
   FEED: "/feed",
   PROFILE: "/profile",
   REGISTER: "/register",

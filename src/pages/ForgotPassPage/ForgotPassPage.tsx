@@ -9,8 +9,8 @@ import useForm from "../../hooks/useForm";
 import { PATH } from "../../utils/constant";
 
 const ForgotPassPage: FC = React.memo(() => {
-  const {form, handleChange, handleSubmit} = useForm({email: ''});
- 
+  const { form, handleChange, handleSubmit } = useForm({ email: "" });
+
   return (
     <FormOverlay type="form">
       <Form
@@ -18,22 +18,16 @@ const ForgotPassPage: FC = React.memo(() => {
         formName="Восстановление пароля"
         mainForm={true}
       >
-        <InputEmail
-          value={form.email}
-          onChange={handleChange}
-          placeholder="Укажите e-mail"
-        />
+        <InputEmail value={form.email} onChange={handleChange} placeholder="Укажите e-mail" />
 
         <Button htmlType="submit" type="primary" size="medium" extraClass="">
           Восстановить
         </Button>
       </Form>
 
-      <p
-        className={`${classes.clarification} text text_type_main-default text_color_inactive`}
-      >
+      <p className={`${classes.clarification} text text_type_main-default text_color_inactive`}>
         Вспомнили пароль?
-        <Link className={`${classes.link} pl-2`} to={PATH.LOGIN}>
+        <Link className={`${classes.link} pl-2`} to="/react-burger/login">
           Войти
         </Link>
       </p>
@@ -42,4 +36,3 @@ const ForgotPassPage: FC = React.memo(() => {
 });
 
 export default ForgotPassPage;
-
