@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-burger/static/css/main.cf803af2.css",
-    "main.js": "/react-burger/static/js/main.9ae43cb1.js",
+    "main.js": "/react-burger/static/js/main.d6db426e.js",
     "static/media/JetBrainsMono-Bold.woff": "/react-burger/static/media/JetBrainsMono-Bold.3914674f1cb2335acf26.woff",
     "static/media/JetBrainsMono-Regular.woff": "/react-burger/static/media/JetBrainsMono-Regular.f52bee61d00ce995b89f.woff",
     "static/media/JetBrainsMono-Bold.woff2": "/react-burger/static/media/JetBrainsMono-Bold.c232d532ea5a5189a278.woff2",
@@ -13,10 +13,10 @@
     "static/media/bigCurrencyIcon.svg": "/react-burger/static/media/bigCurrencyIcon.5f2a2084ff702e09da2d32b101f11ca7.svg",
     "index.html": "/react-burger/index.html",
     "main.cf803af2.css.map": "/react-burger/static/css/main.cf803af2.css.map",
-    "main.9ae43cb1.js.map": "/react-burger/static/js/main.9ae43cb1.js.map"
+    "main.d6db426e.js.map": "/react-burger/static/js/main.d6db426e.js.map"
   },
   "entrypoints": [
     "static/css/main.cf803af2.css",
-    "static/js/main.9ae43cb1.js"
+    "static/js/main.d6db426e.js"
   ]
 }
